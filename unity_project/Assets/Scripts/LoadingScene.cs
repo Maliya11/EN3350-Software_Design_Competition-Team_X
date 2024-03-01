@@ -1,7 +1,7 @@
+using System;
 using System.Collections;
 using System.Net.Http;
 using System.Text;
-using Newtonsoft.Json;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,86 +17,54 @@ public class LoadingScene : MonoBehaviour
     public Slider slider;
     private float adjustLoadingTime = 1000000000.0f;
 
-    public async Task LoadScene(int sceneID) 
+    public void LoadScene(int sceneID) 
     {
-        await LoadSceneAsync(sceneID);
+        StartCoroutine(LoadSceneAsync(sceneID));
     }
 
-    public async Task LoadSceneAsync(int sceneID)
+    public IEnumerator LoadSceneAsync(int sceneID)
     {
-        if (sceneID == 1)
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneID);
+        LoadingScreen.SetActive(true);
+
+        while (!operation.isDone)
         {
-            bool tokenReceived = await CallAuthenticate();
+            float progressValue = Mathf.Clamp01(operation.progress / adjustLoadingTime);
+            slider.value = progressValue;
+            yield return null; // Allow other tasks to execute
+        }
 
-            if (tokenReceived)
+    }
+
+    private IEnumerator Authenticate()
+    {
+        string url = "http://20.15.114.131:8080/api/login";
+        string apiKey = "NjVjNjA0MGY0Njc3MGQ1YzY2MTcyMmNiOjY1YzYwNDBmNDY3NzBkNWM2NjE3MjJjMQ";
+
+        WWWForm form = new WWWForm();
+        form.AddField("apiKey", apiKey);
+
+        using (UnityWebRequest request = UnityWebRequest.Post(url, form))
+        {
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
             {
-                AsyncOperation operation = SceneManager.LoadSceneAsync(sceneID);
-                LoadingScreen.SetActive(true);
-
-                while (!operation.isDone)
-                {
-                    float progressValue = Mathf.Clamp01(operation.progress / adjustLoadingTime);
-                    slider.value = progressValue;
-                    await Task.Yield(); // Allow other tasks to execute
-                }
+                string responseText = request.downloadHandler.text;
+                AuthenticationResponse data = JsonUtility.FromJson<AuthenticationResponse>(responseText);
+                string jwtToken = data.Token;
+                Debug.Log("Authentication successful. Token: " + jwtToken);
             }
             else
             {
-                Debug.LogError("Authentication failed.");
+                Debug.LogError("Authentication failed. Error: " + request.error);
             }
         }
-        else
-        {
-            AsyncOperation operation = SceneManager.LoadSceneAsync(sceneID);
-            LoadingScreen.SetActive(true);
-
-            while (!operation.isDone)
-            {
-                float progressValue = Mathf.Clamp01(operation.progress / adjustLoadingTime);
-                slider.value = progressValue;
-                await Task.Yield(); // Allow other tasks to execute
-            }
-        }
-
     }
 
-    public async Task<bool> CallAuthenticate()
-    {
-        string api_key = "NjVjNjA0MGY0Njc3MGQ1YzY2MTcyMmNiOjY1YzYwNDBmNDY3NzBkNWM2NjE3MjJjMQ";
-
-        try
-        {
-            using (var client = new HttpClient())
-            {
-                var jsonData = JsonConvert.SerializeObject(new { apiKey = this.apiKey });
-                var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-
-                var response = await client.PostAsync("http://20.15.114.131:8080/api/login", content);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var responseContent = await response.Content.ReadAsStringAsync();
-                    var data = JsonConvert.DeserializeObject<AuthenticationResponse>(responseContent);
-                    this.jwtToken = data.Token;
-                    return true;
-                }
-                else
-                {
-                    var errorMessage = await response.Content.ReadAsStringAsync();
-                    throw new Exception(errorMessage);
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Authentication failed: {ex.Message}");
-            return false;
-        }
-    
-    }
-
+    [Serializable]
     private class AuthenticationResponse
     {
-        public string Token { get; set; }
+        public string Token;
     }
 }
