@@ -29,7 +29,7 @@ public class LoadingScene : MonoBehaviour
     IEnumerator LoadSceneAsync(int sceneID)
     {
         
-        /* if (sceneID == 1) 
+        if (sceneID == 1) 
         {
             // Call the JavaScript function defined in req_manager.js
             UnityEngine.Coroutine token = StartCoroutine(CallAuthenticate());
@@ -65,10 +65,10 @@ public class LoadingScene : MonoBehaviour
             slider.value = progressValue;
             yield return null;
         }
-        } */
+        } 
 
 
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneID);
+        /* AsyncOperation operation = SceneManager.LoadSceneAsync(sceneID);
         LoadingScreen.SetActive(true);
 
         while (!operation.isDone)
@@ -76,7 +76,7 @@ public class LoadingScene : MonoBehaviour
             float progressValue = Mathf.Clamp01(operation.progress / adjustLoadingTime);
             slider.value = progressValue;
             yield return null;
-        }
+        } */
 
     }
 
