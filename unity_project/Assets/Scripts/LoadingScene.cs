@@ -16,10 +16,10 @@ public class LoadingScene : MonoBehaviour
     private readonly string authentication_url = "http://20.15.114.131:8080/api/login";
     private readonly string api_key = "NjVjNjA0MGY0Njc3MGQ1YzY2MTcyMmNiOjY1YzYwNDBmNDY3NzBkNWM2NjE3MjJjMQ";
 
-    public void Awake() 
+    /* public void Awake() 
     {
         Application.targetFrameRate = 60;
-    }
+    } */
 
     public void LoadScene(int sceneID) 
     {
@@ -28,7 +28,8 @@ public class LoadingScene : MonoBehaviour
 
     IEnumerator LoadSceneAsync(int sceneID)
     {
-        if (sceneID == 1) 
+        
+        /* if (sceneID == 1) 
         {
             // Call the JavaScript function defined in req_manager.js
             UnityEngine.Coroutine token = StartCoroutine(CallAuthenticate());
@@ -64,7 +65,19 @@ public class LoadingScene : MonoBehaviour
             slider.value = progressValue;
             yield return null;
         }
+        } */
+
+
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneID);
+        LoadingScreen.SetActive(true);
+
+        while (!operation.isDone)
+        {
+            float progressValue = Mathf.Clamp01(operation.progress / adjustLoadingTime);
+            slider.value = progressValue;
+            yield return null;
         }
+
     }
 
     IEnumerator CallAuthenticate()
