@@ -15,24 +15,36 @@ public class LoadingScene : MonoBehaviour
 {
     public GameObject LoadingScreen;
     public Slider slider;
-    private float adjustLoadingTime = 1000000000.0f;
+    
+    private float adjustLoadingTime;
+    private float target;
 
     public void LoadScene(int sceneID) 
     {
-        StartCoroutine(LoadSceneAsync(sceneID));
+        LoadSceneAsync(sceneID);
     }
 
-    public IEnumerator LoadSceneAsync(int sceneID)
+    public async void LoadSceneAsync(int sceneID)
     {
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneID);
+        target = 0;
+        slider.value = 0;
+
+        AsyncOperation scene = SceneManager.LoadSceneAsync(sceneID);
+
+        scene.allowSceneActivation = false;
+
         LoadingScreen.SetActive(true);
 
-        while (!operation.isDone)
+        while (scene.progress < 0.9f)
         {
-            float progressValue = Mathf.Clamp01(operation.progress / adjustLoadingTime);
-            slider.value = progressValue;
-            yield return null; // Allow other tasks to execute
+            await Task.Delay(100);
+            slider.value = scene.progress;
         }
+
+        await Task.Delay(1000);
+
+        scene.allowSceneActivation = true;
+        LoadingScreen.SetActive(false);
 
     }
 
@@ -66,5 +78,10 @@ public class LoadingScene : MonoBehaviour
     private class AuthenticationResponse
     {
         public string Token;
+    }
+
+    private void Update()
+    {
+        slider.value = Mathf.MoveTowards(slider.value, target, Time.deltaTime * adjustLoadingTime);
     }
 }
