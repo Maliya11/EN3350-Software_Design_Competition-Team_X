@@ -8,7 +8,7 @@ async function initializeGame() {
   if (isAuthenticated) {
     console.log('Successfully authenticated');
     let data = await requestManager.makeRequest('http://20.15.114.131:8080/api/user/profile/view', 'GET'); 
-    console.log(data);
+    console.log(data.user);
   } 
   else {
     console.log('Failed to authenticate');

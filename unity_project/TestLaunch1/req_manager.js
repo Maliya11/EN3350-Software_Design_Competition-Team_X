@@ -1,10 +1,10 @@
 class HTTPRequestManager {
   constructor(apiKey) {
     this.apiKey = apiKey;
-    this.jwtToken = null;
   }
 
   async authenticate() {
+    let jwtToken = null;
     try {
       const response = await fetch('http://20.15.114.131:8080/api/login', {
         method: 'POST',
@@ -16,25 +16,24 @@ class HTTPRequestManager {
 
       const data = await response.json();
       if (response.ok) {
-        this.jwtToken = data.token;
-        handleTokenResponse(data.token);
-        return true;
+        jwtToken = data.token;
+        return jwtToken;
       } else {
         throw new Error(data.message);
       }
     } catch (error) {
       console.error('Authentication failed:', error);
-      return false;
+      return jwtToken;
     }
   }
 
-  async makeRequest(url, method = 'GET', body = null) {
+  async makeRequest(jwtToken, url, method = 'GET', body = null) {
     const headers = {
       'Content-Type': 'application/json'
     };
 
-    if (this.jwtToken) {
-      headers['Authorization'] = `Bearer ${this.jwtToken}`;
+    if (jwtToken) {
+      headers['Authorization'] = `Bearer ${jwtToken}`;
     }
 
     const requestOptions = {
