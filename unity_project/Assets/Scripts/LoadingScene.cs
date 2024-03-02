@@ -11,6 +11,7 @@ using SimpleJSON;
 using TMPro;
 //using req_manager.js;
 
+
 [System.Serializable] public class AuthenticationResponse
 {
     public string Token;
@@ -33,40 +34,49 @@ public class LoadingScene : MonoBehaviour
     {
         if (sceneID == 1)
         {
-            yield return StartCoroutine(Authenticate((token) =>
+            target = 0;
+            slider.value = 0;
+            float startTime = Time.time;
+            float authenticationTimeout = 5.0f; // seconds
+
+            AsyncOperation operation = null;
+            LoadingScreen.SetActive(true);
+
+            StartCoroutine(Authenticate((token) =>
             {
-                // Store the token in the PlayerPrefs
+                // Store the token in PlayerPrefs
                 PlayerPrefs.SetString("JWTToken", token);
             }));
 
-            // Check if the token is stored in the PlayerPrefs
-            string token = PlayerPrefs.GetString("JWTToken");
-            if (token != null && token.Length > 0)
+            // Wait for authentication to complete or timeout
+            while (Time.time - startTime < authenticationTimeout)
             {
-                target = 0;
-                slider.value = 0;
-                
-                AsyncOperation operation = SceneManager.LoadSceneAsync(sceneID);
-                LoadingScreen.SetActive(true);
+                float progressValue = (Time.time - startTime) / authenticationTimeout;
+                target = progressValue;
 
-                while (!operation.isDone)
+                // Check if the token is received
+                string token = PlayerPrefs.GetString("JWTToken");
+                if (!string.IsNullOrEmpty(token))
                 {
-                    float progressValue = Mathf.Clamp01(operation.progress / 0.9f);
-                    target = progressValue;
-                    yield return null; 
+                    operation = SceneManager.LoadSceneAsync(sceneID);
+                    break;
                 }
+                yield return null;
             }
-            else
+
+            if (operation == null)
             {
-                Debug.LogError("Token not found");
+                Debug.LogError("Authentication timed out or token not received. Main menu will not be loaded.");
+                LoadingScreen.SetActive(false);
                 yield break;
-            }   
+            }
         }
         else
         {
+            // For other scenes, proceed with loading
             target = 0;
             slider.value = 0;
-            
+
             AsyncOperation operation = SceneManager.LoadSceneAsync(sceneID);
             LoadingScreen.SetActive(true);
 
@@ -74,15 +84,18 @@ public class LoadingScene : MonoBehaviour
             {
                 float progressValue = Mathf.Clamp01(operation.progress / 0.9f);
                 target = progressValue;
-                yield return null; 
+                yield return null;
             }
         }
     }
+
 
     private IEnumerator Authenticate(Action<string> onTokenReceived)
     {
         string url = "https://20.15.114.131:8080/api/login";
         string apiKey = "NjVjNjA0MGY0Njc3MGQ1YzY2MTcyMmNiOjY1YzYwNDBmNDY3NzBkNWM2NjE3MjJjMQ";
+
+        System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
 
         WWWForm form = new WWWForm();
         form.AddField("apiKey", apiKey);
