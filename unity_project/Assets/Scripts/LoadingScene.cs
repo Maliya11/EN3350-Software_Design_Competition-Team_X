@@ -30,6 +30,9 @@ public class LoadingScene : MonoBehaviour
         StartCoroutine(LoadSceneAsync(sceneID));
     }
 
+    /// If the sceneID is 1, the method will authenticate the user and load the main menu scene.
+    /// For loading the main menu from login page, timeout is set to 5 seconds.
+    /// If the timeout is passed and the token is not received, will be directed back to the login page.
     public IEnumerator LoadSceneAsync(int sceneID)
     {
         if (sceneID == 1)
