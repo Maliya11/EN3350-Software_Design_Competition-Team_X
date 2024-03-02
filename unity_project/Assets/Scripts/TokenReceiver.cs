@@ -7,7 +7,7 @@ public class TokenReceiver : MonoBehaviour
     // This method will be called from JavaScript to receive the token
     public string ReceiveToken(string token)
     {
-        Debug.Log("Received token: " + token);
-        return token;
+        PlayerPrefs.SetString("JWTToken", token);
+        return "Token received";
     }
 }

@@ -11,46 +11,77 @@ using SimpleJSON;
 using TMPro;
 //using req_manager.js;
 
+[System.Serializable] public class AuthenticationResponse
+{
+    public string Token;
+}
+
 public class LoadingScene : MonoBehaviour
 {
     public GameObject LoadingScreen;
     public Slider slider;
     
-    private float adjustLoadingTime;
+    private float adjustLoadingTime = 10.0f;
     private float target;
 
     public void LoadScene(int sceneID) 
     {
-        LoadSceneAsync(sceneID);
+        StartCoroutine(LoadSceneAsync(sceneID));
     }
 
-    public async void LoadSceneAsync(int sceneID)
+    public IEnumerator LoadSceneAsync(int sceneID)
     {
-        target = 0;
-        slider.value = 0;
-
-        AsyncOperation scene = SceneManager.LoadSceneAsync(sceneID);
-
-        scene.allowSceneActivation = false;
-
-        LoadingScreen.SetActive(true);
-
-        while (scene.progress < 0.9f)
+        if (sceneID == 1)
         {
-            await Task.Delay(100);
-            slider.value = scene.progress;
+            yield return StartCoroutine(Authenticate((token) =>
+            {
+                // Store the token in the PlayerPrefs
+                PlayerPrefs.SetString("JWTToken", token);
+            }));
+
+            // Check if the token is stored in the PlayerPrefs
+            string token = PlayerPrefs.GetString("JWTToken");
+            if (token != null && token.Length > 0)
+            {
+                target = 0;
+                slider.value = 0;
+                
+                AsyncOperation operation = SceneManager.LoadSceneAsync(sceneID);
+                LoadingScreen.SetActive(true);
+
+                while (!operation.isDone)
+                {
+                    float progressValue = Mathf.Clamp01(operation.progress / 0.9f);
+                    target = progressValue;
+                    yield return null; 
+                }
+            }
+            else
+            {
+                Debug.LogError("Token not found");
+                yield break;
+            }   
         }
+        else
+        {
+            target = 0;
+            slider.value = 0;
+            
+            AsyncOperation operation = SceneManager.LoadSceneAsync(sceneID);
+            LoadingScreen.SetActive(true);
 
-        await Task.Delay(1000);
-
-        scene.allowSceneActivation = true;
-        LoadingScreen.SetActive(false);
-
+            while (!operation.isDone)
+            {
+                float progressValue = Mathf.Clamp01(operation.progress / 0.9f);
+                target = progressValue;
+                yield return null; 
+            }
+        }
     }
 
-    private IEnumerator Authenticate()
+    private IEnumerator Authenticate(Action<string> onTokenReceived)
     {
-        string url = "http://20.15.114.131:8080/api/login";
+        string url = "https://20.15.114.131:8080/api/login";
         string apiKey = "NjVjNjA0MGY0Njc3MGQ1YzY2MTcyMmNiOjY1YzYwNDBmNDY3NzBkNWM2NjE3MjJjMQ";
 
         WWWForm form = new WWWForm();
@@ -66,18 +97,13 @@ public class LoadingScene : MonoBehaviour
                 AuthenticationResponse data = JsonUtility.FromJson<AuthenticationResponse>(responseText);
                 string jwtToken = data.Token;
                 Debug.Log("Authentication successful. Token: " + jwtToken);
+                onTokenReceived(jwtToken); // Pass the token to the callback function
             }
             else
             {
                 Debug.LogError("Authentication failed. Error: " + request.error);
             }
         }
-    }
-
-    [Serializable]
-    private class AuthenticationResponse
-    {
-        public string Token;
     }
 
     private void Update()
