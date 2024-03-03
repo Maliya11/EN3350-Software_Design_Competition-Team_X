@@ -893,11 +893,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: 145509d1-cc09-4c87-90df-ce38278727dc
+  cloudProjectId: 0f957054-4554-4085-b018-a7054b35fb0d
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: My project 1
-  organizationId: jinfoot
+  projectName: unity_project
+  organizationId: maliyas
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
