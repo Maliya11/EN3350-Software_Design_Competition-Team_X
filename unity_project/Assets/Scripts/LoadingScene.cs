@@ -11,35 +11,94 @@ using SimpleJSON;
 using TMPro;
 //using req_manager.js;
 
+
+[System.Serializable] public class AuthenticationResponse
+{
+    public string Token;
+}
+
 public class LoadingScene : MonoBehaviour
 {
     public GameObject LoadingScreen;
     public Slider slider;
-    private float adjustLoadingTime = 1000000000.0f;
+    
+    private float adjustLoadingTime = 10.0f;
+    private float target;
 
     public void LoadScene(int sceneID) 
     {
         StartCoroutine(LoadSceneAsync(sceneID));
     }
 
+    /// If the sceneID is 1, the method will authenticate the user and load the main menu scene.
+    /// For loading the main menu from login page, timeout is set to 5 seconds.
+    /// If the timeout is passed and the token is not received, will be directed back to the login page.
     public IEnumerator LoadSceneAsync(int sceneID)
     {
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneID);
-        LoadingScreen.SetActive(true);
-
-        while (!operation.isDone)
+        if (sceneID == 1)
         {
-            float progressValue = Mathf.Clamp01(operation.progress / adjustLoadingTime);
-            slider.value = progressValue;
-            yield return null; // Allow other tasks to execute
-        }
+            target = 0;
+            slider.value = 0;
+            float startTime = Time.time;
+            float authenticationTimeout = 5.0f; // seconds
 
+            AsyncOperation operation = null;
+            LoadingScreen.SetActive(true);
+
+            StartCoroutine(Authenticate((token) =>
+            {
+                // Store the token in PlayerPrefs
+                PlayerPrefs.SetString("JWTToken", token);
+            }));
+
+            // Wait for authentication to complete or timeout
+            while (Time.time - startTime < authenticationTimeout)
+            {
+                float progressValue = (Time.time - startTime) / authenticationTimeout;
+                target = progressValue;
+
+                // Check if the token is received
+                string token = PlayerPrefs.GetString("JWTToken");
+                if (!string.IsNullOrEmpty(token))
+                {
+                    operation = SceneManager.LoadSceneAsync(sceneID);
+                    break;
+                }
+                yield return null;
+            }
+
+            if (operation == null)
+            {
+                Debug.LogError("Authentication timed out or token not received. Main menu will not be loaded.");
+                LoadingScreen.SetActive(false);
+                yield break;
+            }
+        }
+        else
+        {
+            // For other scenes, proceed with loading
+            target = 0;
+            slider.value = 0;
+
+            AsyncOperation operation = SceneManager.LoadSceneAsync(sceneID);
+            LoadingScreen.SetActive(true);
+
+            while (!operation.isDone)
+            {
+                float progressValue = Mathf.Clamp01(operation.progress / 0.9f);
+                target = progressValue;
+                yield return null;
+            }
+        }
     }
 
-    private IEnumerator Authenticate()
+
+    private IEnumerator Authenticate(Action<string> onTokenReceived)
     {
-        string url = "http://20.15.114.131:8080/api/login";
+        string url = "https://20.15.114.131:8080/api/login";
         string apiKey = "NjVjNjA0MGY0Njc3MGQ1YzY2MTcyMmNiOjY1YzYwNDBmNDY3NzBkNWM2NjE3MjJjMQ";
+
+        System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
 
         WWWForm form = new WWWForm();
         form.AddField("apiKey", apiKey);
@@ -54,6 +113,7 @@ public class LoadingScene : MonoBehaviour
                 AuthenticationResponse data = JsonUtility.FromJson<AuthenticationResponse>(responseText);
                 string jwtToken = data.Token;
                 Debug.Log("Authentication successful. Token: " + jwtToken);
+                onTokenReceived(jwtToken); // Pass the token to the callback function
             }
             else
             {
@@ -62,9 +122,8 @@ public class LoadingScene : MonoBehaviour
         }
     }
 
-    [Serializable]
-    private class AuthenticationResponse
+    private void Update()
     {
-        public string Token;
+        slider.value = Mathf.MoveTowards(slider.value, target, Time.deltaTime * adjustLoadingTime);
     }
 }
