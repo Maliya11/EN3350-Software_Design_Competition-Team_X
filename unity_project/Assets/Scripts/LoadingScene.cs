@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,13 +10,6 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
 using SimpleJSON;
 using TMPro;
-//using req_manager.js;
-
-
-[System.Serializable] public class AuthenticationResponse
-{
-    public string Token;
-}
 
 public class LoadingScene : MonoBehaviour
 {
@@ -49,6 +43,7 @@ public class LoadingScene : MonoBehaviour
             {
                 // Store the token in PlayerPrefs
                 PlayerPrefs.SetString("JWTToken", token);
+                Debug.Log("Token set to Player Prefs: " + token);
             }));
 
             // Wait for authentication to complete or timeout
@@ -95,25 +90,30 @@ public class LoadingScene : MonoBehaviour
 
     private IEnumerator Authenticate(Action<string> onTokenReceived)
     {
-        string url = "https://20.15.114.131:8080/api/login";
+        string url = "http://20.15.114.131:8080/api/login";
         string apiKey = "NjVjNjA0MGY0Njc3MGQ1YzY2MTcyMmNiOjY1YzYwNDBmNDY3NzBkNWM2NjE3MjJjMQ";
 
-        System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
+        string json = "{\"apiKey\":\"" + apiKey + "\"}";
+        byte[] data = System.Text.Encoding.UTF8.GetBytes(json);
 
-        WWWForm form = new WWWForm();
+        /* WWWForm form = new WWWForm();
         form.AddField("apiKey", apiKey);
+        form.AddField("content-type", "application/json"); */
 
-        using (UnityWebRequest request = UnityWebRequest.Post(url, form))
+        using (UnityWebRequest request = UnityWebRequest.PostWwwForm(url, ""))
         {
+            request.SetRequestHeader("Content-Type", "application/json");
+            request.uploadHandler = new UploadHandlerRaw(data);
+
             yield return request.SendWebRequest();
 
             if (request.result == UnityWebRequest.Result.Success)
             {
                 string responseText = request.downloadHandler.text;
-                AuthenticationResponse data = JsonUtility.FromJson<AuthenticationResponse>(responseText);
-                string jwtToken = data.Token;
+                AuthenticationResponse responseData = JsonUtility.FromJson<AuthenticationResponse>(responseText);
+                string jwtToken = responseData.token;
                 Debug.Log("Authentication successful. Token: " + jwtToken);
-                onTokenReceived(jwtToken); // Pass the token to the callback function
+                onTokenReceived(jwtToken); 
             }
             else
             {
@@ -126,4 +126,10 @@ public class LoadingScene : MonoBehaviour
     {
         slider.value = Mathf.MoveTowards(slider.value, target, Time.deltaTime * adjustLoadingTime);
     }
+}
+
+[Serializable]
+public class AuthenticationResponse
+{
+    public string token;
 }
