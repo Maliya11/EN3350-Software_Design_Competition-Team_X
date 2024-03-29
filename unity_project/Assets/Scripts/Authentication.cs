@@ -5,13 +5,13 @@ using System.Collections;
 using System.Collections.Generic;
 
 // Represents an authentication manager responsible for handling authentication requests
-public class AuthenticationManager : MonoBehaviour
+public class AuthenticationManager : ScriptableObject
 {
     // Property to check if the authentication process is completed
     public bool IsAuthenticated { get; private set; }
 
     // Constructor to initialize properties
-    public AuthenticationManager()
+    private AuthenticationManager()
     {
         IsAuthenticated = false;
     }
@@ -44,12 +44,15 @@ public class AuthenticationManager : MonoBehaviour
             {
                 string responseText = request.downloadHandler.text;
                 AuthenticationResponse responseData = JsonUtility.FromJson<AuthenticationResponse>(responseText);
-                string jwtToken = responseData.token;
+                string token = responseData.token;
 
-                // Set the token in the player prefs for future use
-                PlayerPrefs.SetString("jwtToken", jwtToken);
+                // Set the token in the PlayerPrefs
+                PlayerPrefs.SetString("jwtToken", token);
+                PlayerPrefs.Save();
 
-                Debug.Log("Authentication successful. Token: " + jwtToken);
+                string jwtToken = PlayerPrefs.GetString("jwtToken");
+                Debug.Log("JWT Token from PlayerPrefs: " + jwtToken);
+                Debug.Log("Authentication successful. Token: " + token);
                 IsAuthenticated = true;
             }
             else
@@ -67,3 +70,6 @@ public class AuthenticationResponse
 {
     public string token;
 }
+
+
+

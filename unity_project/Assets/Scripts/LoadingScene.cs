@@ -14,7 +14,7 @@ public class LoadingScene : MonoBehaviour
     private float target;
 
     // Reference to the AuthenticationManager instance
-    public AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager;
 
     // Method to load a scene asynchronously
     public void LoadScene(int sceneID)
@@ -42,7 +42,7 @@ public class LoadingScene : MonoBehaviour
         string apiKey = "NjVjNjA0MGY0Njc3MGQ1YzY2MTcyMmNiOjY1YzYwNDBmNDY3NzBkNWM2NjE3MjJjMQ";
 
         // Call Authenticate method from AuthenticationManager
-        authenticationManager = new AuthenticationManager();
+        authenticationManager = ScriptableObject.CreateInstance<AuthenticationManager>();
         authenticationManager.Authenticate(apiKey, this);
 
         LoadingScreen.SetActive(true);
