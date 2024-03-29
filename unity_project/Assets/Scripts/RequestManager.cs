@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using SimpleJSON;
 
 public class RequestManager : ScriptableObject
 {    
     public bool IsRequestCompleted { get; private set; }
     private string jwtToken;
+    public JSONNode jsonResponse;
 
     // Method to send a request to the server
     public void SendRequest(string url, string method, string body, MonoBehaviour monoBehaviour, Dictionary<string, string> parameters = null)
@@ -70,6 +72,8 @@ public class RequestManager : ScriptableObject
                 string responseText = request.downloadHandler.text;
                 Debug.Log("Request successful. Response: " + responseText);
                 IsRequestCompleted = true;
+                jsonResponse = responseText;
+                Debug.Log("Request successful. JSON Response: " + jsonResponse);
             }
             else
             {
@@ -78,5 +82,7 @@ public class RequestManager : ScriptableObject
                 IsRequestCompleted = false;
             }
         }
-    }    
+    }   
+
 }
+
