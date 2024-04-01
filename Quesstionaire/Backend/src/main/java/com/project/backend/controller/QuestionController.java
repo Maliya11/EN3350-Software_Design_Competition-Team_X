@@ -23,7 +23,7 @@ public class QuestionController {
     public void updateQuestionAnswer(Integer id,String corAns){
         questionService.updateQuestionAnswer(id, corAns);
     }
-    @GetMapping("marks")ow 
+    @GetMapping("marks")
     public int questionGetMarks(){
         return questionService.questionGetMarks();
     }
