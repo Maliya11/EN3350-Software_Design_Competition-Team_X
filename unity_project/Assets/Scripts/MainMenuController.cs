@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class MainMenuController : MonoBehaviour
 
     public void PlayerProfile(){
         Debug.Log("Player profile");
+        SceneManager.LoadScene(2);
 /* 
         requestManager = ScriptableObject.CreateInstance<RequestManager>();
 
