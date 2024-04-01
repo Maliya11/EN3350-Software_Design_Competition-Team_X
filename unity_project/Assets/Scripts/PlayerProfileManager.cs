@@ -57,6 +57,13 @@ public class PlayerProfileManager : MonoBehaviour
         string mobileNumber = profileData.user.phoneNumber;
         string email = profileData.user.email;
 
+        firstNameInput.text = firstName;
+        lastNameInput.text = lastName;
+        nicInput.text = nic;
+        usernameInput.text = username;
+        mobileNumberInput.text = mobileNumber;
+        emailInput.text = email;
+
         Debug.Log("First Name: " + firstName);
         Debug.Log("Last Name: " + lastName);
         Debug.Log("NIC: " + nic);
