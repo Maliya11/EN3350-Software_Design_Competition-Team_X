@@ -24,5 +24,6 @@ public class Question {
     private String feed2;
     private String feed3;
     private String feed4;
+    private String selAns;
 
 }

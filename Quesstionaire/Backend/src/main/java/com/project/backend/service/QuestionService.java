@@ -15,4 +15,20 @@ public class QuestionService {
     public List<Question> getAllQuestions() {
         return questionDao.findAll();
     }
+
+    public void updateQuestionAnswer(Integer id,String selAns) {
+        questionDao.updateQuestionAnswer(id, selAns);
+    }
+
+    public int questionGetMarks() {
+        List<Question> questions = questionDao.findAll();
+        int marks = 0;
+        for(Question question : questions){
+            if(question.getSelAns() != null && question.getSelAns().equals(question.getCorAns())){
+                marks++;
+            }
+        }
+        return marks;
+    }
+
 }
