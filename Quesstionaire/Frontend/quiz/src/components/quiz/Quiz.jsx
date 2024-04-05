@@ -23,16 +23,22 @@ const Quiz = () => {
     const checkAns = (e,ans) => {
         if (lock===false){
             setAnswer(ans);
-            if (question.ans===ans){
-                e.target.classList.add("correct");
-                setSubmitDisabled(false);
-                setScore(prev=>prev+1);
-            }
-            else{
-                e.target.classList.add("wrong");
-                setSubmitDisabled(false);
-                option_array[question.ans-1].current.classList.add("correct");
-            }
+            // option_array.forEach((ref, i) => {
+            //     if (ref.current) {
+            //         ref.current.classList.remove('selected');
+            //     }
+            // });
+            // e.current.classList.add("selected");
+
+            // if (question.ans===ans){
+            //     // e.target.classList.add("correct");
+            //     setScore(prev=>prev+1);
+            // }
+            // else{
+            //     e.target.classList.add("wrong");
+            //     option_array[question.ans-1].current.classList.add("correct");
+            // }
+            setSubmitDisabled(false);
         }
         
     }
@@ -68,11 +74,17 @@ const Quiz = () => {
 
     const submit = ()=>{
         if (submitDisabled==false){
-            // const correctOptionIndex = question.ans - 1;
-            // option_array[correctOptionIndex].current.classList.add("correct");
             setSubmitDisabled(true);
             setLock(true);
             setFeedback(true);
+            option_array[question.ans - 1].current.classList.add("correct");
+
+            if (answer === question.ans){
+                setScore(prev=>prev+1);
+            }
+            else {
+                option_array[answer - 1].current.classList.add("wrong");
+            }
         }
 
     }
@@ -109,3 +121,4 @@ const Quiz = () => {
 }
 
 export default Quiz
+
