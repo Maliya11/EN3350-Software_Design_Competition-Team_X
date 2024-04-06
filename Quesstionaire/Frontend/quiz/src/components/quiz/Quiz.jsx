@@ -78,7 +78,7 @@ const Quiz = () => {
         setAnswer(0);
     }
 
-    const submit = ()=>{
+    const submit = () => {
         if (submitDisabled==false){
             setSubmitDisabled(true);
             setLock(true);
