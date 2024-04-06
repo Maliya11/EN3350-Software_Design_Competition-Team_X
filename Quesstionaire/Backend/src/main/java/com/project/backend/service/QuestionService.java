@@ -16,7 +16,7 @@ public class QuestionService {
         return questionDao.findAll();
     }
 
-    public void updateQuestionAnswer(Integer id,String selAns) {
+    public void updateQuestionAnswer(Integer id,Integer selAns) {
         questionDao.updateQuestionAnswer(id, selAns);
     }
 

@@ -14,5 +14,5 @@ public interface QuestionDao extends JpaRepository<Question, Integer> {
     @Transactional
     @Modifying
     @Query("UPDATE Question q SET q.corAns = :selAns WHERE q.id = :id")
-    void updateQuestionAnswer(Integer id, String selAns);
+    void updateQuestionAnswer(Integer id, Integer selAns);
 }

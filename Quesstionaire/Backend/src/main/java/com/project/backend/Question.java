@@ -18,12 +18,12 @@ public class Question {
     private String ans2;
     private String ans3;
     private String ans4;
-    private String corAns;
+    private Integer corAns;
     private String genFeed;
     private String feed1;
     private String feed2;
     private String feed3;
     private String feed4;
-    private String selAns;
+    private Integer selAns;
 
 }
