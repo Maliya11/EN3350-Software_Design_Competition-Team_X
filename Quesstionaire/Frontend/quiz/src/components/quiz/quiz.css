@@ -68,3 +68,7 @@
     background: #ffebeb;
     border-color: #ff4a4a;
 }
+
+.conntainer ul li.selected {
+    background: #7d9be0;
+}

@@ -23,6 +23,12 @@ const Quiz = () => {
     const checkAns = (e,ans) => {
         if (lock===false){
             setAnswer(ans);
+            option_array.forEach((ref) => {
+                if (ref.current) {
+                    ref.current.classList.remove('selected');
+                }
+            });
+            e.currentTarget.classList.add("selected");
             // option_array.forEach((ref, i) => {
             //     if (ref.current) {
             //         ref.current.classList.remove('selected');
@@ -77,9 +83,9 @@ const Quiz = () => {
             setSubmitDisabled(true);
             setLock(true);
             setFeedback(true);
-            option_array[question.ans - 1].current.classList.add("correct");
+            option_array[question.corAns - 1].current.classList.add("correct");
 
-            if (answer === question.ans){
+            if (answer === question.corAns){
                 setScore(prev=>prev+1);
             }
             else {
@@ -96,17 +102,17 @@ const Quiz = () => {
         {result?<></>:<>
         <button className="top-right-button" onClick={next}>Next</button>
         <hr />
-        <h2>{index+1}.{question.question}</h2>
+        <h2>{index+1}.{question.q}</h2>
         <ul>
-            <li ref={Option1} onClick={(e)=>{checkAns(e,1)}}>{question.option1}</li>
-            <li ref={Option2} onClick={(e)=>{checkAns(e,2)}}>{question.option2}</li>
-            <li ref={Option3} onClick={(e)=>{checkAns(e,3)}}>{question.option3}</li>
-            <li ref={Option4} onClick={(e)=>{checkAns(e,4)}}>{question.option4}</li>
+            <li ref={Option1} onClick={(e)=>{checkAns(e,1)}}>{question.ans1}</li>
+            <li ref={Option2} onClick={(e)=>{checkAns(e,2)}}>{question.ans2}</li>
+            <li ref={Option3} onClick={(e)=>{checkAns(e,3)}}>{question.ans3}</li>
+            <li ref={Option4} onClick={(e)=>{checkAns(e,4)}}>{question.ans4}</li>
         </ul>
         <button onClick={submit}>Submit</button>
         {feedback?<>
         <div>
-            <p>{question.feedbackg}</p>
+            <p>{question.genFeed}</p>
             <p>{feed_array[answer-1]}</p>
         </div>
         </>:<></>}
