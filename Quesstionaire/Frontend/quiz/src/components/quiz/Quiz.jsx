@@ -6,7 +6,7 @@ const Quiz = () => {
 
     let [index, setIndex] = useState(0);
     let [questions, setQuestions] = useState([]);
-    let [question, setQuestion] = useState(questions[index]);
+    let [question, setQuestion] = useState({}); //questions[index]
     let [lock, setLock] = useState(false);
     let [score, setScore] = useState(0);
     let [result, setResult] = useState(false);
@@ -116,6 +116,7 @@ const Quiz = () => {
         .then(res=>res.json())
         .then((result)=>{
             setQuestions(result);
+            setQuestion(result[0]);
         }
         )
     },[])
