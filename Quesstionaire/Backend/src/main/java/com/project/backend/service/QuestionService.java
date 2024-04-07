@@ -17,7 +17,9 @@ public class QuestionService {
     }
 
     public void updateQuestionAnswer(Integer id,Integer selAns) {
-        questionDao.updateQuestionAnswer(id, selAns);
+        Question question = questionDao.findById(id).get();
+        question.setSelAns(selAns);
+        questionDao.save(question);
     }
 
     public int questionGetMarks() {
@@ -30,5 +32,4 @@ public class QuestionService {
         }
         return marks;
     }
-
 }
