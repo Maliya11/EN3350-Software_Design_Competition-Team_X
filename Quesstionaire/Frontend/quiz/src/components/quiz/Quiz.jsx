@@ -1,4 +1,4 @@
-import React, {useState,useRef} from 'react'
+import React, {useState,useRef,useEffect} from 'react'
 import './quiz.css'
 import { data } from '../../assets/data';
 
@@ -9,6 +9,7 @@ const Quiz = () => {
     let [score, setScore] = useState(0);
     let [result, setResult] = useState(false);
     let [submitDisabled, setSubmitDisabled] = useState(true);
+    let [questions, setQuestions] = useState([]);
     let [feedback, setFeedback] = useState(false);
     let [answer, setAnswer] = useState(0);
 
@@ -78,12 +79,26 @@ const Quiz = () => {
         setAnswer(0);
     }
 
-    const submit = () => {
+    const submit = (e) => {
         if (submitDisabled==false){
+
             setSubmitDisabled(true);
             setLock(true);
             setFeedback(true);
+
+            
             option_array[question.corAns - 1].current.classList.add("correct");
+            //e.preventDefault();
+            const idNum = index+1;
+            const Q = {idNum , answer};
+            console.log(Q);
+            fetch("http://localhost:8080/question/answer",{
+                method:"POST",
+                headers:{"Content-Type":"application/json"},
+                body:JSON.stringify(Q)
+            }).then(()=>{
+                console.log("Answer saved") 
+            })
 
             if (answer === question.corAns){
                 setScore(prev=>prev+1);
@@ -94,6 +109,15 @@ const Quiz = () => {
         }
 
     }
+
+    useEffect(()=>{
+        fetch("http://localhost:8080/question/allQuestions")
+        .then(res=>res.json())
+        .then((result)=>{
+            setQuestions(result);
+        }
+        )
+    },[])
 
 
   return (
