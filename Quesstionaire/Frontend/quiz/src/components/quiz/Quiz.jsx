@@ -89,9 +89,9 @@ const Quiz = () => {
 
             
             option_array[question.corAns - 1].current.classList.add("correct");
-            //e.preventDefault();
+            e.preventDefault();
             const idNum = index + 1;
-            const Q = {idNum , answer};
+            const Q = {"id":idNum , "selAns":answer};
             console.log(Q);
             fetch("http://localhost:8080/question/answer",{
                 method:"POST",
