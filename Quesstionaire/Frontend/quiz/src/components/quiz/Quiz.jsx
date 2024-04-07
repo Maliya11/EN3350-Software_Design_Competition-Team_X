@@ -120,6 +120,8 @@ const Quiz = () => {
         )
     },[])
 
+    
+
 
   return (
     <div className='conntainer'>
@@ -148,7 +150,7 @@ const Quiz = () => {
         <button onClick={reset}>Reset</button>
         </>:<></>}
     </div>
-    
+
   )
 
 

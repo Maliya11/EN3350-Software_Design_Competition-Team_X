@@ -10,6 +10,11 @@ import lombok.Data;
 @Entity
 public class Question {
 
+    // This is the Question class, used Lombok here
+    // Naming convention -> Camel case
+    // ex: cor_ans column in database is corAns here
+    // "id" is named as primary key
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

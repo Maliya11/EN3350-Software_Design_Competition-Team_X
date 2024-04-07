@@ -10,20 +10,27 @@ import java.util.List;
 
 @RestController
 @RequestMapping("question")
-@CrossOrigin
+@CrossOrigin("http://localhost:5173/")
 public class QuestionController {
+
+    //This is the controller class where http requests are handled
 
     @Autowired
     QuestionService questionService;
+
+    //To get all the questions from the database in JASON format
     @RequestMapping("allQuestions")
     public List<Question> getAllQuestions(){
         return questionService.getAllQuestions();
     }
+
+    //To store the selected answer in the database
     @PostMapping("answer")
     public void updateQuestionAnswer(@RequestBody QuestionUpdateRequest request) {
         questionService.updateQuestionAnswer(request.getId(), request.getSelAns());
     }
 
+    //To calculate marks using the stored values in the database
     @GetMapping("marks")
     public int questionGetMarks(){
         return questionService.questionGetMarks();
