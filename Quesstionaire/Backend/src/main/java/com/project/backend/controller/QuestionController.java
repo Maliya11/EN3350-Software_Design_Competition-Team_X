@@ -34,8 +34,9 @@ public class QuestionController {
     //To calculate marks using the stored values in the database
     @GetMapping("marks")
     public int questionGetMarks(){
-
         return questionService.questionGetMarks();
     }
+
+
 
 }
