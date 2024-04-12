@@ -15,7 +15,7 @@ public class MainMenuController : MonoBehaviour
 
     public void PlayerProfile(){
         Debug.Log("Player profile");
-        SceneManager.LoadScene(2);
+        // SceneManager.LoadScene(2);
 /* 
         requestManager = ScriptableObject.CreateInstance<RequestManager>();
 
