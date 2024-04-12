@@ -22,10 +22,10 @@ public class PlayerProfileManager : MonoBehaviour
     {
         requestManager = ScriptableObject.CreateInstance<RequestManager>();
 
-        string url = "http://20.15.114.131:8080/api/user/profile/view";
-        string method = "GET";
+        string profileViewURL = "http://20.15.114.131:8080/api/user/profile/view";
+        string profileViewMethod = "GET";
 
-        requestManager.SendRequest(url, method, null, this, null);
+        requestManager.SendRequest(profileViewURL, profileViewMethod, null, this, null);
         Debug.Log("Request sent");
 
         StartCoroutine(WaitForRequestCompletion());
@@ -90,10 +90,29 @@ public class PlayerProfileManager : MonoBehaviour
     // Method to update player profile with missing information
     public void UpdateProfile()
     {
-        // Implement update profile logic here (send updated data to the server)
-        // For brevity, this part is left as an exercise for you
+        requestManager = ScriptableObject.CreateInstance<RequestManager>();
 
-        notificationText.text = "Profile updated successfully!";
+        string profileUpdateURL = "http://20.15.114.131:8080/api/user/profile/update";
+        string profileUpdateMethod = "PUT";
+
+        UserData userData = new UserData();
+        userData.firstname = firstNameInput.text;
+        userData.lastname = lastNameInput.text;
+        userData.nic = nicInput.text;
+        userData.username = usernameInput.text;
+        userData.phoneNumber = mobileNumberInput.text;
+        userData.email = emailInput.text;
+
+        PlayerProfileData profileData = new PlayerProfileData();
+
+        profileData.user = userData;
+
+        string body = JsonUtility.ToJson(userData);
+
+        requestManager.SendRequest(profileUpdateURL, profileUpdateMethod, body, this, null);
+        Debug.Log("Profile update request sent");
+
+        //notificationText.text = "Profile updated successfully!";
     }
 }
 

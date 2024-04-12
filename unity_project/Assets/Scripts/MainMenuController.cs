@@ -34,5 +34,8 @@ public class MainMenuController : MonoBehaviour
 
     public void ExitGame(){
         Debug.Log("Exit Game");
+        // Remove the JWT token from the PlayerPrefs
+        PlayerPrefs.DeleteKey("jwtToken");
+        Debug.Log("JWT Token removed from PlayerPrefs");
     }
 }
