@@ -23,12 +23,13 @@ public class Question {
     private String ans2;
     private String ans3;
     private String ans4;
-    private Integer corAns;
-    private String genFeed;
+    private Integer corAns;   //cor_ans
+    private String genFeed;   //gen_feed
     private String feed1;
     private String feed2;
     private String feed3;
     private String feed4;
-    private Integer selAns;
+    private Integer selAns;   //sel_ans
+
 
 }

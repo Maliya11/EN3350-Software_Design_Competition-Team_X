@@ -25,6 +25,7 @@ public class QuestionController {
     }
 
     //To store the selected answer in the database
+    // {"id":2, "selAns":3}
     @PostMapping("answer")
     public void updateQuestionAnswer(@RequestBody QuestionUpdateRequest request) {
         questionService.updateQuestionAnswer(request.getId(), request.getSelAns());
@@ -33,6 +34,7 @@ public class QuestionController {
     //To calculate marks using the stored values in the database
     @GetMapping("marks")
     public int questionGetMarks(){
+
         return questionService.questionGetMarks();
     }
 
