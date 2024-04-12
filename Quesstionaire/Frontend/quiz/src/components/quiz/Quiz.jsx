@@ -1,19 +1,16 @@
 import React, {useState,useRef,useEffect} from 'react'
 import './quiz.css'
-import { data } from '../../assets/data';
+//import { data } from '../../assets/data';
 
 const Quiz = () => {
+
     let [index, setIndex] = useState(0);
-
     let [questions, setQuestions] = useState([]);
-
-    let [question, setQuestion] = useState(questions[index]);
-
+    let [question, setQuestion] = useState({}); //questions[index]
     let [lock, setLock] = useState(false);
     let [score, setScore] = useState(0);
     let [result, setResult] = useState(false);
     let [submitDisabled, setSubmitDisabled] = useState(true);
-    
     let [feedback, setFeedback] = useState(false);
     let [answer, setAnswer] = useState(0);
 
@@ -56,7 +53,7 @@ const Quiz = () => {
 
     const next = ()=>{
         if (lock===true){
-            if (index === questions.length -1){
+            if (index ===questions.length -1){
                 setResult(true);
                 return 0;
             }
@@ -94,9 +91,9 @@ const Quiz = () => {
                 option.current.classList.remove("selected");
             });
             option_array[question.corAns - 1].current.classList.add("correct");
-            //e.preventDefault();
+            e.preventDefault();
             const idNum = index + 1;
-            const Q = {idNum , answer};
+            const Q = {"id":idNum , "selAns":answer};
             console.log(Q);
             fetch("http://localhost:8080/question/answer",{
                 method:"POST",
@@ -121,9 +118,12 @@ const Quiz = () => {
         .then(res=>res.json())
         .then((result)=>{
             setQuestions(result);
+            setQuestion(result[0]);
         }
         )
     },[])
+
+    
 
 
   return (
@@ -153,7 +153,10 @@ const Quiz = () => {
         <button onClick={reset}>Reset</button>
         </>:<></>}
     </div>
+
   )
+
+
 }
 
 export default Quiz
