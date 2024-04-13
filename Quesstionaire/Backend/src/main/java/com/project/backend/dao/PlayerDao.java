@@ -1,13 +1,10 @@
 package com.project.backend.dao;
 
-import com.project.backend.entity.Question;
+import com.project.backend.entity.Player;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-
 @Repository
-public interface QuestionDao extends JpaRepository<Question, Integer> {
-
-    //Class to handle the database
+public interface PlayerDao extends JpaRepository<Player, String> {
 
 }
