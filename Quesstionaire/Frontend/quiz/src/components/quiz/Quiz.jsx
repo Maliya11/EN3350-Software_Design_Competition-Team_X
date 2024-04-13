@@ -87,7 +87,9 @@ const Quiz = () => {
             setLock(true);
             setFeedback(true);
 
-            
+            option_array.forEach((option) => {
+                option.current.classList.remove("selected");
+            });
             option_array[question.corAns - 1].current.classList.add("correct");
             e.preventDefault();
             const idNum = index + 1;
