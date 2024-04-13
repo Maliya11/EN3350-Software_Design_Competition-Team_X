@@ -5,8 +5,6 @@ import com.project.backend.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping("player")
 @CrossOrigin
@@ -16,7 +14,7 @@ public class PlayerController {
     PlayerService playerService;
 
     @PostMapping("/authenticate")
-    public boolean playerStateIdentify(@RequestHeader String apiKey){
+    public boolean playerStateIdentify(@RequestBody String apiKey){
         playerService.setPlayerStatesToZero();
         return playerService.playerStateIdentify(apiKey);
     }
@@ -26,10 +24,11 @@ public class PlayerController {
         return playerService.identifyActivePlayer();
     }
 
+
     @PostMapping("/answer")
-    public void playerAnswerSubmit(@RequestHeader Integer qNum, @RequestHeader Integer selAns ){
+    public void playerAnswerSubmit(@RequestBody AnswerUpdateRequest request){
         Player player = playerService.identifyActivePlayer();
-        playerService.playerAnswerSubmit(qNum, selAns);
+        playerService.playerAnswerSubmit(request.getqNum(), request.getSelAns());
         playerService.incrementCurrentQuestion(player);
     }
 

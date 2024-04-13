@@ -174,9 +174,7 @@ public class PlayerService {
     }
 
     public void incrementCurrentQuestion(Player player) {
-        Integer currentQuestion = player.getCurrentQuestion();
-        Integer nextQuestion = currentQuestion++;
-        player.setCurrentQuestion(nextQuestion);
+        player.setCurrentQuestion(player.getCurrentQuestion()+1);
         playerDao.save(player);
     }
 }
