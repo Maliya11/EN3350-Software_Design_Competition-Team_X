@@ -1,8 +1,11 @@
 package com.project.backend.controller;
 
+import com.project.backend.entity.Player;
 import com.project.backend.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("player")
@@ -13,13 +16,21 @@ public class PlayerController {
     PlayerService playerService;
 
     @PostMapping("/authenticate")
-    public String authenticatePlayer(@RequestBody String apiKey) {
-        // Call method to send API key to MOCK API and authenticate player
-        return playerService.authenticatePlayer(apiKey);
+    public boolean playerStateIdentify(@RequestHeader String apiKey){
+        playerService.setPlayerStatesToZero();
+        return playerService.playerStateIdentify(apiKey);
     }
 
+    @GetMapping("/details")
+    public Player sendPlayerDetails(){
+        return playerService.identifyActivePlayer();
+    }
 
-
-
+    @PostMapping("/answer")
+    public void playerAnswerSubmit(@RequestHeader Integer qNum, @RequestHeader Integer selAns ){
+        Player player = playerService.identifyActivePlayer();
+        playerService.playerAnswerSubmit(qNum, selAns);
+        playerService.incrementCurrentQuestion(player);
+    }
 
 }

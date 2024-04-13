@@ -10,17 +10,17 @@ public class Player {
 
     @Id
     private String apiKey;
-    private String playerState;
-    private Integer q1Ans;
-    private Integer q2Ans;
-    private Integer q3Ans;
-    private Integer q4Ans;
-    private Integer q5Ans;
-    private Integer q6Ans;
-    private Integer q7Ans;
-    private Integer q8Ans;
-    private Integer q9Ans;
-    private Integer q10Ans;
+    private Integer playerState;
+    private Integer q1_ans;
+    private Integer q2_ans;
+    private Integer q3_ans;
+    private Integer q4_ans;
+    private Integer q5_ans;
+    private Integer q6_ans;
+    private Integer q7_ans;
+    private Integer q8_ans;
+    private Integer q9_ans;
+    private Integer q10_ans;
     private Integer marks;
     private Integer currentQuestion;
 
