@@ -1,7 +1,6 @@
 package com.project.backend.controller;
 
-import com.project.backend.Question;
-import com.project.backend.QuestionUpdateRequest;
+import com.project.backend.entity.Question;
 import com.project.backend.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,16 +25,16 @@ public class QuestionController {
 
     //To store the selected answer in the database
     // {"id":2, "selAns":3}
-    @PostMapping("answer")
-    public void updateQuestionAnswer(@RequestBody QuestionUpdateRequest request) {
-        questionService.updateQuestionAnswer(request.getId(), request.getSelAns());
-    }
+//    @PostMapping("answer")
+//    public void updateQuestionAnswer(@RequestBody QuestionUpdateRequest request) {
+//        questionService.updateQuestionAnswer(request.getId(), request.getSelAns());
+//    }
 
     //To calculate marks using the stored values in the database
-    @GetMapping("marks")
-    public int questionGetMarks(){
-        return questionService.questionGetMarks();
-    }
+//    @GetMapping("marks")
+//    public int questionGetMarks(){
+//        return questionService.questionGetMarks();
+//    }
 
 
 
