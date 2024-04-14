@@ -32,47 +32,36 @@ const Quiz = () => {
     let option_array = [Option1,Option2,Option3,Option4];
     // let feed_array =[question.feed1,question.feed2,question.feed3,question.feed4];
 
-    useEffect(()=>{
-        fetch("http://13.51.6.225:8080/player/details")
-        .then(res=>res.json())
-        .then((result)=>{
-            setPlayer(result);
-        }
-        )
-    },[])
+    
 
-    // useEffect(() => {
-    //     // Check if it's the first question
-    //     fetch("http://13.51.6.225:8080/question/allQuestions")
-    //     .then(res=>res.json())
-    //     .then((result)=>{
-    //         setQuestions(result);
-    //     }
-    //     )
-    //     if (index === 0) {
-    //         setScore(player.marks);
-    //         if (player.completedQuestions === 10){
-    //             setResult(true);
-    //             return;
-    //         }
-    //         else{
-    //             setIndex(player.Question);
-    //             setQuestion(questions[index]);
-    //         }
-    //     }
-    // }, [index, player]);
     useEffect(() => {
-        fetch("http://13.51.6.225:8080/question/allQuestions")
+        // Fetch player details
+        fetch("http://13.51.6.225:8080/player/details")
         .then(res => res.json())
-        .then(result => {
-            setQuestions(result);
-            // Ensure index is within bounds
-            const newIndex = Math.min(index, result.length - 1);
-            setIndex(newIndex);
-            setQuestion(result[newIndex]);
+        .then(playerDetails => {
+            setPlayer(playerDetails);
+            setScore(playerDetails.marks);
+    
+            // If all questions are completed, set result to true
+            if (playerDetails.completedQuestions === 10) {
+                setResult(true);
+                return;
+            }
+    
+            // Fetch all questions
+            return fetch("http://13.51.6.225:8080/question/allQuestions")
+            .then(res => res.json())
+            .then(result => {
+                setQuestions(result);
+                // Set current question
+                setQuestion(result[playerDetails.completedQuestions]);
+            });
         })
-        .catch(error => console.error("Error fetching questions:", error));
-    }, [index]);
+        .catch(error => console.error("Error fetching player details:", error));
+    }, []);
+    
+    
+    
     
 
     const checkAns = (e,ans) => {
