@@ -56,11 +56,13 @@ const Quiz = () => {
                 return;
             }
             else{
-                setIndex(player.cQuestion);
+                setIndex(player.completedQuestions);
                 setQuestion(questions[index]);
             }
         }
     }, [index, player]);
+
+    
 
     const checkAns = (e,ans) => {
         if (lock===false){
