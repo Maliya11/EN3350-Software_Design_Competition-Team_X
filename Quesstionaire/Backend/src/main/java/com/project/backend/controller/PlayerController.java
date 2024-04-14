@@ -38,7 +38,6 @@ public class PlayerController {
     public void playerAnswerSubmit(@RequestBody AnswerUpdateRequest request){
         Player player = playerService.identifyActivePlayer();
         playerService.playerAnswerSubmit(request.getqNum(), request.getSelAns());
-        playerService.incrementCurrentQuestion(player);
+        playerService.incrementCompletedQuestion(player);
     }
-
 }

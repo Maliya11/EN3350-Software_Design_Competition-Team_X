@@ -173,7 +173,7 @@ public class PlayerService {
         return null;
     }
 
-    public void incrementCurrentQuestion(Player player) {
+    public void incrementCompletedQuestion(Player player) {
         player.setCompletedQuestions(player.getCompletedQuestions()+1);
         playerDao.save(player);
     }
