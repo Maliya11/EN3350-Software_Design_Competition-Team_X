@@ -1,13 +1,15 @@
 import React, {useState,useRef,useEffect} from 'react'
 import './quiz.css'
-import { data } from '../../assets/data';
-import { player } from '../../assets/player';
+//import { data } from '../../assets/data';
+//import { player } from '../../assets/player';
 import Review from './Review';
 
 
 const Quiz = () => {
     let [index, setIndex] = useState(0);
-    let [question, setQuestion] = useState(data[index]);
+    let [questions, setQuestions] = useState([]);
+    let [question, setQuestion] = useState({});
+    let [player, setPlayer] = useState({});
 
     let [lock, setLock] = useState(false);
     let [score, setScore] = useState(0);
@@ -30,17 +32,32 @@ const Quiz = () => {
     let option_array = [Option1,Option2,Option3,Option4];
     let feed_array =[question.feed1,question.feed2,question.feed3,question.feed4];
 
+    useEffect(()=>{
+        fetch("http://51.20.115.232:8080/player/details")
+        .then(res=>res.json())
+        .then((result)=>{
+            setPlayer(result);
+        }
+        )
+    },[])
+
     useEffect(() => {
         // Check if it's the first question
+        fetch("http://51.20.115.232:8080/question/allQuestions")
+        .then(res=>res.json())
+        .then((result)=>{
+            setQuestions(result);
+        }
+        )
         if (index === 0) {
-            setScore(player[0].marks);
-            if (player[0].currentQuestion === 10){
+            setScore(player.marks);
+            if (player.completedQuestions === 10){
                 setResult(true);
                 return;
             }
             else{
-                setIndex(player[0].currentQuestion);
-                setQuestion(data[index]);
+                setIndex(player.cQuestion);
+                setQuestion(questions[index]);
             }
         }
     }, [index, player]);
@@ -61,12 +78,12 @@ const Quiz = () => {
 
     const next = ()=>{
         if (lock===true){
-            if (index === data.length -1){
+            if (index === questions.length -1){
                 setResult(true);
                 return 0;
             }
             setIndex(++index);
-            setQuestion(data[index]);
+            setQuestion(questions[index]);
             setLock(false);
             setFeedback(false);
             setAnswer(0);
@@ -80,7 +97,7 @@ const Quiz = () => {
 
     const reset = ()=>{
         setIndex(0);
-        setQuestion(data[0]);
+        setQuestion(questions[0]);
         setScore(0);
         setLock(false);
         setResult(false);
@@ -102,6 +119,18 @@ const Quiz = () => {
 
             
             option_array[question.corAns - 1].current.classList.add("correct");
+            e.preventDefault();
+            const idNum = index + 1;
+            const Q = {"qNum" : idNum , "selAns" : answer};
+
+            fetch("http://51.20.115.232:8080/question/answer",{
+                method:"POST",
+                headers:{"Content-Type":"application/json"},
+                body:JSON.stringify(Q)
+            }).then(()=>{
+                console.log("Answer saved") 
+            })
+
             if (answer === question.corAns){
                 setScore(prev=>prev+1);
             }
@@ -140,11 +169,11 @@ const Quiz = () => {
         <div className='index'>{index+1} of 10 questions</div>
         </>}
         {result?<>
-        <h2>You Scored {score} out of {data.length}</h2>
+        <h2>You Scored {score} out of {questions.length}</h2>
         <button onClick={reset}>PLAY GAME</button>
         <button onClick={toggleReview}>REVIEW</button>
         </>:<></>}
-        {showReview && <Review data={data} player={player} />}
+        {showReview && <Review questions={questions} />}
 
     </div>
     )
