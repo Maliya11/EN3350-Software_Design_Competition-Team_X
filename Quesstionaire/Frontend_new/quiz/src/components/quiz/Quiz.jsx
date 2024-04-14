@@ -33,7 +33,7 @@ const Quiz = () => {
     // let feed_array =[question.feed1,question.feed2,question.feed3,question.feed4];
 
     useEffect(()=>{
-        fetch("http://51.20.115.232:8080/player/details")
+        fetch("http://13.51.6.225:8080/player/details")
         .then(res=>res.json())
         .then((result)=>{
             setPlayer(result);
@@ -43,7 +43,7 @@ const Quiz = () => {
 
     useEffect(() => {
         // Check if it's the first question
-        fetch("http://51.20.115.232:8080/question/allQuestions")
+        fetch("http://13.51.6.225:8080/question/allQuestions")
         .then(res=>res.json())
         .then((result)=>{
             setQuestions(result);
@@ -123,7 +123,7 @@ const Quiz = () => {
             const idNum = index + 1;
             const Q = {"qNum" : idNum , "selAns" : answer};
 
-            fetch("http://51.20.115.232:8080/question/answer",{
+            fetch("http://13.51.6.225:8080/player/answer",{
                 method:"POST",
                 headers:{"Content-Type":"application/json"},
                 body:JSON.stringify(Q)
