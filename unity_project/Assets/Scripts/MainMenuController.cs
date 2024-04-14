@@ -7,6 +7,8 @@ public class MainMenuController : MonoBehaviour
 {
     // Reference to the PlayerProfileManager
     public PlayerProfileManager playerProfile;
+    // Reference to the QuestionnaireManager
+    public QuestionnaireManager questionnaireManager;
 
     private void Start()
     {
@@ -17,6 +19,8 @@ public class MainMenuController : MonoBehaviour
             Debug.LogError("PlayerProfileManager not found in the scene.");
             return;
         }
+
+        questionnaireManager = FindObjectOfType<QuestionnaireManager>();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -26,6 +30,7 @@ public class MainMenuController : MonoBehaviour
     public void PlayGame()
     {
         StartCoroutine(CheckAndHandleMissingFields());
+        questionnaireManager.GetQuestionnaireStatus();
     }
 
     private IEnumerator CheckAndHandleMissingFields()
