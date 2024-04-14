@@ -41,26 +41,39 @@ const Quiz = () => {
         )
     },[])
 
+    // useEffect(() => {
+    //     // Check if it's the first question
+    //     fetch("http://13.51.6.225:8080/question/allQuestions")
+    //     .then(res=>res.json())
+    //     .then((result)=>{
+    //         setQuestions(result);
+    //     }
+    //     )
+    //     if (index === 0) {
+    //         setScore(player.marks);
+    //         if (player.completedQuestions === 10){
+    //             setResult(true);
+    //             return;
+    //         }
+    //         else{
+    //             setIndex(player.Question);
+    //             setQuestion(questions[index]);
+    //         }
+    //     }
+    // }, [index, player]);
     useEffect(() => {
-        // Check if it's the first question
         fetch("http://13.51.6.225:8080/question/allQuestions")
-        .then(res=>res.json())
-        .then((result)=>{
+        .then(res => res.json())
+        .then(result => {
             setQuestions(result);
-        }
-        )
-        if (index === 0) {
-            setScore(player.marks);
-            if (player.completedQuestions === 10){
-                setResult(true);
-                return;
-            }
-            else{
-                setIndex(player.Question);
-                setQuestion(questions[index]);
-            }
-        }
-    }, [index, player]);
+            // Ensure index is within bounds
+            const newIndex = Math.min(index, result.length - 1);
+            setIndex(newIndex);
+            setQuestion(result[newIndex]);
+        })
+        .catch(error => console.error("Error fetching questions:", error));
+    }, [index]);
+    
 
     const checkAns = (e,ans) => {
         if (lock===false){
