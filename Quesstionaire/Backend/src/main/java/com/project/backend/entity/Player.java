@@ -22,7 +22,7 @@ public class Player {
     private Integer q9_ans;
     private Integer q10_ans;
     private Integer marks;
-    private Integer currentQuestion;
+    private Integer completedQuestions;
 
 
 

@@ -67,7 +67,7 @@ public class PlayerService {
         Player newPlayer = new Player();
         newPlayer.setApiKey(apiKey);
         newPlayer.setMarks(0);
-        newPlayer.setCurrentQuestion(0);
+        newPlayer.setCompletedQuestions(0);
         newPlayer.setPlayerState(1);
         playerDao.save(newPlayer);
     }
@@ -174,7 +174,7 @@ public class PlayerService {
     }
 
     public void incrementCurrentQuestion(Player player) {
-        player.setCurrentQuestion(player.getCurrentQuestion()+1);
+        player.setCompletedQuestions(player.getCompletedQuestions()+1);
         playerDao.save(player);
     }
 }

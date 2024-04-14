@@ -5,6 +5,9 @@ import com.project.backend.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("player")
 @CrossOrigin
@@ -14,9 +17,15 @@ public class PlayerController {
     PlayerService playerService;
 
     @PostMapping("/authenticate")
-    public boolean playerStateIdentify(@RequestBody String apiKey){
+    public Map<String,Object> playerStateIdentify(@RequestBody String apiKey){
         playerService.setPlayerStatesToZero();
-        return playerService.playerStateIdentify(apiKey);
+        boolean validKey = playerService.playerStateIdentify(apiKey);
+        Player activePlayer = playerService.identifyActivePlayer();
+        Integer completedQuestions = activePlayer.getCompletedQuestions();
+        Map<String, Object> response = new HashMap<>();
+        response.put("validKey", validKey);
+        response.put("completedQuestions", completedQuestions);
+        return response;
     }
 
     @GetMapping("/details")
