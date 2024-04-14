@@ -30,7 +30,7 @@ const Quiz = () => {
     let Option4 = useRef(null);
 
     let option_array = [Option1,Option2,Option3,Option4];
-    let feed_array =[question.feed1,question.feed2,question.feed3,question.feed4];
+    // let feed_array =[question.feed1,question.feed2,question.feed3,question.feed4];
 
     useEffect(()=>{
         fetch("http://51.20.115.232:8080/player/details")
@@ -56,7 +56,7 @@ const Quiz = () => {
                 return;
             }
             else{
-                setIndex(player.cQuestion);
+                setIndex(player.Question);
                 setQuestion(questions[index]);
             }
         }
@@ -163,7 +163,7 @@ const Quiz = () => {
         <div>
             <p>{question.genFeed}</p>
             {/* <p>{feed_array[answer-1]}</p> */}
-            <div style={{ color: 'rgb(161, 78, 78)' }}>{feed_array[answer-1]}</div>
+            <div style={{ color: 'rgb(161, 78, 78)' }}>{question[`feed${answer}`]}</div>
         </div>
         </>:<></>}
         <div className='index'>{index+1} of 10 questions</div>
