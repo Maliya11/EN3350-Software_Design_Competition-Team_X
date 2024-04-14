@@ -144,7 +144,7 @@ const Quiz = () => {
         <button onClick={reset}>PLAY GAME</button>
         <button onClick={toggleReview}>REVIEW</button>
         </>:<></>}
-        {showReview && <Review data={data} />}
+        {showReview && <Review data={data} player={player} />}
 
     </div>
     )

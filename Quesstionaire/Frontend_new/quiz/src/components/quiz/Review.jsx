@@ -1,8 +1,7 @@
 import React from 'react';
 import './review.css';
-import { player } from '../../assets/player';
 
-const Review = ({ data }) => {
+const Review = ({ data , player }) => {
 
   const getSelectedAnswer = (questionNumber) => {
     const questionKey = `q${questionNumber}Ans`;
