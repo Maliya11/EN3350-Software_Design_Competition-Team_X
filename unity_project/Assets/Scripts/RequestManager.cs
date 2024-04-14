@@ -7,12 +7,15 @@ using SimpleJSON;
 public class RequestManager : ScriptableObject
 {    
     public bool IsRequestCompleted { get; private set; }
+    public bool IsRequestSuccessful { get; private set; }
     private string jwtToken;
     public JSONNode jsonResponse;
 
     // Method to send a request to the server
     public void SendRequest(string url, string method, string body, MonoBehaviour monoBehaviour, Dictionary<string, string> parameters = null)
-    {
+    {   
+        IsRequestCompleted = false;
+        IsRequestSuccessful = false;
         jwtToken = PlayerPrefs.GetString("jwtToken");
         if (jwtToken == null)
         {
@@ -70,19 +73,20 @@ public class RequestManager : ScriptableObject
             if (request.result == UnityWebRequest.Result.Success)
             {
                 string responseText = request.downloadHandler.text;
-                Debug.Log("Request successful. Response: " + responseText);
-                IsRequestCompleted = true;
-                jsonResponse = responseText;
-                Debug.Log("Request successful. JSON Response: " + jsonResponse);
+                IsRequestSuccessful = true;
+                jsonResponse = JSON.Parse(responseText);
+                Debug.Log("Request successful: " + jsonResponse.ToString());
             }
             else
             {
-                string errorMessage = "Request failed. Error: " + request.error;
-                Debug.LogError(errorMessage);
-                IsRequestCompleted = false;
+                string errorMessage = request.downloadHandler.text;
+                IsRequestSuccessful = false;
+                jsonResponse = JSON.Parse(errorMessage);
+                Debug.LogError("Request failed: " + jsonResponse.ToString());
             }
+            
+            IsRequestCompleted = true;
         }
     }   
 
 }
-

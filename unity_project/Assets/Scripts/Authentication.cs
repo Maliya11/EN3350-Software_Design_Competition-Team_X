@@ -70,6 +70,3 @@ public class AuthenticationResponse
 {
     public string token;
 }
-
-
-

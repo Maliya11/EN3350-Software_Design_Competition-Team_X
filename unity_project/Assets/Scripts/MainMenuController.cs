@@ -5,34 +5,48 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
+    // Reference to the PlayerProfileManager
+    public PlayerProfileManager playerProfile;
 
-    //private RequestManager requestManager; // Reference to the RequestManager
-    private PlayerProfileManager playerProfile; // Reference to the PlayerProfileManager
-
-    public void PlayGame(){
-        Debug.Log("Play game");
+    private void Start()
+    {
+        // Create a new instance of the PlayerProfileManager
+        playerProfile = FindObjectOfType<PlayerProfileManager>();
     }
 
-    public void PlayerProfile(){
+    public void PlayGame()
+    {
+        if (playerProfile == null)
+        {
+            Debug.LogError("PlayerProfileManager reference is missing.");
+            return;
+        }
+        
+        // Check if there are any missing fields in the player profile
+        if (playerProfile.IsMissingFields())
+        {
+            Debug.Log("Player profile is missing fields. Please fill in all the required fields before playing.");
+            // You can also display a message to the player about the missing fields, e.g., using a UI element
+        }
+        else
+        {
+            Debug.Log("All player profile fields are complete. Proceeding to play the game...");
+            // Add code here to load the game scene or perform other actions necessary to start the game
+        }
+    }
+
+    public void PlayerProfile()
+    {
         Debug.Log("Player profile");
-        // SceneManager.LoadScene(2);
-/* 
-        requestManager = ScriptableObject.CreateInstance<RequestManager>();
-
-        string url = "http://20.15.114.131:8080/api/user/profile/view";
-        string method = "GET";
-
-        requestManager.SendRequest(url, method, null, this); */
-
-        //playerProfile = ScriptableObject.CreateInstance<PlayerProfileManager>();
-
     }
 
-    public void Leaderboard(){
+    public void Leaderboard()
+    {
         Debug.Log("Leaderboard");
     }
 
-    public void ExitGame(){
+    public void ExitGame()
+    {
         Debug.Log("Exit Game");
         // Remove the JWT token from the PlayerPrefs
         PlayerPrefs.DeleteKey("jwtToken");

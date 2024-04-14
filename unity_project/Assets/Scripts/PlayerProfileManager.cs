@@ -2,10 +2,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using SimpleJSON;
 using System.Collections;
+using TMPro;
 
 public class PlayerProfileManager : MonoBehaviour
 {
-    private RequestManager requestManager; // Reference to the RequestManager
+    // Reference to the RequestManager
+    private RequestManager requestManager; 
 
     // UI elements
     public InputField firstNameInput;
@@ -14,40 +16,73 @@ public class PlayerProfileManager : MonoBehaviour
     public InputField usernameInput;
     public InputField mobileNumberInput;
     public InputField emailInput;
-    public Toggle demandResponseToggle;
-    public Text notificationText;
+    public GameObject notificationBar;
+    public TextMeshProUGUI notificationText;
+    public GameObject profilePanel;
+    public GameObject mainMenuPanel;
+
+    private void Start()
+    {
+        // Create a new instance of the RequestManager
+        requestManager = ScriptableObject.CreateInstance<RequestManager>();
+    }
 
     // Method to initialize player profile view
     public void InitializeProfile()
     {
-        requestManager = ScriptableObject.CreateInstance<RequestManager>();
-
         string profileViewURL = "http://20.15.114.131:8080/api/user/profile/view";
         string profileViewMethod = "GET";
 
         requestManager.SendRequest(profileViewURL, profileViewMethod, null, this, null);
-        Debug.Log("Request sent");
+        StartCoroutine(WaitForProfileViewRequestCompletion());
 
-        StartCoroutine(WaitForRequestCompletion());
+        Debug.Log("Profile view request completed");
     }
 
-    // Coroutine to wait for the request completion
-    private IEnumerator WaitForRequestCompletion()
+    // Coroutine to wait for the profile view request completion
+    private IEnumerator WaitForProfileViewRequestCompletion()
     {   
         while (!requestManager.IsRequestCompleted)
         {
             yield return null; 
         }
-        Debug.Log("Request completed. Status: " + requestManager.IsRequestCompleted);
-        OnProfileFetchSuccess(requestManager.jsonResponse);
-        Debug.Log("OnProfileFetchSuccess called");
+
+        if (requestManager.IsRequestSuccessful)
+        {
+            OnProfileFetchSuccess(requestManager.jsonResponse);
+            Debug.Log("Profile fetch successful");
+        }
+        else
+        {
+            Debug.LogError("Profile fetch failed");
+        }
     }
 
     // Callback method for successful profile fetch
     private void OnProfileFetchSuccess(JSONNode jsonResponse)
-    {   
-        Debug.Log("JSON Response inside OnProfileFetchSuccess: " + jsonResponse);
-        PlayerProfileData profileData = JsonUtility.FromJson<PlayerProfileData>(jsonResponse);
+    {
+        if (jsonResponse == null)
+        {
+            Debug.LogError("JSON Response is null");
+            return;
+        }
+
+        PlayerProfileData profileData;
+        try
+        {
+            profileData = JsonUtility.FromJson<PlayerProfileData>(jsonResponse.ToString());
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError("Failed to parse JSON response to PlayerProfileData: " + ex.Message);
+            return;
+        }
+
+        if (profileData == null || profileData.user == null)
+        {
+            Debug.LogError("ProfileData or user data is null");
+            return;
+        }
 
         // Accessing user properties
         string firstName = profileData.user.firstname;
@@ -57,64 +92,100 @@ public class PlayerProfileManager : MonoBehaviour
         string mobileNumber = profileData.user.phoneNumber;
         string email = profileData.user.email;
 
-        firstNameInput.text = firstName;
-        lastNameInput.text = lastName;
-        nicInput.text = nic;
-        usernameInput.text = username;
-        mobileNumberInput.text = mobileNumber;
-        emailInput.text = email;
+        // Check for null values before assigning to UI elements
+        firstNameInput.text = firstName ?? "";
+        lastNameInput.text = lastName ?? "";
+        nicInput.text = nic ?? "";
+        usernameInput.text = username ?? "";
+        mobileNumberInput.text = mobileNumber ?? "";
+        emailInput.text = email ?? "";
 
-        Debug.Log("First Name: " + firstName);
-        Debug.Log("Last Name: " + lastName);
-        Debug.Log("NIC: " + nic);
-        Debug.Log("Username: " + username);
-        Debug.Log("Mobile Number: " + mobileNumber);
-        Debug.Log("Email: " + email);
-        
-        //CheckAndPromptMissingFields();
+        Debug.Log("Profile data: " + firstName + " " + lastName + " " + nic + " " + username + " " + mobileNumber + " " + email);
     }
 
-    // Method to check for missing fields and prompt the player to complete them
-    private void CheckAndPromptMissingFields()
+    // Method to check for missing fields
+    public bool IsMissingFields()
     {
-        if (string.IsNullOrEmpty(firstNameInput.text) || string.IsNullOrEmpty(nicInput.text) || string.IsNullOrEmpty(usernameInput.text) || string.IsNullOrEmpty(mobileNumberInput.text))
+        // Initialize Profile View
+        InitializeProfile();
+
+        if (string.IsNullOrEmpty(firstNameInput.text) || string.IsNullOrEmpty(lastNameInput.text) || string.IsNullOrEmpty(nicInput.text) || string.IsNullOrEmpty(usernameInput.text) || string.IsNullOrEmpty(mobileNumberInput.text))
         {
-            notificationText.text = "Please complete missing information.";
+            return true;
         }
         else
         {
-            notificationText.text = "";
+            return false;
         }
     }
 
     // Method to update player profile with missing information
     public void UpdateProfile()
-    {
-        requestManager = ScriptableObject.CreateInstance<RequestManager>();
+    {   
+        if (IsMissingFields())
+        {
+            notificationBar.SetActive(true);
+            notificationText.text = "Please fill in all the required fields";
+            Debug.Log("Missing fields");
+            return;
+        }
 
         string profileUpdateURL = "http://20.15.114.131:8080/api/user/profile/update";
         string profileUpdateMethod = "PUT";
 
-        UserData userData = new UserData();
-        userData.firstname = firstNameInput.text;
-        userData.lastname = lastNameInput.text;
-        userData.nic = nicInput.text;
-        userData.username = usernameInput.text;
-        userData.phoneNumber = mobileNumberInput.text;
-        userData.email = emailInput.text;
+        UserData updtaedUserData = new UserData
+        {
+            firstname = firstNameInput.text,
+            lastname = lastNameInput.text,
+            nic = nicInput.text,
+            username = usernameInput.text,
+            phoneNumber = mobileNumberInput.text,
+            email = emailInput.text
+        };
 
-        PlayerProfileData profileData = new PlayerProfileData();
+        string body = JsonUtility.ToJson(updtaedUserData);
 
-        profileData.user = userData;
-
-        string body = JsonUtility.ToJson(userData);
-
+        // Send the request to update the profile
         requestManager.SendRequest(profileUpdateURL, profileUpdateMethod, body, this, null);
         Debug.Log("Profile update request sent");
 
-        //notificationText.text = "Profile updated successfully!";
+        StartCoroutine(WaitForProfileUpdateRequestCompletion());
+
+        Debug.Log("Profile update request completed");
     }
+
+    // Coroutine to wait for the profile view request completion
+    private IEnumerator WaitForProfileUpdateRequestCompletion()
+    {   
+        while (!requestManager.IsRequestCompleted)
+        {
+            yield return null; 
+        }
+
+        if (requestManager.IsRequestSuccessful)
+        {   
+            Debug.Log("Profile update successful");
+            notificationText.text = "";
+            profilePanel.SetActive(false);
+            mainMenuPanel.SetActive(true);
+        }
+        else
+        {  
+            Debug.Log("Profile update failed");
+            string errorMessage = requestManager.jsonResponse["message"];
+            notificationBar.SetActive(true);
+            notificationText.text = errorMessage;        
+        }
+    }
+
+    // Method to close the notification bar and direct into profile view
+    public void CloseNotificationBar()
+    {
+        notificationBar.SetActive(false);
+    }
+
 }
+
 
 [System.Serializable]
 public class PlayerProfileData
