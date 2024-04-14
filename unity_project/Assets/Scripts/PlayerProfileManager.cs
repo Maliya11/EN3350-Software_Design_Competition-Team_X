@@ -21,10 +21,18 @@ public class PlayerProfileManager : MonoBehaviour
     public GameObject profilePanel;
     public GameObject mainMenuPanel;
 
-    private void Start()
+    private bool isProfileInitialized = false;
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Profile Initialization and View
+
+    // Method to view player profile
+    public void ViewProfile()
     {
-        // Create a new instance of the RequestManager
-        requestManager = ScriptableObject.CreateInstance<RequestManager>();
+        InitializeProfile();
+        profilePanel.SetActive(true);
+        mainMenuPanel.SetActive(false);
     }
 
     // Method to initialize player profile view
@@ -32,6 +40,9 @@ public class PlayerProfileManager : MonoBehaviour
     {
         string profileViewURL = "http://20.15.114.131:8080/api/user/profile/view";
         string profileViewMethod = "GET";
+
+        // Create a new instance of the RequestManager
+        requestManager = ScriptableObject.CreateInstance<RequestManager>();
 
         requestManager.SendRequest(profileViewURL, profileViewMethod, null, this, null);
         StartCoroutine(WaitForProfileViewRequestCompletion());
@@ -42,15 +53,16 @@ public class PlayerProfileManager : MonoBehaviour
     // Coroutine to wait for the profile view request completion
     private IEnumerator WaitForProfileViewRequestCompletion()
     {   
-        while (!requestManager.IsRequestCompleted)
+        while (!requestManager.isRequestCompleted)
         {
             yield return null; 
         }
 
-        if (requestManager.IsRequestSuccessful)
+        if (requestManager.isRequestSuccessful)
         {
             OnProfileFetchSuccess(requestManager.jsonResponse);
             Debug.Log("Profile fetch successful");
+            isProfileInitialized = true;
         }
         else
         {
@@ -68,16 +80,9 @@ public class PlayerProfileManager : MonoBehaviour
         }
 
         PlayerProfileData profileData;
-        try
-        {
-            profileData = JsonUtility.FromJson<PlayerProfileData>(jsonResponse.ToString());
-        }
-        catch (System.Exception ex)
-        {
-            Debug.LogError("Failed to parse JSON response to PlayerProfileData: " + ex.Message);
-            return;
-        }
-
+        
+        profileData = JsonUtility.FromJson<PlayerProfileData>(jsonResponse.ToString());
+        
         if (profileData == null || profileData.user == null)
         {
             Debug.LogError("ProfileData or user data is null");
@@ -104,36 +109,37 @@ public class PlayerProfileManager : MonoBehaviour
     }
 
     // Method to check for missing fields
-    public bool IsMissingFields()
+    public IEnumerator IsMissingFields()
     {
         // Initialize Profile View
         InitializeProfile();
 
+        while (!isProfileInitialized)
+        {
+            yield return null;
+        }
+
         if (string.IsNullOrEmpty(firstNameInput.text) || string.IsNullOrEmpty(lastNameInput.text) || string.IsNullOrEmpty(nicInput.text) || string.IsNullOrEmpty(usernameInput.text) || string.IsNullOrEmpty(mobileNumberInput.text))
         {
-            return true;
+            yield return true;
         }
         else
         {
-            return false;
+            yield return false;
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Profile Update 
 
     // Method to update player profile with missing information
     public void UpdateProfile()
     {   
-        if (IsMissingFields())
-        {
-            notificationBar.SetActive(true);
-            notificationText.text = "Please fill in all the required fields";
-            Debug.Log("Missing fields");
-            return;
-        }
-
         string profileUpdateURL = "http://20.15.114.131:8080/api/user/profile/update";
         string profileUpdateMethod = "PUT";
 
-        UserData updtaedUserData = new UserData
+        UserData updatedUserData = new UserData
         {
             firstname = firstNameInput.text,
             lastname = lastNameInput.text,
@@ -143,7 +149,10 @@ public class PlayerProfileManager : MonoBehaviour
             email = emailInput.text
         };
 
-        string body = JsonUtility.ToJson(updtaedUserData);
+        string body = JsonUtility.ToJson(updatedUserData);
+
+        // Create a new instance of the RequestManager
+        requestManager = ScriptableObject.CreateInstance<RequestManager>(); 
 
         // Send the request to update the profile
         requestManager.SendRequest(profileUpdateURL, profileUpdateMethod, body, this, null);
@@ -157,12 +166,12 @@ public class PlayerProfileManager : MonoBehaviour
     // Coroutine to wait for the profile view request completion
     private IEnumerator WaitForProfileUpdateRequestCompletion()
     {   
-        while (!requestManager.IsRequestCompleted)
+        while (!requestManager.isRequestCompleted)
         {
             yield return null; 
         }
 
-        if (requestManager.IsRequestSuccessful)
+        if (requestManager.isRequestSuccessful)
         {   
             Debug.Log("Profile update successful");
             notificationText.text = "";
@@ -171,12 +180,15 @@ public class PlayerProfileManager : MonoBehaviour
         }
         else
         {  
+            // Error message will be displayed for missing fields, incorrect format
             Debug.Log("Profile update failed");
             string errorMessage = requestManager.jsonResponse["message"];
             notificationBar.SetActive(true);
             notificationText.text = errorMessage;        
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Method to close the notification bar and direct into profile view
     public void CloseNotificationBar()
@@ -185,7 +197,6 @@ public class PlayerProfileManager : MonoBehaviour
     }
 
 }
-
 
 [System.Serializable]
 public class PlayerProfileData

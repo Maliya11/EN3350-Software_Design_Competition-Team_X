@@ -10,40 +10,61 @@ public class MainMenuController : MonoBehaviour
 
     private void Start()
     {
-        // Create a new instance of the PlayerProfileManager
         playerProfile = FindObjectOfType<PlayerProfileManager>();
+
+        if (playerProfile == null)
+        {
+            Debug.LogError("PlayerProfileManager not found in the scene.");
+            return;
+        }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Play Game
 
     public void PlayGame()
     {
-        if (playerProfile == null)
-        {
-            Debug.LogError("PlayerProfileManager reference is missing.");
-            return;
-        }
-        
-        // Check if there are any missing fields in the player profile
-        if (playerProfile.IsMissingFields())
+        StartCoroutine(CheckAndHandleMissingFields());
+    }
+
+    private IEnumerator CheckAndHandleMissingFields()
+    {
+        yield return playerProfile.IsMissingFields();
+
+        bool isMissingFields = (bool)playerProfile.IsMissingFields().Current;
+
+        if (isMissingFields)
         {
             Debug.Log("Player profile is missing fields. Please fill in all the required fields before playing.");
-            // You can also display a message to the player about the missing fields, e.g., using a UI element
         }
         else
         {
             Debug.Log("All player profile fields are complete. Proceeding to play the game...");
-            // Add code here to load the game scene or perform other actions necessary to start the game
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Player Profile
 
     public void PlayerProfile()
     {
         Debug.Log("Player profile");
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Display Leaderboard
+
     public void Leaderboard()
     {
         Debug.Log("Leaderboard");
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Exit the game
 
     public void ExitGame()
     {
