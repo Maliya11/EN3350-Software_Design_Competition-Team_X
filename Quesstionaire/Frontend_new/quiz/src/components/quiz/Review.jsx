@@ -1,25 +1,25 @@
 import React from 'react';
 import './review.css';
 
-const Review = ({ data , player }) => {
+const Review = ({ questions , player }) => {
 
   const getSelectedAnswer = (questionNumber) => {
     const questionKey = `q${questionNumber}Ans`;
-    const selectedAnswerIndex = player[0][questionKey]; // Get the selected answer index
-    const selectedAnswer = data[questionNumber - 1]['ans' + selectedAnswerIndex]; // Get the selected answer text
+    const selectedAnswerIndex = player[questionKey]; // Get the selected answer index
+    const selectedAnswer = questions[questionNumber - 1]['ans' + selectedAnswerIndex]; // Get the selected answer text
     return selectedAnswer;
   };
 
   const getSelectedAnswerFeedback = (questionNumber) => {
-    const selectedAnswerIndex = player[0]['q' + questionNumber + 'Ans'];
-    return data[questionNumber - 1]['feed' + selectedAnswerIndex];
+    const selectedAnswerIndex = player['q' + questionNumber + 'Ans'];
+    return questions[questionNumber - 1]['feed' + selectedAnswerIndex];
   };
 
   return (
     <div className='reviewContainer'>
       <h1>Questionnaire Review</h1>
       <div className="questions">
-        {data.map((question, index) => (
+        {questions.map((question, index) => (
           <div key={index} className="questionBox">
             <div className="questionDetails">
               <h2>{index+1}.{question.q}</h2>
