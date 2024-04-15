@@ -35,17 +35,24 @@ public class PlayerService {
     }
 
     private boolean authenticate(String apiKey) {
+        // Create JSON object with the apiKey
+        String jsonBody = "{\"apiKey\":\"" + apiKey + "\"}";
+
         // Call MOCK API to validate API key and get token
         // Implement this logic using RestTemplate or WebClient
         // Return true if authentication is successful, false otherwise
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<String> requestEntity = new HttpEntity<>(apiKey, headers);
 
+        // Create HTTP entity with JSON body and headers
+        HttpEntity<String> requestEntity = new HttpEntity<>(jsonBody, headers);
+
+        // Specify the URL of the API endpoint
         String url = "http://20.15.114.131:8080/api/login";
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, requestEntity, String.class);
 
+        // Check if the response status code is 2xx (indicating success)
         return responseEntity.getStatusCode().is2xxSuccessful();
 
     }
