@@ -150,7 +150,7 @@ const Quiz = () => {
 
   return (
     <div className='conntainer'>
-        <h1>Questionnaire </h1>
+        <h1>Blitz Bolt - Questionnaire</h1>
         {result?<></>:<>
         <button className="top-right-button" onClick={next}>Next</button>
         <hr />

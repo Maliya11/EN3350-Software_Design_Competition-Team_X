@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'Black Chancery';
+    src: url('../../assets/Fonts/BlackChancery.ttf') format('truetype'); 
+}
+
 .conntainer{
     width: 800px;
     margin: auto;
@@ -17,6 +22,10 @@
     border: none;
     background: #707070;
 
+}
+
+.conntainer h1{
+    font-family: 'Black Chancery', cursive;
 }
 
 .conntainer h2{
