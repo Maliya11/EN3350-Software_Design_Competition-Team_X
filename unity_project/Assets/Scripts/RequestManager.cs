@@ -10,6 +10,7 @@ public class RequestManager : ScriptableObject
     public bool isRequestSuccessful { get; private set; }
     private string jwtToken;
     public JSONNode jsonResponse;
+    public long errorCode;
 
     // Method to send a request to the server
     public void SendRequest(string url, string method, string body, MonoBehaviour monoBehaviour, Dictionary<string, string> parameters = null)
@@ -80,9 +81,10 @@ public class RequestManager : ScriptableObject
             else
             {
                 string errorMessage = request.downloadHandler.text;
+                errorCode = request.responseCode;
                 isRequestSuccessful = false;
                 jsonResponse = JSON.Parse(errorMessage);
-                Debug.LogError("Request failed: " + jsonResponse.ToString());
+                Debug.Log("Request failed: " + jsonResponse.ToString());
             }
             
             isRequestCompleted = true;

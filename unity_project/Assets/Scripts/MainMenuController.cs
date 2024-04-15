@@ -13,13 +13,6 @@ public class MainMenuController : MonoBehaviour
     private void Start()
     {
         playerProfile = FindObjectOfType<PlayerProfileManager>();
-
-        if (playerProfile == null)
-        {
-            Debug.LogError("PlayerProfileManager not found in the scene.");
-            return;
-        }
-
         questionnaireManager = FindObjectOfType<QuestionnaireManager>();
     }
 
@@ -35,13 +28,20 @@ public class MainMenuController : MonoBehaviour
 
     private IEnumerator CheckAndHandleMissingFields()
     {
-        yield return playerProfile.IsMissingFields();
+        // Initialize the player profile
+        playerProfile.InitializeProfile();
 
-        bool isMissingFields = (bool)playerProfile.IsMissingFields().Current;
+        while (!playerProfile.isProfileInitialized)
+        {
+            yield return null;
+        }
+
+        bool isMissingFields = playerProfile.CheckAndPromptMissingFields();
 
         if (isMissingFields)
         {
             Debug.Log("Player profile is missing fields. Please fill in all the required fields before playing.");
+
         }
         else
         {

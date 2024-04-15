@@ -21,37 +21,55 @@ public class PlayerProfileManager : MonoBehaviour
     public GameObject profilePanel;
     public GameObject mainMenuPanel;
 
-    private bool isProfileInitialized = false;
+    public bool isProfileInitialized = false;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Profile Initialization and View
 
-    // Method to view player profile
+    /// Method to view player profile panel
     public void ViewProfile()
     {
-        InitializeProfile();
-        profilePanel.SetActive(true);
-        mainMenuPanel.SetActive(false);
+        StartCoroutine(ViewProfileCoroutine());
     }
 
-    // Method to initialize player profile view
+    private IEnumerator ViewProfileCoroutine()
+    {
+        InitializeProfile();
+
+        // Wait until the profile is initialized
+        while (!isProfileInitialized)
+        {
+            yield return null;
+        }
+
+        // Only show the profile panel if the request was successful and profile is initialized
+        if (isProfileInitialized)
+        {
+            profilePanel.SetActive(true);
+            mainMenuPanel.SetActive(false);
+        }
+
+        yield return null;
+    }
+
+    // Method to initialize player profile fetch
     public void InitializeProfile()
     {
-        string profileViewURL = "http://20.15.114.131:8080/api/user/profile/view";
-        string profileViewMethod = "GET";
+        string profileFetchURL = "http://20.15.114.131:8080/api/user/profile/view";
+        string profileFetchMethod = "GET";
 
         // Create a new instance of the RequestManager
         requestManager = ScriptableObject.CreateInstance<RequestManager>();
 
-        requestManager.SendRequest(profileViewURL, profileViewMethod, null, this, null);
-        StartCoroutine(WaitForProfileViewRequestCompletion());
+        requestManager.SendRequest(profileFetchURL, profileFetchMethod, null, this, null);
+        StartCoroutine(WaitForProfileFetchRequestCompletion());
 
         Debug.Log("Profile view request completed");
     }
 
-    // Coroutine to wait for the profile view request completion
-    private IEnumerator WaitForProfileViewRequestCompletion()
+    // Coroutine to wait for the profile fetch request completion
+    private IEnumerator WaitForProfileFetchRequestCompletion()
     {   
         while (!requestManager.isRequestCompleted)
         {
@@ -66,7 +84,8 @@ public class PlayerProfileManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Profile fetch failed");
+            Debug.Log("Profile fetch failed");
+            Debug.Log("Error code: " + requestManager.errorCode);
         }
     }
 
@@ -75,7 +94,7 @@ public class PlayerProfileManager : MonoBehaviour
     {
         if (jsonResponse == null)
         {
-            Debug.LogError("JSON Response is null");
+            Debug.Log("JSON Response is null");
             return;
         }
 
@@ -85,7 +104,7 @@ public class PlayerProfileManager : MonoBehaviour
         
         if (profileData == null || profileData.user == null)
         {
-            Debug.LogError("ProfileData or user data is null");
+            Debug.Log("ProfileData or user data is null");
             return;
         }
 
@@ -109,23 +128,18 @@ public class PlayerProfileManager : MonoBehaviour
     }
 
     // Method to check for missing fields
-    public IEnumerator IsMissingFields()
+    public bool CheckAndPromptMissingFields()
     {
-        // Initialize Profile View
-        InitializeProfile();
-
-        while (!isProfileInitialized)
-        {
-            yield return null;
-        }
-
         if (string.IsNullOrEmpty(firstNameInput.text) || string.IsNullOrEmpty(lastNameInput.text) || string.IsNullOrEmpty(nicInput.text) || string.IsNullOrEmpty(usernameInput.text) || string.IsNullOrEmpty(mobileNumberInput.text))
         {
-            yield return true;
+            notificationBar.SetActive(true);
+            string errorMessage = "Player profile is missing fields.\n Please fill in all the required fields before playing.";
+            notificationText.text = errorMessage;  
+            return true;
         }
         else
         {
-            yield return false;
+            return false;
         }
     }
 
