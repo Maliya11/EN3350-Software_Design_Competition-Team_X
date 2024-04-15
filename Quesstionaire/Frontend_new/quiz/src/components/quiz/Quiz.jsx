@@ -1,7 +1,5 @@
-import React, {useState,useRef,useEffect} from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 import './quiz.css'
-//import { data } from '../../assets/data';
-//import { player } from '../../assets/player';
 import Review from './Review';
 
 
@@ -43,7 +41,7 @@ const Quiz = () => {
             setScore(playerDetails.marks);
     
             // If all questions are completed, set result to true
-            if (playerDetails.completedQuestions >= 10) {
+            if (playerDetails.completedQuestions === 10) {
                 setResult(true);
                 return;
             }
