@@ -1,7 +1,19 @@
-import React from 'react';
+import React, {useState,useEffect} from 'react';
 import './review.css';
 
-const Review = ({ questions , player }) => {
+const Review = ({ player }) => {
+
+  let [questions, setQuestions] = useState([]);
+
+  useEffect(()=> {
+    fetch("http://13.51.6.225:8080/question/allQuestions")
+    
+    .then(res => res.json())
+    .then(result => {
+      setQuestions(result);
+    });
+
+  }, []);
 
   const getSelectedAnswer = (questionNumber) => {
     const questionKey = `q${questionNumber}Ans`;

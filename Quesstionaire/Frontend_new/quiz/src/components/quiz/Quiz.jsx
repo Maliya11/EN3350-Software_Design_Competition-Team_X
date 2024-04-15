@@ -43,19 +43,21 @@ const Quiz = () => {
             setScore(playerDetails.marks);
     
             // If all questions are completed, set result to true
-            if (playerDetails.completedQuestions === 10) {
+            if (playerDetails.completedQuestions >= 10) {
                 setResult(true);
                 return;
             }
-    
-            // Fetch all questions
-            return fetch("http://13.51.6.225:8080/question/allQuestions")
-            .then(res => res.json())
-            .then(result => {
-                setQuestions(result);
-                // Set current question
-                setQuestion(result[playerDetails.completedQuestions]);
-            });
+            
+            else{
+                // Fetch all questions
+                return fetch("http://13.51.6.225:8080/question/allQuestions")
+                .then(res => res.json())
+                .then(result => {
+                    setQuestions(result);
+                    // Set current question
+                    setQuestion(result[playerDetails.completedQuestions]);
+                });
+            }
         })
         .catch(error => console.error("Error fetching player details:", error));
     }, []);
@@ -171,11 +173,11 @@ const Quiz = () => {
         <div className='index'>{index+1} of 10 questions</div>
         </>}
         {result?<>
-        <h2>You Scored {score} out of {questions.length}</h2>
+        <h2>You Scored {score} out of 10</h2>
         <button onClick={reset}>PLAY GAME</button>
         <button onClick={toggleReview}>REVIEW</button>
         </>:<></>}
-        {showReview && <Review questions={questions} player={player}/>}
+        {showReview && <Review player={player}/>}
 
     </div>
     )
