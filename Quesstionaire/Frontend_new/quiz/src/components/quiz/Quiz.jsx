@@ -54,6 +54,7 @@ const Quiz = () => {
                     setQuestions(result);
                     // Set current question
                     setQuestion(result[playerDetails.completedQuestions]);
+                    setIndex(playerDetails.completedQuestions);
                 });
             }
         })

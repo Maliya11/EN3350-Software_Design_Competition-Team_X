@@ -14,14 +14,18 @@ const Review = ({player}) => {
     }, []);
 
   const getSelectedAnswer = (questionNumber) => {
-    const questionKey = `q${questionNumber}Ans`;
+    const questionKey = `q${questionNumber}_ans`;
+    console.log(questionKey);
     const selectedAnswerIndex = player[questionKey]; // Get the selected answer index
+    console.log("Selected answer index:", selectedAnswerIndex);
     const selectedAnswer = questions[questionNumber - 1]['ans' + selectedAnswerIndex]; // Get the selected answer text
+    console.log("Selected answer:", selectedAnswer);
     return selectedAnswer;
   };
 
   const getSelectedAnswerFeedback = (questionNumber) => {
-    const selectedAnswerIndex = player['q' + questionNumber + 'Ans'];
+    const questionKey = `q${questionNumber}_ans`;
+    const selectedAnswerIndex = player[questionKey];
     return questions[questionNumber - 1]['feed' + selectedAnswerIndex];
   };
 
