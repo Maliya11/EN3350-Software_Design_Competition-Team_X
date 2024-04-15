@@ -17,8 +17,9 @@ public class PlayerController {
     PlayerService playerService;
 
     @PostMapping("/authenticate")
-    public Map<String,Object> playerStateIdentify(@RequestBody String apiKey){
+    public Map<String,Object> playerStateIdentify(@RequestBody Map<String, String> requestBody){
         playerService.setPlayerStatesToZero();
+        String apiKey = requestBody.get("apiKey");
         boolean validKey = playerService.playerStateIdentify(apiKey);
         Player activePlayer = playerService.identifyActivePlayer();
         Integer completedQuestions = activePlayer.getCompletedQuestions();
