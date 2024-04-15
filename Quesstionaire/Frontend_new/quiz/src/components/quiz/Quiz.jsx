@@ -34,7 +34,7 @@ const Quiz = () => {
 
     useEffect(() => {
         // Fetch player details
-        fetch("http://13.48.24.237:8080/player/details")
+        fetch("http://13.53.187.203:8080/player/details") 
         .then(res => res.json())
         .then(playerDetails => {
             setPlayer(playerDetails);
@@ -48,7 +48,7 @@ const Quiz = () => {
             
             else{
                 // Fetch all questions
-                return fetch("http://13.48.24.237:8080/question/allQuestions")
+                return fetch("http://13.53.187.203:8080/question/allQuestions")
                 .then(res => res.json())
                 .then(result => {
                     setQuestions(result);
@@ -126,7 +126,7 @@ const Quiz = () => {
             const idNum = index + 1;
             const Q = {"qNum" : idNum , "selAns" : answer};
 
-            fetch("http://13.48.24.237:8080/player/answer",{
+            fetch("http://13.53.187.203:8080/player/answer",{
                 method:"POST",
                 headers:{"Content-Type":"application/json"},
                 body:JSON.stringify(Q)
