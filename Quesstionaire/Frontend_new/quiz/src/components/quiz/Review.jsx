@@ -6,7 +6,7 @@ const Review = ({player}) => {
   let [questions, setQuestions] = useState([]);
 
   useEffect(() => {
-    fetch("http://16.170.233.8:8080/question/allQuestions")
+    fetch("http://13.60.31.79:8080/question/allQuestions")
             .then(res => res.json())
             .then(result => {
                 setQuestions(result);
