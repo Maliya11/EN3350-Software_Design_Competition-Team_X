@@ -29,9 +29,12 @@ public class MainMenuController : MonoBehaviour
     private IEnumerator PlayGameCoroutine()
     {
         yield return playerProfile.CheckAndHandleMissingFields();
-        questionnaireManager.GetQuestionnaireStatus(0); // Argument 0 indicates that the request is from the Play Game button
+        yield return questionnaireManager.GetQuestionnaireStatus(0); // Argument 0 indicates that the request is from the Play Game button
         // Direct to the game scene
-        SceneManager.LoadScene("GameScene");
+        if (questionnaireManager.questionnaireStatus == 10 && playerProfile.isProfileCompleted)
+        {
+            SceneManager.LoadScene("GameScene");
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -70,7 +73,11 @@ public class MainMenuController : MonoBehaviour
     // Directing to the Questionnaire
     public void DirectToQuestionnaire()
     {
-        questionnaireManager.GetQuestionnaireStatus(1); // Argument 1 indicates that the request is from the Questionnaire button
-        Debug.Log("Questionnaire"); 
+        StartCoroutine(DirectToQuestionnaireCoroutine()); 
+    }
+
+    private IEnumerator DirectToQuestionnaireCoroutine()
+    {
+        yield return questionnaireManager.GetQuestionnaireStatus(1); // Argument 1 indicates that the request is from the Questionnaire button
     }
 }

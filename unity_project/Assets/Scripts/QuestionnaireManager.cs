@@ -9,13 +9,30 @@ public class QuestionnaireManager : MonoBehaviour
     // Reference to the RequestManager
     private RequestManager requestManager;
     
+    // URL related to the questionnaire web application
+    // URL directing the user to the questionnaire
+    private string questionnaireURL = "https://www.google.com/";
+
+    // URL to get the questionnaire status of the player from the database
+    string questionnaireStatusURL = "http://13.60.31.79:8080/player/authenticate";
+    string questionnaireStatusMethod = "POST";
+
+    // URL to get the marks obtained by the player in the questionnaire
+    string questionnaireMarksURL = "http://13.60.31.79:8080/player/details";
+    string questionnaireMarksMethod = "GET";
+
+    // URL to update the bonusGiven status in the database
+    string bonusPerksURL = "http://13.60.31.79:8080/player/bonus";
+    string bonusPerksMethod = "POST";
+
+
     private bool userValidity;
     /* User Validity:
      * true  - User is  a valid player in the database
      * false - User is not a valid player in the database
      */
 
-    private int questionnaireStatus;
+    public int questionnaireStatus;
     /* Questionnaire Status:
      * 0   - User has not completed the questionnaire         => Prompt user to complete the questionnaire
      * 1-9 - User has partially completed the questionnaire   => Prompt user to complete the questionnaire
@@ -40,12 +57,11 @@ public class QuestionnaireManager : MonoBehaviour
     public TextMeshProUGUI questionnaireButtonPressedText;
     public GameObject questionnaireButtonNormal;
     public GameObject questionnaireButtonPressed;
+    public GameObject mainMenuPanel;
 
     // Method to get the questionnaire status from the database
-    public void GetQuestionnaireStatus(int promptingOrigin)
+    public IEnumerator GetQuestionnaireStatus(int promptingOrigin)
     {
-        string questionnaireStatusURL = "http://16.170.233.8:8080/player/authenticate";
-        string questionnaireStatusMethod = "POST";
         string apiKey = "NjVjNjA0MGY0Njc3MGQ1YzY2MTcyMmNiOjY1YzYwNDBmNDY3NzBkNWM2NjE3MjJjMQ";
 
         // Create a new instance of the RequestManager
@@ -58,7 +74,7 @@ public class QuestionnaireManager : MonoBehaviour
 
         requestManager.SendRequest(questionnaireStatusURL, questionnaireStatusMethod, jsonBody, this, null);
 
-        StartCoroutine(WaitForQuestionnaireStatusRequestCompletion(promptingOrigin));
+        yield return StartCoroutine(WaitForQuestionnaireStatusRequestCompletion(promptingOrigin));
 
         Debug.Log("Questionnaire status request sent");
     }
@@ -78,7 +94,7 @@ public class QuestionnaireManager : MonoBehaviour
             questionnaireStatus = requestManager.jsonResponse["completedQuestions"];
             Debug.Log("User validity: " + userValidity);
             Debug.Log("Questionnaire status: " + questionnaireStatus);
-            PromptUser(promptingOrigin);
+            yield return PromptUser(promptingOrigin);
         }
         else
         {
@@ -87,7 +103,7 @@ public class QuestionnaireManager : MonoBehaviour
     }
 
     // Method to prompt the user based on the questionnaire status
-    private void PromptUser(int promptingOrigin)
+    private IEnumerator PromptUser(int promptingOrigin)
     {
         /* Prompting Origin:
          * 0  - Prompting user from the play button
@@ -99,17 +115,23 @@ public class QuestionnaireManager : MonoBehaviour
             if (questionnaireStatus < 10)
             {
                 Debug.Log("Prompting user to complete the questionnaire...");
-                notificationBar.SetActive(true);
+
+                OpenNotificationBar();
                 notificationText.text = "Explore the fundamentals of energy efficiency with questions on electricity generation, transmission, and usage.\n All users must complete the questionnaire before proceeding to the game.";
                 questionnaireButtonNormalText.text = "Fill the Questionnaire";
                 questionnaireButtonPressedText.text = "Fill the Questionnaire";
+
+                while (notificationBar.activeSelf)
+                {
+                    yield return null;
+                }
             }
             else
             {
                 if (promptingOrigin == 1)
                 {
                     Debug.Log("User has already completed the questionnaire");
-                    notificationBar.SetActive(true);
+                    OpenNotificationBar();
                     notificationText.text = "Explore the fundamentals of energy efficiency with questions on electricity generation, transmission, and usage.\n You have already completed the questionnaire.";
                     questionnaireButtonNormalText.text = "Review the Questionnaire";
                     questionnaireButtonPressedText.text = "Review the Questionnaire";
@@ -128,29 +150,35 @@ public class QuestionnaireManager : MonoBehaviour
         }
     }
 
+    // Mthod to open the notification bar
+    public void OpenNotificationBar()
+    {
+        mainMenuPanel.SetActive(false);
+        notificationBar.SetActive(true);
+        questionnaireButtonNormal.gameObject.SetActive(true);
+        questionnaireButtonPressed.gameObject.SetActive(false);
+    }
+
     // Method to direct the user to the questionnaire
     public void DirectToQuestionnaire()
     {
         Debug.Log("Directing user to the questionnaire...");
         questionnaireButtonNormal.gameObject.SetActive(false);
         questionnaireButtonPressed.gameObject.SetActive(true);
-        Application.OpenURL("https://www.google.com/");
+        Application.OpenURL(questionnaireURL);
+        CloseNotificationBar();
     }
 
     // Method to close the notification bar 
     public void CloseNotificationBar()
     {
         notificationBar.SetActive(false);
-        questionnaireButtonNormal.gameObject.SetActive(true);
-        questionnaireButtonPressed.gameObject.SetActive(false);
+        mainMenuPanel.SetActive(true);
     }
 
     // Method to get the marks obtained by the user in the questionnaire
     public void GetQuestionnaireMarks()
     {
-        string questionnaireMarksURL = "http://16.170.233.8:8080/player/details";
-        string questionnaireMarksMethod = "GET";
-
         // Create a new instance of the RequestManager
         requestManager = ScriptableObject.CreateInstance<RequestManager>();
 
@@ -189,11 +217,7 @@ public class QuestionnaireManager : MonoBehaviour
         {
             Debug.Log("Assigning bonus perks to the user...");
             PlayerPrefs.SetInt("questionnaireBonus", questionnaireMarks);
-            Debug.Log("Bonus perks assigned to the user");
-
-            // Update the bonusGiven status in the database
-            string bonusPerksURL = "http://16.170.233.8:8080/player/bonus";
-            string bonusPerksMethod = "POST";
+            Debug.Log("Bonus perks assigned to the user");    
 
             // Create the body of the request
             var requestBody = new JSONObject();
@@ -226,5 +250,4 @@ public class QuestionnaireManager : MonoBehaviour
             Debug.Log("Bonus given status update request failed");
         }
     }
-
 }

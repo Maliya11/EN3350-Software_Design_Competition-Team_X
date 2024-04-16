@@ -2705,12 +2705,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b70b34c73b8544b18aad968f2297362f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  questionnaireStatus: 0
   notificationBar: {fileID: 1111093373}
   notificationText: {fileID: 1233027591}
   questionnaireButtonNormalText: {fileID: 416365709}
   questionnaireButtonPressedText: {fileID: 1394366097}
   questionnaireButtonNormal: {fileID: 149886181}
   questionnaireButtonPressed: {fileID: 1207160388}
+  mainMenuPanel: {fileID: 307226547}
 --- !u!4 &908285533
 Transform:
   m_ObjectHideFlags: 0
@@ -4965,6 +4967,7 @@ MonoBehaviour:
   profilePanel: {fileID: 990156102}
   mainMenuPanel: {fileID: 307226547}
   isProfileInitialized: 0
+  isProfileCompleted: 0
 --- !u!4 &1413291896
 Transform:
   m_ObjectHideFlags: 0

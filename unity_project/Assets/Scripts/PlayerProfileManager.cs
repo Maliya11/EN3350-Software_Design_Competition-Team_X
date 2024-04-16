@@ -22,6 +22,7 @@ public class PlayerProfileManager : MonoBehaviour
     public GameObject mainMenuPanel;
 
     public bool isProfileInitialized = false;
+    public bool isProfileCompleted = false;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -162,6 +163,7 @@ public class PlayerProfileManager : MonoBehaviour
         }
         else
         {
+            isProfileCompleted = true;
             Debug.Log("All player profile fields are complete. Proceeding to play the game...");
         }
     }
@@ -231,7 +233,6 @@ public class PlayerProfileManager : MonoBehaviour
     {
         notificationBar.SetActive(false);
     }
-
 }
 
 // Data classes for player profile
