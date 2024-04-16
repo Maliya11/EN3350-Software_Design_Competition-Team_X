@@ -16,6 +16,12 @@ public class QuestionService {
 
     // Method to retrieve all questions from the database
     public List<Question> getAllQuestions() {
-        return questionDao.findAll();
+        try {
+            // Retrieve all questions from the database
+            return questionDao.findAll();
+        }catch (Exception e){
+            // Handle exceptions
+            throw new RuntimeException("An error occurred while retrieving questions.", e);
+        }
     }
 }
