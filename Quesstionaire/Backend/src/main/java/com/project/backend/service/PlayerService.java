@@ -184,4 +184,11 @@ public class PlayerService {
         player.setCompletedQuestions(player.getCompletedQuestions()+1);
         playerDao.save(player);
     }
+
+    public void playerBonusGiven(Integer bonusGiven) {
+        // Identify the active player
+        Player player = identifyActivePlayer();
+        player.setBonusGiven(bonusGiven);
+        playerDao.save(player);
+    }
 }

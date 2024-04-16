@@ -54,4 +54,15 @@ public class PlayerController {
         //increment the completed questions of the player by one
         playerService.incrementCompletedQuestion(player);
     }
+
+    @PostMapping("/bonus")
+    public void playerBonusGiven(@RequestBody Map<String, Integer> requestBody) {
+        // Extract bonusGiven value from request body
+        Integer bonusGiven = requestBody.get("bonusGiven");
+
+        // Update the player in the database
+        playerService.playerBonusGiven(bonusGiven);
+    }
+
+
 }

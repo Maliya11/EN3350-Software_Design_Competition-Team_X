@@ -10,7 +10,6 @@ public class Player {
 
     @Id
     private String apiKey;
-    private Integer playerState;
     private Integer q1_ans;
     private Integer q2_ans;
     private Integer q3_ans;
@@ -23,8 +22,7 @@ public class Player {
     private Integer q10_ans;
     private Integer marks;
     private Integer completedQuestions;
-
-
-
+    private Integer playerState;
+    private Integer bonusGiven;
 
 }
