@@ -98,16 +98,16 @@ const Quiz = () => {
         }
     }
 
-    const reset = ()=>{
-        setIndex(0);
-        setQuestion(questions[0]);
-        setScore(0);
-        setLock(false);
-        setResult(false);
-        setFeedback(false);
-        setAnswer(0);
-        setShowReview(false);
-    }
+    // const reset = ()=>{
+    //     setIndex(0);
+    //     setQuestion(questions[0]);
+    //     setScore(0);
+    //     setLock(false);
+    //     setResult(false);
+    //     setFeedback(false);
+    //     setAnswer(0);
+    //     setShowReview(false);
+    // }
 
     const submit = (e) => {
         if (submitDisabled==false){
@@ -173,7 +173,7 @@ const Quiz = () => {
         </>}
         {result?<>
         <h2>You Scored {score} out of 10</h2>
-        <button onClick={reset}>PLAY GAME</button>
+        <h2 style={{ fontSize: '25px' }} className="center-text">Now you can play the game</h2>
         <button onClick={toggleReview}>REVIEW</button>
         </>:<></>}
         {showReview && <Review player={player}/>}

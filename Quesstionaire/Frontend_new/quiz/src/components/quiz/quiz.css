@@ -33,6 +33,11 @@
     font-weight: 500;
 }
 
+.center-text {
+    text-align: center;
+    font-family: Fantasy;
+}
+
 .conntainer ul li{
     display: flex;
     align-self: center;
