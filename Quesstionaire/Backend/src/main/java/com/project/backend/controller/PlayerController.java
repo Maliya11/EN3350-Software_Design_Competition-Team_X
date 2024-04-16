@@ -13,22 +13,24 @@ import java.util.Map;
 @CrossOrigin
 public class PlayerController {
 
+    // Autowiring PlayerService to interact with player-related operations
     @Autowired
     PlayerService playerService;
 
+    // Endpoint to authenticate players from Unity
     @PostMapping("/authenticate")
     public Map<String,Object> playerStateIdentify(@RequestBody Map<String, String> requestBody){
-        //set all player states to zero(as not playing)
+        // Set all player states to zero (not playing)
         playerService.setPlayerStatesToZero();
 
-        //get the apiKey seperately as a string
+        // Get the apiKey from the request body
         String apiKey = requestBody.get("apiKey");
 
-        //Identify or register player and set player state as active(playing)
+        // Identify or register player and set player state as active (playing)
         boolean validKey = playerService.playerStateIdentify(apiKey);
         Player activePlayer = playerService.identifyActivePlayer();
 
-        //Send to unity whether the apiKey is valid and number of questions that the player have completed
+        // Prepare response to Unity containing whether the apiKey is valid and number of completed questions
         Integer completedQuestions = activePlayer.getCompletedQuestions();
         Map<String, Object> response = new HashMap<>();
         response.put("validKey", validKey);
@@ -36,25 +38,27 @@ public class PlayerController {
         return response;
     }
 
+    // Endpoint to retrieve details of the current player
     @GetMapping("/details")
     public Player sendPlayerDetails(){
-        //getting the details of the current player
         return playerService.identifyActivePlayer();
     }
 
 
+    // Endpoint to submit the selected answer from frontend
     @PostMapping("/answer")
     public void playerAnswerSubmit(@RequestBody AnswerUpdateRequest request){
-        //identify the active player
+        //Identify the active player
         Player player = playerService.identifyActivePlayer();
 
-        //save the submitted answer in the player table
+        //Save the submitted answer in the player table
         playerService.playerAnswerSubmit(request.getqNum(), request.getSelAns());
 
-        //increment the completed questions of the player by one
+        //Increment the completed questions of the player by one
         playerService.incrementCompletedQuestion(player);
     }
 
+    // Endpoint to set the bonus given state of the player
     @PostMapping("/bonus")
     public void playerBonusGiven(@RequestBody Map<String, Integer> requestBody) {
         // Extract bonusGiven value from request body

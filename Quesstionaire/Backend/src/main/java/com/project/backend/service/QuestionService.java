@@ -10,10 +10,11 @@ import java.util.List;
 @Service
 public class QuestionService {
 
+    // Autowiring QuestionDao to interact with question-related data
     @Autowired
     QuestionDao questionDao;
 
-    //Getting all questions from the database
+    // Method to retrieve all questions from the database
     public List<Question> getAllQuestions() {
         return questionDao.findAll();
     }

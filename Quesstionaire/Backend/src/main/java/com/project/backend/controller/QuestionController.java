@@ -12,12 +12,11 @@ import java.util.List;
 @CrossOrigin
 public class QuestionController {
 
-    //This is the controller class where http requests are handled
-
+    // Autowiring QuestionService to interact with question-related operations
     @Autowired
     QuestionService questionService;
 
-    //To get all the questions from the database in JASON format
+    // Endpoint to retrieve all questions from the database in JSON format
     @RequestMapping("allQuestions")
     public List<Question> getAllQuestions(){
         return questionService.getAllQuestions();

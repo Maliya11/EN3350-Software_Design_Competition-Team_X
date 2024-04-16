@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PlayerDao extends JpaRepository<Player, String> {
-    //accessing the player table in the database
+    //Accessing the player table in the database
 }
