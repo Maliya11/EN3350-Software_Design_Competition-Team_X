@@ -9,6 +9,22 @@ public class PlayerProfileManager : MonoBehaviour
     // Reference to the RequestManager
     private RequestManager requestManager; 
 
+
+    // URL related to the player information
+    // URL to fetch the player profile
+    private string profileFetchURL = "http://20.15.114.131:8080/api/user/profile/view";
+    private string profileFetchMethod = "GET";
+
+    // URL to update the player profile
+    private string profileUpdateURL = "http://20.15.114.131:8080/api/user/profile/update";
+    private string profileUpdateMethod = "PUT";
+
+
+    // Flags to check if the profile is initialized and completed
+    public bool isProfileInitialized { get; private set;}
+    public bool isProfileCompleted { get; private set;}
+
+
     // UI elements
     public InputField firstNameInput;
     public InputField lastNameInput;
@@ -21,10 +37,6 @@ public class PlayerProfileManager : MonoBehaviour
     public GameObject profilePanel;
     public GameObject mainMenuPanel;
 
-    public bool isProfileInitialized { get; private set;}
-    public bool isProfileCompleted { get; private set;}
-
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private void Start()
     {
@@ -64,9 +76,6 @@ public class PlayerProfileManager : MonoBehaviour
     // Method to initialize player profile fetch
     public void InitializeProfile()
     {
-        string profileFetchURL = "http://20.15.114.131:8080/api/user/profile/view";
-        string profileFetchMethod = "GET";
-
         // Create a new instance of the RequestManager
         requestManager = ScriptableObject.CreateInstance<RequestManager>();
 
@@ -183,9 +192,6 @@ public class PlayerProfileManager : MonoBehaviour
     // Method to update player profile with missing information
     public void UpdateProfile()
     {   
-        string profileUpdateURL = "http://20.15.114.131:8080/api/user/profile/update";
-        string profileUpdateMethod = "PUT";
-
         UserData updatedUserData = new UserData
         {
             firstname = firstNameInput.text,

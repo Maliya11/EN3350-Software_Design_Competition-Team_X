@@ -14,6 +14,7 @@ public class BonusPerks : MonoBehaviour
     private void Start()
     {
         bonusPerks = PlayerPrefs.GetInt("questionnaireBonus");
+        Debug.Log("Bonus Perks: " + bonusPerks);
         bonusPerksPanelText.text = "Questionnaire Perks: " + bonusPerks;
         bonusPerksPanelText.fontStyle = FontStyles.Bold;
     }

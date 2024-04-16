@@ -6,15 +6,19 @@ using System.Collections;
 
 public class LoadingScene : MonoBehaviour
 {
-    public GameObject LoadingScreen;
-    public Slider slider;
+    // Reference to the AuthenticationManager instance
+    private AuthenticationManager authenticationManager;
+
 
     // Adjust the loading time
     public float adjustLoadingTime = 1f;
     private float target;
 
-    // Reference to the AuthenticationManager instance
-    private AuthenticationManager authenticationManager;
+
+    // UI Elements
+    public GameObject LoadingScreen;
+    public Slider slider;
+
 
     // Method to load a scene asynchronously
     public void LoadScene(int sceneID)
@@ -38,12 +42,9 @@ public class LoadingScene : MonoBehaviour
     // Coroutine to authenticate the user and load the main menu scene
     private IEnumerator AuthenticateAndLoadMainMenu(int sceneID)
     {     
-        // API key for authentication
-        string apiKey = "NjVjNjA0MGY0Njc3MGQ1YzY2MTcyMmNiOjY1YzYwNDBmNDY3NzBkNWM2NjE3MjJjMQ";
-
         // Call Authenticate method from AuthenticationManager
         authenticationManager = ScriptableObject.CreateInstance<AuthenticationManager>();
-        authenticationManager.Authenticate(apiKey, this);
+        authenticationManager.Authenticate(this);
 
         LoadingScreen.SetActive(true);
 

@@ -9,21 +9,22 @@ public class QuestionnaireManager : MonoBehaviour
     // Reference to the RequestManager
     private RequestManager requestManager;
     
+
     // URL related to the questionnaire web application
     // URL directing the user to the questionnaire
     private string questionnaireURL = "http://16.171.63.59:5173/";
 
     // URL to get the questionnaire status of the player from the database
-    string questionnaireStatusURL = "http://13.60.31.79:8080/player/authenticate";
-    string questionnaireStatusMethod = "POST";
+    private string questionnaireStatusURL = "http://13.60.31.79:8080/player/authenticate";
+    private string questionnaireStatusMethod = "POST";
 
     // URL to get the marks obtained by the player in the questionnaire
-    string questionnaireMarksURL = "http://13.60.31.79:8080/player/details";
-    string questionnaireMarksMethod = "GET";
+    private string questionnaireMarksURL = "http://13.60.31.79:8080/player/details";
+    private string questionnaireMarksMethod = "GET";
 
     // URL to update the bonusGiven status in the database
-    string bonusPerksURL = "http://13.60.31.79:8080/player/bonus";
-    string bonusPerksMethod = "POST";
+    private string bonusPerksURL = "http://13.60.31.79:8080/player/bonus";
+    private string bonusPerksMethod = "POST";
 
 
     private bool userValidity;
@@ -50,6 +51,7 @@ public class QuestionnaireManager : MonoBehaviour
      * 1 - Bonus perks have been given to the user
      */
 
+
     // UI elements
     public GameObject notificationBar;
     public TextMeshProUGUI notificationText;
@@ -59,10 +61,11 @@ public class QuestionnaireManager : MonoBehaviour
     public GameObject questionnaireButtonPressed;
     public GameObject mainMenuPanel;
 
+
     // Method to get the questionnaire status from the database
     public IEnumerator GetQuestionnaireStatus(int promptingOrigin)
     {
-        string apiKey = "NjVjNjA0MGY0Njc3MGQ1YzY2MTcyMmNiOjY1YzYwNDBmNDY3NzBkNWM2NjE3MjJjMQ";
+        string apiKey = PlayerPrefs.GetString("apiKey");
 
         // Create a new instance of the RequestManager
         requestManager = ScriptableObject.CreateInstance<RequestManager>();
@@ -216,7 +219,10 @@ public class QuestionnaireManager : MonoBehaviour
         if (bonusGiven == 0)
         {
             Debug.Log("Assigning bonus perks to the user...");
+
+            // Set the bonus perks in the PlayerPrefs
             PlayerPrefs.SetInt("questionnaireBonus", questionnaireMarks);
+            PlayerPrefs.Save();
             Debug.Log("Bonus perks assigned to the user");    
 
             // Create the body of the request

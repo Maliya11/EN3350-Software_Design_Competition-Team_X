@@ -7,17 +7,26 @@ using System.Collections.Generic;
 // Represents an authentication manager responsible for handling authentication requests
 public class AuthenticationManager : ScriptableObject
 {
+    // API key to authenticate with the server
+    private string apiKey = "NjVjNjA0MGY0Njc3MGQ1YzY2MTcyMmNiOjY1YzYwNDBmNDY3NzBkNWM2NjE3MjJjMQ";
+
+
     // Property to check if the authentication process is completed
     public bool IsAuthenticated { get; private set; }
 
-    // Constructor to initialize properties
-    private AuthenticationManager()
+
+    // Method to initialize properties
+    private void OnEnable()
     {
+        // Set the API key in the PlayerPrefs
+        PlayerPrefs.SetString("apiKey", apiKey);
+        PlayerPrefs.Save();
+
         IsAuthenticated = false;
     }
 
     // Method to authenticate with the server using the provided API key
-    public void Authenticate(string apiKey, MonoBehaviour monoBehaviour)
+    public void Authenticate(MonoBehaviour monoBehaviour)
     {
         // Start the coroutine
         monoBehaviour.StartCoroutine(AuthenticateCoroutine(apiKey));

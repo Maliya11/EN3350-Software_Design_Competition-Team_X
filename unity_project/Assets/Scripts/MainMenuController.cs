@@ -12,6 +12,7 @@ public class MainMenuController : MonoBehaviour
     // Reference to the LoadingScene
     private LoadingScene loadingScene;
 
+
     private void Start()
     {
         playerProfile = FindObjectOfType<PlayerProfileManager>();
@@ -56,9 +57,10 @@ public class MainMenuController : MonoBehaviour
     public void ExitGame()
     {
         Debug.Log("Exit Game");
-        // Remove the JWT token from the PlayerPrefs
+        // Remove the apiKey and jwtToken from PlayerPrefs 
+        PlayerPrefs.DeleteKey("apiKey");
         PlayerPrefs.DeleteKey("jwtToken");
-        Debug.Log("JWT Token removed from PlayerPrefs");
+        Debug.Log("Saved data removed from PlayerPrefs");
         SceneManager.LoadScene("LoginScene");
     }
 
