@@ -4,7 +4,7 @@
 }
 
 .conntainer{
-    width: 800px;
+    width: 700px;
     margin: auto;
     margin-top: 100px;
     background: rgb(238, 243, 247);
@@ -49,7 +49,7 @@
     margin: auto;
     width: 250px;
     height: 50px;
-    background: #553f9a;
+    background: linear-gradient(rgb(0, 0, 163),Black);
     color: #fff;
     font-size: 20px;
     font-weight: 500;
@@ -60,7 +60,7 @@
 .conntainer .top-right-button{
     position: absolute;
     top: 130px;
-    right: 275px;
+    right: 325px;
 }
 
 .conntainer .index{
@@ -69,15 +69,18 @@
 }
 
 .conntainer .correct{
-    background: #a3ffda;
+    background: rgb(1, 63, 1);
     border-color: #00d397;
+    color: #fff;
 }
 
 .conntainer .wrong{
-    background: #fd9e9e;
+    background: rgb(118, 11, 11);
     border-color: #ff4a4a;
+    color: #fff;
 }
 
 .conntainer ul li.selected {
-    background: #7d9be0;
+    background: linear-gradient(#555a67,rgb(0, 0, 163));
+    color: #fff;
 }
