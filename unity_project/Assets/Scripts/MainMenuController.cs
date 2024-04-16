@@ -1,36 +1,74 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
+    // Reference to the PlayerProfileManager
+    private PlayerProfileManager playerProfile;
+    // Reference to the QuestionnaireManager
+    private QuestionnaireManager questionnaireManager;
 
-    //private RequestManager requestManager; // Reference to the RequestManager
-    private PlayerProfileManager playerProfile; // Reference to the PlayerProfileManager
-
-    public void PlayGame(){
-        Debug.Log("Play game");
+    private void Start()
+    {
+        playerProfile = FindObjectOfType<PlayerProfileManager>();
+        questionnaireManager = FindObjectOfType<QuestionnaireManager>();
     }
 
-    public void PlayerProfile(){
-        Debug.Log("Player profile");
-/* 
-        requestManager = ScriptableObject.CreateInstance<RequestManager>();
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        string url = "http://20.15.114.131:8080/api/user/profile/view";
-        string method = "GET";
+    // Play Game
 
-        requestManager.SendRequest(url, method, null, this); */
-
-        //playerProfile = ScriptableObject.CreateInstance<PlayerProfileManager>();
-
+    public void PlayGame()
+    {
+        Debug.Log("Play Game");
+        StartCoroutine(PlayGameCoroutine());
     }
 
-    public void Leaderboard(){
+    private IEnumerator PlayGameCoroutine()
+    {
+        yield return StartCoroutine(playerProfile.CheckAndHandleMissingFields());
+        yield return StartCoroutine(questionnaireManager.GetQuestionnaireStatus(0)); // Argument 0 indicates that the request is from the Play Game button
+        // Direct to the game scene
+        if (questionnaireManager.questionnaireStatus == 10 && playerProfile.isProfileCompleted)
+        {
+            SceneManager.LoadScene("GameScene");
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Display Leaderboard
+
+    public void Leaderboard()
+    {
         Debug.Log("Leaderboard");
     }
 
-    public void ExitGame(){
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Exit the game
+
+    public void ExitGame()
+    {
         Debug.Log("Exit Game");
+        // Remove the JWT token from the PlayerPrefs
+        PlayerPrefs.DeleteKey("jwtToken");
+        Debug.Log("JWT Token removed from PlayerPrefs");
+        SceneManager.LoadScene("LoginScene");
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Directing to the Questionnaire
+    public void DirectToQuestionnaire()
+    {
+        StartCoroutine(DirectToQuestionnaireCoroutine()); 
+    }
+
+    private IEnumerator DirectToQuestionnaireCoroutine()
+    {
+        yield return questionnaireManager.GetQuestionnaireStatus(1); // Argument 1 indicates that the request is from the Questionnaire button
     }
 }
