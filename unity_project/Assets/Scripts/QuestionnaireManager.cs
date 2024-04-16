@@ -11,8 +11,8 @@ public class QuestionnaireManager : MonoBehaviour
     
     private bool userValidity;
     /* User Validity:
-     * true  - User is valid
-     * false - User is invalid
+     * true  - User is  a valid player in the database
+     * false - User is not a valid player in the database
      */
 
     private int questionnaireStatus;
@@ -31,7 +31,7 @@ public class QuestionnaireManager : MonoBehaviour
     // Method to get the questionnaire status from the database
     public void GetQuestionnaireStatus()
     {
-        string questionnaireStatusURL = "http://13.51.6.225:8080/player/authenticate";
+        string questionnaireStatusURL = "http://16.170.233.8:8080/player/authenticate";
         string questionnaireStatusMethod = "POST";
         string apiKey = "NjVjNjA0MGY0Njc3MGQ1YzY2MTcyMmNiOjY1YzYwNDBmNDY3NzBkNWM2NjE3MjJjMQ";
 
@@ -101,11 +101,6 @@ public class QuestionnaireManager : MonoBehaviour
         questionnaireButtonNormal.gameObject.SetActive(false);
         questionnaireButtonPressed.gameObject.SetActive(true);
         Application.OpenURL("https://www.google.com/");
-    }
-
-    private IEnumerator ResetQuestionnaireButton()
-    {
-        yield return new WaitForSeconds(3);
     }
 
     // Method to close the notification bar 

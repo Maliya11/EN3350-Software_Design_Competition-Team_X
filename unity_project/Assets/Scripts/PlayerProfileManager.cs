@@ -127,19 +127,44 @@ public class PlayerProfileManager : MonoBehaviour
         Debug.Log("Profile data: " + firstName + " " + lastName + " " + nic + " " + username + " " + mobileNumber + " " + email);
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Profile Validation
+
     // Method to check for missing fields
-    public bool CheckAndPromptMissingFields()
+    public IEnumerator CheckAndHandleMissingFields()
     {
-        if (string.IsNullOrEmpty(firstNameInput.text) || string.IsNullOrEmpty(lastNameInput.text) || string.IsNullOrEmpty(nicInput.text) || string.IsNullOrEmpty(usernameInput.text) || string.IsNullOrEmpty(mobileNumberInput.text))
+        // Initialize the player profile
+        InitializeProfile();
+
+        while (!isProfileInitialized)
         {
+            yield return null;
+        }
+
+        bool isMissingFields = string.IsNullOrEmpty(firstNameInput.text) || string.IsNullOrEmpty(lastNameInput.text) || string.IsNullOrEmpty(nicInput.text) || string.IsNullOrEmpty(usernameInput.text) || string.IsNullOrEmpty(mobileNumberInput.text);
+        
+        if (isMissingFields)
+        {
+            Debug.Log("Player profile is missing fields. Please fill in all the required fields before playing.");
             notificationBar.SetActive(true);
-            string errorMessage = "Player profile is missing fields.\n Please fill in all the required fields before playing.";
+            string errorMessage = "Player profile is missing information.\n Please fill in all the required fields before playing.";
             notificationText.text = errorMessage;  
-            return true;
+            while (notificationBar.activeSelf)
+            {
+                yield return null;
+            }
+
+            ViewProfile();
+
+            while (profilePanel.activeSelf)
+            {
+                yield return null;
+            }
         }
         else
         {
-            return false;
+            Debug.Log("All player profile fields are complete. Proceeding to play the game...");
         }
     }
 

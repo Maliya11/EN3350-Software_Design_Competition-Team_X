@@ -22,31 +22,14 @@ public class MainMenuController : MonoBehaviour
 
     public void PlayGame()
     {
-        StartCoroutine(CheckAndHandleMissingFields());
-        questionnaireManager.GetQuestionnaireStatus();
+        Debug.Log("Play Game");
+        StartCoroutine(PlayGameCoroutine());
     }
 
-    private IEnumerator CheckAndHandleMissingFields()
+    private IEnumerator PlayGameCoroutine()
     {
-        // Initialize the player profile
-        playerProfile.InitializeProfile();
-
-        while (!playerProfile.isProfileInitialized)
-        {
-            yield return null;
-        }
-
-        bool isMissingFields = playerProfile.CheckAndPromptMissingFields();
-
-        if (isMissingFields)
-        {
-            Debug.Log("Player profile is missing fields. Please fill in all the required fields before playing.");
-
-        }
-        else
-        {
-            Debug.Log("All player profile fields are complete. Proceeding to play the game...");
-        }
+        yield return playerProfile.CheckAndHandleMissingFields();
+        questionnaireManager.GetQuestionnaireStatus();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -77,5 +60,13 @@ public class MainMenuController : MonoBehaviour
         // Remove the JWT token from the PlayerPrefs
         PlayerPrefs.DeleteKey("jwtToken");
         Debug.Log("JWT Token removed from PlayerPrefs");
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Directing to the Questionnaire
+    public void DirectToQuestionnaire()
+    {
+        Debug.Log("Questionnaire");
     }
 }
