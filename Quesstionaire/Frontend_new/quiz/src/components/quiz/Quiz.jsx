@@ -60,10 +60,6 @@ const Quiz = () => {
         })
         .catch(error => console.error("Error fetching player details:", error));
     }, []);
-    
-    
-    
-    
 
     const checkAns = (e,ans) => {
         if (lock===false){
@@ -97,17 +93,6 @@ const Quiz = () => {
             })
         }
     }
-
-    // const reset = ()=>{
-    //     setIndex(0);
-    //     setQuestion(questions[0]);
-    //     setScore(0);
-    //     setLock(false);
-    //     setResult(false);
-    //     setFeedback(false);
-    //     setAnswer(0);
-    //     setShowReview(false);
-    // }
 
     const submit = (e) => {
         if (submitDisabled==false){
@@ -151,36 +136,40 @@ const Quiz = () => {
   return (
     <div className='conntainer'>
         <h1>Blitz Bolt - Questionnaire</h1>
-        {result?<></>:<>
-        <button className="top-right-button" onClick={next}>Next</button>
-        <hr />
-        <h2>{index+1}.{question.q}</h2>
-        <ul>
-            <li ref={Option1} onClick={(e)=>{checkAns(e,1)}}>{question.ans1}</li>
-            <li ref={Option2} onClick={(e)=>{checkAns(e,2)}}>{question.ans2}</li>
-            <li ref={Option3} onClick={(e)=>{checkAns(e,3)}}>{question.ans3}</li>
-            <li ref={Option4} onClick={(e)=>{checkAns(e,4)}}>{question.ans4}</li>
-        </ul>
-        <button onClick={submit}>Submit</button>
-        {feedback?<>
-        <div>
-            <p>{question.genFeed}</p>
-            {/* <p>{feed_array[answer-1]}</p> */}
-            <div style={{ color: 'rgb(161, 78, 78)' }}>{question[`feed${answer}`]}</div>
-        </div>
-        </>:<></>}
-        <div className='index'>{index+1} of 10 questions</div>
-        </>}
+
         {result?<>
-        <h2>You Scored {score} out of 10</h2>
-        <h2 style={{ fontSize: '25px' }} className="center-text">Now you can play the game</h2>
-        <button onClick={toggleReview}>REVIEW</button>
-        </>:<></>}
+            <h2>You Scored {score} out of 10</h2>
+            <h2 style={{ fontSize: '25px' }} className="center-text">Now you can play the game</h2>
+            <button onClick={toggleReview}>REVIEW</button>
+
+        </>:<>
+            <hr />
+            <h2>{index+1}.{question.q}</h2>
+            <ul>
+                <li ref={Option1} onClick={(e)=>{checkAns(e,1)}}>{question.ans1}</li>
+                <li ref={Option2} onClick={(e)=>{checkAns(e,2)}}>{question.ans2}</li>
+                <li ref={Option3} onClick={(e)=>{checkAns(e,3)}}>{question.ans3}</li>
+                <li ref={Option4} onClick={(e)=>{checkAns(e,4)}}>{question.ans4}</li>
+            </ul>
+        
+            {feedback?<>
+                <div>
+                    <p>{question.genFeed}</p>
+                    <div style={{ color: 'rgb(161, 78, 78)' }}>{question[`feed${answer}`]}</div>
+                </div>
+                <button onClick={next}>Next</button>
+
+            </>:<>
+                <button onClick={submit}>Submit</button>
+            </>}
+
+            <div className='index'>{index+1} of 10 questions</div>
+        </>}
+
         {showReview && <Review player={player}/>}
 
     </div>
     )
 }
-    
 
 export default Quiz
