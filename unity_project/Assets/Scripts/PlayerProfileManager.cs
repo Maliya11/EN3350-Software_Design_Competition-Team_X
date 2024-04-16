@@ -37,7 +37,6 @@ public class PlayerProfileManager : MonoBehaviour
     {
         InitializeProfile();
 
-        // Wait until the profile is initialized
         while (!isProfileInitialized)
         {
             yield return null;
@@ -108,7 +107,6 @@ public class PlayerProfileManager : MonoBehaviour
             return;
         }
 
-        // Accessing user properties
         string firstName = profileData.user.firstname;
         string lastName = profileData.user.lastname;
         string nic = profileData.user.nic;
@@ -193,7 +191,6 @@ public class PlayerProfileManager : MonoBehaviour
         // Create a new instance of the RequestManager
         requestManager = ScriptableObject.CreateInstance<RequestManager>(); 
 
-        // Send the request to update the profile
         requestManager.SendRequest(profileUpdateURL, profileUpdateMethod, body, this, null);
         Debug.Log("Profile update request sent");
 
@@ -219,7 +216,7 @@ public class PlayerProfileManager : MonoBehaviour
         }
         else
         {  
-            // Error message will be displayed for missing fields, incorrect format
+            // Error message will be displayed for missing fields and incorrect format
             Debug.Log("Profile update failed");
             string errorMessage = requestManager.jsonResponse["message"];
             notificationBar.SetActive(true);
@@ -237,6 +234,7 @@ public class PlayerProfileManager : MonoBehaviour
 
 }
 
+// Data classes for player profile
 [System.Serializable]
 public class PlayerProfileData
 {

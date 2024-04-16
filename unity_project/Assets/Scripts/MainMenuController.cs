@@ -29,7 +29,9 @@ public class MainMenuController : MonoBehaviour
     private IEnumerator PlayGameCoroutine()
     {
         yield return playerProfile.CheckAndHandleMissingFields();
-        questionnaireManager.GetQuestionnaireStatus();
+        questionnaireManager.GetQuestionnaireStatus(0); // Argument 0 indicates that the request is from the Play Game button
+        // Direct to the game scene
+        SceneManager.LoadScene("GameScene");
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -60,6 +62,7 @@ public class MainMenuController : MonoBehaviour
         // Remove the JWT token from the PlayerPrefs
         PlayerPrefs.DeleteKey("jwtToken");
         Debug.Log("JWT Token removed from PlayerPrefs");
+        SceneManager.LoadScene("LoginScene");
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -67,6 +70,7 @@ public class MainMenuController : MonoBehaviour
     // Directing to the Questionnaire
     public void DirectToQuestionnaire()
     {
-        Debug.Log("Questionnaire");
+        questionnaireManager.GetQuestionnaireStatus(1); // Argument 1 indicates that the request is from the Questionnaire button
+        Debug.Log("Questionnaire"); 
     }
 }
