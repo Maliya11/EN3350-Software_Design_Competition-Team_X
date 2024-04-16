@@ -11,7 +11,7 @@ public class QuestionnaireManager : MonoBehaviour
     
     // URL related to the questionnaire web application
     // URL directing the user to the questionnaire
-    private string questionnaireURL = "https://www.google.com/";
+    private string questionnaireURL = "http://16.171.63.59:5173/";
 
     // URL to get the questionnaire status of the player from the database
     string questionnaireStatusURL = "http://13.60.31.79:8080/player/authenticate";

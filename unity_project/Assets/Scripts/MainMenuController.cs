@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 public class MainMenuController : MonoBehaviour
 {
     // Reference to the PlayerProfileManager
-    public PlayerProfileManager playerProfile;
+    private PlayerProfileManager playerProfile;
     // Reference to the QuestionnaireManager
-    public QuestionnaireManager questionnaireManager;
+    private QuestionnaireManager questionnaireManager;
 
     private void Start()
     {
@@ -28,22 +28,13 @@ public class MainMenuController : MonoBehaviour
 
     private IEnumerator PlayGameCoroutine()
     {
-        yield return playerProfile.CheckAndHandleMissingFields();
-        yield return questionnaireManager.GetQuestionnaireStatus(0); // Argument 0 indicates that the request is from the Play Game button
+        yield return StartCoroutine(playerProfile.CheckAndHandleMissingFields());
+        yield return StartCoroutine(questionnaireManager.GetQuestionnaireStatus(0)); // Argument 0 indicates that the request is from the Play Game button
         // Direct to the game scene
         if (questionnaireManager.questionnaireStatus == 10 && playerProfile.isProfileCompleted)
         {
             SceneManager.LoadScene("GameScene");
         }
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    // Player Profile
-
-    public void PlayerProfile()
-    {
-        Debug.Log("Player profile");
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

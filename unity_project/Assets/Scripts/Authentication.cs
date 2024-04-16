@@ -52,7 +52,6 @@ public class AuthenticationManager : ScriptableObject
 
                 string jwtToken = PlayerPrefs.GetString("jwtToken");
                 Debug.Log("JWT Token from PlayerPrefs: " + jwtToken);
-                Debug.Log("Authentication successful. Token: " + token);
                 IsAuthenticated = true;
             }
             else
