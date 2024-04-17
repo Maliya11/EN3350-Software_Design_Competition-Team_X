@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class HoverColor : MonoBehaviour
 {
-    // UI elements
+    // UI Elements
     public Button button;
     public Color wantedColor;
     private Color originalColor;

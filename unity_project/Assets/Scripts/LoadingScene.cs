@@ -8,6 +8,8 @@ public class LoadingScene : Singleton<LoadingScene>
 {
     // Reference to the AuthenticationManager instance
     private AuthenticationManager authenticationManager;
+    // Reference to the ErrorNotifications
+    public ErrorNotifications errorNotifications;
 
 
     // UI Elements
@@ -43,13 +45,27 @@ public class LoadingScene : Singleton<LoadingScene>
         authenticationManager = ScriptableObject.CreateInstance<AuthenticationManager>();
         authenticationManager.Authenticate(this);
 
-        while (!authenticationManager.IsAuthenticated)
+        while (!authenticationManager.isCompleted)
         {
             yield return null;
         }
 
-        // After the user is authenticated, proceed to load the main menu scene
-        StartCoroutine(LoadOtherScene(sceneID));
+        if (authenticationManager.isAuthenticated)
+        {
+            // After the user is authenticated, proceed to load the main menu scene
+            StartCoroutine(LoadOtherScene(sceneID));
+        }
+        else
+        {
+            // If the authentication is not successful,
+            // Assign the Error code and the Response to the variables
+            int errorCode = authenticationManager.errorCode;
+            string errorMessage = authenticationManager.errorMessage;
+            Debug.Log(errorCode + " " + errorMessage);
+
+            // Display the Error message
+            errorNotifications.DisplayErrorMessage(errorCode, errorMessage);
+        }
     }
 
     // Coroutine to load a scene other than the main menu

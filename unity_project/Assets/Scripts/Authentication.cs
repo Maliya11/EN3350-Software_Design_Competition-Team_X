@@ -11,8 +11,11 @@ public class AuthenticationManager : ScriptableObject
     private string apiKey = "NjVjNjA0MGY0Njc3MGQ1YzY2MTcyMmNiOjY1YzYwNDBmNDY3NzBkNWM2NjE3MjJjMQ";
 
 
-    // Property to check if the authentication process is completed
-    public bool IsAuthenticated { get; private set; }
+    // Properties to check the status of the authentication
+    public bool isCompleted { get; private set; }
+    public bool isAuthenticated { get; private set; }
+    public int errorCode { get; private set; }
+    public string errorMessage { get; private set; }
 
 
     // Initialize the properties
@@ -22,7 +25,8 @@ public class AuthenticationManager : ScriptableObject
         PlayerPrefs.SetString("apiKey", apiKey);
         PlayerPrefs.Save();
 
-        IsAuthenticated = false;
+        isCompleted = false;
+        isAuthenticated = false;
     }
 
     // Method to authenticate with the server using the provided API key
@@ -63,13 +67,23 @@ public class AuthenticationManager : ScriptableObject
 
                 string jwtToken = PlayerPrefs.GetString("jwtToken");
                 Debug.Log("JWT Token from PlayerPrefs: " + jwtToken);
-                IsAuthenticated = true;
+
+                // Set the authentication to successful
+                isAuthenticated = true;
             }
             else
             {
-                string errorMessage = "Authentication failed. Error: " + request.error;
-                Debug.LogError(errorMessage);
+                // Get the error code and message
+                errorCode = (int)request.responseCode;
+                errorMessage = request.error;
+                Debug.Log("Error: " + errorCode + " - " + errorMessage);
+
+                // Set the authentication to failed
+                isAuthenticated = false;
             }
+
+            // Set the request to be completed
+            isCompleted = true;
         }
     }
 }

@@ -8,7 +8,7 @@ public class BonusPerks : Singleton<BonusPerks>
     // Get bonus perks for the player
     private int bonusPerks;
 
-    // UI elements
+    // UI Elements
     public TextMeshProUGUI bonusPerksPanelText;
 
     private void Start()

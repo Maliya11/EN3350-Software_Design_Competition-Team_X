@@ -8,22 +8,24 @@ public class QuestionnaireManager : Singleton<QuestionnaireManager>
 {
     // Reference to the RequestManager
     private RequestManager requestManager; 
+    // Reference to the ErrorNotifications
+    public ErrorNotifications errorNotifications;
     
 
     // URL related to the questionnaire web application
     // URL directing the user to the questionnaire
-    private string questionnaireURL = "http://51.20.254.162:5173";
+    private string questionnaireURL = "http://51.20.76.97:5173/";
 
     // URL to get the questionnaire status of the player from the database
-    private string questionnaireStatusURL = "http://13.60.22.41:8080/player/authenticate";
+    private string questionnaireStatusURL = "http://13.60.29.81:8080/player/authenticate";
     private string questionnaireStatusMethod = "POST";
 
     // URL to get the marks obtained by the player in the questionnaire
-    private string questionnaireMarksURL = "http://13.60.22.41:8080/player/details";
+    private string questionnaireMarksURL = "http://13.60.29.81:8080/player/details";
     private string questionnaireMarksMethod = "GET";
 
     // URL to update the bonusGiven status in the database
-    private string bonusPerksURL = "http://13.60.22.41:8080/player/bonus";
+    private string bonusPerksURL = "http://13.60.29.81:8080/player/bonus";
     private string bonusPerksMethod = "POST";
 
 
@@ -52,7 +54,7 @@ public class QuestionnaireManager : Singleton<QuestionnaireManager>
      */
 
 
-    // UI elements
+    // UI Elements
     public GameObject notificationBar;
     public TextMeshProUGUI notificationText;
     public TextMeshProUGUI questionnaireButtonNormalText;
@@ -104,7 +106,8 @@ public class QuestionnaireManager : Singleton<QuestionnaireManager>
         }
         else
         {
-            Debug.Log("Questionnaire status error code: " + requestManager.errorCode);
+            // Display the error message to the user
+            HandleError(requestManager);
             Debug.Log("Questionnaire status request failed");
         }
     }
@@ -239,6 +242,8 @@ public class QuestionnaireManager : Singleton<QuestionnaireManager>
         }
         else
         {
+            // Display the error message to the user
+            HandleError(requestManager);
             Debug.Log("Questionnaire marks request failed");
         }
     }
@@ -289,7 +294,22 @@ public class QuestionnaireManager : Singleton<QuestionnaireManager>
         }
         else
         {
+            // Display the error message to the user
+            HandleError(requestManager);
             Debug.Log("Bonus given status update request failed");
         }
+    }
+
+    // Method to Display Request Errors
+    private void HandleError(RequestManager requestManager)
+    {
+        // If the profile fetch is not successful,
+        // Assign the Error code and the Response to the variables
+        int errorCode = requestManager.errorCode;
+        string errorMessage = requestManager.errorMessage;
+        Debug.Log(errorCode + " " + errorMessage);
+        
+        // Display the Error message
+        errorNotifications.DisplayErrorMessage(errorCode, errorMessage);
     }
 }

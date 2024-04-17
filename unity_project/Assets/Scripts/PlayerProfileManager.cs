@@ -8,6 +8,8 @@ public class PlayerProfileManager : Singleton<PlayerProfileManager>
 {
     // Reference to the RequestManager
     private RequestManager requestManager; 
+    // Reference to the ErrorNotifications
+    public ErrorNotifications errorNotifications;
 
 
     // URL related to the player information
@@ -25,7 +27,7 @@ public class PlayerProfileManager : Singleton<PlayerProfileManager>
     public bool isProfileCompleted { get; private set;}
 
 
-    // UI elements
+    // UI Elements
     public InputField firstNameInput;
     public InputField lastNameInput;
     public InputField nicInput;
@@ -96,15 +98,17 @@ public class PlayerProfileManager : Singleton<PlayerProfileManager>
 
         if (requestManager.isRequestSuccessful)
         {
-            // If the profile fetch request is successful, assign the JSON response to the player profile
+            // If the profile fetch request is successful, 
+            // Assign the JSON response to the player profile
             OnProfileFetchSuccess(requestManager.jsonResponse);
             Debug.Log("Profile fetch successful");
             isProfileInitialized = true;
         }
         else
         {
-            Debug.Log("Profile fetch failed");
-            Debug.Log("Error code: " + requestManager.errorCode);
+            // Display the error message to the user
+            isProfileInitialized = false;
+            HandleError(requestManager);
         }
     }
 
@@ -164,6 +168,7 @@ public class PlayerProfileManager : Singleton<PlayerProfileManager>
         
         if (isMissingFields)
         {
+            isProfileCompleted = false;
             Debug.Log("Player profile is missing fields. Please fill in all the required fields before playing.");
             notificationBar.SetActive(true);
             string errorMessage = "Player profile is missing information.\n Please fill in all the required fields before playing.";
@@ -250,6 +255,19 @@ public class PlayerProfileManager : Singleton<PlayerProfileManager>
     public void CloseNotificationBar()
     {
         notificationBar.SetActive(false);
+    }
+
+    // Method to Display Request Errors
+    private void HandleError(RequestManager requestManager)
+    {
+        // If the profile fetch is not successful,
+        // Assign the Error code and the Response to the variables
+        int errorCode = requestManager.errorCode;
+        string errorMessage = requestManager.errorMessage;
+        Debug.Log(errorCode + " " + errorMessage);
+        
+        // Display the Error message
+        errorNotifications.DisplayErrorMessage(errorCode, errorMessage);
     }
 }
 
