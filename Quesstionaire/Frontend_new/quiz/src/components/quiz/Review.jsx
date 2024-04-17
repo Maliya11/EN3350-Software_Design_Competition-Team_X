@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import './review.css';
 
-const Review = ({player}) => {
+const Review = ({}) => {
 
   let [questions, setQuestions] = useState([]);
+  let [player, setPlayer] = useState({});
 
   useEffect(() => {
     fetch("http://13.60.31.79:8080/question/allQuestions")
@@ -12,6 +13,16 @@ const Review = ({player}) => {
                 setQuestions(result);
             });
     }, []);
+
+    useEffect(() => {
+      fetch("http://13.60.31.79:8080/player/details")
+              .then(res => res.json())
+              .then(result => {
+                  setPlayer(result);
+              });
+      }, []);
+
+  
 
   const getSelectedAnswer = (questionNumber) => {
     const questionKey = `q${questionNumber}_ans`;
