@@ -104,6 +104,7 @@ public class PlayerService {
             newPlayer.setMarks(0);
             newPlayer.setCompletedQuestions(0);
             newPlayer.setPlayerState(1);
+            newPlayer.setBonusGiven(0);
             playerDao.save(newPlayer);
         }catch (Exception e){
             // Handle exceptions
