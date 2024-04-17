@@ -15,7 +15,7 @@ public class AuthenticationManager : ScriptableObject
     public bool IsAuthenticated { get; private set; }
 
 
-    // Method to initialize properties
+    // Initialize the properties
     private void OnEnable()
     {
         // Set the API key in the PlayerPrefs
@@ -40,6 +40,7 @@ public class AuthenticationManager : ScriptableObject
         string json = "{\"apiKey\":\"" + apiKey + "\"}";
         byte[] data = System.Text.Encoding.UTF8.GetBytes(json);
 
+        // Create a POST request with the API key
         using (UnityWebRequest request = UnityWebRequest.PostWwwForm(url, ""))
         {
             request.SetRequestHeader("Content-Type", "application/json");
@@ -51,6 +52,7 @@ public class AuthenticationManager : ScriptableObject
             // Check the result of the request
             if (request.result == UnityWebRequest.Result.Success)
             {
+                // Get the token from the response
                 string responseText = request.downloadHandler.text;
                 AuthenticationResponse responseData = JsonUtility.FromJson<AuthenticationResponse>(responseText);
                 string token = responseData.token;

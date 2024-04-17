@@ -4,15 +4,10 @@ using UnityEngine.UI;
 using System;
 using System.Collections;
 
-public class LoadingScene : MonoBehaviour
+public class LoadingScene : Singleton<LoadingScene>
 {
     // Reference to the AuthenticationManager instance
     private AuthenticationManager authenticationManager;
-
-
-    // Adjust the loading time
-    public float adjustLoadingTime = 1f;
-    private float target;
 
 
     // UI Elements
@@ -29,10 +24,12 @@ public class LoadingScene : MonoBehaviour
     // Coroutine to load a scene asynchronously
     private IEnumerator LoadSceneAsync(int sceneID)
     {
+        // If the current scene is Login scene and the scene to be loaded is the main menu scene, authenticate the user first
         if (SceneManager.GetActiveScene().buildIndex == 0 && sceneID == 1)
         {
             yield return AuthenticateAndLoadMainMenu(sceneID);
         }
+        // If the current scene is not the Login scene, load the scene directly
         else
         {
             yield return LoadOtherScene(sceneID);
@@ -42,29 +39,25 @@ public class LoadingScene : MonoBehaviour
     // Coroutine to authenticate the user and load the main menu scene
     private IEnumerator AuthenticateAndLoadMainMenu(int sceneID)
     {     
-        // Call Authenticate method from AuthenticationManager
+        // Call Authenticate method from AuthenticationManager to send the authentication request to the server and get the JWT token
         authenticationManager = ScriptableObject.CreateInstance<AuthenticationManager>();
         authenticationManager.Authenticate(this);
-
-        LoadingScreen.SetActive(true);
 
         while (!authenticationManager.IsAuthenticated)
         {
             yield return null;
         }
 
-        LoadingScreen.SetActive(false);
-
-        // Proceed to load the main menu scene
+        // After the user is authenticated, proceed to load the main menu scene
         StartCoroutine(LoadOtherScene(sceneID));
     }
 
     // Coroutine to load a scene other than the main menu
     private IEnumerator LoadOtherScene(int sceneID)
     {
-        target = 0;
         slider.value = 0;
 
+        // Start loading the scene asynchronously
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneID);
 
         LoadingScreen.SetActive(true);
@@ -72,17 +65,11 @@ public class LoadingScene : MonoBehaviour
         // Wait for scene to finish loading
         while (!operation.isDone)
         {
-            float progressValue = Mathf.Clamp01(operation.progress / 0.9f);
-            target = progressValue;
+            float progressValue = Mathf.Clamp01(operation.progress / (0.9f));
+            slider.value = progressValue ;
             yield return null;
         }
 
         LoadingScreen.SetActive(false);
-    }
-
-    // Update method to handle slider animation
-    private void Update()
-    {
-        slider.value = Mathf.MoveTowards(slider.value, target, Time.deltaTime * adjustLoadingTime);
     }
 }

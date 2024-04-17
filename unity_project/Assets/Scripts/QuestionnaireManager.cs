@@ -4,26 +4,26 @@ using UnityEngine;
 using SimpleJSON;
 using TMPro;
 
-public class QuestionnaireManager : MonoBehaviour
+public class QuestionnaireManager : Singleton<QuestionnaireManager>
 {
     // Reference to the RequestManager
-    private RequestManager requestManager;
+    private RequestManager requestManager; 
     
 
     // URL related to the questionnaire web application
     // URL directing the user to the questionnaire
-    private string questionnaireURL = "http://16.171.63.59:5173/";
+    private string questionnaireURL = "http://51.20.254.162:5173";
 
     // URL to get the questionnaire status of the player from the database
-    private string questionnaireStatusURL = "http://13.60.31.79:8080/player/authenticate";
+    private string questionnaireStatusURL = "http://13.60.22.41:8080/player/authenticate";
     private string questionnaireStatusMethod = "POST";
 
     // URL to get the marks obtained by the player in the questionnaire
-    private string questionnaireMarksURL = "http://13.60.31.79:8080/player/details";
+    private string questionnaireMarksURL = "http://13.60.22.41:8080/player/details";
     private string questionnaireMarksMethod = "GET";
 
     // URL to update the bonusGiven status in the database
-    private string bonusPerksURL = "http://13.60.31.79:8080/player/bonus";
+    private string bonusPerksURL = "http://13.60.22.41:8080/player/bonus";
     private string bonusPerksMethod = "POST";
 
 
@@ -91,16 +91,20 @@ public class QuestionnaireManager : MonoBehaviour
 
         if (requestManager.isRequestSuccessful)
         {
+            // If the request is successful, get the user validity and questionnaire status
             Debug.Log("Questionnaire status request successful");
             Debug.Log(requestManager.jsonResponse);
             userValidity = requestManager.jsonResponse["validKey"];
             questionnaireStatus = requestManager.jsonResponse["completedQuestions"];
             Debug.Log("User validity: " + userValidity);
             Debug.Log("Questionnaire status: " + questionnaireStatus);
+
+            // Prompt the user based on the questionnaire status
             yield return PromptUser(promptingOrigin);
         }
         else
         {
+            Debug.Log("Questionnaire status error code: " + requestManager.errorCode);
             Debug.Log("Questionnaire status request failed");
         }
     }
@@ -112,11 +116,13 @@ public class QuestionnaireManager : MonoBehaviour
          * 0  - Prompting user from the play button
          * 1  - Prompting user from the questionnaire button
          */
+
         if (userValidity)
         {
             Debug.Log("User is valid");
             if (questionnaireStatus < 10)
             {
+                // As the questionnaire is not completed yet, prompt the user to complete the questionnaire
                 Debug.Log("Prompting user to complete the questionnaire...");
 
                 OpenNotificationBar();
@@ -124,6 +130,7 @@ public class QuestionnaireManager : MonoBehaviour
                 questionnaireButtonNormalText.text = "Fill the Questionnaire";
                 questionnaireButtonPressedText.text = "Fill the Questionnaire";
 
+                // Wait for a response by the user by either going to the questionnaire web application or closing the notification bar
                 while (notificationBar.activeSelf)
                 {
                     yield return null;
@@ -131,8 +138,10 @@ public class QuestionnaireManager : MonoBehaviour
             }
             else
             {
+                // As the questionnaire is completed, direct the user to the game or prompt the user to review the questionnaire
                 if (promptingOrigin == 1)
                 {
+                    // Prompt the user to review the questionnaire and get the marks obtained to the Unity environment
                     Debug.Log("User has already completed the questionnaire");
                     OpenNotificationBar();
                     notificationText.text = "Explore the fundamentals of energy efficiency with questions on electricity generation, transmission, and usage.\n You have already completed the questionnaire.";
@@ -142,6 +151,7 @@ public class QuestionnaireManager : MonoBehaviour
                 }
                 else
                 {
+                    // Get the marks obtained to the Unity environment
                     Debug.Log("User has completed the questionnaire");
                     GetQuestionnaireMarks();
                 }
@@ -156,8 +166,11 @@ public class QuestionnaireManager : MonoBehaviour
     // Mthod to open the notification bar
     public void OpenNotificationBar()
     {
+        // Disable the main menu panel and enable the notification bar
         mainMenuPanel.SetActive(false);
         notificationBar.SetActive(true);
+
+        // Before the user responds to the notification, show the normal questionnaire button
         questionnaireButtonNormal.gameObject.SetActive(true);
         questionnaireButtonPressed.gameObject.SetActive(false);
     }
@@ -166,15 +179,29 @@ public class QuestionnaireManager : MonoBehaviour
     public void DirectToQuestionnaire()
     {
         Debug.Log("Directing user to the questionnaire...");
+
+        // Change the button appearance to show that the user has clicked the button
         questionnaireButtonNormal.gameObject.SetActive(false);
         questionnaireButtonPressed.gameObject.SetActive(true);
+
+        StartCoroutine(WaitAndOpenQuestionnaire());
+    }
+
+    private IEnumerator WaitAndOpenQuestionnaire()
+    {
+        // Wait for 1 second
+        yield return new WaitForSeconds(0.5f);
+
+        // Open the URL in the default browser
         Application.OpenURL(questionnaireURL);
+
         CloseNotificationBar();
     }
 
     // Method to close the notification bar 
     public void CloseNotificationBar()
     {
+        // Disable the notification bar and enable the main menu panel
         notificationBar.SetActive(false);
         mainMenuPanel.SetActive(true);
     }
@@ -199,11 +226,14 @@ public class QuestionnaireManager : MonoBehaviour
 
         if (requestManager.isRequestSuccessful)
         {
+            // If the request is successful, get the marks obtained by the user in the questionnaire and check if the bonus perks have been given
             Debug.Log("Questionnaire marks request successful");
             questionnaireMarks = requestManager.jsonResponse["marks"];
             bonusGiven = requestManager.jsonResponse["bonusGiven"];
             Debug.Log("Questionnaire marks: " + questionnaireMarks);
             Debug.Log("Bonus given: " + bonusGiven);
+
+            // Assign bonus perks to the user if they have not been given yet
             AssignBonusPerks();
             Debug.Log("Bonus perks: " + PlayerPrefs.GetInt("questionnaireBonus"));
         }
@@ -218,12 +248,17 @@ public class QuestionnaireManager : MonoBehaviour
     {
         if (bonusGiven == 0)
         {
+            // If the bonus perks have not been given yet, assign the bonus perks to the user
             Debug.Log("Assigning bonus perks to the user...");
 
             // Set the bonus perks in the PlayerPrefs
             PlayerPrefs.SetInt("questionnaireBonus", questionnaireMarks);
             PlayerPrefs.Save();
             Debug.Log("Bonus perks assigned to the user");    
+
+            // Send a request to update the bonusGiven status in the database
+            // Create a new instance of the RequestManager
+            requestManager = ScriptableObject.CreateInstance<RequestManager>();
 
             // Create the body of the request
             var requestBody = new JSONObject();
@@ -242,6 +277,7 @@ public class QuestionnaireManager : MonoBehaviour
 
     private IEnumerator WaitForBonusPerksRequestCompletion()
     {
+        // Wait for the bonus perks request to be completed
         while (!requestManager.isRequestCompleted)
         {
             yield return null;

@@ -4,7 +4,7 @@ using SimpleJSON;
 using System.Collections;
 using TMPro;
 
-public class PlayerProfileManager : MonoBehaviour
+public class PlayerProfileManager : Singleton<PlayerProfileManager>
 {
     // Reference to the RequestManager
     private RequestManager requestManager; 
@@ -38,6 +38,7 @@ public class PlayerProfileManager : MonoBehaviour
     public GameObject mainMenuPanel;
 
 
+    // Initiating the flags
     private void Start()
     {
         isProfileInitialized = false;
@@ -82,7 +83,7 @@ public class PlayerProfileManager : MonoBehaviour
         requestManager.SendRequest(profileFetchURL, profileFetchMethod, null, this, null);
         StartCoroutine(WaitForProfileFetchRequestCompletion());
 
-        Debug.Log("Profile view request completed");
+        Debug.Log("Profile view request sent");
     }
 
     // Coroutine to wait for the profile fetch request completion
@@ -95,6 +96,7 @@ public class PlayerProfileManager : MonoBehaviour
 
         if (requestManager.isRequestSuccessful)
         {
+            // If the profile fetch request is successful, assign the JSON response to the player profile
             OnProfileFetchSuccess(requestManager.jsonResponse);
             Debug.Log("Profile fetch successful");
             isProfileInitialized = true;
@@ -115,8 +117,8 @@ public class PlayerProfileManager : MonoBehaviour
             return;
         }
 
+        // Deserialize the JSON response to PlayerProfileData object
         PlayerProfileData profileData;
-        
         profileData = JsonUtility.FromJson<PlayerProfileData>(jsonResponse.ToString());
         
         if (profileData == null || profileData.user == null)
@@ -192,6 +194,7 @@ public class PlayerProfileManager : MonoBehaviour
     // Method to update player profile with missing information
     public void UpdateProfile()
     {   
+        // Assign the current data in the input fields to the UserData object
         UserData updatedUserData = new UserData
         {
             firstname = firstNameInput.text,
@@ -225,6 +228,7 @@ public class PlayerProfileManager : MonoBehaviour
 
         if (requestManager.isRequestSuccessful)
         {   
+            // If the profile update request is successful, hide the profile panel and show the main menu panel
             Debug.Log("Profile update successful");
             notificationText.text = "";
             profilePanel.SetActive(false);

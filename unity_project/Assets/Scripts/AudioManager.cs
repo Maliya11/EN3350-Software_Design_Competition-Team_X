@@ -12,7 +12,7 @@ public class AudioManager : MonoBehaviour
         // Check if an instance of AudioManager already exists
         if (instance == null)
         {
-            // If not, set the instance to this
+            // If not, set the instance to this instance 
             instance = this;
             DontDestroyOnLoad(this.gameObject);
         }

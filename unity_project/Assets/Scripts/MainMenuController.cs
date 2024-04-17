@@ -31,9 +31,14 @@ public class MainMenuController : MonoBehaviour
 
     private IEnumerator PlayGameCoroutine()
     {
+        // Check for missing fields in the player profile
         yield return StartCoroutine(playerProfile.CheckAndHandleMissingFields());
-        yield return StartCoroutine(questionnaireManager.GetQuestionnaireStatus(0)); // Argument 0 indicates that the request is from the Play Game button
-        // Direct to the game scene
+
+        // Check if the player has completed the questionnaire
+        // Argument 0 indicates that the request is from the Play Game button
+        yield return StartCoroutine(questionnaireManager.GetQuestionnaireStatus(0)); 
+
+        // Once the Player profile is completed and the Questionnaire is filled => Load the Game Scene
         if (questionnaireManager.questionnaireStatus == 10 && playerProfile.isProfileCompleted)
         {
             loadingScene = FindObjectOfType<LoadingScene>();
@@ -61,6 +66,8 @@ public class MainMenuController : MonoBehaviour
         PlayerPrefs.DeleteKey("apiKey");
         PlayerPrefs.DeleteKey("jwtToken");
         Debug.Log("Saved data removed from PlayerPrefs");
+
+        // Load the Initial login scene
         SceneManager.LoadScene("LoginScene");
     }
 
