@@ -182,7 +182,7 @@ const Quiz = () => {
             <div className='index'>{index+1} of 10 questions</div>
         </>}
 
-        {showReview && <Review player={player}/>}
+        {showReview && <Review/>}
 
     </div>
     )
