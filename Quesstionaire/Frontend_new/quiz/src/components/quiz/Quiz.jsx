@@ -4,63 +4,73 @@ import Review from './Review';
 
 
 const Quiz = () => {
-    let [index, setIndex] = useState(0);
-    let [questions, setQuestions] = useState([]);
-    let [question, setQuestion] = useState({});
-    let [player, setPlayer] = useState({});
+    // State variables
+    let [index, setIndex] = useState(0);            // Index of the current question
+    let [questions, setQuestions] = useState([]);   // Array to store all questions
+    let [question, setQuestion] = useState({});     // Current question object
+    let [player, setPlayer] = useState({});         // Player details
 
-    let [lock, setLock] = useState(false);
-    let [score, setScore] = useState(0);
-    let [result, setResult] = useState(false);
-    let [submitDisabled, setSubmitDisabled] = useState(true);
+    let [lock, setLock] = useState(false);                      // Lock state to prevent multiple submissions
+    let [score, setScore] = useState(0);                        // Player's score
+    let [result, setResult] = useState(false);                  // Flag to indicate if the quiz is completed
+    let [submitDisabled, setSubmitDisabled] = useState(true);   // Flag to disable submit button
     
-    let [feedback, setFeedback] = useState(false);
-    let [answer, setAnswer] = useState(0);
+    let [feedback, setFeedback] = useState(false);  // Flag to indicate if feedback is shown
+    let [answer, setAnswer] = useState(0);          // User's selected answer
 
-    let [showReview, setShowReview] = useState(false);
-
-    // let[status , setStatus] = useState(1);
-    // let[plysts, setPlysts] = useState(false);
+    let [showReview, setShowReview] = useState(false);  // Flag to toggle review mode
     
+    // Refs for options
     let Option1 = useRef(null);
     let Option2 = useRef(null);
     let Option3 = useRef(null);
     let Option4 = useRef(null);
 
     let option_array = [Option1,Option2,Option3,Option4];
-    // let feed_array =[question.feed1,question.feed2,question.feed3,question.feed4];
 
-    
-
-    useEffect(() => {
-        // Fetch player details
-        fetch("http://13.60.31.79:8080/player/details") 
-        .then(res => res.json())
-        .then(playerDetails => {
-            setPlayer(playerDetails);
-            setScore(playerDetails.marks);
-    
-            // If all questions are completed, set result to true
-            if (playerDetails.completedQuestions === 10) {
-                setResult(true);
-                return;
-            }
-            
-            else{
-                // Fetch all questions
-                return fetch("http://13.60.31.79:8080/question/allQuestions")
-                .then(res => res.json())
-                .then(result => {
-                    setQuestions(result);
-                    // Set current question
-                    setQuestion(result[playerDetails.completedQuestions]);
-                    setIndex(playerDetails.completedQuestions);
-                });
-            }
-        })
-        .catch(error => console.error("Error fetching player details:", error));
+    useEffect(() => { 
+        try{
+            // Fetch player details
+            fetch("http://13.60.31.79:8080/player/details") 
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error('Failed to fetch questions');
+                }
+                return res.json();
+            })
+            .then(playerDetails => {
+                setPlayer(playerDetails);
+                setScore(playerDetails.marks);
+        
+                // Check if all questions are completed
+                if (playerDetails.completedQuestions === 10) {
+                    setResult(true);
+                    return;
+                }
+                
+                else{
+                    // Fetch all questions
+                    return fetch("http://13.60.31.79:8080/question/allQuestions")
+                    .then(res => {
+                        if (!res.ok) {
+                            throw new Error('Failed to fetch questions');
+                        }
+                        return res.json();
+                    })
+                    .then(result => {
+                        setQuestions(result);                                   // Store the questions in the state
+                        setQuestion(result[playerDetails.completedQuestions]);  // Set current question
+                        setIndex(playerDetails.completedQuestions);             // Set the index of the current question
+                    });
+                }
+            })
+        }
+        catch (error) {
+            console.error("Error:", error);  // Handle error state or display a message to the user    
+        }    
     }, []);
 
+    // Function to handle option selection
     const checkAns = (e,ans) => {
         if (lock===false){
             setAnswer(ans);
@@ -70,11 +80,11 @@ const Quiz = () => {
                 }
             });
             e.currentTarget.classList.add("selected");
-            setSubmitDisabled(false);
-        }
-        
+            setSubmitDisabled(false);   // Enable the submit button
+        }     
     }
 
+    // Function to handle moving to the next question
     const next = ()=>{
         if (lock===true){
             if (index === questions.length -1){
@@ -94,6 +104,7 @@ const Quiz = () => {
         }
     }
 
+    // Function to submit the answer
     const submit = (e) => {
         if (submitDisabled==false){
 
@@ -111,6 +122,7 @@ const Quiz = () => {
             const idNum = index + 1;
             const Q = {"qNum" : idNum , "selAns" : answer};
 
+            // Send the user's answer to the server
             fetch("http://13.60.31.79:8080/player/answer",{
                 method:"POST",
                 headers:{"Content-Type":"application/json"},
@@ -119,6 +131,7 @@ const Quiz = () => {
                 console.log("Answer saved") 
             })
 
+            // Update the score if the answer is correct
             if (answer === question.corAns){
                 setScore(prev=>prev+1);
             }
@@ -128,6 +141,7 @@ const Quiz = () => {
         }
     }
 
+    // Function to review mode
     const toggleReview = () => {
         setShowReview(prevState => !prevState);
     }
@@ -137,6 +151,7 @@ const Quiz = () => {
     <div className='conntainer'>
         <h1>Blitz Bolt - Questionnaire</h1>
 
+        {/* Conditional rendering based on result */}
         {result?<>
             <h2>You Scored {score} out of 10</h2>
             <h2 style={{ fontSize: '25px' }} className="center-text">Now you can play the game</h2>
@@ -152,6 +167,7 @@ const Quiz = () => {
                 <li ref={Option4} onClick={(e)=>{checkAns(e,4)}}>{question.ans4}</li>
             </ul>
         
+            {/* Conditional rendering based on feedback */}
             {feedback?<>
                 <div>
                     <p>{question.genFeed}</p>
@@ -166,7 +182,7 @@ const Quiz = () => {
             <div className='index'>{index+1} of 10 questions</div>
         </>}
 
-        {showReview && <Review/>}
+        {showReview && <Review player={player}/>}
 
     </div>
     )

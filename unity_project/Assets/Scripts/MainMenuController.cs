@@ -9,6 +9,8 @@ public class MainMenuController : MonoBehaviour
     private PlayerProfileManager playerProfile;
     // Reference to the QuestionnaireManager
     private QuestionnaireManager questionnaireManager;
+    // Reference to the LoadingScene
+    private LoadingScene loadingScene;
 
     private void Start()
     {
@@ -33,7 +35,8 @@ public class MainMenuController : MonoBehaviour
         // Direct to the game scene
         if (questionnaireManager.questionnaireStatus == 10 && playerProfile.isProfileCompleted)
         {
-            SceneManager.LoadScene("GameScene");
+            loadingScene = FindObjectOfType<LoadingScene>();
+            loadingScene.LoadScene(2);
         }
     }
 
