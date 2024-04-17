@@ -7,17 +7,26 @@ using System.Collections.Generic;
 // Represents an authentication manager responsible for handling authentication requests
 public class AuthenticationManager : ScriptableObject
 {
+    // API key to authenticate with the server
+    private string apiKey = "NjVjNjA0MGY0Njc3MGQ1YzY2MTcyMmNiOjY1YzYwNDBmNDY3NzBkNWM2NjE3MjJjMQ";
+
+
     // Property to check if the authentication process is completed
     public bool IsAuthenticated { get; private set; }
 
-    // Constructor to initialize properties
-    private AuthenticationManager()
+
+    // Initialize the properties
+    private void OnEnable()
     {
+        // Set the API key in the PlayerPrefs
+        PlayerPrefs.SetString("apiKey", apiKey);
+        PlayerPrefs.Save();
+
         IsAuthenticated = false;
     }
 
     // Method to authenticate with the server using the provided API key
-    public void Authenticate(string apiKey, MonoBehaviour monoBehaviour)
+    public void Authenticate(MonoBehaviour monoBehaviour)
     {
         // Start the coroutine
         monoBehaviour.StartCoroutine(AuthenticateCoroutine(apiKey));
@@ -31,6 +40,7 @@ public class AuthenticationManager : ScriptableObject
         string json = "{\"apiKey\":\"" + apiKey + "\"}";
         byte[] data = System.Text.Encoding.UTF8.GetBytes(json);
 
+        // Create a POST request with the API key
         using (UnityWebRequest request = UnityWebRequest.PostWwwForm(url, ""))
         {
             request.SetRequestHeader("Content-Type", "application/json");
@@ -42,6 +52,7 @@ public class AuthenticationManager : ScriptableObject
             // Check the result of the request
             if (request.result == UnityWebRequest.Result.Success)
             {
+                // Get the token from the response
                 string responseText = request.downloadHandler.text;
                 AuthenticationResponse responseData = JsonUtility.FromJson<AuthenticationResponse>(responseText);
                 string token = responseData.token;
