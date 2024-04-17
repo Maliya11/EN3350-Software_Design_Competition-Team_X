@@ -29,45 +29,43 @@ const Quiz = () => {
     let option_array = [Option1,Option2,Option3,Option4];
 
     useEffect(() => { 
-        try{
+        // try{
             // Fetch player details
-            fetch("http://13.60.31.79:8080/player/details") 
-            .then(res => {
-                if (!res.ok) {
-                    throw new Error('Failed to fetch questions');
-                }
-                return res.json();
-            })
-            .then(playerDetails => {
-                setPlayer(playerDetails);
-                setScore(playerDetails.marks);
-        
-                // Check if all questions are completed
-                if (playerDetails.completedQuestions === 10) {
-                    setResult(true);
-                    return;
-                }
-                
-                else{
-                    // Fetch all questions
-                    return fetch("http://13.60.31.79:8080/question/allQuestions")
-                    .then(res => {
-                        if (!res.ok) {
-                            throw new Error('Failed to fetch questions');
-                        }
-                        return res.json();
-                    })
-                    .then(result => {
-                        setQuestions(result);                                   // Store the questions in the state
-                        setQuestion(result[playerDetails.completedQuestions]);  // Set current question
-                        setIndex(playerDetails.completedQuestions);             // Set the index of the current question
-                    });
-                }
-            })
-        }
-        catch (error) {
-            console.error("Error:", error);  // Handle error state or display a message to the user    
-        }    
+        fetch("http://13.60.31.79:8080/player/details") 
+        .then(res => res.json())
+        .then(playerDetails => {
+            setPlayer(playerDetails);
+            setScore(playerDetails.marks);
+    
+            // Check if all questions are completed
+            if (playerDetails.completedQuestions === 10) {
+                setResult(true);
+                return;
+            }
+            
+            else{
+                // Fetch all questions
+                return fetch("http://13.60.31.79:8080/question/allQuestions")
+                .then(res => {
+                    if (!res.ok) {
+                        throw new Error('Failed to fetch questions');
+                    }
+                    return res.json();
+                })
+                .then(result => {
+                    setQuestions(result);                                   // Store the questions in the state
+                    setQuestion(result[playerDetails.completedQuestions]);  // Set current question
+                    setIndex(playerDetails.completedQuestions);             // Set the index of the current question
+                });
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching data:", error); // Handle error state or display a message to the user
+        });
+        // }
+        // catch (error) {
+        //     console.error("Error:", error);  // Handle error state or display a message to the user    
+        // }    
     }, []);
 
     // Function to handle option selection

@@ -8,41 +8,31 @@ const Review = ({}) => {
   let [player, setPlayer] = useState({});
 
   useEffect(() => {
-    try{
-      // Fetch all questions from the server
-      fetch("http://13.60.31.79:8080/question/allQuestions")
-            .then(res => {
-              if (!res.ok) {
-                throw new Error('Failed to fetch questions');
-              }
-              return res.json();
-            })
-            .then(result => {
-                setQuestions(result); // Store fetched questions in state
-            });
-    }
-    catch (error) {
-      console.error("Error:", error); // Handle error state or display a message to the user
-    }
+    // try{
+    // Fetch all questions from the server
+    fetch("http://13.60.31.79:8080/question/allQuestions")
+    .then(res => res.json())
+    .then(result => {
+        setQuestions(result); // Store fetched questions in state
+    });
+    // }
+    // catch (error) {
+    //   console.error("Error:", error); // Handle error state or display a message to the user
+    // }
   }, []);
 
   useEffect(() => {
-    try{
+    // try{
       // Fetch player details from the server
-      fetch("http://13.60.31.79:8080/player/details")
-            .then(res => {
-              if (!res.ok) {
-                throw new Error('Failed to fetch player details');
-              }
-              return res.json();
-            })
-            .then(result => {
-                setPlayer(result); // Store fetched detailsn state
-            });
-    }
-    catch (error) {
-      console.error("Error:", error); // Handle error state or display a message to the user
-    }
+    fetch("http://13.60.31.79:8080/player/details")
+    .then(res => res.json())
+    .then(result => {
+        setPlayer(result); // Store fetched detailsn state
+    });
+    // }
+    // catch (error) {
+    //   console.error("Error:", error); // Handle error state or display a message to the user
+    // }
   }, []);
 
   const getSelectedAnswer = (questionNumber) => {
