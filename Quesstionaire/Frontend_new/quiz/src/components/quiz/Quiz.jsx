@@ -31,13 +31,8 @@ const Quiz = () => {
     useEffect(() => { 
         try{
             // Fetch player details
-            fetch("http://13.60.31.79:8080/player/details") 
-            .then(res => {
-                if (!res.ok) {
-                    throw new Error('Failed to fetch questions');
-                }
-                return res.json();
-            })
+            fetch("http://13.60.22.41:8080/player/details") 
+            .then(res => res.json())
             .then(playerDetails => {
                 setPlayer(playerDetails);
                 setScore(playerDetails.marks);
@@ -50,7 +45,7 @@ const Quiz = () => {
                 
                 else{
                     // Fetch all questions
-                    return fetch("http://13.60.31.79:8080/question/allQuestions")
+                    return fetch("http://13.60.22.41:8080/question/allQuestions")
                     .then(res => {
                         if (!res.ok) {
                             throw new Error('Failed to fetch questions');
@@ -64,6 +59,7 @@ const Quiz = () => {
                     });
                 }
             })
+            
         }
         catch (error) {
             console.error("Error:", error);  // Handle error state or display a message to the user    
@@ -123,7 +119,7 @@ const Quiz = () => {
             const Q = {"qNum" : idNum , "selAns" : answer};
 
             // Send the user's answer to the server
-            fetch("http://13.60.31.79:8080/player/answer",{
+            fetch("http://13.60.22.41:8080/player/answer",{
                 method:"POST",
                 headers:{"Content-Type":"application/json"},
                 body:JSON.stringify(Q)
@@ -182,8 +178,8 @@ const Quiz = () => {
             <div className='index'>{index+1} of 10 questions</div>
         </>}
 
-        {/* Review component */}       
-        {showReview && <Review player={player}/>}
+        {/* Review component */}
+        {showReview && <Review/>}
 
     </div>
     )

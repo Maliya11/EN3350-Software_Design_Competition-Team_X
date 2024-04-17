@@ -20,10 +20,10 @@ public class QuestionController {
 
     // Endpoint to retrieve all questions from the database in JSON format
     @RequestMapping("allQuestions")
-    public ResponseEntity<List<Question>> getAllQuestions(){
+    public ResponseEntity<List<Question>> getAllQuestionsSortedById(){
         try {
             // Retrieve all questions from the service
-            List<Question> questions = questionService.getAllQuestions();
+            List<Question> questions = questionService.getAllQuestionsSortedById();
             // Return the questions in the response body
             return ResponseEntity.ok(questions);
         }catch (Exception e){
