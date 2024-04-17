@@ -28,16 +28,16 @@ const Review = ({}) => {
 
   useEffect(() => {
     try{
-      // Fetch all questions from the server
+      // Fetch player details from the server
       fetch("http://13.60.31.79:8080/player/details")
             .then(res => {
               if (!res.ok) {
-                throw new Error('Failed to fetch questions');
+                throw new Error('Failed to fetch player details');
               }
               return res.json();
             })
             .then(result => {
-                setPlayer(result); // Store fetched questions in state
+                setPlayer(result); // Store fetched detailsn state
             });
     }
     catch (error) {

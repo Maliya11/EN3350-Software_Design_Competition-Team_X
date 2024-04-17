@@ -182,6 +182,7 @@ const Quiz = () => {
             <div className='index'>{index+1} of 10 questions</div>
         </>}
 
+        {/* Review component */}
         {showReview && <Review/>}
 
     </div>
