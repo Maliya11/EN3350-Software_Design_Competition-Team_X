@@ -32,12 +32,7 @@ const Quiz = () => {
         try{
             // Fetch player details
             fetch("http://13.60.31.79:8080/player/details") 
-            .then(res => {
-                if (!res.ok) {
-                    throw new Error('Failed to fetch questions');
-                }
-                return res.json();
-            })
+            .then(res => res.json())
             .then(playerDetails => {
                 setPlayer(playerDetails);
                 setScore(playerDetails.marks);
@@ -64,6 +59,7 @@ const Quiz = () => {
                     });
                 }
             })
+            
         }
         catch (error) {
             console.error("Error:", error);  // Handle error state or display a message to the user    
