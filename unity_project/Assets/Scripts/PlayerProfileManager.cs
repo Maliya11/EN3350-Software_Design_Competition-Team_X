@@ -4,12 +4,30 @@ using SimpleJSON;
 using System.Collections;
 using TMPro;
 
-public class PlayerProfileManager : MonoBehaviour
+public class PlayerProfileManager : Singleton<PlayerProfileManager>
 {
     // Reference to the RequestManager
     private RequestManager requestManager; 
+    // Reference to the ErrorNotifications
+    public ErrorNotifications errorNotifications;
 
-    // UI elements
+
+    // URL related to the player information
+    // URL to fetch the player profile
+    private string profileFetchURL = "http://20.15.114.131:8080/api/user/profile/view";
+    private string profileFetchMethod = "GET";
+
+    // URL to update the player profile
+    private string profileUpdateURL = "http://20.15.114.131:8080/api/user/profile/update";
+    private string profileUpdateMethod = "PUT";
+
+
+    // Flags to check if the profile is initialized and completed
+    public bool isProfileInitialized { get; private set;}
+    public bool isProfileCompleted { get; private set;}
+
+
+    // UI Elements
     public InputField firstNameInput;
     public InputField lastNameInput;
     public InputField nicInput;
@@ -21,11 +39,8 @@ public class PlayerProfileManager : MonoBehaviour
     public GameObject profilePanel;
     public GameObject mainMenuPanel;
 
-    public bool isProfileInitialized { get; private set;}
-    public bool isProfileCompleted { get; private set;}
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    // Initiating the flags
     private void Start()
     {
         isProfileInitialized = false;
@@ -64,16 +79,13 @@ public class PlayerProfileManager : MonoBehaviour
     // Method to initialize player profile fetch
     public void InitializeProfile()
     {
-        string profileFetchURL = "http://20.15.114.131:8080/api/user/profile/view";
-        string profileFetchMethod = "GET";
-
         // Create a new instance of the RequestManager
         requestManager = ScriptableObject.CreateInstance<RequestManager>();
 
         requestManager.SendRequest(profileFetchURL, profileFetchMethod, null, this, null);
         StartCoroutine(WaitForProfileFetchRequestCompletion());
 
-        Debug.Log("Profile view request completed");
+        Debug.Log("Profile view request sent");
     }
 
     // Coroutine to wait for the profile fetch request completion
@@ -86,14 +98,17 @@ public class PlayerProfileManager : MonoBehaviour
 
         if (requestManager.isRequestSuccessful)
         {
+            // If the profile fetch request is successful, 
+            // Assign the JSON response to the player profile
             OnProfileFetchSuccess(requestManager.jsonResponse);
             Debug.Log("Profile fetch successful");
             isProfileInitialized = true;
         }
         else
         {
-            Debug.Log("Profile fetch failed");
-            Debug.Log("Error code: " + requestManager.errorCode);
+            // Display the error message to the user
+            isProfileInitialized = false;
+            HandleError(requestManager);
         }
     }
 
@@ -106,8 +121,8 @@ public class PlayerProfileManager : MonoBehaviour
             return;
         }
 
+        // Deserialize the JSON response to PlayerProfileData object
         PlayerProfileData profileData;
-        
         profileData = JsonUtility.FromJson<PlayerProfileData>(jsonResponse.ToString());
         
         if (profileData == null || profileData.user == null)
@@ -153,6 +168,7 @@ public class PlayerProfileManager : MonoBehaviour
         
         if (isMissingFields)
         {
+            isProfileCompleted = false;
             Debug.Log("Player profile is missing fields. Please fill in all the required fields before playing.");
             notificationBar.SetActive(true);
             string errorMessage = "Player profile is missing information.\n Please fill in all the required fields before playing.";
@@ -183,9 +199,7 @@ public class PlayerProfileManager : MonoBehaviour
     // Method to update player profile with missing information
     public void UpdateProfile()
     {   
-        string profileUpdateURL = "http://20.15.114.131:8080/api/user/profile/update";
-        string profileUpdateMethod = "PUT";
-
+        // Assign the current data in the input fields to the UserData object
         UserData updatedUserData = new UserData
         {
             firstname = firstNameInput.text,
@@ -219,6 +233,7 @@ public class PlayerProfileManager : MonoBehaviour
 
         if (requestManager.isRequestSuccessful)
         {   
+            // If the profile update request is successful, hide the profile panel and show the main menu panel
             Debug.Log("Profile update successful");
             notificationText.text = "";
             profilePanel.SetActive(false);
@@ -240,6 +255,19 @@ public class PlayerProfileManager : MonoBehaviour
     public void CloseNotificationBar()
     {
         notificationBar.SetActive(false);
+    }
+
+    // Method to Display Request Errors
+    private void HandleError(RequestManager requestManager)
+    {
+        // If the profile fetch is not successful,
+        // Assign the Error code and the Response to the variables
+        int errorCode = requestManager.errorCode;
+        string errorMessage = requestManager.errorMessage;
+        Debug.Log(errorCode + " " + errorMessage);
+        
+        // Display the Error message
+        errorNotifications.DisplayErrorMessage(errorCode, errorMessage);
     }
 }
 

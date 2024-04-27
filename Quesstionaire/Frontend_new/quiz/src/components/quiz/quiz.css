@@ -1,0 +1,85 @@
+@font-face {
+    font-family: 'Black Chancery';
+    src: url('../../assets/Fonts/BlackChancery.ttf') format('truetype'); 
+}
+
+.conntainer{
+    width: 700px;
+    margin: auto;
+    margin-top: 100px;
+    background: rgb(182, 183, 184);
+    color: #262626;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 10px;
+    padding: 40px 50px;
+
+}
+
+.conntainer hr{
+    height: 2px;
+    border: none;
+    background: #707070;
+}
+
+.conntainer h1{
+    font-family: 'Black Chancery', cursive;
+}
+
+.conntainer h2{
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.center-text {
+    text-align: center;
+    font-family: Fantasy;
+}
+
+.conntainer ul li{
+    display: flex;
+    align-self: center;
+    align-items: center;
+    height: 50px;
+    padding-left: 15px;
+    border: 1px solid #686868;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.conntainer button{
+    margin: auto;
+    width: 250px;
+    height: 50px;
+    background: linear-gradient(rgb(0, 0, 163),Black);
+    color: #fff;
+    font-size: 20px;
+    font-weight: 500;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.conntainer .index{
+    margin: auto;
+    font-size: 18px;
+}
+
+.conntainer .correct{
+    background: rgb(1, 63, 1);
+    border-color: #00d397;
+    color: #fff;
+}
+
+.conntainer .wrong{
+    background: rgb(118, 11, 11);
+    border-color: #ff4a4a;
+    color: #fff;
+}
+
+.conntainer ul li.selected {
+    background: linear-gradient(#555a67,rgb(0, 0, 163));
+    color: #fff;
+}

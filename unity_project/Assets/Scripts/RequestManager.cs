@@ -5,16 +5,19 @@ using UnityEngine.Networking;
 using SimpleJSON;
 
 public class RequestManager : ScriptableObject
-{    
+{   
+    // Properties to check the status of the request
     public bool isRequestCompleted { get; private set; }
     public bool isRequestSuccessful { get; private set; }
     private string jwtToken;
-    public JSONNode jsonResponse;
-    public long errorCode;
+    public JSONNode jsonResponse { get; private set; }
+    public int errorCode { get; private set; }
+    public string errorMessage { get; private set; }
 
     // Method to send a request to the server
     public void SendRequest(string url, string method, string body, MonoBehaviour monoBehaviour, Dictionary<string, string> parameters = null)
     {   
+        // Initialize the properties
         isRequestCompleted = false;
         isRequestSuccessful = false;
         jwtToken = PlayerPrefs.GetString("jwtToken");
@@ -22,6 +25,8 @@ public class RequestManager : ScriptableObject
         {
             Debug.Log("JWT Token is null");
         }
+
+        // If the token is available, send the request
         monoBehaviour.StartCoroutine(SendRequestCoroutine(url, method, body, parameters));
     }
 
@@ -50,6 +55,7 @@ public class RequestManager : ScriptableObject
             data = System.Text.Encoding.UTF8.GetBytes(body);
         }
 
+        // Create a request with the URL and method
         using (UnityWebRequest request = new UnityWebRequest(url, method))
         {
             request.downloadHandler = new DownloadHandlerBuffer();
@@ -73,20 +79,28 @@ public class RequestManager : ScriptableObject
             // Check the result of the request
             if (request.result == UnityWebRequest.Result.Success)
             {
+                // If the request is successful, get the response and store it in jsonResponse
                 string responseText = request.downloadHandler.text;
-                isRequestSuccessful = true;
                 jsonResponse = JSON.Parse(responseText);
+
+                // Set the request status to successful
+                isRequestSuccessful = true;
                 Debug.Log("Request successful: " + jsonResponse.ToString());
             }
             else
             {
-                string errorMessage = request.downloadHandler.text;
-                errorCode = request.responseCode;
+                // If the request fails, get the error message, error code and store it in jsonResponse, errorCode
+                string responseText = request.downloadHandler.text;
+                errorCode = (int)request.responseCode;
+                errorMessage = request.error;
+                jsonResponse = JSON.Parse(responseText);
+
+                // Set the request status to failed
                 isRequestSuccessful = false;
-                jsonResponse = JSON.Parse(errorMessage);
                 Debug.Log("Request failed: " + jsonResponse.ToString());
             }
             
+            // Set the request status to completed
             isRequestCompleted = true;
         }
     }   

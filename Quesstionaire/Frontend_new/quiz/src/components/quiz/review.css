@@ -1,0 +1,18 @@
+.questionBox {
+    border: 2px solid #686868;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.incorrectIcon {
+    color: red;
+}
+
+.correctIcon{
+    color: green;
+}
+
+.sfeedback{
+    color: rgb(161, 78, 78);
+}
