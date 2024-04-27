@@ -8,11 +8,16 @@ public class ErrorNotifications : Singleton<ErrorNotifications>
     public GameObject errorPanel;
     public TextMeshProUGUI errorText;
 
+    // 
+
     // Method to display the error message
-    public void DisplayErrorMessage(int errorCode, string message)
+    public void DisplayErrorMessage(int errorCode)
     {
         // Display the error panel
         errorPanel.SetActive(true);
+
+        // Get the error message for the given error code
+        string message = GetErrorMessageForCode(errorCode);
 
         // Display the error message
         errorText.text = message;
@@ -23,5 +28,37 @@ public class ErrorNotifications : Singleton<ErrorNotifications>
     {
         // Close the error panel
         errorPanel.SetActive(false);
+    }
+
+    // Method to get the error message for a given error code
+    private string GetErrorMessageForCode(int errorCode)
+    {
+        switch (errorCode)
+        {
+            case 0:
+                return "Network connection lost.\n Please check your internet connection.";
+            case 400:
+                return "Bad request.\n Please check your input.";
+            case 401:
+                return "Unauthorized.\n Please log in.";
+            case 403:
+                return "Access denied.\n You don't have permission.";
+            case 404:
+                return "Not found.\n The requested resource doesn't exist.";
+            case 405:
+                return "Action not allowed.\n Try a different method.";
+            case 429:
+                return "Too many requests.\n Slow down.";
+            case 500:
+                return "Server error.\n Please try again later.";
+            case 502:
+                return "Bad gateway.\n Please try again later.";
+            case 503:
+                return "Service unavailable.\n Please try again later.";
+            case 504:
+                return "Gateway timeout.\n Please try again later.";
+            default:
+                return "An unknown error occurred.\n Please try again later.";
+        }
     }
 }

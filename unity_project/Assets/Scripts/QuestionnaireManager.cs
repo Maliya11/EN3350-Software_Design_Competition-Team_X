@@ -310,6 +310,6 @@ public class QuestionnaireManager : Singleton<QuestionnaireManager>
         Debug.Log(errorCode + " " + errorMessage);
         
         // Display the Error message
-        errorNotifications.DisplayErrorMessage(errorCode, errorMessage);
+        errorNotifications.DisplayErrorMessage(errorCode);
     }
 }

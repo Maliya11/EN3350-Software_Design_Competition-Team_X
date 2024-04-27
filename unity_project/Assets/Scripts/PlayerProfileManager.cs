@@ -267,7 +267,7 @@ public class PlayerProfileManager : Singleton<PlayerProfileManager>
         Debug.Log(errorCode + " " + errorMessage);
         
         // Display the Error message
-        errorNotifications.DisplayErrorMessage(errorCode, errorMessage);
+        errorNotifications.DisplayErrorMessage(errorCode);
     }
 }
 
