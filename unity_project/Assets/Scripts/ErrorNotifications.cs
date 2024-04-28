@@ -8,19 +8,28 @@ public class ErrorNotifications : Singleton<ErrorNotifications>
     public GameObject errorPanel;
     public TextMeshProUGUI errorText;
 
-    // 
+    private string errorMessage;
 
     // Method to display the error message
-    public void DisplayErrorMessage(int errorCode)
+    public void DisplayErrorMessage(RequestBase request)
     {
         // Display the error panel
         errorPanel.SetActive(true);
 
-        // Get the error message for the given error code
-        string message = GetErrorMessageForCode(errorCode);
+        // Get the error message from the request
+        if (request.jsonResponse["message"])
+        {
+            // If any message is attached with the json response of the request, get that as the error message
+            errorMessage = request.jsonResponse["message"];
+        }
+        else
+        {
+            // If no message is attached with the json response of the request, get an error message corresponding to the error code
+            errorMessage = GetErrorMessageForCode(request.errorCode);
+        }
 
         // Display the error message
-        errorText.text = message;
+        errorText.text = errorMessage;
     }
 
     // Method to close the error panel

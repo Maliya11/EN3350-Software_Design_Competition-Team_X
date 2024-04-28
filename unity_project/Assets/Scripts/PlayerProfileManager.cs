@@ -8,6 +8,7 @@ public class PlayerProfileManager : Singleton<PlayerProfileManager>
 {
     // Reference to the RequestManager
     private RequestManager requestManager; 
+    private bool includeToken = true; // jwt token is needed for requesting from the player database
     // Reference to the ErrorNotifications
     public ErrorNotifications errorNotifications;
 
@@ -82,7 +83,7 @@ public class PlayerProfileManager : Singleton<PlayerProfileManager>
         // Create a new instance of the RequestManager
         requestManager = ScriptableObject.CreateInstance<RequestManager>();
 
-        requestManager.SendRequest(profileFetchURL, profileFetchMethod, null, this, null);
+        requestManager.SendRequest(profileFetchURL, profileFetchMethod, null, this, includeToken, null);
         StartCoroutine(WaitForProfileFetchRequestCompletion());
 
         Debug.Log("Profile view request sent");
@@ -108,7 +109,7 @@ public class PlayerProfileManager : Singleton<PlayerProfileManager>
         {
             // Display the error message to the user
             isProfileInitialized = false;
-            HandleError(requestManager);
+            errorNotifications.DisplayErrorMessage(requestManager);
         }
     }
 
@@ -215,7 +216,7 @@ public class PlayerProfileManager : Singleton<PlayerProfileManager>
         // Create a new instance of the RequestManager
         requestManager = ScriptableObject.CreateInstance<RequestManager>(); 
 
-        requestManager.SendRequest(profileUpdateURL, profileUpdateMethod, body, this, null);
+        requestManager.SendRequest(profileUpdateURL, profileUpdateMethod, body, this, includeToken, null);
         Debug.Log("Profile update request sent");
 
         StartCoroutine(WaitForProfileUpdateRequestCompletion());
@@ -242,10 +243,8 @@ public class PlayerProfileManager : Singleton<PlayerProfileManager>
         else
         {  
             // Error message will be displayed for missing fields and incorrect format
-            Debug.Log("Profile update failed");
-            string errorMessage = requestManager.jsonResponse["message"];
-            notificationBar.SetActive(true);
-            notificationText.text = errorMessage;        
+            Debug.Log("Profile update failed");     
+            errorNotifications.DisplayErrorMessage(requestManager);
         }
     }
 
@@ -255,19 +254,6 @@ public class PlayerProfileManager : Singleton<PlayerProfileManager>
     public void CloseNotificationBar()
     {
         notificationBar.SetActive(false);
-    }
-
-    // Method to Display Request Errors
-    private void HandleError(RequestManager requestManager)
-    {
-        // If the profile fetch is not successful,
-        // Assign the Error code and the Response to the variables
-        int errorCode = requestManager.errorCode;
-        string errorMessage = requestManager.errorMessage;
-        Debug.Log(errorCode + " " + errorMessage);
-        
-        // Display the Error message
-        errorNotifications.DisplayErrorMessage(errorCode);
     }
 }
 

@@ -4,39 +4,27 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-// Represents an authentication manager responsible for handling authentication requests
-public class AuthenticationManager : ScriptableObject
+public class AuthenticationManager : RequestBase
 {
-    // API key to authenticate with the server
+    // API key for authentication
     private string apiKey = "NjVjNjA0MGY0Njc3MGQ1YzY2MTcyMmNiOjY1YzYwNDBmNDY3NzBkNWM2NjE3MjJjMQ";
 
-
-    // Properties to check the status of the authentication
-    public bool isCompleted { get; private set; }
-    public bool isAuthenticated { get; private set; }
-    public int errorCode { get; private set; }
-    public string errorMessage { get; private set; }
-
-
-    // Initialize the properties
-    private void OnEnable()
+    public override void SendRequest(string url, string method, string body, MonoBehaviour monoBehaviour, bool includeToken = false, Dictionary<string, string> parameters = null)
     {
-        // Set the API key in the PlayerPrefs
-        PlayerPrefs.SetString("apiKey", apiKey);
-        PlayerPrefs.Save();
-
-        isCompleted = false;
-        isAuthenticated = false;
+        throw new NotImplementedException("AuthenticationManager does not support sending generic requests.");
     }
 
-    // Method to authenticate with the server using the provided API key
+    // Method to handle authentication
     public void Authenticate(MonoBehaviour monoBehaviour)
     {
-        // Start the coroutine
+        // Initialize common properties
+        Initialize();
+        
+        // Start the authentication coroutine
         monoBehaviour.StartCoroutine(AuthenticateCoroutine(apiKey));
     }
 
-    // Coroutine to handle the authentication process
+    // Coroutine to handle authentication process
     private IEnumerator AuthenticateCoroutine(string apiKey)
     {
         string url = "http://20.15.114.131:8080/api/login";
@@ -44,7 +32,7 @@ public class AuthenticationManager : ScriptableObject
         string json = "{\"apiKey\":\"" + apiKey + "\"}";
         byte[] data = System.Text.Encoding.UTF8.GetBytes(json);
 
-        // Create a POST request with the API key
+        // Create a POST request for authentication
         using (UnityWebRequest request = UnityWebRequest.PostWwwForm(url, ""))
         {
             request.SetRequestHeader("Content-Type", "application/json");
@@ -53,44 +41,51 @@ public class AuthenticationManager : ScriptableObject
             // Send the request asynchronously
             yield return request.SendWebRequest();
 
-            // Check the result of the request
-            if (request.result == UnityWebRequest.Result.Success)
-            {
-                // Get the token from the response
-                string responseText = request.downloadHandler.text;
-                AuthenticationResponse responseData = JsonUtility.FromJson<AuthenticationResponse>(responseText);
-                string token = responseData.token;
-
-                // Set the token in the PlayerPrefs
-                PlayerPrefs.SetString("jwtToken", token);
-                PlayerPrefs.Save();
-
-                string jwtToken = PlayerPrefs.GetString("jwtToken");
-                Debug.Log("JWT Token from PlayerPrefs: " + jwtToken);
-
-                // Set the authentication to successful
-                isAuthenticated = true;
-            }
-            else
-            {
-                // Get the error code and message
-                errorCode = (int)request.responseCode;
-                errorMessage = request.error;
-                Debug.Log("Error: " + errorCode + " - " + errorMessage);
-
-                // Set the authentication to failed
-                isAuthenticated = false;
-            }
-
-            // Set the request to be completed
-            isCompleted = true;
+            // Handle the response
+            HandleAuthenticationResponse(request);
         }
+    }
+
+    // Method to handle authentication response
+    private void HandleAuthenticationResponse(UnityWebRequest request)
+    {
+        // Check if the request is successful
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            // Parse and store the JSON response
+            string responseText = request.downloadHandler.text;
+            AuthenticationResponse responseData = JsonUtility.FromJson<AuthenticationResponse>(responseText);
+            string token = responseData.token;
+
+            // Save the JWT token
+            PlayerPrefs.SetString("jwtToken", token);
+            PlayerPrefs.Save();
+
+            Debug.Log("JWT Token saved: " + token);
+
+            // Mark authentication as successful
+            isRequestSuccessful = true;
+        }
+        else
+        {
+            // Handle error response
+            errorCode = (int)request.responseCode;
+            errorMessage = request.error;
+            Debug.Log("Error: " + errorCode + " - " + errorMessage);
+
+            // Mark authentication as failed
+            isRequestSuccessful = false;
+        }
+
+        // Mark the request as completed
+        isRequestCompleted = true;
     }
 }
 
-// Represents the authentication response from the server
+// Authentication response data class
 [Serializable]
 public class AuthenticationResponse
 {
     public string token;
 }
+

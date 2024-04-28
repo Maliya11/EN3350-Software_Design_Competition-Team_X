@@ -11,7 +11,6 @@ public class LoadingScene : Singleton<LoadingScene>
     // Reference to the ErrorNotifications
     public ErrorNotifications errorNotifications;
 
-
     // UI Elements
     public GameObject LoadingScreen;
     public Slider slider;
@@ -42,15 +41,15 @@ public class LoadingScene : Singleton<LoadingScene>
     private IEnumerator AuthenticateAndLoadMainMenu(int sceneID)
     {     
         // Call Authenticate method from AuthenticationManager to send the authentication request to the server and get the JWT token
-        authenticationManager = ScriptableObject.CreateInstance<AuthenticationManager>();
+        authenticationManager = new AuthenticationManager();
         authenticationManager.Authenticate(this);
 
-        while (!authenticationManager.isCompleted)
+        while (!authenticationManager.isRequestCompleted)
         {
             yield return null;
         }
 
-        if (authenticationManager.isAuthenticated)
+        if (authenticationManager.isRequestSuccessful)
         {
             // After the user is authenticated, proceed to load the main menu scene
             StartCoroutine(LoadOtherScene(sceneID));
@@ -58,13 +57,9 @@ public class LoadingScene : Singleton<LoadingScene>
         else
         {
             // If the authentication is not successful,
-            // Assign the Error code and the Response to the variables
-            int errorCode = authenticationManager.errorCode;
-            string errorMessage = authenticationManager.errorMessage;
-            Debug.Log(errorCode + " " + errorMessage);
-
+            Debug.Log("Authentication failed.");
             // Display the Error message
-            errorNotifications.DisplayErrorMessage(errorCode);
+            errorNotifications.DisplayErrorMessage(authenticationManager);
         }
     }
 

@@ -8,6 +8,7 @@ public class QuestionnaireManager : Singleton<QuestionnaireManager>
 {
     // Reference to the RequestManager
     private RequestManager requestManager; 
+    private bool includeToken = false; // jwt token is not needed for requesting from the questionnaire database
     // Reference to the ErrorNotifications
     public ErrorNotifications errorNotifications;
     
@@ -77,7 +78,7 @@ public class QuestionnaireManager : Singleton<QuestionnaireManager>
         requestBody["apiKey"] = apiKey;
         string jsonBody = requestBody.ToString();
 
-        requestManager.SendRequest(questionnaireStatusURL, questionnaireStatusMethod, jsonBody, this, null);
+        requestManager.SendRequest(questionnaireStatusURL, questionnaireStatusMethod, jsonBody, this, includeToken, null);
 
         yield return StartCoroutine(WaitForQuestionnaireStatusRequestCompletion(promptingOrigin));
 
@@ -107,7 +108,7 @@ public class QuestionnaireManager : Singleton<QuestionnaireManager>
         else
         {
             // Display the error message to the user
-            HandleError(requestManager);
+            errorNotifications.DisplayErrorMessage(requestManager);
             Debug.Log("Questionnaire status request failed");
         }
     }
@@ -215,7 +216,7 @@ public class QuestionnaireManager : Singleton<QuestionnaireManager>
         // Create a new instance of the RequestManager
         requestManager = ScriptableObject.CreateInstance<RequestManager>();
 
-        requestManager.SendRequest(questionnaireMarksURL, questionnaireMarksMethod, null, this, null);
+        requestManager.SendRequest(questionnaireMarksURL, questionnaireMarksMethod, null, this, includeToken, null);
 
         StartCoroutine(WaitForQuestionnaireMarksRequestCompletion());   
     }
@@ -243,7 +244,7 @@ public class QuestionnaireManager : Singleton<QuestionnaireManager>
         else
         {
             // Display the error message to the user
-            HandleError(requestManager);
+            errorNotifications.DisplayErrorMessage(requestManager);
             Debug.Log("Questionnaire marks request failed");
         }
     }
@@ -270,7 +271,7 @@ public class QuestionnaireManager : Singleton<QuestionnaireManager>
             requestBody["bonusGiven"] = 1;
             string jsonBody = requestBody.ToString();
 
-            requestManager.SendRequest(bonusPerksURL, bonusPerksMethod, jsonBody, this, null);
+            requestManager.SendRequest(bonusPerksURL, bonusPerksMethod, jsonBody, this, includeToken, null);
 
             StartCoroutine(WaitForBonusPerksRequestCompletion());
         }
@@ -295,21 +296,8 @@ public class QuestionnaireManager : Singleton<QuestionnaireManager>
         else
         {
             // Display the error message to the user
-            HandleError(requestManager);
+            errorNotifications.DisplayErrorMessage(requestManager);
             Debug.Log("Bonus given status update request failed");
         }
-    }
-
-    // Method to Display Request Errors
-    private void HandleError(RequestManager requestManager)
-    {
-        // If the profile fetch is not successful,
-        // Assign the Error code and the Response to the variables
-        int errorCode = requestManager.errorCode;
-        string errorMessage = requestManager.errorMessage;
-        Debug.Log(errorCode + " " + errorMessage);
-        
-        // Display the Error message
-        errorNotifications.DisplayErrorMessage(errorCode);
     }
 }
