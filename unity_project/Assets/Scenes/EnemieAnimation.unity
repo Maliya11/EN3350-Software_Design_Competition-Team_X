@@ -416,8 +416,8 @@ Transform:
   m_GameObject: {fileID: 753504651}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.4421, y: 0.0281, z: 0}
-  m_LocalScale: {x: 2.7179983, y: 1.3210584, z: 1}
+  m_LocalPosition: {x: 4.35, y: 0.0761, z: 0}
+  m_LocalScale: {x: 2.7179983, y: 1.3561434, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -450,7 +450,7 @@ Transform:
   m_GameObject: {fileID: 808148357}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.02, y: -0.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1083,7 +1083,7 @@ Transform:
   m_GameObject: {fileID: 945187125}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.36, z: 0}
+  m_LocalPosition: {x: 10.79, y: -2.38, z: 0}
   m_LocalScale: {x: -0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1100,7 +1100,7 @@ GameObject:
   - component: {fileID: 1122053306}
   - component: {fileID: 1122053305}
   m_Layer: 0
-  m_Name: Dark_totem_dark_shadow2
+  m_Name: Dark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1259,7 +1259,7 @@ Transform:
   m_GameObject: {fileID: 1183549860}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 3.03, y: -0.02, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1360,7 +1360,7 @@ GameObject:
   - component: {fileID: 1781145531}
   - component: {fileID: 1781145530}
   m_Layer: 0
-  m_Name: Palm_tree2_2
+  m_Name: PalmTree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
