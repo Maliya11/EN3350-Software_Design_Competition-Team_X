@@ -23016,7 +23016,7 @@ MonoBehaviour:
   restartButton: {fileID: 1418437980}
   panelTitleText: {fileID: 1676923606}
   gameOverText: {fileID: 1823383630}
-  player: {fileID: 0}
+  player: {fileID: 733453333}
 --- !u!61 &1609045624
 BoxCollider2D:
   m_ObjectHideFlags: 0
