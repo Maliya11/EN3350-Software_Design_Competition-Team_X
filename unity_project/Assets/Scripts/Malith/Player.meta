@@ -1,6 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:unity_project/Assets/Scripts/Malith/Player.meta
 guid: ecee0382343bfcb4ca473b4dacb1d54b
 folderAsset: yes
+========
+guid: 1f09e3b8a717645bdb5019a37fa542ad
+>>>>>>>> Stashed changes:unity_project/Assets/Sprites/Backgrounds/Grave Yard Tile set/vector/Tile.eps.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
