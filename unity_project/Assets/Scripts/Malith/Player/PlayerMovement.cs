@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     PlayerControls controls;
+    public Animator animator;
     float direction = 0;
     public float speed = 400;
     public float jumpForce = 5;
@@ -15,19 +13,15 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundLayer;
     bool isFacingRight = true;
     public Rigidbody2D playerRB;
-    public Animator animator;
 
 
-    private void Awake()
+    public void Awake()
     {
         controls = new PlayerControls();
         controls.Enable();
 
-        controls.Land.Move.performed += ctx =>
-        {
-            direction = ctx.ReadValue<float>();
-        };
-
+        controls.Land.Move.performed += ctx => direction = ctx.ReadValue<float>();
+        controls.Land.Move.canceled += ctx => direction = 0;
         controls.Land.Jump.performed += ctx => Jump();
         controls.Land.Slide.performed += ctx => Slide();
     }
@@ -35,19 +29,35 @@ public class PlayerMovement : MonoBehaviour
     //fixed update when moving the player
     void FixedUpdate()
     {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
-        animator.SetBool("isGrounded", isGrounded);
-        playerRB.velocity = new Vector2(direction * speed * Time.fixedDeltaTime, playerRB.velocity.y);
-        animator.SetFloat("speed", Mathf.Abs(direction));
-
-        if(isFacingRight && direction < 0 || !isFacingRight && direction > 0)
-            Flip();
+        CheckGround();
+        Move();
+        UpdateAnimation();
+        FlipPlayer();
     }
 
-    void Flip()
+    private void CheckGround()
     {
-        isFacingRight = !isFacingRight;
-        transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
+        animator.SetBool("isGrounded", isGrounded);
+    }
+
+    private void Move()
+    {
+        playerRB.velocity = new Vector2(direction * speed * Time.fixedDeltaTime, playerRB.velocity.y);
+    }
+
+    private void UpdateAnimation()
+    {
+        animator.SetFloat("speed", Mathf.Abs(direction));
+    }
+
+    void FlipPlayer()
+    {
+        if(isFacingRight && direction < 0 || !isFacingRight && direction > 0)
+        {
+            isFacingRight = !isFacingRight;
+            transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
+        }
     }
 
     void Jump()

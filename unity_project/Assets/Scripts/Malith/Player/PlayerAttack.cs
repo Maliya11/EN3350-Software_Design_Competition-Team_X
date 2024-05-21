@@ -2,15 +2,16 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
+    private PlayerMovement playerMovement;
     PlayerControls controls;
     public Animator animator;
-    private PlayerMovement playerMovement;
 
-    void Awake()
+    public void Awake()
     {
-        controls = new PlayerControls();
         playerMovement = GetComponent<PlayerMovement>();
+        controls = new PlayerControls();
         controls.Enable();
+        
         controls.Land.Attack.performed += ctx => Melee();
     }
 

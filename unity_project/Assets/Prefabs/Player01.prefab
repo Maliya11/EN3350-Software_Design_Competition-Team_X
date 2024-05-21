@@ -42,11 +42,11 @@ GameObject:
   - component: {fileID: 7231199564271240108}
   - component: {fileID: 6179004168134018896}
   - component: {fileID: 3182323550608036322}
-  - component: {fileID: 5625644058567303202}
   - component: {fileID: 8964831905106538608}
   - component: {fileID: 7697542558502254244}
-  - component: {fileID: 5042978726292889489}
-  - component: {fileID: 4842860146841721482}
+  - component: {fileID: 5593464921890761988}
+  - component: {fileID: 8351486096150023650}
+  - component: {fileID: 820511238059332884}
   m_Layer: 0
   m_Name: Player01
   m_TagString: Player
@@ -144,26 +144,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5625644058567303202
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4008858915596767572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fe65d4349a77064d93b6bec19768dad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1000
-  jumpForce: 35
-  groundCheck: {fileID: 3701149333798648024}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  playerRB: {fileID: 8964831905106538608}
-  animator: {fileID: 3182323550608036322}
 --- !u!50 &8964831905106538608
 Rigidbody2D:
   serializedVersion: 4
@@ -226,20 +206,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0.18070221, y: 0}
   m_Size: {x: 17.763596, y: 31.25}
   m_Direction: 0
---- !u!114 &5042978726292889489
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4008858915596767572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5328406f6d87b4347a0751561edca48c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 3182323550608036322}
---- !u!114 &4842860146841721482
+--- !u!114 &5593464921890761988
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -249,6 +216,40 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a025b01282513f448ec429e1a1b7593, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 3182323550608036322}
+--- !u!114 &8351486096150023650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4008858915596767572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fe65d4349a77064d93b6bec19768dad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 3182323550608036322}
+  speed: 1000
+  jumpForce: 35
+  isGrounded: 1
+  groundCheck: {fileID: 3701149333798648024}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  playerRB: {fileID: 8964831905106538608}
+--- !u!114 &820511238059332884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4008858915596767572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5328406f6d87b4347a0751561edca48c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 3182323550608036322}
