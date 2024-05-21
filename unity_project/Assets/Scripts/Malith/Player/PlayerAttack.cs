@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerShoot : MonoBehaviour
+public class PlayerAttack : MonoBehaviour
 {
     PlayerControls controls;
     public Animator animator;
@@ -11,15 +11,16 @@ public class PlayerShoot : MonoBehaviour
         controls = new PlayerControls();
         playerMovement = GetComponent<PlayerMovement>();
         controls.Enable();
-        controls.Land.Throw.performed += ctx => Throw();
+        controls.Land.Attack.performed += ctx => Melee();
     }
 
-    void Throw()
+    void Melee()
     {
         if(!playerMovement.isGrounded)
-            animator.SetTrigger("jumpThrow");
+            animator.SetTrigger("jumpAttack");
 
         else
-            animator.SetTrigger("throw");
+            animator.SetTrigger("attack");
     }
+     
 }

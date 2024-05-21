@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     float direction = 0;
     public float speed = 400;
     public float jumpForce = 5;
-    bool isGrounded;
+    public bool isGrounded = true;
     int numberOfJumps = 0;
     public Transform groundCheck;
     public LayerMask groundLayer;
@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
         };
 
         controls.Land.Jump.performed += ctx => Jump();
-        
+        controls.Land.Slide.performed += ctx => Slide();
     }
     
     //fixed update when moving the player
@@ -66,5 +66,10 @@ public class PlayerMovement : MonoBehaviour
                 numberOfJumps++;
             }
         }
+    }
+
+    void Slide()
+    {
+        animator.SetTrigger("slide");
     }
 }
