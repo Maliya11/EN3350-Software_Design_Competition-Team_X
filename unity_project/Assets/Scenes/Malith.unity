@@ -275,6 +275,11 @@ Transform:
   - {fileID: 1058995929}
   m_Father: {fileID: 909515784}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &29300681 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6107947074123816855, guid: e447fd838770ab544807a4d8d7017e9e, type: 3}
+  m_PrefabInstance: {fileID: 389386768}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &45101849
 GameObject:
   m_ObjectHideFlags: 0
@@ -717,7 +722,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4008858915596767572, guid: 0b049286b2e041b49b6a0ec9df1db2ac, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7231199564271240108, guid: 0b049286b2e041b49b6a0ec9df1db2ac, type: 3}
       propertyPath: m_LocalPosition.x
@@ -764,11 +769,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b049286b2e041b49b6a0ec9df1db2ac, type: 3}
---- !u!4 &107159385 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7231199564271240108, guid: 0b049286b2e041b49b6a0ec9df1db2ac, type: 3}
-  m_PrefabInstance: {fileID: 107159384}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &112921352
 GameObject:
   m_ObjectHideFlags: 0
@@ -1927,7 +1927,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4632982103744533927, guid: e447fd838770ab544807a4d8d7017e9e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4730867201881698531, guid: e447fd838770ab544807a4d8d7017e9e, type: 3}
       propertyPath: m_Enabled
@@ -3453,7 +3453,7 @@ Transform:
   m_GameObject: {fileID: 535395121}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -61.89, y: -1.88, z: -9}
+  m_LocalPosition: {x: -54.66, y: -2.12, z: -9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -22226,7 +22226,7 @@ MonoBehaviour:
   m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 107159385}
+  m_Follow: {fileID: 29300681}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 20
@@ -22255,7 +22255,7 @@ Transform:
   m_GameObject: {fileID: 1486171928}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -61.89, y: -1.88, z: -9}
+  m_LocalPosition: {x: -54.66, y: -2.12, z: -9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

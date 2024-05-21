@@ -69,6 +69,7 @@ Transform:
   m_Children:
   - {fileID: 3701149333798648024}
   - {fileID: 3423755594999449986}
+  - {fileID: 6092511362600998563}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6179004168134018896
@@ -239,6 +240,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  isFacingRight: 1
   playerRB: {fileID: 8964831905106538608}
 --- !u!114 &820511238059332884
 MonoBehaviour:
@@ -253,6 +255,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 3182323550608036322}
+  bullet: {fileID: 6497839880384899593, guid: 0b418fcefde8d3144b86385770da99ac, type: 3}
+  bulletHole: {fileID: 6092511362600998563}
+  force: 2500
+--- !u!1 &5148068263608448701
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6092511362600998563}
+  m_Layer: 0
+  m_Name: bulletHole
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6092511362600998563
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5148068263608448701}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 10.1, y: -4.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7231199564271240108}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5680184505365202447
 GameObject:
   m_ObjectHideFlags: 0

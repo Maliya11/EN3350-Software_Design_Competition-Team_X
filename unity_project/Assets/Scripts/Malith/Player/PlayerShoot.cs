@@ -5,6 +5,9 @@ public class PlayerShoot : MonoBehaviour
     private PlayerMovement playerMovement;
     PlayerControls controls;
     public Animator animator;
+    public GameObject bullet;
+    public Transform bulletHole;
+    public float force = 200;
 
     public void Awake()
     {
@@ -17,10 +20,26 @@ public class PlayerShoot : MonoBehaviour
 
     void Throw()
     {
-        if(!playerMovement.isGrounded)
-            animator.SetTrigger("jumpThrow");
-
+        GameObject go = Instantiate(bullet, bulletHole.position, bullet.transform.rotation);
+        if(GetComponent<PlayerMovement>().isFacingRight)
+        {
+            if(!playerMovement.isGrounded)
+                animator.SetTrigger("jumpThrow");
+            else
+                animator.SetTrigger("throw");
+            
+            go.GetComponent<Rigidbody2D>().AddForce(Vector2.right * force);
+        }
+        
         else
-            animator.SetTrigger("throw");
+        {
+            if(!playerMovement.isGrounded)
+                animator.SetTrigger("jumpThrow");
+            else
+                animator.SetTrigger("throw");
+
+            go.GetComponent<Rigidbody2D>().SetRotation(90);
+            go.GetComponent<Rigidbody2D>().AddForce(Vector2.left * force);
+        }
     }
 }

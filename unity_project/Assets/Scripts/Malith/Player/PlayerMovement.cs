@@ -7,11 +7,11 @@ public class PlayerMovement : MonoBehaviour
     float direction = 0;
     public float speed = 400;
     public float jumpForce = 5;
-    public bool isGrounded = true;
+    public bool isGrounded;
     int numberOfJumps = 0;
     public Transform groundCheck;
     public LayerMask groundLayer;
-    bool isFacingRight = true;
+    public bool isFacingRight = true;
     public Rigidbody2D playerRB;
 
 
