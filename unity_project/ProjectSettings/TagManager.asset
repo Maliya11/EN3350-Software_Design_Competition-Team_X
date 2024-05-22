@@ -6,9 +6,7 @@ TagManager:
   tags:
   - Ground
   - Enemy
-
-=======
->>>>>>> 931e82cf9a7dc2bc61efc492d5f7279b32e08de8
+  - Golem
   layers:
   - Default
   - TransparentFX
@@ -17,8 +15,8 @@ TagManager:
   - Water
   - UI
   - ground
-  - player
-  - enemy
+  - 
+  - 
   - 
   - 
   - 
