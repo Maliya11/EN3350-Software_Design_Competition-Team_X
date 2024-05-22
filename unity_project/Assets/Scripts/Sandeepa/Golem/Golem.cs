@@ -6,6 +6,9 @@ public class Golem : MonoBehaviour
 {
     Transform target;
     public Transform borderCheck;
+    public int GolemHP = 100;
+    public Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,5 +26,18 @@ public class Golem : MonoBehaviour
        {
             transform.localScale = new Vector2(-1.5f,1.5f);
        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        GolemHP -= damage;
+        if(GolemHP > 0)
+        {
+            animator.SetTrigger("Damage");
+        }
+        else{
+            animator.SetTrigger("deth");
+
+        }
     }
 }
