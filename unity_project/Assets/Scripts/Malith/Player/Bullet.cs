@@ -12,7 +12,7 @@ public class Bullet : MonoBehaviour
 
         if(collision.tag == "Golem")
         {
-            //collision.GetComponent<Golem>().TakeDamage(25);
+            collision.GetComponent<Golem>().TakeDamage(25);
         }
     } 
 

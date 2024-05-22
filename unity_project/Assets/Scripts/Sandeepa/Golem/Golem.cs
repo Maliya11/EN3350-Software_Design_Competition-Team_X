@@ -13,6 +13,7 @@ public class Golem : MonoBehaviour
     void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
+        Physics2D.IgnoreCollision(target.GetComponent<Collider2D>(), GetComponent<Collider2D>());
     }
 
     // Update is called once per frame
@@ -31,12 +32,15 @@ public class Golem : MonoBehaviour
     public void TakeDamage(int damage)
     {
         GolemHP -= damage;
+        Debug.Log("Golem HP: " + GolemHP);
         if(GolemHP > 0)
         {
             animator.SetTrigger("Damage");
         }
         else{
             animator.SetTrigger("deth");
+            GetComponent<CapsuleCollider2D>().enabled = false;
+            this.enabled = false;
 
         }
     }
