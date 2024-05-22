@@ -32,7 +32,6 @@ public class Golem : MonoBehaviour
     public void TakeDamage(int damage)
     {
         GolemHP -= damage;
-        Debug.Log("Golem HP: " + GolemHP);
         if(GolemHP > 0)
         {
             animator.SetTrigger("Damage");
@@ -41,7 +40,11 @@ public class Golem : MonoBehaviour
             animator.SetTrigger("deth");
             GetComponent<CapsuleCollider2D>().enabled = false;
             this.enabled = false;
-
         }
+    }
+
+    public void PlayerDamage()
+    {
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCollision>().TakeDamage();
     }
 }

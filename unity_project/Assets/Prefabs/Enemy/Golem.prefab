@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 2632598615482249068}
   - component: {fileID: 4485258024879204999}
   - component: {fileID: 35012346454693543}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Golem
-  m_TagString: Enemy
+  m_TagString: Golem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -123,6 +123,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   borderCheck: {fileID: 5265738439170086109}
+  GolemHP: 100
+  animator: {fileID: 0}
 --- !u!70 &4485258024879204999
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -171,6 +173,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   borderCheck: {fileID: 5265738439170086109}
+  GolemHP: 100
+  animator: {fileID: 0}
 --- !u!1 &7055531466504071124
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,7 +184,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5265738439170086109}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BorderCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}

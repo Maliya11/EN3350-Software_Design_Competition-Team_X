@@ -7,16 +7,7 @@ public class PlayerCollision : MonoBehaviour
     {
         if(collision.transform.tag == "Enemy")
         {
-            HealthManager.health--;
-            if(HealthManager.health <= 0)
-            {
-                PlayerManager.isGameOver = true;
-                gameObject.SetActive(false);
-            }
-            else
-            {
-                StartCoroutine(GetHurt());
-            }   
+            TakeDamage();  
         }
 
         if(collision.transform.tag == "Water")
@@ -26,6 +17,20 @@ public class PlayerCollision : MonoBehaviour
             gameObject.SetActive(false);
         }
         
+    }
+
+    public void TakeDamage()
+    {
+        HealthManager.health--;
+        if(HealthManager.health <= 0)
+        {
+            PlayerManager.isGameOver = true;
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            StartCoroutine(GetHurt());
+        }   
     }
 
     IEnumerator GetHurt()
