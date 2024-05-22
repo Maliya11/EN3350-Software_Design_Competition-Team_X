@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1751746860079549062}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: bulletHole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6722652563269509093}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: groundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 2352209503093763818}
   - component: {fileID: 2255320136976433175}
   - component: {fileID: 6785828366368950370}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player03
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -299,7 +299,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8905694008909032036}
   - component: {fileID: 3087191500140577116}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -9,5 +9,12 @@ public class Bullet : MonoBehaviour
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }
+
+        if(collision.tag == "Golem")
+        {
+            //collision.GetComponent<Golem>().TakeDamage(25);
+        }
     } 
+
+    
 }
