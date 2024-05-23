@@ -3,27 +3,30 @@ using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
 {
+    public Animator animator;
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.transform.tag == "Enemy")
         {
-            TakeDamage();  
+            PlayerTakeDamage();  
         }
 
         if(collision.transform.tag == "Water")
         {
             HealthManager.health = 0;
+            animator.SetTrigger("isDead");
             PlayerManager.isGameOver = true;
             gameObject.SetActive(false);
         }
         
     }
 
-    public void TakeDamage()
+    public void PlayerTakeDamage()
     {
         HealthManager.health--;
         if(HealthManager.health <= 0)
         {
+            animator.SetTrigger("isDead");
             PlayerManager.isGameOver = true;
             gameObject.SetActive(false);
         }

@@ -271,6 +271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20db14e3c8991ec45b8075b09573965b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 4296427953723652468}
 --- !u!1 &5148068263608448701
 GameObject:
   m_ObjectHideFlags: 0

@@ -29,7 +29,7 @@ public class Golem : MonoBehaviour
        }
     }
 
-    public void TakeDamage(int damage)
+    public void GolemTakeDamage(int damage)
     {
         GolemHP -= damage;
         if(GolemHP > 0)
@@ -45,6 +45,6 @@ public class Golem : MonoBehaviour
 
     public void PlayerDamage()
     {
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCollision>().TakeDamage();
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCollision>().PlayerTakeDamage();
     }
 }
