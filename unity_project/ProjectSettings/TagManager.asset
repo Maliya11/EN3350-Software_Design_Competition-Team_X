@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Golem
   - Water
+  - Bat
   layers:
   - Default
   - TransparentFX
