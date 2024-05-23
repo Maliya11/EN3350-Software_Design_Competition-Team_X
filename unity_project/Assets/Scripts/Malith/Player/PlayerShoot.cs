@@ -13,14 +13,36 @@ public class PlayerShoot : MonoBehaviour
     {
         playerMovement = GetComponent<PlayerMovement>();
         controls = new PlayerControls();
-        controls.Enable();
+    }
 
-        controls.Land.Throw.performed += ctx => Throw();
+    private void OnEnable()
+    {
+        controls.Enable();
+        controls.Land.Throw.performed += OnThrowPerformed;
+    }
+
+    private void OnDisable()
+    {
+        controls.Land.Throw.performed -= OnThrowPerformed;
+        controls.Disable();
+    }
+
+    private void OnThrowPerformed(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        Throw();
     }
 
     void Throw()
     {
+        // Check if bulletHole and other necessary components are not null
+        if (bulletHole == null || bullet == null || animator == null || playerMovement == null)
+        {
+            Debug.LogWarning("Necessary component missing for Throw action.");
+            return;
+        }
+
         GameObject go = Instantiate(bullet, bulletHole.position, bullet.transform.rotation);
+        
         if(GetComponent<PlayerMovement>().isFacingRight)
         {
             if(!playerMovement.isGrounded)

@@ -313,6 +313,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1971907860680887660}
+  meleeDamage: 25
+  meleeAttackRange: 1
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &6508124027001465366
 GameObject:
   m_ObjectHideFlags: 0

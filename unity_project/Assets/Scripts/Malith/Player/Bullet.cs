@@ -11,8 +11,14 @@ public class Bullet : MonoBehaviour
 
         if(collision.tag == "Golem")
         {
+            Golem golem = collision.GetComponent<Golem>();
+            if(golem != null)
+            {
+                golem.GolemTakeDamage(25);
+            }
             Destroy(gameObject);
-            collision.GetComponent<Golem>().GolemTakeDamage(25);
         }
+
+        
     }
 }

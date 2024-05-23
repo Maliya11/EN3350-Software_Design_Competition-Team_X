@@ -43,11 +43,11 @@ GameObject:
   - component: {fileID: 6179004168134018896}
   - component: {fileID: 8964831905106538608}
   - component: {fileID: 7697542558502254244}
-  - component: {fileID: 5593464921890761988}
   - component: {fileID: 8351486096150023650}
   - component: {fileID: 820511238059332884}
   - component: {fileID: 4296427953723652468}
   - component: {fileID: 146293185829319012}
+  - component: {fileID: 5646505735766816576}
   m_Layer: 7
   m_Name: Player01
   m_TagString: Player
@@ -187,19 +187,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0.18070221, y: 0}
   m_Size: {x: 17.763596, y: 31.25}
   m_Direction: 0
---- !u!114 &5593464921890761988
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4008858915596767572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a025b01282513f448ec429e1a1b7593, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 4296427953723652468}
 --- !u!114 &8351486096150023650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,6 +259,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 4296427953723652468}
+--- !u!114 &5646505735766816576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4008858915596767572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a025b01282513f448ec429e1a1b7593, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 4296427953723652468}
+  meleeDamage: 25
+  meleeAttackRange: 1
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &5148068263608448701
 GameObject:
   m_ObjectHideFlags: 0

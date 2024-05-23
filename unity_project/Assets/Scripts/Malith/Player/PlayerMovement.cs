@@ -18,13 +18,47 @@ public class PlayerMovement : MonoBehaviour
     public void Awake()
     {
         controls = new PlayerControls();
-        controls.Enable();
-
-        controls.Land.Move.performed += ctx => direction = ctx.ReadValue<float>();
-        controls.Land.Move.canceled += ctx => direction = 0;
-        controls.Land.Jump.performed += ctx => Jump();
-        controls.Land.Slide.performed += ctx => Slide();
     }
+
+        private void OnEnable()
+    {
+        controls.Enable();
+        controls.Land.Move.performed += OnMovePerformed;
+        controls.Land.Move.canceled += OnMoveCanceled;
+        controls.Land.Jump.performed += OnJumpPerformed;
+        controls.Land.Slide.performed += OnSlidePerformed;
+    }
+
+    private void OnDisable()
+    {
+        controls.Land.Move.performed -= OnMovePerformed;
+        controls.Land.Move.canceled -= OnMoveCanceled;
+        controls.Land.Jump.performed -= OnJumpPerformed;
+        controls.Land.Slide.performed -= OnSlidePerformed;
+        controls.Disable();
+    }
+
+    private void OnMovePerformed(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        direction = context.ReadValue<float>();
+    }
+
+    private void OnMoveCanceled(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        direction = 0;
+    }
+
+    private void OnJumpPerformed(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        Jump();
+    }
+
+    private void OnSlidePerformed(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        Slide();
+    }
+
+
     
     //fixed update when moving the player
     void FixedUpdate()
@@ -37,18 +71,34 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckGround()
     {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
-        animator.SetBool("isGrounded", isGrounded);
+        if(groundCheck != null && groundLayer != 0)
+        {
+            isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
+            if(animator != null)
+            {
+                animator.SetBool("isGrounded", isGrounded);
+            }
+                
+        }
+        
     }
 
     private void Move()
     {
-        playerRB.velocity = new Vector2(direction * speed * Time.fixedDeltaTime, playerRB.velocity.y);
+        if(playerRB != null)
+        {
+            playerRB.velocity = new Vector2(direction * speed * Time.fixedDeltaTime, playerRB.velocity.y);
+        }
+        
     }
 
     private void UpdateAnimation()
     {
-        animator.SetFloat("speed", Mathf.Abs(direction));
+        if(animator != null)
+        {
+            animator.SetFloat("speed", Mathf.Abs(direction));
+        }
+        
     }
 
     void FlipPlayer()
@@ -80,6 +130,10 @@ public class PlayerMovement : MonoBehaviour
 
     void Slide()
     {
-        animator.SetTrigger("slide");
+        if(animator != null)
+        {
+            animator.SetTrigger("slide");
+        }
+        
     }
 }

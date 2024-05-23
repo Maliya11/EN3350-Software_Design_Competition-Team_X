@@ -1,10 +1,18 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
 {
     public Animator animator;
+    private int playerLayer;
+    private int enemyLayer;
+
+    private void Awake()
+    {
+        playerLayer = LayerMask.NameToLayer("player");
+        enemyLayer = LayerMask.NameToLayer("enemy");
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.transform.tag == "Enemy")
@@ -17,6 +25,7 @@ public class PlayerCollision : MonoBehaviour
             HealthManager.health = 0;
             StartCoroutine(Dead());
         }
+
     }
 
     public void PlayerTakeDamage()
@@ -32,22 +41,38 @@ public class PlayerCollision : MonoBehaviour
         }   
     }
 
+
     IEnumerator Dead()
     {
+        if(animator == null) yield break;
+
+        if(gameObject.activeSelf)
+        {
         animator.SetTrigger("isDead");
         animator.SetTrigger("dead");
         yield return new WaitForSeconds(1);
+
         gameObject.SetActive(false);
         PlayerManager.isGameOver = true;
+        }
+
+        else
+        {
+            Debug.LogWarning("Cannot start coroutine: GameObject is inactive.");
+        }
     }
 
     IEnumerator GetHurt()
     {
-        Physics2D.IgnoreLayerCollision(7, 8);
+        if(animator == null) yield break;
+
+        Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, true);
         GetComponent<Animator>().SetLayerWeight(1, 1);
+
         yield return new WaitForSeconds(3);
+
         GetComponent<Animator>().SetLayerWeight(1, 0);
-        Physics2D.IgnoreLayerCollision(7, 8, false);
+        Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, false);
     }
 
 }
