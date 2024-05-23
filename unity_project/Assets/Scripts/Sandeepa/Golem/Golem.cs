@@ -64,7 +64,7 @@ public class Golem : MonoBehaviour
 
     void Die()
     {
-        animator.SetTrigger("Death");
+        animator.SetTrigger("deth");
         GetComponent<CapsuleCollider2D>().enabled = false;
         this.enabled = false;
     }
