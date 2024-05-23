@@ -67,11 +67,13 @@ public class PlayerCollision : MonoBehaviour
         if(animator == null) yield break;
 
         Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, true);
-        GetComponent<Animator>().SetLayerWeight(1, 1);
+        // Debug.Log("one");
+        // GetComponent<Animator>().SetLayerWeight(1, 1);
 
         yield return new WaitForSeconds(3);
 
-        GetComponent<Animator>().SetLayerWeight(1, 0);
+        // GetComponent<Animator>().SetLayerWeight(1, 0);
+        // Debug.Log("two");
         Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, false);
     }
 

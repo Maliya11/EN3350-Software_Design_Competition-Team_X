@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 5242249872921189968}
   - component: {fileID: 2225031595703351173}
   - component: {fileID: 7326093122085452689}
+  - component: {fileID: 349736355703247063}
   m_Layer: 7
   m_Name: Player02
   m_TagString: Player
@@ -189,7 +190,7 @@ Animator:
   m_GameObject: {fileID: 6481398379779273978}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4d28ae709e8323c4f8728e46e08fa5bd, type: 2}
+  m_Controller: {fileID: 9100000, guid: b97d9aaa17dbfd14d9b327826c32f6d1, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -318,6 +319,19 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &349736355703247063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6481398379779273978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20db14e3c8991ec45b8075b09573965b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1971907860680887660}
 --- !u!1 &6508124027001465366
 GameObject:
   m_ObjectHideFlags: 0
