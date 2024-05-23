@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
@@ -14,11 +15,8 @@ public class PlayerCollision : MonoBehaviour
         if(collision.transform.tag == "Water")
         {
             HealthManager.health = 0;
-            animator.SetTrigger("isDead");
-            PlayerManager.isGameOver = true;
-            gameObject.SetActive(false);
+            StartCoroutine(Dead());
         }
-        
     }
 
     public void PlayerTakeDamage()
@@ -26,14 +24,21 @@ public class PlayerCollision : MonoBehaviour
         HealthManager.health--;
         if(HealthManager.health <= 0)
         {
-            animator.SetTrigger("isDead");
-            PlayerManager.isGameOver = true;
-            gameObject.SetActive(false);
+            StartCoroutine(Dead());
         }
         else
         {
             StartCoroutine(GetHurt());
         }   
+    }
+
+    IEnumerator Dead()
+    {
+        animator.SetTrigger("isDead");
+        animator.SetTrigger("dead");
+        yield return new WaitForSeconds(1);
+        gameObject.SetActive(false);
+        PlayerManager.isGameOver = true;
     }
 
     IEnumerator GetHurt()

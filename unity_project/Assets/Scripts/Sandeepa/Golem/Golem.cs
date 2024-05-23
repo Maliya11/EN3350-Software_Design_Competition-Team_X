@@ -45,6 +45,9 @@ public class Golem : MonoBehaviour
 
     public void PlayerDamage()
     {
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCollision>().PlayerTakeDamage();
+        if(HealthManager.health > 0)
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCollision>().PlayerTakeDamage();
+        else
+            gameObject.SetActive(false);
     }
 }
