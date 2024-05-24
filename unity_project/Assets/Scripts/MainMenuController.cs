@@ -65,6 +65,7 @@ public class MainMenuController : MonoBehaviour
         // Remove the apiKey and jwtToken from PlayerPrefs 
         PlayerPrefs.DeleteKey("apiKey");
         PlayerPrefs.DeleteKey("jwtToken");
+        PlayerPrefs.DeleteKey("treasureQuestions");
         Debug.Log("Saved data removed from PlayerPrefs");
 
         // Load the Initial login scene

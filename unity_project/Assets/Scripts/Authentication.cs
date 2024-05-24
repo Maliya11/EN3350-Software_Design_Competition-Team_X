@@ -3,6 +3,7 @@ using UnityEngine.Networking;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using SimpleJSON;
 
 public class AuthenticationManager : RequestBase
 {
@@ -68,10 +69,11 @@ public class AuthenticationManager : RequestBase
         }
         else
         {
-            // Handle error response
+            // Handle the error response
+            string responseText = request.downloadHandler.text;
             errorCode = (int)request.responseCode;
             errorMessage = request.error;
-            Debug.Log("Error: " + errorCode + " - " + errorMessage);
+            jsonResponse = JSON.Parse(responseText);
 
             // Mark authentication as failed
             isRequestSuccessful = false;
