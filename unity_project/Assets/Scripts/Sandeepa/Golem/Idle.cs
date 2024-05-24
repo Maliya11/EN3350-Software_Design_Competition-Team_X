@@ -22,7 +22,7 @@ public class Idle : StateMachineBehaviour
         float distance = Vector2.Distance(target.position, animator.transform.position);
       //   if(distance<3.5)
       //       animator.SetBool("isAttack", true);
-        if(distance < 8)
+        if(distance < 15)
             animator.SetBool("isChasing", true);
         
         
