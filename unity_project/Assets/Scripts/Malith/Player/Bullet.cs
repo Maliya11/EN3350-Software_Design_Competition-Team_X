@@ -19,6 +19,16 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
 
+        if(collision.tag == "Minotaur")
+        {
+            Minotaur Minotaur = collision.GetComponent<Minotaur>();
+            if(Minotaur != null)
+            {
+                Minotaur.GolemTakeDamage(25);
+            }
+            Destroy(gameObject);
+        }
+
         
     }
 }
