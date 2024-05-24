@@ -16,7 +16,8 @@ public class FinishPoint : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             Debug.Log("Player reached the finish point!");
-
+            PlayerManager.numberOfPoints += 100;
+            PlayerPrefs.SetInt("NumberOfPoints", PlayerManager.numberOfPoints);
             // Display the game over panel
             gameOverPanel.SetActive(true);
 
