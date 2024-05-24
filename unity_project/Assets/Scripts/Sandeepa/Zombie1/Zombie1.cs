@@ -6,7 +6,7 @@ public class Zombie1 : MonoBehaviour
 {
     Transform target;
     public Transform borderCheck;
-    public int GolemHP = 100;
+    public int Zombie1HP = 100;
     public Animator animator;
 
     void Start()
@@ -24,21 +24,21 @@ public class Zombie1 : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Player not found. Golem cannot detect player position.");
+            Debug.LogWarning("Player not found. Zombie1 cannot detect player position.");
         }
     }
 
     void IgnoreCollisions()
     {
-        Collider2D golemCollider = GetComponent<Collider2D>();
+        Collider2D zombie1Collider = GetComponent<Collider2D>();
         Collider2D playerCollider = target.GetComponent<Collider2D>();
-        if (golemCollider != null && playerCollider != null)
+        if (zombie1Collider != null && playerCollider != null)
         {
-            Physics2D.IgnoreCollision(playerCollider, golemCollider);
+            Physics2D.IgnoreCollision(playerCollider, zombie1Collider);
         }
         else
         {
-            Debug.LogWarning("Golem or player collider not found. Ignoring collision failed.");
+            Debug.LogWarning("Zombie1 or player collider not found. Ignoring collision failed.");
         }
     }
 
@@ -51,10 +51,10 @@ public class Zombie1 : MonoBehaviour
         }
     }
 
-    public void GolemTakeDamage(int damage)
+    public void Zombie1TakeDamage(int damage)
     {
-        GolemHP -= damage;
-        if (GolemHP <= 0)
+        Zombie1HP -= damage;
+        if (Zombie1HP <= 0)
         {
             Die();
         }
