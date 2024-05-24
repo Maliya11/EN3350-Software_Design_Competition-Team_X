@@ -60,6 +60,51 @@ public class PlayerAttack : MonoBehaviour
                     golem.GolemTakeDamage(meleeDamage);
                 }
             }
+
+            if (enemy.CompareTag("Goblin"))
+            {
+                Goblin goblin = enemy.GetComponent<Goblin>();
+                if(goblin != null)
+                {
+                    goblin.GoblinTakeDamage(meleeDamage);
+                }
+            }
+
+            if (enemy.CompareTag("Minotaur"))
+            {
+                Minotaur minotaur = enemy.GetComponent<Minotaur>();
+                if(minotaur != null)
+                {
+                    minotaur.MinotaurTakeDamage(meleeDamage);
+                }
+            }
+
+            if (enemy.CompareTag("Zombie"))
+            {
+                Zombie zombie = enemy.GetComponent<Zombie>();
+                if(zombie != null)
+                {
+                    zombie.ZombieTakeDamage(meleeDamage);
+                }
+            }
+
+            if (enemy.CompareTag("Zombie1"))
+            {
+                Zombie1 zombie1 = enemy.GetComponent<Zombie1>();
+                if(zombie1 != null)
+                {
+                    zombie1.Zombie1TakeDamage(meleeDamage);
+                }
+            }
+
+            if (enemy.CompareTag("Bat"))
+            {
+                Bat bat = enemy.GetComponent<Bat>();
+                if(bat != null)
+                {
+                    bat.BatTakeDamage(meleeDamage);
+                }
+            }
         }
     }
 
