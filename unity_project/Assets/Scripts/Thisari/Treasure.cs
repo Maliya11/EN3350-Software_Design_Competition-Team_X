@@ -59,8 +59,8 @@ public class Treasure : MonoBehaviour
         List<Question> questions = JsonConvert.DeserializeObject<List<Question>>(jsonResponse);
         
         // Get the question and answer at the index of the treasure ID
-        question = questions[treasureID].q;
-        answer = questions[treasureID].corAns;
+        question = questions[treasureID - 1].q;
+        answer = questions[treasureID - 1].corAns;
 
         Debug.Log("Question: " + question);
         Debug.Log("Answer: " + answer);
