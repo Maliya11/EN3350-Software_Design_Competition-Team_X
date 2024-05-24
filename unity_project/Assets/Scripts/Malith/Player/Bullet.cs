@@ -29,6 +29,16 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
 
+        if(collision.tag == "Goblin")
+        {
+            Goblin Goblin = collision.GetComponent<Goblin>();
+            if(Goblin != null)
+            {
+                Goblin.GolemTakeDamage(25);
+            }
+            Destroy(gameObject);
+        }
+
         
     }
 }
