@@ -12,6 +12,7 @@ TagManager:
   - Minotaur
   - Goblin
   - Zombie
+  - Zombie1
   layers:
   - Default
   - TransparentFX
