@@ -67,6 +67,7 @@ public class Minotaur : MonoBehaviour
     void Die()
     {
         animator.SetTrigger("deth1");
+        PlayerManager.numberOfPoints += 10;
         GetComponent<CapsuleCollider2D>().enabled = false;
         this.enabled = false;
     }

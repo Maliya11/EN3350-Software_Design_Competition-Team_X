@@ -67,6 +67,7 @@ public class Goblin : MonoBehaviour
     void Die()
     {
         animator.SetTrigger("deth2");
+        PlayerManager.numberOfPoints += 10;
         GetComponent<CapsuleCollider2D>().enabled = false;
         this.enabled = false;
     }
