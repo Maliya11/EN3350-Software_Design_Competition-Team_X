@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Idle : StateMachineBehaviour
+public class idle1 : StateMachineBehaviour
 {
     Transform target;
     Transform borderCheck;
@@ -10,23 +10,20 @@ public class Idle : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
        target = GameObject.FindGameObjectWithTag("Player").transform;
-       borderCheck = animator.GetComponent<Golem>().borderCheck;
+       borderCheck = animator.GetComponent<Minotaur>().borderCheck;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if(Physics2D.Raycast(borderCheck.position, Vector2.down, 2) == false)
+       if(Physics2D.Raycast(borderCheck.position, Vector2.down, 2) == false)
           return;
 
         float distance = Vector2.Distance(target.position, animator.transform.position);
       //   if(distance<3.5)
       //       animator.SetBool("isAttack", true);
         if(distance < 15)
-            animator.SetBool("isChasing", true);
-        
-        
-         
+            animator.SetBool("isChasing1", true);
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

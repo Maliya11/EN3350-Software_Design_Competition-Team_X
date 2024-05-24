@@ -2,31 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Idle : StateMachineBehaviour
+public class Attack2 : StateMachineBehaviour
 {
     Transform target;
-    Transform borderCheck;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
        target = GameObject.FindGameObjectWithTag("Player").transform;
-       borderCheck = animator.GetComponent<Golem>().borderCheck;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if(Physics2D.Raycast(borderCheck.position, Vector2.down, 2) == false)
-          return;
-
-        float distance = Vector2.Distance(target.position, animator.transform.position);
-      //   if(distance<3.5)
-      //       animator.SetBool("isAttack", true);
-        if(distance < 15)
-            animator.SetBool("isChasing", true);
-        
-        
-         
+       float distance = Vector2.Distance(target.position, animator.transform.position);
+       if(distance > 4)
+            animator.SetBool("isAttack2", false);
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

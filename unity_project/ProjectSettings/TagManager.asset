@@ -9,6 +9,8 @@ TagManager:
   - Golem
   - Water
   - Bat
+  - Minotaur
+  - Goblin
   layers:
   - Default
   - TransparentFX
