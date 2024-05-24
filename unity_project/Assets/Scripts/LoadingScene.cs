@@ -41,7 +41,7 @@ public class LoadingScene : Singleton<LoadingScene>
     private IEnumerator AuthenticateAndLoadMainMenu(int sceneID)
     {     
         // Call Authenticate method from AuthenticationManager to send the authentication request to the server and get the JWT token
-        authenticationManager = new AuthenticationManager();
+        authenticationManager = ScriptableObject.CreateInstance<AuthenticationManager>();
         authenticationManager.Authenticate(this);
 
         while (!authenticationManager.isRequestCompleted)
