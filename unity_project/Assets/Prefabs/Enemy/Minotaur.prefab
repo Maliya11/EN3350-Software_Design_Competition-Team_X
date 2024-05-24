@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 811846326850818652}
   - component: {fileID: 4936623131793537819}
   - component: {fileID: 7594698259222073942}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Minotaur
   m_TagString: Minotaur
   m_Icon: {fileID: 0}
@@ -168,7 +168,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6983645705909595565}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: boundary
   m_TagString: Untagged
   m_Icon: {fileID: 0}

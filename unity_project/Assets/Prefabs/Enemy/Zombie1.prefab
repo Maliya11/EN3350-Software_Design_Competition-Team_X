@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2986497076445303634}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: boundary
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,9 +43,9 @@ GameObject:
   - component: {fileID: 8719825510894758831}
   - component: {fileID: 1351182591718309395}
   - component: {fileID: 7436901021164910921}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Zombie1
-  m_TagString: Untagged
+  m_TagString: Zombie1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
