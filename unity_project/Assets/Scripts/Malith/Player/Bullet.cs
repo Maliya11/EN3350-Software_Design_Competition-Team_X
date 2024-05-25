@@ -45,6 +45,26 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
 
+        if(collision.tag == "Zombie1")
+        {
+            Zombie1 Zombie1 = collision.GetComponent<Zombie1>();
+            if(Zombie1 != null)
+            {
+                Zombie1.Zombie1TakeDamage(25);
+            }
+            Destroy(gameObject);
+        }
+
+        if(collision.tag == "Reaper")
+        {
+            Reaper Reaper = collision.GetComponent<Reaper>();
+            if(Reaper != null)
+            {
+                Reaper.ReaperTakeDamage(25);
+            }
+            Destroy(gameObject);
+        }
+
         if(collision.tag == "Bat")
         {
             Bat bat = collision.GetComponent<Bat>();
