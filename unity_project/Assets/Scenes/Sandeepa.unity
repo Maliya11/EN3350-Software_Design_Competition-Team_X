@@ -14988,10 +14988,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOverPanel: {fileID: 1818035061}
-  keepPlayingButton: {fileID: 38865504}
-  restartButton: {fileID: 577026647}
   panelTitleText: {fileID: 348081079}
   gameOverText: {fileID: 311325363}
+  quitButtonRight: {fileID: 0}
+  quitButtonRightText: {fileID: 0}
+  restartButtonLeft: {fileID: 0}
+  restartButtonLeftText: {fileID: 0}
 --- !u!212 &715090161
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -35252,10 +35254,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6244274164526168197, guid: eb5c0e9efc1efb849a0cc3b7cee1bf98, type: 3}
       propertyPath: m_Name
-      value: Zombie1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6244274164526168197, guid: eb5c0e9efc1efb849a0cc3b7cee1bf98, type: 3}
-      propertyPath: m_TagString
       value: Zombie1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
