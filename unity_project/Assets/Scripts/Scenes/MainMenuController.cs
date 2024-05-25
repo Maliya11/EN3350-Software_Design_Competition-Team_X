@@ -36,10 +36,15 @@ public class MainMenuController : MonoBehaviour
 
         // Check if the player has completed the questionnaire
         // Argument 0 indicates that the request is from the Play Game button
-        yield return StartCoroutine(questionnaireManager.GetQuestionnaireStatus(0)); 
+        //yield return StartCoroutine(questionnaireManager.GetQuestionnaireStatus(0)); 
 
         // Once the Player profile is completed and the Questionnaire is filled => Load the Game Scene
-        if (questionnaireManager.questionnaireStatus == 10 && playerProfile.isProfileCompleted)
+        /* if (questionnaireManager.questionnaireStatus == 10 && playerProfile.isProfileCompleted)
+        {
+            loadingScene = FindObjectOfType<LoadingScene>();
+            loadingScene.LoadScene(2);
+        } */
+        if (playerProfile.isProfileCompleted)
         {
             loadingScene = FindObjectOfType<LoadingScene>();
             loadingScene.LoadScene(2);
@@ -69,7 +74,8 @@ public class MainMenuController : MonoBehaviour
         Debug.Log("Saved data removed from PlayerPrefs");
 
         // Load the Initial login scene
-        SceneManager.LoadScene("LoginScene");
+        loadingScene = FindObjectOfType<LoadingScene>();
+        loadingScene.LoadScene(0);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

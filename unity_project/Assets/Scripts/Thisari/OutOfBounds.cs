@@ -31,6 +31,12 @@ public class OutOfBounds : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            // Disable the player
+            player.SetActive(false);
+
+            // Display the game over panel
+            gameOverPanel.SetActive(true);
+            
             // Display the title and game over text
             panelTitleText.text = "OOPS!";
             gameOverText.text = "Game Over\nYou went out of bounds!\n \nKeep going using a KEY?";
@@ -40,29 +46,31 @@ public class OutOfBounds : MonoBehaviour
             // Wait for button click
             quitButtonRight.onClick.AddListener(QuitGame);
             keepPlayingButtonLeft.onClick.AddListener(KeepPlaying);
-            
-            // Display the game over panel
-            gameOverPanel.SetActive(true);
-
-            // Disable the player
-            player.SetActive(false);
         }
     }
 
-    public void QuitGame()
+    private void QuitGame()
     {
+        // Remove the listeners
+        quitButtonRight.onClick.RemoveListener(QuitGame);
+        keepPlayingButtonLeft.onClick.RemoveListener(KeepPlaying);
+        
         // Load the Main Menu
         loadingScene = FindObjectOfType<LoadingScene>();
         loadingScene.LoadScene(1);
     }
 
-    public void KeepPlaying()
+    private void KeepPlaying()
     {
         // Enable the player
         player.SetActive(true);
 
         // Disable the game over panel
         gameOverPanel.SetActive(false);
+
+        // Remove the listeners
+        quitButtonRight.onClick.RemoveListener(QuitGame);   
+        keepPlayingButtonLeft.onClick.RemoveListener(KeepPlaying);
 
         // Respwan the player using the respawn method in player controller 
         player.GetComponent<PlayerController>().Respawn();

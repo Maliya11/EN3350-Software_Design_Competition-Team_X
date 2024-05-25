@@ -13,7 +13,7 @@ public class PlayerCollision : MonoBehaviour
         enemyLayer = LayerMask.NameToLayer("enemy");
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    /* private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.transform.tag == "Water")
         {
@@ -21,7 +21,7 @@ public class PlayerCollision : MonoBehaviour
             StartCoroutine(Dead());
         }
 
-    }
+    } */
 
     public void PlayerTakeDamage()
     {

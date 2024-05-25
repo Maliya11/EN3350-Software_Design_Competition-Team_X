@@ -18,6 +18,9 @@ public class Treasure : MonoBehaviour
     public Button noButtonRight;
     public TextMeshProUGUI noButtonRightText;
     public GameObject player;
+    public bool hasGuardianEnemy;
+    public GameObject guardianEnemy;
+    private bool isGuardianEnemyDead;
 
 
     // Unique ID of the treasure
@@ -27,13 +30,39 @@ public class Treasure : MonoBehaviour
     private int answer;
 
 
-    void Start()
+    private void Start()
     {
         // Enable the buttons
         yesButtonLeft.interactable = true;
         noButtonRight.interactable = true;
+
+        // If the treasure has a guardian enemy, disable the collider of the treasure
+        if (hasGuardianEnemy)
+        {
+            GetComponent<BoxCollider2D>().enabled = false;
+            isGuardianEnemyDead = false;
+        }
     }
 
+    private void Update()
+    {
+        // Enable the collider of the treasure once the guardian enemy is defeated
+        // If the treasure has a guardian enemy, check if the enemy is dead
+        if (hasGuardianEnemy)
+        {
+            // If collider of the guardian enemy is disabled, the enemy is dead
+            if (guardianEnemy.GetComponent<CapsuleCollider2D>().enabled == false)
+            {
+                isGuardianEnemyDead = true;
+            }
+
+            if (isGuardianEnemyDead)
+            {
+                // Enable the collider of the treasure
+                GetComponent<BoxCollider2D>().enabled = true;
+            }
+        }
+    }
 
     // Open the chest once the player collides with it
     private void OnTriggerEnter2D(Collider2D collision)
@@ -99,6 +128,13 @@ public class Treasure : MonoBehaviour
 
             // Disable the chest
             gameObject.SetActive(false);
+
+            // Add a key to the player's inventory
+            Debug.Log("Key added to the inventory!");
+
+            // Remove the listeners
+            yesButtonLeft.onClick.RemoveListener(() => ButtonClick("Yes"));
+            noButtonRight.onClick.RemoveListener(() => ButtonClick("No"));
         }
         else
         {
@@ -112,6 +148,10 @@ public class Treasure : MonoBehaviour
 
             // Disable the chest
             gameObject.SetActive(false);
+
+            // Remove the listeners
+            yesButtonLeft.onClick.RemoveListener(() => ButtonClick("Yes"));
+            noButtonRight.onClick.RemoveListener(() => ButtonClick("No"));
         }
     }
 }
