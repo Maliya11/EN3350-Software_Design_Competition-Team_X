@@ -29,8 +29,10 @@ public class Bat : MonoBehaviour
             dir *= -1;
             transform.localScale = new Vector2(4f,3f);
         }
+    }
 
-
-       
+    public void BatTakeDamage(int damage)
+    {
+    
     }
 }

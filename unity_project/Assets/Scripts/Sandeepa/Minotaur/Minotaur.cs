@@ -6,7 +6,7 @@ public class Minotaur : MonoBehaviour
 {
     Transform target;
     public Transform borderCheck;
-    public int GolemHP = 100;
+    public int MinotaurHP = 100;
     public Animator animator;
     // Start is called before the first frame update
     void Start()
@@ -24,21 +24,21 @@ public class Minotaur : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Player not found. Golem cannot detect player position.");
+            Debug.LogWarning("Player not found. Minotaur cannot detect player position.");
         }
     }
 
     void IgnoreCollisions()
     {
-        Collider2D golemCollider = GetComponent<Collider2D>();
+        Collider2D minotaurCollider = GetComponent<Collider2D>();
         Collider2D playerCollider = target.GetComponent<Collider2D>();
-        if (golemCollider != null && playerCollider != null)
+        if (minotaurCollider != null && playerCollider != null)
         {
-            Physics2D.IgnoreCollision(playerCollider, golemCollider);
+            Physics2D.IgnoreCollision(playerCollider, minotaurCollider);
         }
         else
         {
-            Debug.LogWarning("Golem or player collider not found. Ignoring collision failed.");
+            Debug.LogWarning("Minotaur or player collider not found. Ignoring collision failed.");
         }
     }
 
@@ -51,10 +51,10 @@ public class Minotaur : MonoBehaviour
         }
     }
 
-    public void GolemTakeDamage(int damage)
+    public void MinotaurTakeDamage(int damage)
     {
-        GolemHP -= damage;
-        if (GolemHP <= 0)
+        MinotaurHP -= damage;
+        if (MinotaurHP <= 0)
         {
             Die();
         }
@@ -67,6 +67,7 @@ public class Minotaur : MonoBehaviour
     void Die()
     {
         animator.SetTrigger("deth1");
+        PlayerManager.numberOfPoints += 10;
         GetComponent<CapsuleCollider2D>().enabled = false;
         this.enabled = false;
     }

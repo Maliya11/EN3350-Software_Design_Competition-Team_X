@@ -6,7 +6,7 @@ public class Goblin : MonoBehaviour
 {
     Transform target;
     public Transform borderCheck;
-    public int GolemHP = 100;
+    public int GoblinHP = 100;
     public Animator animator;
     // Start is called before the first frame update
     void Start()
@@ -24,17 +24,17 @@ public class Goblin : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Player not found. Golem cannot detect player position.");
+            Debug.LogWarning("Player not found. Goblin cannot detect player position.");
         }
     }
 
     void IgnoreCollisions()
     {
-        Collider2D golemCollider = GetComponent<Collider2D>();
+        Collider2D goblinCollider = GetComponent<Collider2D>();
         Collider2D playerCollider = target.GetComponent<Collider2D>();
-        if (golemCollider != null && playerCollider != null)
+        if (goblinCollider != null && playerCollider != null)
         {
-            Physics2D.IgnoreCollision(playerCollider, golemCollider);
+            Physics2D.IgnoreCollision(playerCollider, goblinCollider);
         }
         else
         {
@@ -51,10 +51,10 @@ public class Goblin : MonoBehaviour
         }
     }
 
-    public void GolemTakeDamage(int damage)
+    public void GoblinTakeDamage(int damage)
     {
-        GolemHP -= damage;
-        if (GolemHP <= 0)
+        GoblinHP -= damage;
+        if (GoblinHP <= 0)
         {
             Die();
         }
@@ -67,6 +67,7 @@ public class Goblin : MonoBehaviour
     void Die()
     {
         animator.SetTrigger("deth2");
+        PlayerManager.numberOfPoints += 10;
         GetComponent<CapsuleCollider2D>().enabled = false;
         this.enabled = false;
     }
