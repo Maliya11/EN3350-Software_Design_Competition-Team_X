@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2850642944301906133}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: boundary
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 2161090984599490965}
   - component: {fileID: 6502571728391070776}
   - component: {fileID: 2113523649714766345}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Reaper
   m_TagString: Reaper
   m_Icon: {fileID: 0}
