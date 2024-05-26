@@ -19,14 +19,20 @@ public class PlayerManager : MonoBehaviour
     public Button keepPlayingButtonLeft; 
     public TextMeshProUGUI keepPlayingButtonLeftText;
     public GameObject player;
+
+
+    // Static variables
     public static bool isGameOver;
     public static int numberOfPoints;
+    public static Vector3 playerSafePosition;
 
     
     private void Awake()
     {
         numberOfPoints = PlayerPrefs.GetInt("NumberOfPoints", 0); //default value is 0
         isGameOver = false;
+        // Get the player position
+        playerSafePosition = player.transform.position;
     }
 
     // Update is called once per frame
@@ -70,11 +76,14 @@ public class PlayerManager : MonoBehaviour
         player.SetActive(true);
         isGameOver = false;
 
-        // Disable the game over panel
-        gameOverPanel.SetActive(false);
-
         // Restore player health
         HealthManager.health = 3;
+
+        // Respwan the player
+        player.transform.position = playerSafePosition;
+
+        // Disable the game over panel
+        gameOverPanel.SetActive(false);
 
         // Remove the listeners
         quitButtonRight.onClick.RemoveListener(QuitGame);

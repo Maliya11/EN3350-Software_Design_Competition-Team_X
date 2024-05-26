@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 
 // Manages the visibility of the treasures based on the energy consumption
-public class TreasureManager : MonoBehaviour
+public class TreasureManager : Singleton<TreasureManager>
 {
     public List<GameObject> treasureObjects; // Manually populated in the Inspector
     public int initialVisibleTreasures = 5;

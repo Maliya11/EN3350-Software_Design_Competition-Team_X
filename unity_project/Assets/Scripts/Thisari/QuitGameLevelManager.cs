@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class QuitGameLevelManager : MonoBehaviour
+public class QuitGameLevelManager : Singleton<QuitGameLevelManager>
 {
     // Reference to the LoadingScene
     private LoadingScene loadingScene;

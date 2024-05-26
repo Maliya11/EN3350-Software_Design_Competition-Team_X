@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class SettingsManager : MonoBehaviour
+public class SettingsManager : Singleton<SettingsManager>
 {
     // UI Elements
     public GameObject settingsPanel;

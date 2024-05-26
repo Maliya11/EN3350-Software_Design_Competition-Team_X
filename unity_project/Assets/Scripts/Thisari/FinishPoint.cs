@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class FinishPoint : MonoBehaviour
+public class FinishPoint : Singleton<FinishPoint>
 {
     // Reference to the LoadingScene
     private LoadingScene loadingScene;

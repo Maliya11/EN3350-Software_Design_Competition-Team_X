@@ -13,16 +13,6 @@ public class PlayerCollision : MonoBehaviour
         enemyLayer = LayerMask.NameToLayer("enemy");
     }
 
-    /* private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.transform.tag == "Water")
-        {
-            HealthManager.health = 0;
-            StartCoroutine(Dead());
-        }
-
-    } */
-
     public void PlayerTakeDamage()
     {
         HealthManager.health--;
@@ -35,7 +25,6 @@ public class PlayerCollision : MonoBehaviour
             StartCoroutine(GetHurt());
         }   
     }
-
 
     IEnumerator Dead()
     {
@@ -71,6 +60,5 @@ public class PlayerCollision : MonoBehaviour
         // Debug.Log("two");
         Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, false);
     }
-
 }
 

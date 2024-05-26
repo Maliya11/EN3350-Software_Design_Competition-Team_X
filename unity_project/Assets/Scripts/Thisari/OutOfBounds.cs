@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
-public class OutOfBounds : MonoBehaviour
+public class OutOfBounds : Singleton<OutOfBounds>
 {
     // Reference to the LoadingScene
     private LoadingScene loadingScene;
@@ -43,13 +43,19 @@ public class OutOfBounds : MonoBehaviour
             quitButtonRightText.text = "Quit";
             keepPlayingButtonLeftText.text = "Keep Playing";
 
-            // Wait for button click
-            quitButtonRight.onClick.AddListener(QuitGame);
-            keepPlayingButtonLeft.onClick.AddListener(KeepPlaying);
+            // Reduce the player health
+            HealthManager.health = 0;
+
+            // Flag the game as over
+            PlayerManager.isGameOver = true;
+
+            /* // Wait for button click and run the methods in the player manager
+            quitButtonRight.onClick.AddListener();
+            keepPlayingButtonLeft.onClick.AddListener(KeepPlaying); */
         }
     }
 
-    private void QuitGame()
+    /* private void QuitGame()
     {
         // Remove the listeners
         quitButtonRight.onClick.RemoveListener(QuitGame);
@@ -73,7 +79,6 @@ public class OutOfBounds : MonoBehaviour
         keepPlayingButtonLeft.onClick.RemoveListener(KeepPlaying);
 
         // Respwan the player using the respawn method in player controller 
-        player.GetComponent<PlayerController>().Respawn();
-
-    }
+        player.GetComponent<PlayerCollision>().Respawn();
+    } */
 }
