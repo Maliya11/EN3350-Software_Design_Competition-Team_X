@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 932722d5e8e2fde48899a0060f13bb6d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   borderCheck: {fileID: 6983645705909595565}
-  GolemHP: 100
+  MinotaurHP: 100
   animator: {fileID: 811846326850818652}
 --- !u!1 &6495481101279474329
 GameObject:
