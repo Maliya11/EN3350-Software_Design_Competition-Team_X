@@ -47,7 +47,7 @@ public class MainMenuController : MonoBehaviour
         if (playerProfile.isProfileCompleted)
         {
             loadingScene = FindObjectOfType<LoadingScene>();
-            loadingScene.LoadScene(2);
+            loadingScene.LoadScene("CursedGraveYardLevel1");
         }
     }
 
@@ -75,7 +75,7 @@ public class MainMenuController : MonoBehaviour
 
         // Load the Initial login scene
         loadingScene = FindObjectOfType<LoadingScene>();
-        loadingScene.LoadScene(0);
+        loadingScene.LoadScene("LoginScene");
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

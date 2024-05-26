@@ -8,7 +8,6 @@ public class FinishPoint : Singleton<FinishPoint>
     // Reference to the LoadingScene
     private LoadingScene loadingScene;
 
-
     // UI Elements
     public GameObject gameOverPanel;
     public TextMeshProUGUI panelTitleText;
@@ -17,6 +16,7 @@ public class FinishPoint : Singleton<FinishPoint>
     public TextMeshProUGUI quitButtonRightText;
     public Button restartButtonLeft;
     public TextMeshProUGUI restartButtonLeftText;
+    public PlayerManager playerManager;
 
 
     private void Start()
@@ -24,6 +24,8 @@ public class FinishPoint : Singleton<FinishPoint>
         // Enable the buttons
         quitButtonRight.interactable = true;
         restartButtonLeft.interactable = true;
+
+        playerManager = FindObjectOfType<PlayerManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -31,10 +33,23 @@ public class FinishPoint : Singleton<FinishPoint>
         if (collision.CompareTag("Player"))
         {
             Debug.Log("Player reached the finish point!");
-            PlayerManager.numberOfPoints += 100;
-            PlayerPrefs.SetInt("CGY1_Points", PlayerManager.numberOfPoints);
-            Debug.Log("Points: " + PlayerManager.numberOfPoints);
             
+            // Add points for finishing the level
+            playerManager.AddPoints(100);
+
+            //Update high score
+            int currentLevelIndex = SceneManager.GetActiveScene().buildIndex;
+            string highScoreKey = "HighScore_Level_" + currentLevelIndex;
+            int highestPoints = PlayerPrefs.GetInt(highScoreKey, 0);
+
+            if(playerManager.numberOfPoints > highestPoints)
+            {
+                PlayerPrefs.SetInt(highScoreKey, playerManager.numberOfPoints);
+                PlayerPrefs.Save();
+            }
+
+            Debug.Log("Points: " + playerManager.numberOfPoints);
+
             // Display the game over panel
             gameOverPanel.SetActive(true);
 
@@ -61,7 +76,7 @@ public class FinishPoint : Singleton<FinishPoint>
 
         // Load the Main Menu
         loadingScene = FindObjectOfType<LoadingScene>();
-        loadingScene.LoadScene(1);
+        loadingScene.LoadScene("MainMenu");
     }
 
     private void PlayAgain()

@@ -23,40 +23,70 @@ public class PlayerManager : MonoBehaviour
 
     // Static variables
     public static bool isGameOver;
-    public static int numberOfPoints;
+    public int numberOfPoints = 0;
     public static Vector3 playerSafePosition;
+
+    // Number of keys
+    private int numberOfKeys;
+
+    // Flag to control Update execution
+    private bool isUpdatePaused;
 
     
     private void Awake()
     {
-        numberOfPoints = PlayerPrefs.GetInt("NumberOfPoints", 0); //default value is 0
+        // Initialize the flags
         isGameOver = false;
+        isUpdatePaused = false;
+
         // Get the player position
         playerSafePosition = player.transform.position;
+        UpdatePointsUI();
     }
 
     // Update is called once per frame
     void Update()
     {
-        pointsText.text = numberOfPoints.ToString();
+        if (isUpdatePaused) return;
+
+        //pointsText.text = numberOfPoints.ToString();
         if(isGameOver)
         {
-            // Disable the player
-            player.SetActive(false);
+            // Pause the update
+            isUpdatePaused = true;
 
-            // Display the game over panel
-            gameOverPanel.SetActive(true);
-
-            // Display the title and game over text
-            panelTitleText.text = "OOPS!";
-            gameOverText.text = "Game Over\nYou have been killed!\n \nKeep going using a KEY?";
-            quitButtonRightText.text = "Quit";
-            keepPlayingButtonLeftText.text = "Keep Playing";
-
-            // Wait for button click
-            quitButtonRight.onClick.AddListener(QuitGame);
-            keepPlayingButtonLeft.onClick.AddListener(KeepPlaying);
+            ShowGameOverPanel();
         }
+    }
+
+    public void AddPoints(int points)
+    {
+        numberOfPoints += points;
+        UpdatePointsUI();
+    }
+
+    private void UpdatePointsUI()
+    {
+        pointsText.text = numberOfPoints.ToString();
+    }
+
+    private void ShowGameOverPanel()
+    {
+        // Disable the player
+        player.SetActive(false);
+
+        // Display the game over panel
+        gameOverPanel.SetActive(true);
+
+        // Display the title and game over text
+        panelTitleText.text = "OOPS!";
+        gameOverText.text = "Game Over\nYou have been killed!\n \nKeep going using a KEY?";
+        quitButtonRightText.text = "Quit";
+        keepPlayingButtonLeftText.text = "Keep Playing";
+
+        // Wait for button click
+        quitButtonRight.onClick.AddListener(QuitGame);
+        keepPlayingButtonLeft.onClick.AddListener(KeepPlaying);
     }
 
     private void QuitGame()
@@ -67,11 +97,25 @@ public class PlayerManager : MonoBehaviour
         
         // Load the Main Menu
         loadingScene = FindObjectOfType<LoadingScene>();
-        loadingScene.LoadScene(1);
+        loadingScene.LoadScene("MainMenu");
+
+        // Resume the update
+        isUpdatePaused = false;
     }
 
     private void KeepPlaying()
     {
+        // Get the number of keys from the player preferences
+        numberOfKeys = PlayerPrefs.GetInt("revivalKeys", 0);
+        Debug.Log("Number of keys before revival: " + numberOfKeys);
+
+        // Reduce the no. of revivalKeys
+        numberOfKeys--;
+        numberOfKeys = Mathf.Max(0, numberOfKeys);
+        PlayerPrefs.SetInt("revivalKeys", numberOfKeys);
+        PlayerPrefs.Save();
+        Debug.Log("Number of keys after revival: " + PlayerPrefs.GetInt("revivalKeys", 0));
+
         // Enable the player
         player.SetActive(true);
         isGameOver = false;
@@ -82,13 +126,14 @@ public class PlayerManager : MonoBehaviour
         // Respwan the player
         player.transform.position = playerSafePosition;
 
-        // Disable the game over panel
-        gameOverPanel.SetActive(false);
-
         // Remove the listeners
         quitButtonRight.onClick.RemoveListener(QuitGame);
         keepPlayingButtonLeft.onClick.RemoveListener(KeepPlaying);
-    }
 
-    
+        // Disable the game over panel
+        gameOverPanel.SetActive(false);
+
+        // Resume the update
+        isUpdatePaused = false;
+    }
 }

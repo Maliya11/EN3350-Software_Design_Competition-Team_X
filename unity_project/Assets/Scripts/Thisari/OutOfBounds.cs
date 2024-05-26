@@ -48,37 +48,6 @@ public class OutOfBounds : Singleton<OutOfBounds>
 
             // Flag the game as over
             PlayerManager.isGameOver = true;
-
-            /* // Wait for button click and run the methods in the player manager
-            quitButtonRight.onClick.AddListener();
-            keepPlayingButtonLeft.onClick.AddListener(KeepPlaying); */
         }
     }
-
-    /* private void QuitGame()
-    {
-        // Remove the listeners
-        quitButtonRight.onClick.RemoveListener(QuitGame);
-        keepPlayingButtonLeft.onClick.RemoveListener(KeepPlaying);
-        
-        // Load the Main Menu
-        loadingScene = FindObjectOfType<LoadingScene>();
-        loadingScene.LoadScene(1);
-    }
-
-    private void KeepPlaying()
-    {
-        // Enable the player
-        player.SetActive(true);
-
-        // Disable the game over panel
-        gameOverPanel.SetActive(false);
-
-        // Remove the listeners
-        quitButtonRight.onClick.RemoveListener(QuitGame);   
-        keepPlayingButtonLeft.onClick.RemoveListener(KeepPlaying);
-
-        // Respwan the player using the respawn method in player controller 
-        player.GetComponent<PlayerCollision>().Respawn();
-    } */
 }

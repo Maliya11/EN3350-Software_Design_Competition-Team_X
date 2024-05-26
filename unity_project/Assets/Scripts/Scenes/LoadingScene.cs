@@ -17,28 +17,28 @@ public class LoadingScene : Singleton<LoadingScene>
 
 
     // Method to load a scene asynchronously
-    public void LoadScene(int sceneID)
+    public void LoadScene(string sceneName)
     {
-        StartCoroutine(LoadSceneAsync(sceneID));
+        StartCoroutine(LoadSceneAsync(sceneName));
     }
 
     // Coroutine to load a scene asynchronously
-    private IEnumerator LoadSceneAsync(int sceneID)
+    private IEnumerator LoadSceneAsync(string sceneName)
     {
         // If the current scene is Login scene and the scene to be loaded is the main menu scene, authenticate the user first
-        if (SceneManager.GetActiveScene().buildIndex == 0 && sceneID == 1)
+        if (SceneManager.GetActiveScene().buildIndex == 0 && sceneName == "MainMenu")
         {
-            yield return AuthenticateAndLoadMainMenu(sceneID);
+            yield return AuthenticateAndLoadMainMenu(sceneName);
         }
         // If the current scene is not the Login scene, load the scene directly
         else
         {
-            yield return LoadOtherScene(sceneID);
+            yield return LoadOtherScene(sceneName);
         }
     }
 
     // Coroutine to authenticate the user and load the main menu scene
-    private IEnumerator AuthenticateAndLoadMainMenu(int sceneID)
+    private IEnumerator AuthenticateAndLoadMainMenu(string sceneName)
     {     
         // Call Authenticate method from AuthenticationManager to send the authentication request to the server and get the JWT token
         authenticationManager = ScriptableObject.CreateInstance<AuthenticationManager>();
@@ -52,7 +52,7 @@ public class LoadingScene : Singleton<LoadingScene>
         if (authenticationManager.isRequestSuccessful)
         {
             // After the user is authenticated, proceed to load the main menu scene
-            StartCoroutine(LoadOtherScene(sceneID));
+            StartCoroutine(LoadOtherScene(sceneName));
         }
         else
         {
@@ -64,12 +64,12 @@ public class LoadingScene : Singleton<LoadingScene>
     }
 
     // Coroutine to load a scene other than the main menu
-    private IEnumerator LoadOtherScene(int sceneID)
+    private IEnumerator LoadOtherScene(string sceneName)
     {
         slider.value = 0;
 
         // Start loading the scene asynchronously
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneID);
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
 
         LoadingScreen.SetActive(true);
 

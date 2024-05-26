@@ -18,20 +18,30 @@ public class Treasure : MonoBehaviour
     public Button noButtonRight;
     public TextMeshProUGUI noButtonRightText;
     public GameObject player;
-    public bool hasGuardianEnemy;
     public GameObject guardianEnemy;
+    
+
+    // Flag to check if the treasure has a guardian enemy
+    public bool hasGuardianEnemy;
     private bool isGuardianEnemyDead;
-
-
+    // Flag to check if the treasure has been opened
+    public bool isOpened;
     // Unique ID of the treasure
     public int treasureID;
     // Unique question and answer for the treasure
     private string question;
     private int answer;
 
+    
+    // Number of keys
+    private int numberOfKeys;
+
 
     private void Start()
     {
+        // Flag the treasure as not opened
+        isOpened = false;
+
         // Enable the buttons
         yesButtonLeft.interactable = true;
         noButtonRight.interactable = true;
@@ -67,8 +77,11 @@ public class Treasure : MonoBehaviour
     // Open the chest once the player collides with it
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && !isOpened)
         {
+            // Flag the treasure as opened
+            isOpened = true;
+
             // Open the chest using the Chest script attached to the chest
             GetComponent<Chest>().Open();
 
@@ -104,8 +117,7 @@ public class Treasure : MonoBehaviour
         yesButtonLeft.onClick.AddListener(() => ButtonClick("Yes"));
         noButtonRight.onClick.AddListener(() => ButtonClick("No"));
 
-        // Hide the chest and player
-        gameObject.SetActive(false);
+        // Hide the player
         player.SetActive(false);
 
         // Display the question panel
@@ -120,38 +132,40 @@ public class Treasure : MonoBehaviour
         {
             Debug.Log("Correct answer!");
 
+            // Get the number of keys from the player preferences
+            numberOfKeys = PlayerPrefs.GetInt("revivalKeys", 0);
+            Debug.Log("Number of keys before treasure: " + numberOfKeys);
+
+            // Add a key to the player's inventory
+            Debug.Log("Key added to the inventory!");
+            numberOfKeys++;
+            PlayerPrefs.SetInt("revivalKeys", numberOfKeys);
+            PlayerPrefs.Save();
+            Debug.Log("Number of keys after treasure: " + PlayerPrefs.GetInt("revivalKeys", 0));
+
+            // Remove the listeners
+            yesButtonLeft.onClick.RemoveListener(() => ButtonClick("Yes"));
+            noButtonRight.onClick.RemoveListener(() => ButtonClick("No"));
+
             // Hide the question panel
             questionPanel.SetActive(false);
 
             // Enable the player
             player.SetActive(true);
-
-            // Disable the chest
-            gameObject.SetActive(false);
-
-            // Add a key to the player's inventory
-            Debug.Log("Key added to the inventory!");
-
-            // Remove the listeners
-            yesButtonLeft.onClick.RemoveListener(() => ButtonClick("Yes"));
-            noButtonRight.onClick.RemoveListener(() => ButtonClick("No"));
         }
         else
         {
             Debug.Log("Incorrect answer!");
 
+            // Remove the listeners
+            yesButtonLeft.onClick.RemoveListener(() => ButtonClick("Yes"));
+            noButtonRight.onClick.RemoveListener(() => ButtonClick("No"));
+
             // Hide the question panel
             questionPanel.SetActive(false);
 
             // Enable the player
             player.SetActive(true);
-
-            // Disable the chest
-            gameObject.SetActive(false);
-
-            // Remove the listeners
-            yesButtonLeft.onClick.RemoveListener(() => ButtonClick("Yes"));
-            noButtonRight.onClick.RemoveListener(() => ButtonClick("No"));
         }
     }
 }

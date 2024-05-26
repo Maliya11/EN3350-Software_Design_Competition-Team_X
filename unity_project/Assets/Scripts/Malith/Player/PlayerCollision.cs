@@ -34,6 +34,7 @@ public class PlayerCollision : MonoBehaviour
         {
         animator.SetTrigger("isDead");
         animator.SetTrigger("dead");
+        
         yield return new WaitForSeconds(1);
 
         gameObject.SetActive(false);
