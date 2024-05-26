@@ -6,7 +6,7 @@ using TMPro;
 public class BonusPerks : Singleton<BonusPerks>
 {
     // Get bonus perks for the player
-    private int bonusPerks;
+    private int revivalKeys;
 
     // UI Elements
     public TextMeshProUGUI bonusPerksPanelText;
@@ -14,11 +14,11 @@ public class BonusPerks : Singleton<BonusPerks>
     private void Start()
     {
         // Get the bonus perks from the player preferences
-        bonusPerks = PlayerPrefs.GetInt("questionnaireBonus");
-        Debug.Log("Bonus Perks: " + bonusPerks);
+        revivalKeys = PlayerPrefs.GetInt("revivalKeys");
+        Debug.Log("Bonus Perks: " + revivalKeys);
 
         // Display the bonus perks in the UI
-        bonusPerksPanelText.text = "Questionnaire Perks: " + bonusPerks;
+        bonusPerksPanelText.text = "Revival Keys: " + revivalKeys;
         bonusPerksPanelText.fontStyle = FontStyles.Bold;
     }
 }
