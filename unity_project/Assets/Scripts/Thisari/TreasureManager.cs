@@ -15,6 +15,9 @@ public class TreasureManager : Singleton<TreasureManager>
 
     void Start()
     {
+        // Initialize the random seed using the current time
+        Random.InitState(System.DateTime.Now.Millisecond);
+
         InitializeTreasures();
         SetRandomTreasuresVisible(initialVisibleTreasures);
         //StartCoroutine(CheckEnergyConsumption());
