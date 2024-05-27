@@ -11,6 +11,7 @@ public class PlayerManager : MonoBehaviour
 
     // UI Elements
     public TextMeshProUGUI pointsText;
+    public TextMeshProUGUI potionText;
     public GameObject gameOverPanel;
     public TextMeshProUGUI panelTitleText;
     public TextMeshProUGUI gameOverText;
@@ -47,6 +48,8 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        UpdatePotionUI();
+
         if (isUpdatePaused) return;
 
         //pointsText.text = numberOfPoints.ToString();
@@ -68,6 +71,11 @@ public class PlayerManager : MonoBehaviour
     private void UpdatePointsUI()
     {
         pointsText.text = numberOfPoints.ToString();
+    }
+
+    private void UpdatePotionUI()
+    {
+        potionText.text = PlayerPrefs.GetInt("revivalPotions", 0).ToString();
     }
 
     private void ShowGameOverPanel()
@@ -105,6 +113,22 @@ public class PlayerManager : MonoBehaviour
 
     private void KeepPlaying()
     {
+        // Restore the player
+        RestorePlayer();
+
+        // Remove the listeners
+        quitButtonRight.onClick.RemoveListener(QuitGame);
+        keepPlayingButtonLeft.onClick.RemoveListener(KeepPlaying);
+
+        // Disable the game over panel
+        gameOverPanel.SetActive(false);
+
+        // Resume the update
+        isUpdatePaused = false;
+    }
+
+    private void RestorePlayer()
+    {
         // Get the number of potions from the player preferences
         numberOfPotions = PlayerPrefs.GetInt("revivalPotions", 0);
         Debug.Log("Number of potions before revival: " + numberOfPotions);
@@ -127,15 +151,5 @@ public class PlayerManager : MonoBehaviour
 
         // Restore the physics of the player
         player.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-
-        // Remove the listeners
-        quitButtonRight.onClick.RemoveListener(QuitGame);
-        keepPlayingButtonLeft.onClick.RemoveListener(KeepPlaying);
-
-        // Disable the game over panel
-        gameOverPanel.SetActive(false);
-
-        // Resume the update
-        isUpdatePaused = false;
     }
 }
