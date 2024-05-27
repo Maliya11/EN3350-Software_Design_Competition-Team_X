@@ -87,6 +87,9 @@ public class Treasure : MonoBehaviour
             // Flag the treasure as opened
             isOpened = true;
 
+            // Add the opened treasure to the treasure manager
+            FindObjectOfType<TreasureManager>().openedTreasures++;
+
             // Open the chest using the Chest script attached to the chest
             GetComponent<Chest>().Open();
 

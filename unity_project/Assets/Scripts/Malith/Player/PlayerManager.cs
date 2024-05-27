@@ -11,6 +11,7 @@ public class PlayerManager : MonoBehaviour
 
     // UI Elements
     public TextMeshProUGUI pointsText;
+    public TextMeshProUGUI potionText;
     public GameObject gameOverPanel;
     public TextMeshProUGUI panelTitleText;
     public TextMeshProUGUI gameOverText;
@@ -47,6 +48,8 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        UpdatePotionUI();
+
         if (isUpdatePaused) return;
 
         //pointsText.text = numberOfPoints.ToString();
@@ -68,6 +71,11 @@ public class PlayerManager : MonoBehaviour
     private void UpdatePointsUI()
     {
         pointsText.text = numberOfPoints.ToString();
+    }
+
+    private void UpdatePotionUI()
+    {
+        potionText.text = PlayerPrefs.GetInt("revivalPotions", 0).ToString();
     }
 
     private void ShowGameOverPanel()

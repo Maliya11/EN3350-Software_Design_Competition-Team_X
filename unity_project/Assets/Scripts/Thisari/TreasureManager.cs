@@ -7,10 +7,14 @@ using TMPro;
 // Manages the visibility of the treasures based on the energy consumption
 public class TreasureManager : Singleton<TreasureManager>
 {
+    // UI Elements 
+    public TextMeshProUGUI treasureText;
+
     public List<GameObject> treasureObjects; // Manually populated in the Inspector
     public int initialVisibleTreasures = 5;
     public int maxVisibleTreasures;
     public int currentVisibleTreasures;
+    public int openedTreasures = 0;
     public float apiCheckInterval = 5f;
 
     private List<int> treasureQuestionIDs;
@@ -30,6 +34,11 @@ public class TreasureManager : Singleton<TreasureManager>
         InitializeTreasures();
         SetRandomTreasuresVisible(currentVisibleTreasures);
         //StartCoroutine(CheckEnergyConsumption());
+    }
+
+    void Update()
+    {
+        treasureText.text = $"{openedTreasures} / {currentVisibleTreasures}";
     }
 
     void InitializeTreasures()
