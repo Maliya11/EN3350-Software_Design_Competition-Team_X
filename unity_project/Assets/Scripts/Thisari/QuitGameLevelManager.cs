@@ -51,6 +51,9 @@ public class QuitGameLevelManager : Singleton<QuitGameLevelManager>
         // Remove the listeners
         quitButtonRight.onClick.RemoveListener(QuitGame);
         resumeButtonLeft.onClick.RemoveListener(ResumeGame);
+
+        // Hide the canvas details from method in PlayerManager 
+        FindObjectOfType<PlayerManager>().HideCanvasDetails();
         
         // Load the Main Menu
         loadingScene = FindObjectOfType<LoadingScene>();
@@ -59,11 +62,11 @@ public class QuitGameLevelManager : Singleton<QuitGameLevelManager>
 
     private void ResumeGame()
     {
-        // Disable the quit panel
-        quitPanel.SetActive(false);
-
         // Remove the listeners
         quitButtonRight.onClick.RemoveListener(QuitGame);
         resumeButtonLeft.onClick.RemoveListener(ResumeGame);
+
+        // Disable the quit panel
+        quitPanel.SetActive(false);        
     }
 }

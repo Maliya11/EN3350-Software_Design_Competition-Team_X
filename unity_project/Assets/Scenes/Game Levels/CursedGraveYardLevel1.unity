@@ -17404,6 +17404,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0be01d14f24c80b42b035bc5e460f402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HeartContainer: {fileID: 1580986362}
+  Buttons: {fileID: 605355198}
+  Points: {fileID: 2059636529}
+  Treasures: {fileID: 1864297118}
+  Potions: {fileID: 1867469052}
   pointsText: {fileID: 1676434533}
   potionText: {fileID: 113057644}
   gameOverPanel: {fileID: 1579124147}
@@ -25315,7 +25320,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1579124147}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 90}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 0.02166}
   m_ConstrainProportionsScale: 0
   m_Children:

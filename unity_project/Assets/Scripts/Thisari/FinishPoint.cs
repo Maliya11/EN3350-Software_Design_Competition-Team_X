@@ -88,6 +88,9 @@ public class FinishPoint : Singleton<FinishPoint>
         quitButtonRight.onClick.RemoveListener(ReturnToMainMenu);
         restartButtonLeft.onClick.RemoveListener(PlayAgain);
 
+        // Hide the canvas details
+        playerManager.HideCanvasDetails();
+
         // Load the Main Menu
         loadingScene = FindObjectOfType<LoadingScene>();
         loadingScene.LoadScene("MainMenu");
