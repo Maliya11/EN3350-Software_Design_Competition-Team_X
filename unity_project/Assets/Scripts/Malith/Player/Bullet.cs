@@ -1,10 +1,27 @@
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public float maxTravelDistance = 10f;
+    private Vector2 initialPosition;
+
+    void Start()
+    {
+        initialPosition = transform.position;
+    }
+
+    void Update()
+    {
+        float distanceTraveled = Vector2.Distance(initialPosition, transform.position);
+        if(distanceTraveled > maxTravelDistance)
+        {
+            Destroy(gameObject);
+        }
+    }
+    
     void OnTriggerEnter2D(Collider2D collision)
     {
-
         if(collision.tag == "Golem")
         {
             Golem golem = collision.GetComponent<Golem>();
