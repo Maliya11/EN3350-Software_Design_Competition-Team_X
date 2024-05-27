@@ -31,9 +31,6 @@ public class OutOfBounds : Singleton<OutOfBounds>
     {
         if (collision.CompareTag("Player"))
         {
-            // Disable the player
-            player.SetActive(false);
-
             // Display the game over panel
             gameOverPanel.SetActive(true);
             
@@ -45,6 +42,9 @@ public class OutOfBounds : Singleton<OutOfBounds>
 
             // Reduce the player health
             HealthManager.health = 0;
+
+            // Remove the physics from the player
+            player.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
 
             // Flag the game as over
             PlayerManager.isGameOver = true;

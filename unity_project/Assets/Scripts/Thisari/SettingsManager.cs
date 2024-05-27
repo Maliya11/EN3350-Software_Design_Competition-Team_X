@@ -27,9 +27,6 @@ public class SettingsManager : Singleton<SettingsManager>
 
     public void DisplaySettingsPanel()
     {
-        // Disable the player
-        player.SetActive(false);
-
         // Enable the settings panel
         settingsPanel.SetActive(true);
         settingsPanelContent.SetActive(true);
@@ -47,9 +44,6 @@ public class SettingsManager : Singleton<SettingsManager>
 
     private void ResumeGame()
     {
-        // Enable the player
-        player.SetActive(true);
-
         // Disable the settings panel
         settingsPanelContent.SetActive(false);
         settingsPanel.SetActive(false);
@@ -66,10 +60,7 @@ public class SettingsManager : Singleton<SettingsManager>
     {
         // Save the settings
         Debug.Log("Settings saved!");
-
-        // Enable the player
-        player.SetActive(true);
-
+        
         // Disable the settings panel
         settingsPanelContent.SetActive(false);
         settingsPanel.SetActive(false);

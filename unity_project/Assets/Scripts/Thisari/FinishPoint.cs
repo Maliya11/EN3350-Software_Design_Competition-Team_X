@@ -45,9 +45,6 @@ public class FinishPoint : Singleton<FinishPoint>
             quitButtonRightText.text = "Return";
             restartButtonLeftText.text = "Play Again";
 
-            // Disable the player
-            collision.gameObject.SetActive(false);
-
             // Add listeners to the buttons
             quitButtonRight.onClick.AddListener(ReturnToMainMenu);
             restartButtonLeft.onClick.AddListener(PlayAgain);

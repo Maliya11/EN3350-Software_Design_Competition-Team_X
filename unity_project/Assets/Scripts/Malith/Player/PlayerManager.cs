@@ -72,9 +72,6 @@ public class PlayerManager : MonoBehaviour
 
     private void ShowGameOverPanel()
     {
-        // Disable the player
-        player.SetActive(false);
-
         // Display the game over panel
         gameOverPanel.SetActive(true);
 
@@ -99,6 +96,9 @@ public class PlayerManager : MonoBehaviour
         loadingScene = FindObjectOfType<LoadingScene>();
         loadingScene.LoadScene("MainMenu");
 
+        // Restore the physics of the player
+        player.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+
         // Resume the update
         isUpdatePaused = false;
     }
@@ -116,8 +116,7 @@ public class PlayerManager : MonoBehaviour
         PlayerPrefs.Save();
         Debug.Log("Number of potions after revival: " + PlayerPrefs.GetInt("revivalPotions", 0));
 
-        // Enable the player
-        player.SetActive(true);
+        // Revive the player
         isGameOver = false;
 
         // Restore player health
@@ -125,6 +124,9 @@ public class PlayerManager : MonoBehaviour
 
         // Respwan the player
         player.transform.position = playerSafePosition;
+
+        // Restore the physics of the player
+        player.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
 
         // Remove the listeners
         quitButtonRight.onClick.RemoveListener(QuitGame);

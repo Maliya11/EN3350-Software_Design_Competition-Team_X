@@ -32,9 +32,6 @@ public class QuitGameLevelManager : Singleton<QuitGameLevelManager>
 
     public void DisplayQuitPanel()
     {
-        // Disable the player
-        player.SetActive(false);
-
         // Enable the quit panel
         quitPanel.SetActive(true);
 
@@ -62,9 +59,6 @@ public class QuitGameLevelManager : Singleton<QuitGameLevelManager>
 
     private void ResumeGame()
     {
-        // Enable the player
-        player.SetActive(true);
-
         // Disable the quit panel
         quitPanel.SetActive(false);
 

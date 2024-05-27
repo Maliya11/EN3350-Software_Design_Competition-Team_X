@@ -125,9 +125,6 @@ public class Treasure : MonoBehaviour
         yesButtonLeft.onClick.AddListener(() => ButtonClick("Yes"));
         noButtonRight.onClick.AddListener(() => ButtonClick("No"));
 
-        // Hide the player
-        player.SetActive(false);
-
         // Display the question panel
         questionPanel.SetActive(true);
     }
@@ -141,9 +138,6 @@ public class Treasure : MonoBehaviour
 
         // Hide the question panel
         questionPanel.SetActive(false);
-
-        // Enable the player
-        player.SetActive(true);
 
         // If the answer is yes and the button pressed is yes or the answer is no and the button pressed is no
         if ((answer == 1 && buttonPressed == "Yes") || (answer == 2 && buttonPressed == "No"))
