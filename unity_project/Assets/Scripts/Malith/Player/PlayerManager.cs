@@ -113,6 +113,22 @@ public class PlayerManager : MonoBehaviour
 
     private void KeepPlaying()
     {
+        // Restore the player
+        RestorePlayer();
+
+        // Remove the listeners
+        quitButtonRight.onClick.RemoveListener(QuitGame);
+        keepPlayingButtonLeft.onClick.RemoveListener(KeepPlaying);
+
+        // Disable the game over panel
+        gameOverPanel.SetActive(false);
+
+        // Resume the update
+        isUpdatePaused = false;
+    }
+
+    private void RestorePlayer()
+    {
         // Get the number of potions from the player preferences
         numberOfPotions = PlayerPrefs.GetInt("revivalPotions", 0);
         Debug.Log("Number of potions before revival: " + numberOfPotions);
@@ -135,15 +151,5 @@ public class PlayerManager : MonoBehaviour
 
         // Restore the physics of the player
         player.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-
-        // Remove the listeners
-        quitButtonRight.onClick.RemoveListener(QuitGame);
-        keepPlayingButtonLeft.onClick.RemoveListener(KeepPlaying);
-
-        // Disable the game over panel
-        gameOverPanel.SetActive(false);
-
-        // Resume the update
-        isUpdatePaused = false;
     }
 }
