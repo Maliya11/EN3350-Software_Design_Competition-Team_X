@@ -19,7 +19,7 @@ public class QuitGameLevelManager : Singleton<QuitGameLevelManager>
     public TextMeshProUGUI quitButtonRightText;
     public Button resumeButtonLeft;
     public TextMeshProUGUI resumeButtonLeftText;
-    public GameObject player;
+    // public GameObject player;
 
 
     // Start is called before the first frame update
@@ -40,6 +40,10 @@ public class QuitGameLevelManager : Singleton<QuitGameLevelManager>
         quitPanelText.text = "Are you sure you want to quit? \nYou will lose all progress.";
         quitButtonRightText.text = "Quit";
         resumeButtonLeftText.text = "Resume";
+
+        // Remove all the listeners
+        quitButtonRight.onClick.RemoveAllListeners();
+        resumeButtonLeft.onClick.RemoveAllListeners();
 
         // Add listeners to the buttons
         quitButtonRight.onClick.AddListener(QuitGame);

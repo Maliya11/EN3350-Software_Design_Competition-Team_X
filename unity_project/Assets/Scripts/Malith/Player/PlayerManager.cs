@@ -94,6 +94,10 @@ public class PlayerManager : MonoBehaviour
         quitButtonRightText.text = "Quit";
         keepPlayingButtonLeftText.text = "Keep Playing";
 
+        // Remove all the listeners
+        quitButtonRight.onClick.RemoveAllListeners();
+        keepPlayingButtonLeft.onClick.RemoveAllListeners();
+
         // Wait for button click
         quitButtonRight.onClick.AddListener(QuitGame);
         keepPlayingButtonLeft.onClick.AddListener(KeepPlaying);

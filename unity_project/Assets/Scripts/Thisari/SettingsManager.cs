@@ -15,7 +15,7 @@ public class SettingsManager : Singleton<SettingsManager>
     public TextMeshProUGUI resumeButtonRightText;
     public Button saveButtonLeft;
     public TextMeshProUGUI saveButtonLeftText;
-    public GameObject player;
+    // public GameObject player;
 
 
     private void Start()
@@ -38,6 +38,12 @@ public class SettingsManager : Singleton<SettingsManager>
         settingsPanelTitle.text = "Settings";
         resumeButtonRightText.text = "Resume";
         saveButtonLeftText.text = "Save";
+
+        // Remove all the listeners
+        resumeButtonRight.onClick.RemoveAllListeners();
+        saveButtonLeft.onClick.RemoveAllListeners();
+
+        // Add listeners to the buttons
         resumeButtonRight.onClick.AddListener(ResumeGame);
         saveButtonLeft.onClick.AddListener(SaveSettings);
     }

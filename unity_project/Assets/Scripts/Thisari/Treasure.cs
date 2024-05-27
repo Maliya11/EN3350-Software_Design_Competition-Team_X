@@ -17,7 +17,7 @@ public class Treasure : MonoBehaviour
     public TextMeshProUGUI yesButtonLeftText;
     public Button noButtonRight;
     public TextMeshProUGUI noButtonRightText;
-    public GameObject player;
+    // public GameObject player;
     public GameObject guardianEnemy;
     
 
@@ -113,7 +113,7 @@ public class Treasure : MonoBehaviour
         
         // Get the question and answer at the index of the treasure ID
         question = questions[treasureID - 1].q;
-        answer = questions[treasureID - 1].corAns;
+        answer = questions[treasureID - 1].corAns; // 1 for yes, 2 for no
 
         Debug.Log("Question: " + question);
         Debug.Log("Answer: " + answer);
@@ -124,17 +124,23 @@ public class Treasure : MonoBehaviour
         yesButtonLeftText.text = "Yes";
         noButtonRightText.text = "No";
 
+        // Display the question panel
+        questionPanel.SetActive(true);
+
+        // Remove any existing listeners
+        yesButtonLeft.onClick.RemoveAllListeners();
+        noButtonRight.onClick.RemoveAllListeners();
+
         // Wait for button click
         yesButtonLeft.onClick.AddListener(() => ButtonClick("Yes"));
         noButtonRight.onClick.AddListener(() => ButtonClick("No"));
-
-        // Display the question panel
-        questionPanel.SetActive(true);
     }
 
     // Functionality of the yes button
     public void ButtonClick(string buttonPressed)
     {
+        Debug.Log("Button pressed");
+
         // Remove the listeners
         yesButtonLeft.onClick.RemoveListener(() => ButtonClick("Yes"));
         noButtonRight.onClick.RemoveListener(() => ButtonClick("No"));
@@ -142,8 +148,8 @@ public class Treasure : MonoBehaviour
         // Hide the question panel
         questionPanel.SetActive(false);
 
-        // If the answer is yes and the button pressed is yes or the answer is no and the button pressed is no
-        if ((answer == 1 && buttonPressed == "Yes") || (answer == 2 && buttonPressed == "No"))
+        // If the answer is correct, add points and collect a potion
+        if ((buttonPressed == "Yes" && answer == 1) || (buttonPressed == "No" && answer == 2))
         {
             Debug.Log("Correct answer!");
 
@@ -153,7 +159,7 @@ public class Treasure : MonoBehaviour
             // Add a potion using the treasure manager
             FindObjectOfType<TreasureManager>().CollectPotion();  
         }
-        else
+        if ((buttonPressed == "Yes" && answer == 2) || (buttonPressed == "No" && answer == 1))
         {
             Debug.Log("Incorrect answer!");
         }

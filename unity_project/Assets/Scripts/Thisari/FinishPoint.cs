@@ -45,6 +45,10 @@ public class FinishPoint : Singleton<FinishPoint>
             quitButtonRightText.text = "Return";
             restartButtonLeftText.text = "Play Again";
 
+            // Remove all the listeners
+            quitButtonRight.onClick.RemoveAllListeners();
+            restartButtonLeft.onClick.RemoveAllListeners();
+
             // Add listeners to the buttons
             quitButtonRight.onClick.AddListener(ReturnToMainMenu);
             restartButtonLeft.onClick.AddListener(PlayAgain);
