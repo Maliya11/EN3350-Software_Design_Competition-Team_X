@@ -68,7 +68,7 @@ public class Goblin : MonoBehaviour
     {
         if (target != null)
         {
-            // Update golem's scale based on player position
+            // Update goblin's scale based on player position
             transform.localScale = new Vector2(target.position.x > transform.position.x ? 1.5f : -1.5f, 1.5f);
         }
     }
