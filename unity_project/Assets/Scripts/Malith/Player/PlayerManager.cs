@@ -10,6 +10,11 @@ public class PlayerManager : MonoBehaviour
 
 
     // UI Elements
+    public GameObject HeartContainer;
+    public GameObject Buttons;
+    public GameObject Points;
+    public GameObject Treasures;
+    public GameObject Potions;
     public TextMeshProUGUI pointsText;
     public TextMeshProUGUI potionText;
     public GameObject gameOverPanel;
@@ -99,6 +104,9 @@ public class PlayerManager : MonoBehaviour
         // Remove the listeners
         quitButtonRight.onClick.RemoveListener(QuitGame);
         keepPlayingButtonLeft.onClick.RemoveListener(KeepPlaying);
+
+        // Hide the canvas details
+        HideCanvasDetails();
         
         // Load the Main Menu
         loadingScene = FindObjectOfType<LoadingScene>();
@@ -151,5 +159,15 @@ public class PlayerManager : MonoBehaviour
 
         // Restore the physics of the player
         player.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+    }
+
+    public void HideCanvasDetails()
+    {
+        // Hide the canvas details other than the loading screen 
+        HeartContainer.SetActive(false);
+        Buttons.SetActive(false);
+        Points.SetActive(false);
+        Treasures.SetActive(false);
+        Potions.SetActive(false);
     }
 }
