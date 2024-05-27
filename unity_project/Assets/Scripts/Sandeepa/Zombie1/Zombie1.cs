@@ -14,6 +14,23 @@ public class Zombie1 : MonoBehaviour
     {
         FindTarget(); // Call to find the target
         IgnoreCollisions(); // Call to ignore collisions with the player
+    
+        // Find the PlayerManager instance
+        playerManager = FindObjectOfType<PlayerManager>();
+        if (playerManager == null)
+        {
+            Debug.LogError("PlayerManager not found in the scene.");
+        }
+
+        // Ensure the animator is assigned
+        if (animator == null)
+        {
+            animator = GetComponent<Animator>();
+            if (animator == null)
+            {
+                Debug.LogError("Animator component not found on the Zombie.");
+            }
+        }
     }
 
     void FindTarget()
@@ -32,14 +49,17 @@ public class Zombie1 : MonoBehaviour
     void IgnoreCollisions()
     {
         Collider2D zombie1Collider = GetComponent<Collider2D>();
-        Collider2D playerCollider = target.GetComponent<Collider2D>();
-        if (zombie1Collider != null && playerCollider != null)
+        if(target != null)
         {
-            Physics2D.IgnoreCollision(playerCollider, zombie1Collider);
-        }
-        else
-        {
-            Debug.LogWarning("Zombie1 or player collider not found. Ignoring collision failed.");
+            Collider2D playerCollider = target.GetComponent<Collider2D>();
+            if (zombie1Collider != null && playerCollider != null)
+            {
+                Physics2D.IgnoreCollision(playerCollider, zombie1Collider);
+            }
+            else
+            {
+                Debug.LogWarning("Zombie1 or player collider not found. Ignoring collision failed.");
+            }
         }
     }
 
@@ -61,16 +81,47 @@ public class Zombie1 : MonoBehaviour
         }
         else
         {
-            animator.SetTrigger("Damage4");
+            if(animator != null)
+            {
+                animator.SetTrigger("Damage4");
+            }
         }
     }
 
     void Die()
     {
-        animator.SetTrigger("deth4");
-        playerManager.numberOfPoints += 10;
-        GetComponent<CapsuleCollider2D>().enabled = false;
-        this.enabled = false;
+        if (animator != null)
+        {
+            animator.SetTrigger("deth4");
+        }
+        if (playerManager != null)
+        {
+            playerManager.AddPoints(10);
+        }
+        else
+        {
+            Debug.LogWarning("PlayerManager not found. Points not added.");
+        }
+
+        Collider2D collider = GetComponent<Collider2D>();
+        if (collider != null)
+        {
+            collider.enabled = false;
+        }
+        else
+        {
+            Debug.LogWarning("Collider2D not found on the Zombie1.");
+        }
+
+        this.enabled = false; // Disable the Zombie1 script
+        // Optionally, disable the entire game object after some delay to allow death animation to play
+        StartCoroutine(DisableGameObject());
+    }
+
+    private IEnumerator DisableGameObject()
+    {
+        yield return new WaitForSeconds(1.0f); // Adjust the wait time if needed
+        gameObject.SetActive(false);
     }
 
     public void PlayerDamage()
@@ -78,7 +129,7 @@ public class Zombie1 : MonoBehaviour
         if (target != null)
         {
             PlayerCollision playerCollision = target.GetComponent<PlayerCollision>();
-            if (HealthManager.health > 0)
+            if (playerCollision != null && HealthManager.health > 0)
             {
                 playerCollision.PlayerTakeDamage();
             }
