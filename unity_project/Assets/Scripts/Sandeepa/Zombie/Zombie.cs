@@ -8,6 +8,7 @@ public class Zombie : MonoBehaviour
     public Transform borderCheck;
     public int ZombieHP = 100;
     public Animator animator;
+    PlayerManager playerManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -67,7 +68,7 @@ public class Zombie : MonoBehaviour
     void Die()
     {
         animator.SetTrigger("deth3");
-        PlayerManager.numberOfPoints += 10;
+        playerManager.numberOfPoints += 10;
         GetComponent<CapsuleCollider2D>().enabled = false;
         this.enabled = false;
     }

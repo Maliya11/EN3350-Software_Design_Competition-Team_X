@@ -8,6 +8,7 @@ public class Zombie1 : MonoBehaviour
     public Transform borderCheck;
     public int Zombie1HP = 100;
     public Animator animator;
+    PlayerManager playerManager;
 
     void Start()
     {
@@ -67,7 +68,7 @@ public class Zombie1 : MonoBehaviour
     void Die()
     {
         animator.SetTrigger("deth4");
-        PlayerManager.numberOfPoints += 10;
+        playerManager.numberOfPoints += 10;
         GetComponent<CapsuleCollider2D>().enabled = false;
         this.enabled = false;
     }

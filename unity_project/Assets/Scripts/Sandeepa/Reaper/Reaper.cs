@@ -8,6 +8,7 @@ public class Reaper : MonoBehaviour
     public Transform borderCheck;
     public int GolemHP = 100;
     public Animator animator;
+    PlayerManager playerManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -68,7 +69,7 @@ public class Reaper : MonoBehaviour
     void Die()
     {
         animator.SetTrigger("deth5");
-        PlayerManager.numberOfPoints += 10;
+        playerManager.numberOfPoints += 10;
         GetComponent<CapsuleCollider2D>().enabled = false;
         this.enabled = false;
     }

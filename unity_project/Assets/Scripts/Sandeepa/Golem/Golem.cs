@@ -6,6 +6,7 @@ public class Golem : MonoBehaviour
     public Transform borderCheck;
     public int GolemHP = 100;
     public Animator animator;
+    PlayerManager playerManager;
 
     void Start()
     {
@@ -65,7 +66,7 @@ public class Golem : MonoBehaviour
     void Die()
     {
         animator.SetTrigger("deth");
-        PlayerManager.numberOfPoints += 10;
+        playerManager.numberOfPoints += 10;
         GetComponent<CapsuleCollider2D>().enabled = false;
         this.enabled = false;
     }
