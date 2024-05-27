@@ -37,7 +37,7 @@ public class PlayerCollision : MonoBehaviour
         
         yield return new WaitForSeconds(2);
 
-        // gameObject.SetActive(false);
+        animator.SetTrigger("backToIdle");
         PlayerManager.isGameOver = true;
         }
 
