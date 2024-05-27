@@ -92,6 +92,7 @@ public class Golem : MonoBehaviour
         if(animator != null)
         {
             animator.SetTrigger("deth");
+            StartCoroutine(DisableGameObject());
         }
 
         if (playerManager != null)
@@ -111,17 +112,14 @@ public class Golem : MonoBehaviour
         else
         {
             Debug.LogWarning("Collider2D not found on the Zombie.");
-        }
-
-        this.enabled = false; // Disable the Golem script
-        // Optionally, disable the entire game object after some delay to allow death animation to play
-        StartCoroutine(DisableGameObject());
+        }     
     }
 
     private IEnumerator DisableGameObject()
     {
-        yield return new WaitForSeconds(1.0f); // Adjust the wait time if needed
-        gameObject.SetActive(false);
+        yield return new WaitForSeconds(2.0f); // Adjust the wait time if needed
+        //gameObject.SetActive(false);
+        this.enabled = false;
     }
 
     public void PlayerDamage()

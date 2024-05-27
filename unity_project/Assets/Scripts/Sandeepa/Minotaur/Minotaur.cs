@@ -93,6 +93,7 @@ public class Minotaur : MonoBehaviour
         if(animator != null)
         {
             animator.SetTrigger("deth1");
+            StartCoroutine(DisableGameObject());
         }
         
         if (playerManager != null)
@@ -112,17 +113,14 @@ public class Minotaur : MonoBehaviour
         else
         {
             Debug.LogWarning("Collider2D not found on the Minotaur.");
-        }
-
-        this.enabled = false; // Disable the Minoatur script
-        // Optionally, disable the entire game object after some delay to allow death animation to play
-        StartCoroutine(DisableGameObject());
+        }   
     }
 
     private IEnumerator DisableGameObject()
     {
         yield return new WaitForSeconds(1.0f); // Adjust the wait time if needed
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
+        this.enabled = false;
     }
 
     public void PlayerDamage()
