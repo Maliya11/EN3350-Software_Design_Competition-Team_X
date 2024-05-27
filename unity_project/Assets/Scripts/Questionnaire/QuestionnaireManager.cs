@@ -258,7 +258,7 @@ public class QuestionnaireManager : Singleton<QuestionnaireManager>
             Debug.Log("Assigning bonus perks to the user...");
 
             // Set the bonus perks in the PlayerPrefs
-            PlayerPrefs.SetInt("revivalKeys", (questionnaireMarks * 5));
+            PlayerPrefs.SetInt("revivalPotions", (questionnaireMarks * 5));
             PlayerPrefs.Save();
             Debug.Log("Bonus perks assigned to the user");    
 

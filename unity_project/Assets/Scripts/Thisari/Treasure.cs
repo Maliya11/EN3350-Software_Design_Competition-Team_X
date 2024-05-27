@@ -32,15 +32,15 @@ public class Treasure : MonoBehaviour
     private string question;
     private int answer;
 
-    
-    // Number of keys
-    private int numberOfKeys;
+    // Flag to control Update execution
+    private bool isUpdatePaused; 
 
 
     private void Start()
     {
-        // Flag the treasure as not opened
+        // initialize the flags
         isOpened = false;
+        isUpdatePaused = false;
 
         // Enable the buttons
         yesButtonLeft.interactable = true;
@@ -56,6 +56,8 @@ public class Treasure : MonoBehaviour
 
     private void Update()
     {
+        if (isUpdatePaused) return;
+
         // Enable the collider of the treasure once the guardian enemy is defeated
         // If the treasure has a guardian enemy, check if the enemy is dead
         if (hasGuardianEnemy)
@@ -77,13 +79,19 @@ public class Treasure : MonoBehaviour
     // Open the chest once the player collides with it
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player" && !isOpened)
+        if (collision.gameObject.tag == "Player" && !isOpened && !isUpdatePaused)
         {
+            // Pause the update
+            isUpdatePaused = true;
+
             // Flag the treasure as opened
             isOpened = true;
 
             // Open the chest using the Chest script attached to the chest
             GetComponent<Chest>().Open();
+
+            // Disable the collider
+            GetComponent<BoxCollider2D>().enabled = false;
 
             // Wait until the animation is completed
             StartCoroutine(ShowQuestionPanel());
@@ -109,7 +117,7 @@ public class Treasure : MonoBehaviour
 
         // Set the title and question text
         panelTitleText.text = "Treasure!";
-        panelQuestionText.text = "Answer the question to receive a Key: \n" + question; 
+        panelQuestionText.text = "Answer the question to receive the Revival Potion: \n" + question; 
         yesButtonLeftText.text = "Yes";
         noButtonRightText.text = "No";
 
@@ -127,45 +135,33 @@ public class Treasure : MonoBehaviour
     // Functionality of the yes button
     public void ButtonClick(string buttonPressed)
     {
+        // Remove the listeners
+        yesButtonLeft.onClick.RemoveListener(() => ButtonClick("Yes"));
+        noButtonRight.onClick.RemoveListener(() => ButtonClick("No"));
+
+        // Hide the question panel
+        questionPanel.SetActive(false);
+
+        // Enable the player
+        player.SetActive(true);
+
         // If the answer is yes and the button pressed is yes or the answer is no and the button pressed is no
         if ((answer == 1 && buttonPressed == "Yes") || (answer == 2 && buttonPressed == "No"))
         {
             Debug.Log("Correct answer!");
 
-            // Get the number of keys from the player preferences
-            numberOfKeys = PlayerPrefs.GetInt("revivalKeys", 0);
-            Debug.Log("Number of keys before treasure: " + numberOfKeys);
+            // Add points to the gameplay
+            FindObjectOfType<PlayerManager>().AddPoints(10);
 
-            // Add a key to the player's inventory
-            Debug.Log("Key added to the inventory!");
-            numberOfKeys++;
-            PlayerPrefs.SetInt("revivalKeys", numberOfKeys);
-            PlayerPrefs.Save();
-            Debug.Log("Number of keys after treasure: " + PlayerPrefs.GetInt("revivalKeys", 0));
-
-            // Remove the listeners
-            yesButtonLeft.onClick.RemoveListener(() => ButtonClick("Yes"));
-            noButtonRight.onClick.RemoveListener(() => ButtonClick("No"));
-
-            // Hide the question panel
-            questionPanel.SetActive(false);
-
-            // Enable the player
-            player.SetActive(true);
+            // Add a potion using the treasure manager
+            FindObjectOfType<TreasureManager>().CollectPotion();  
         }
         else
         {
             Debug.Log("Incorrect answer!");
-
-            // Remove the listeners
-            yesButtonLeft.onClick.RemoveListener(() => ButtonClick("Yes"));
-            noButtonRight.onClick.RemoveListener(() => ButtonClick("No"));
-
-            // Hide the question panel
-            questionPanel.SetActive(false);
-
-            // Enable the player
-            player.SetActive(true);
         }
+
+        // Resume the update
+        isUpdatePaused = false;
     }
 }

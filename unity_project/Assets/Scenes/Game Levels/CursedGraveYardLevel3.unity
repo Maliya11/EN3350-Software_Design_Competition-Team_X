@@ -1217,8 +1217,9 @@ MonoBehaviour:
   noButtonRight: {fileID: 1719287353}
   noButtonRightText: {fileID: 188563761}
   player: {fileID: 908653804}
-  hasGuardianEnemy: 1
   guardianEnemy: {fileID: 162998368}
+  hasGuardianEnemy: 1
+  isOpened: 0
   treasureID: 0
 --- !u!61 &86628820
 BoxCollider2D:
@@ -1540,8 +1541,9 @@ MonoBehaviour:
   noButtonRight: {fileID: 1719287353}
   noButtonRightText: {fileID: 188563761}
   player: {fileID: 908653804}
-  hasGuardianEnemy: 1
   guardianEnemy: {fileID: 360761188}
+  hasGuardianEnemy: 1
+  isOpened: 0
   treasureID: 0
 --- !u!61 &117054930
 BoxCollider2D:
@@ -2287,6 +2289,7 @@ MonoBehaviour:
   keepPlayingButtonLeft: {fileID: 1433421341}
   keepPlayingButtonLeftText: {fileID: 1073701294}
   player: {fileID: 908653804}
+  numberOfPoints: 0
 --- !u!114 &142749590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2517,8 +2520,9 @@ MonoBehaviour:
   noButtonRight: {fileID: 1719287353}
   noButtonRightText: {fileID: 188563761}
   player: {fileID: 908653804}
-  hasGuardianEnemy: 0
   guardianEnemy: {fileID: 0}
+  hasGuardianEnemy: 0
+  isOpened: 0
   treasureID: 0
 --- !u!61 &155816408
 BoxCollider2D:
@@ -2762,8 +2766,9 @@ MonoBehaviour:
   noButtonRight: {fileID: 1719287353}
   noButtonRightText: {fileID: 188563761}
   player: {fileID: 908653804}
-  hasGuardianEnemy: 0
   guardianEnemy: {fileID: 0}
+  hasGuardianEnemy: 0
+  isOpened: 0
   treasureID: 0
 --- !u!61 &160301212
 BoxCollider2D:
@@ -7014,8 +7019,9 @@ MonoBehaviour:
   noButtonRight: {fileID: 1719287353}
   noButtonRightText: {fileID: 188563761}
   player: {fileID: 908653804}
-  hasGuardianEnemy: 1
   guardianEnemy: {fileID: 226900498}
+  hasGuardianEnemy: 1
+  isOpened: 0
   treasureID: 0
 --- !u!61 &399102070
 BoxCollider2D:
@@ -10892,8 +10898,9 @@ MonoBehaviour:
   noButtonRight: {fileID: 1719287353}
   noButtonRightText: {fileID: 188563761}
   player: {fileID: 908653804}
-  hasGuardianEnemy: 1
   guardianEnemy: {fileID: 1223175517}
+  hasGuardianEnemy: 1
+  isOpened: 0
   treasureID: 0
 --- !u!61 &634880524
 BoxCollider2D:
@@ -30781,8 +30788,9 @@ MonoBehaviour:
   noButtonRight: {fileID: 1719287353}
   noButtonRightText: {fileID: 188563761}
   player: {fileID: 908653804}
-  hasGuardianEnemy: 1
   guardianEnemy: {fileID: 933393673}
+  hasGuardianEnemy: 1
+  isOpened: 0
   treasureID: 0
 --- !u!61 &698597606
 BoxCollider2D:
@@ -31577,8 +31585,9 @@ MonoBehaviour:
   noButtonRight: {fileID: 1719287353}
   noButtonRightText: {fileID: 188563761}
   player: {fileID: 908653804}
-  hasGuardianEnemy: 0
   guardianEnemy: {fileID: 0}
+  hasGuardianEnemy: 0
+  isOpened: 0
   treasureID: 0
 --- !u!61 &727390120
 BoxCollider2D:
@@ -31990,8 +31999,9 @@ MonoBehaviour:
   noButtonRight: {fileID: 1719287353}
   noButtonRightText: {fileID: 188563761}
   player: {fileID: 908653804}
-  hasGuardianEnemy: 1
   guardianEnemy: {fileID: 1996948499}
+  hasGuardianEnemy: 1
+  isOpened: 0
   treasureID: 0
 --- !u!61 &739425968
 BoxCollider2D:
@@ -57253,6 +57263,8 @@ MonoBehaviour:
   - {fileID: 1641446260}
   - {fileID: 1331765628}
   initialVisibleTreasures: 15
+  maxVisibleTreasures: 0
+  currentVisibleTreasures: 0
   apiCheckInterval: 5
 --- !u!1 &854480817
 GameObject:
@@ -58369,8 +58381,9 @@ MonoBehaviour:
   noButtonRight: {fileID: 1719287353}
   noButtonRightText: {fileID: 188563761}
   player: {fileID: 908653804}
-  hasGuardianEnemy: 1
   guardianEnemy: {fileID: 402749726}
+  hasGuardianEnemy: 1
+  isOpened: 0
   treasureID: 0
 --- !u!61 &905395397
 BoxCollider2D:
@@ -58894,8 +58907,9 @@ MonoBehaviour:
   noButtonRight: {fileID: 1719287353}
   noButtonRightText: {fileID: 188563761}
   player: {fileID: 908653804}
-  hasGuardianEnemy: 1
   guardianEnemy: {fileID: 1986599007}
+  hasGuardianEnemy: 1
+  isOpened: 0
   treasureID: 0
 --- !u!61 &928955247
 BoxCollider2D:
@@ -61040,8 +61054,9 @@ MonoBehaviour:
   noButtonRight: {fileID: 1719287353}
   noButtonRightText: {fileID: 188563761}
   player: {fileID: 908653804}
-  hasGuardianEnemy: 1
   guardianEnemy: {fileID: 1947468348}
+  hasGuardianEnemy: 1
+  isOpened: 0
   treasureID: 0
 --- !u!61 &1083876419
 BoxCollider2D:
@@ -62912,8 +62927,9 @@ MonoBehaviour:
   noButtonRight: {fileID: 1719287353}
   noButtonRightText: {fileID: 188563761}
   player: {fileID: 908653804}
-  hasGuardianEnemy: 1
   guardianEnemy: {fileID: 668017285}
+  hasGuardianEnemy: 1
+  isOpened: 0
   treasureID: 0
 --- !u!61 &1173603450
 BoxCollider2D:
@@ -64763,8 +64779,9 @@ MonoBehaviour:
   noButtonRight: {fileID: 1719287353}
   noButtonRightText: {fileID: 188563761}
   player: {fileID: 908653804}
-  hasGuardianEnemy: 1
   guardianEnemy: {fileID: 1081842514}
+  hasGuardianEnemy: 1
+  isOpened: 0
   treasureID: 0
 --- !u!61 &1264679081
 BoxCollider2D:
@@ -65225,6 +65242,7 @@ MonoBehaviour:
   quitButtonRightText: {fileID: 188563761}
   restartButtonLeft: {fileID: 1433421341}
   restartButtonLeftText: {fileID: 1073701294}
+  playerManager: {fileID: 0}
 --- !u!212 &1283394109
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -66215,8 +66233,9 @@ MonoBehaviour:
   noButtonRight: {fileID: 1719287353}
   noButtonRightText: {fileID: 188563761}
   player: {fileID: 908653804}
-  hasGuardianEnemy: 1
   guardianEnemy: {fileID: 137841307}
+  hasGuardianEnemy: 1
+  isOpened: 0
   treasureID: 0
 --- !u!61 &1331765630
 BoxCollider2D:
@@ -67310,8 +67329,9 @@ MonoBehaviour:
   noButtonRight: {fileID: 1719287353}
   noButtonRightText: {fileID: 188563761}
   player: {fileID: 908653804}
-  hasGuardianEnemy: 1
   guardianEnemy: {fileID: 349873216}
+  hasGuardianEnemy: 1
+  isOpened: 0
   treasureID: 0
 --- !u!61 &1389051090
 BoxCollider2D:
@@ -69662,8 +69682,9 @@ MonoBehaviour:
   noButtonRight: {fileID: 1719287353}
   noButtonRightText: {fileID: 188563761}
   player: {fileID: 908653804}
-  hasGuardianEnemy: 1
   guardianEnemy: {fileID: 814830174}
+  hasGuardianEnemy: 1
+  isOpened: 0
   treasureID: 0
 --- !u!61 &1575848529
 BoxCollider2D:
@@ -70594,8 +70615,9 @@ MonoBehaviour:
   noButtonRight: {fileID: 1719287353}
   noButtonRightText: {fileID: 188563761}
   player: {fileID: 908653804}
-  hasGuardianEnemy: 1
   guardianEnemy: {fileID: 2091119575}
+  hasGuardianEnemy: 1
+  isOpened: 0
   treasureID: 0
 --- !u!61 &1641446262
 BoxCollider2D:
@@ -71538,8 +71560,9 @@ MonoBehaviour:
   noButtonRight: {fileID: 1719287353}
   noButtonRightText: {fileID: 188563761}
   player: {fileID: 908653804}
-  hasGuardianEnemy: 1
   guardianEnemy: {fileID: 574151668}
+  hasGuardianEnemy: 1
+  isOpened: 0
   treasureID: 0
 --- !u!61 &1697872479
 BoxCollider2D:
@@ -73807,8 +73830,9 @@ MonoBehaviour:
   noButtonRight: {fileID: 1719287353}
   noButtonRightText: {fileID: 188563761}
   player: {fileID: 908653804}
-  hasGuardianEnemy: 1
   guardianEnemy: {fileID: 1303343483}
+  hasGuardianEnemy: 1
+  isOpened: 0
   treasureID: 0
 --- !u!61 &1803142550
 BoxCollider2D:
@@ -74339,8 +74363,9 @@ MonoBehaviour:
   noButtonRight: {fileID: 1719287353}
   noButtonRightText: {fileID: 188563761}
   player: {fileID: 908653804}
-  hasGuardianEnemy: 1
   guardianEnemy: {fileID: 876486645}
+  hasGuardianEnemy: 1
+  isOpened: 0
   treasureID: 0
 --- !u!61 &1822746677
 BoxCollider2D:
@@ -74899,8 +74924,9 @@ MonoBehaviour:
   noButtonRight: {fileID: 1719287353}
   noButtonRightText: {fileID: 188563761}
   player: {fileID: 908653804}
-  hasGuardianEnemy: 1
   guardianEnemy: {fileID: 500289580}
+  hasGuardianEnemy: 1
+  isOpened: 0
   treasureID: 0
 --- !u!61 &1846069288
 BoxCollider2D:
@@ -75752,8 +75778,9 @@ MonoBehaviour:
   noButtonRight: {fileID: 1719287353}
   noButtonRightText: {fileID: 188563761}
   player: {fileID: 908653804}
-  hasGuardianEnemy: 1
   guardianEnemy: {fileID: 1780736762}
+  hasGuardianEnemy: 1
+  isOpened: 0
   treasureID: 0
 --- !u!61 &1877665559
 BoxCollider2D:
@@ -79159,8 +79186,9 @@ MonoBehaviour:
   noButtonRight: {fileID: 1719287353}
   noButtonRightText: {fileID: 188563761}
   player: {fileID: 908653804}
-  hasGuardianEnemy: 1
   guardianEnemy: {fileID: 167614772}
+  hasGuardianEnemy: 1
+  isOpened: 0
   treasureID: 0
 --- !u!61 &2027392506
 BoxCollider2D:
@@ -80996,8 +81024,9 @@ MonoBehaviour:
   noButtonRight: {fileID: 1719287353}
   noButtonRightText: {fileID: 188563761}
   player: {fileID: 908653804}
-  hasGuardianEnemy: 1
   guardianEnemy: {fileID: 1610569642}
+  hasGuardianEnemy: 1
+  isOpened: 0
   treasureID: 0
 --- !u!61 &2124924012
 BoxCollider2D:
@@ -81401,5 +81430,5 @@ SceneRoots:
   - {fileID: 1857932863}
   - {fileID: 1922064079}
   - {fileID: 425423450}
-  - {fileID: 1491125958}
   - {fileID: 349246866}
+  - {fileID: 1491125958}

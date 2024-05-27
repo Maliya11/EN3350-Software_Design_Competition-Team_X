@@ -15,6 +15,9 @@ public class TreasureManager : Singleton<TreasureManager>
 
     private List<int> treasureQuestionIDs;
 
+    // Variable to store the potions collected in the gameplay
+    public int potionsCollected = 0;
+
     void Start()
     {
         // Initialize the random seed using the current time
@@ -107,5 +110,11 @@ public class TreasureManager : Singleton<TreasureManager>
 
             lastEnergyConsumption = currentEnergyConsumption;
         }
+    }
+
+    public void CollectPotion()
+    {
+        potionsCollected++;
+        Debug.Log("Potions collected: " + potionsCollected);
     }
 }

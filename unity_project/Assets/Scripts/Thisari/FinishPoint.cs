@@ -17,6 +17,7 @@ public class FinishPoint : Singleton<FinishPoint>
     public Button restartButtonLeft;
     public TextMeshProUGUI restartButtonLeftText;
     public PlayerManager playerManager;
+    public TreasureManager treasureManager;
 
 
     private void Start()
@@ -26,6 +27,7 @@ public class FinishPoint : Singleton<FinishPoint>
         restartButtonLeft.interactable = true;
 
         playerManager = FindObjectOfType<PlayerManager>();
+        treasureManager = FindObjectOfType<TreasureManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -33,22 +35,6 @@ public class FinishPoint : Singleton<FinishPoint>
         if (collision.CompareTag("Player"))
         {
             Debug.Log("Player reached the finish point!");
-            
-            // Add points for finishing the level
-            playerManager.AddPoints(100);
-
-            //Update high score
-            int currentLevelIndex = SceneManager.GetActiveScene().buildIndex;
-            string highScoreKey = "HighScore_Level_" + currentLevelIndex;
-            int highestPoints = PlayerPrefs.GetInt(highScoreKey, 0);
-
-            if(playerManager.numberOfPoints > highestPoints)
-            {
-                PlayerPrefs.SetInt(highScoreKey, playerManager.numberOfPoints);
-                PlayerPrefs.Save();
-            }
-
-            Debug.Log("Points: " + playerManager.numberOfPoints);
 
             // Display the game over panel
             gameOverPanel.SetActive(true);
@@ -65,7 +51,38 @@ public class FinishPoint : Singleton<FinishPoint>
             // Add listeners to the buttons
             quitButtonRight.onClick.AddListener(ReturnToMainMenu);
             restartButtonLeft.onClick.AddListener(PlayAgain);
+
+            // Add points and potions to the player
+            AddPointsAndPotions();
         }
+    }
+
+    private void AddPointsAndPotions()
+    {
+        // Add points for finishing the level
+        playerManager.AddPoints(100);
+
+        // Update high score
+        int currentLevelIndex = SceneManager.GetActiveScene().buildIndex;
+        string highScoreKey = "HighScore_Level_" + currentLevelIndex;
+        int highestPoints = PlayerPrefs.GetInt(highScoreKey, 0);
+
+        if(playerManager.numberOfPoints > highestPoints)
+        {
+            PlayerPrefs.SetInt(highScoreKey, playerManager.numberOfPoints);
+            PlayerPrefs.Save();
+        }
+
+        Debug.Log("Points: " + playerManager.numberOfPoints);
+
+        // Add potions collected to the inventory
+        int noOfPotionsCollected = treasureManager.potionsCollected;
+        int currentPotions = PlayerPrefs.GetInt("revivalPotions", 0);
+        PlayerPrefs.SetInt("revivalPotions", currentPotions + noOfPotionsCollected);
+        PlayerPrefs.Save();
+
+        Debug.Log("Potions collected: " + noOfPotionsCollected);
+        Debug.Log("Total potions: " + PlayerPrefs.GetInt("revivalPotions", 0));
     }
 
     private void ReturnToMainMenu()

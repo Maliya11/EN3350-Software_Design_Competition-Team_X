@@ -26,8 +26,8 @@ public class PlayerManager : MonoBehaviour
     public int numberOfPoints = 0;
     public static Vector3 playerSafePosition;
 
-    // Number of keys
-    private int numberOfKeys;
+    // Number of potions
+    private int numberOfPotions;
 
     // Flag to control Update execution
     private bool isUpdatePaused;
@@ -80,7 +80,7 @@ public class PlayerManager : MonoBehaviour
 
         // Display the title and game over text
         panelTitleText.text = "OOPS!";
-        gameOverText.text = "Game Over\nYou have been killed!\n \nKeep going using a KEY?";
+        gameOverText.text = "Game Over\nYou have been killed!\n \nKeep going using a Revival Potion?";
         quitButtonRightText.text = "Quit";
         keepPlayingButtonLeftText.text = "Keep Playing";
 
@@ -105,16 +105,16 @@ public class PlayerManager : MonoBehaviour
 
     private void KeepPlaying()
     {
-        // Get the number of keys from the player preferences
-        numberOfKeys = PlayerPrefs.GetInt("revivalKeys", 0);
-        Debug.Log("Number of keys before revival: " + numberOfKeys);
+        // Get the number of potions from the player preferences
+        numberOfPotions = PlayerPrefs.GetInt("revivalPotions", 0);
+        Debug.Log("Number of potions before revival: " + numberOfPotions);
 
-        // Reduce the no. of revivalKeys
-        numberOfKeys--;
-        numberOfKeys = Mathf.Max(0, numberOfKeys);
-        PlayerPrefs.SetInt("revivalKeys", numberOfKeys);
+        // Reduce the no. of revivalPotions
+        numberOfPotions--;
+        numberOfPotions = Mathf.Max(0, numberOfPotions);
+        PlayerPrefs.SetInt("revivalPotions", numberOfPotions);
         PlayerPrefs.Save();
-        Debug.Log("Number of keys after revival: " + PlayerPrefs.GetInt("revivalKeys", 0));
+        Debug.Log("Number of potions after revival: " + PlayerPrefs.GetInt("revivalPotions", 0));
 
         // Enable the player
         player.SetActive(true);
