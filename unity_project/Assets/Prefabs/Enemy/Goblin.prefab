@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3659219137593087905}
   - component: {fileID: 4847926380774378226}
   - component: {fileID: 7833345250448347432}
-  - component: {fileID: 7391264736760615140}
+  - component: {fileID: -8963151137320611409}
   m_Layer: 8
   m_Name: Goblin
   m_TagString: Goblin
@@ -144,7 +144,7 @@ CapsuleCollider2D:
   m_Offset: {x: -0.18855795, y: -0.37709683}
   m_Size: {x: 4.2486167, y: 6.134065}
   m_Direction: 0
---- !u!114 &7391264736760615140
+--- !u!114 &-8963151137320611409
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
