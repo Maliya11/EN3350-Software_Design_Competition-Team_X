@@ -35,7 +35,7 @@ public class PlayerCollision : MonoBehaviour
         animator.SetTrigger("isDead");
         animator.SetTrigger("dead");
         
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
 
         // gameObject.SetActive(false);
         PlayerManager.isGameOver = true;
@@ -52,13 +52,11 @@ public class PlayerCollision : MonoBehaviour
         if(animator == null) yield break;
 
         Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, true);
-        // Debug.Log("one");
-        // GetComponent<Animator>().SetLayerWeight(1, 1);
+        GetComponent<Animator>().SetLayerWeight(1, 1);
 
         yield return new WaitForSeconds(3);
 
-        // GetComponent<Animator>().SetLayerWeight(1, 0);
-        // Debug.Log("two");
+        GetComponent<Animator>().SetLayerWeight(1, 0);
         Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, false);
     }
 }
