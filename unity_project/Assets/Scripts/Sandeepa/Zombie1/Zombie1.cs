@@ -93,6 +93,7 @@ public class Zombie1 : MonoBehaviour
         if (animator != null)
         {
             animator.SetTrigger("deth4");
+            StartCoroutine(DisableGameObject());
         }
         if (playerManager != null)
         {
@@ -113,15 +114,14 @@ public class Zombie1 : MonoBehaviour
             Debug.LogWarning("Collider2D not found on the Zombie1.");
         }
 
-        this.enabled = false; // Disable the Zombie1 script
-        // Optionally, disable the entire game object after some delay to allow death animation to play
-        StartCoroutine(DisableGameObject());
+         
     }
 
     private IEnumerator DisableGameObject()
     {
-        yield return new WaitForSeconds(1.0f); // Adjust the wait time if needed
-        gameObject.SetActive(false);
+        yield return new WaitForSeconds(2.0f); // Adjust the wait time if needed
+        //gameObject.SetActive(false);
+        this.enabled = false;
     }
 
     public void PlayerDamage()
