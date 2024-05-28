@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class EnergyManager : MonoBehaviour
 {
+    // Reference to the EnergyDataFetch
+    private EnergyDataFetch energyDataFetch;
+
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        energyDataFetch = new EnergyDataFetch();
+        energyDataFetch.GetCurrentPowerConsumption();
     }
 }

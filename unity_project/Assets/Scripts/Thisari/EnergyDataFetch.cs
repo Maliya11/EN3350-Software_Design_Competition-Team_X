@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnergyDataFetch : RequestBase
+public class EnergyDataFetch : Singleton<EnergyDataFetch>
 {
     // URL related to the energy information
     // URL to view yearly power consumption
@@ -26,7 +26,16 @@ public class EnergyDataFetch : RequestBase
 
     // Method to fetch energy data
     private string viewMethod = "GET";
-    
 
+    // API Key
+    private string apiKey = PlayerPrefs.GetString("apiKey");
+    
+    // Method to get current power consumption 
+    // Returns the power consumption in Wh upto fetching time from 12am of current day
+    public void GetCurrentPowerConsumption()
+    {
+        Debug.Log("Fetching current power consumption");
+        Debug.Log("API Key: " + apiKey);
+    }
 
 }
