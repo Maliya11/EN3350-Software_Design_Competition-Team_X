@@ -20,6 +20,9 @@ public class AuthenticationManager : RequestBase
     {
         // Initialize common properties
         Initialize();
+
+        // Store the API key in the PlayerPrefs
+        PlayerPrefs.SetString("apiKey", apiKey);
         
         // Start the authentication coroutine
         monoBehaviour.StartCoroutine(AuthenticateCoroutine(apiKey));

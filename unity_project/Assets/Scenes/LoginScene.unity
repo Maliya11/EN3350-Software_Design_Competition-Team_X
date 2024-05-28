@@ -1431,13 +1431,13 @@ MonoBehaviour:
       - m_Target: {fileID: 33282555}
         m_TargetAssemblyTypeName: LoadingScene, Assembly-CSharp
         m_MethodName: LoadScene
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: MainMenu
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1222004887}
@@ -1698,8 +1698,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9bad95c948a54601bd858cc80e6ee2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  errorPanel: {fileID: 2074765079}
-  errorText: {fileID: 523637891}
 --- !u!4 &1113453362
 Transform:
   m_ObjectHideFlags: 0

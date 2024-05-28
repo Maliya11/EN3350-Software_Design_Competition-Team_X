@@ -239,7 +239,7 @@ public class QuestionnaireManager : Singleton<QuestionnaireManager>
 
             // Assign bonus perks to the user if they have not been given yet
             AssignBonusPerks();
-            Debug.Log("Bonus perks: " + PlayerPrefs.GetInt("questionnaireBonus"));
+            Debug.Log("Bonus perks: " + PlayerPrefs.GetInt("revivalPerks"));
         }
         else
         {

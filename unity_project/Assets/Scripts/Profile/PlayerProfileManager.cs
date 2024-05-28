@@ -165,7 +165,7 @@ public class PlayerProfileManager : Singleton<PlayerProfileManager>
             yield return null;
         }
 
-        bool isMissingFields = string.IsNullOrEmpty(firstNameInput.text) || string.IsNullOrEmpty(lastNameInput.text) || string.IsNullOrEmpty(nicInput.text) || string.IsNullOrEmpty(usernameInput.text) || string.IsNullOrEmpty(mobileNumberInput.text);
+        bool isMissingFields = string.IsNullOrEmpty(firstNameInput.text) || string.IsNullOrEmpty(lastNameInput.text) || string.IsNullOrEmpty(nicInput.text) || string.IsNullOrEmpty(usernameInput.text) || string.IsNullOrEmpty(mobileNumberInput.text) || string.IsNullOrEmpty(emailInput.text);
         
         if (isMissingFields)
         {
