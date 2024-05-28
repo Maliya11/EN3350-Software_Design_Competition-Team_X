@@ -19,6 +19,12 @@ public class Treasure : MonoBehaviour
     public TextMeshProUGUI noButtonRightText;
     // public GameObject player;
     public GameObject guardianEnemy;
+
+
+    // Audio Source for the treasure
+    public AudioSource treasureSound;
+    public AudioSource correctAnswerSound;
+    public AudioSource incorrectAnswerSound;
     
 
     // Flag to check if the treasure has a guardian enemy
@@ -51,6 +57,20 @@ public class Treasure : MonoBehaviour
         {
             GetComponent<BoxCollider2D>().enabled = false;
             isGuardianEnemyDead = false;
+        }
+
+        // Ensuring the AudioSources are set
+        if (treasureSound == null)
+        {
+            treasureSound = GetComponent<AudioSource>();
+        }
+        if (correctAnswerSound == null)
+        {
+            correctAnswerSound = GetComponent<AudioSource>();
+        }
+        if (incorrectAnswerSound == null)
+        {
+            incorrectAnswerSound = GetComponent<AudioSource>();
         }
     }
 
@@ -90,6 +110,12 @@ public class Treasure : MonoBehaviour
             // Add the opened treasure to the treasure manager
             FindObjectOfType<TreasureManager>().openedTreasures++;
 
+            // Play the sound effect
+            if (treasureSound != null)
+            {
+                treasureSound.Play();
+            }
+
             // Open the chest using the Chest script attached to the chest
             GetComponent<Chest>().Open();
 
@@ -104,7 +130,7 @@ public class Treasure : MonoBehaviour
     // Start the coroutine to show the question panel
     private IEnumerator ShowQuestionPanel()
     {
-        // Wait for 1 second
+        // Wait for 0.5 seconds
         yield return new WaitForSeconds(0.5f);
 
         // Retrieve the question and answer for the treasure from PlayerPrefs
@@ -153,6 +179,12 @@ public class Treasure : MonoBehaviour
         {
             Debug.Log("Correct answer!");
 
+            // Play the correct answer sound
+            if (correctAnswerSound != null)
+            {
+                correctAnswerSound.Play();
+            }
+
             // Add points to the gameplay
             FindObjectOfType<PlayerManager>().AddPoints(10);
 
@@ -162,6 +194,12 @@ public class Treasure : MonoBehaviour
         if ((buttonPressed == "Yes" && answer == 2) || (buttonPressed == "No" && answer == 1))
         {
             Debug.Log("Incorrect answer!");
+
+            // Play the incorrect answer sound
+            if (incorrectAnswerSound != null)
+            {
+                incorrectAnswerSound.Play();
+            }
         }
 
         // Resume the update
