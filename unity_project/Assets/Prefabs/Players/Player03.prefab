@@ -191,7 +191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 4730867201881698531}
   speed: 1000
-  jumpForce: 35
+  jumpForce: 40
   isGrounded: 0
   groundCheck: {fileID: 6722652563269509093}
   groundLayer:
@@ -214,7 +214,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 10
+  m_GravityScale: 8
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
