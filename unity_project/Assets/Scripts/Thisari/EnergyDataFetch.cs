@@ -1,9 +1,18 @@
 using UnityEngine;
+using System.Collections;
+using SimpleJSON;
 
-public class EnergyDataFetch : Singleton<EnergyDataFetch>
+public class EnergyDataFetch : MonoBehaviour 
 {
+    // Reference to the RequestManager
+    private RequestManager requestManager;
+    private bool includeToken = true;
+    // Reference to the ErrorNotifications
+    public ErrorNotifications errorNotifications;
+
+
     // URL related to the energy information
-    // URL to view yearly power consumption
+    /* // URL to view yearly power consumption
     private string yearlyPowerConsumptionURL = "http://20.15.114.131:8080/api/power-consumption/yearly/view";
 
     // URL to view power consumption by specific month
@@ -20,22 +29,53 @@ public class EnergyDataFetch : Singleton<EnergyDataFetch>
 
     // URL to view all power consumption
     private string allPowerConsumptionURL = "http://20.15.114.131:8080/api/power-consumption/all/view";
-
+ */
     // URL to view current power consumption
     private string currentPowerConsumptionURL = "http://20.15.114.131:8080/api/power-consumption/current/view";
+    private float currentPowerConsumption;
 
     // Method to fetch energy data
     private string viewMethod = "GET";
 
-    // API Key
-    private string apiKey = PlayerPrefs.GetString("apiKey");
     
     // Method to get current power consumption 
     // Returns the power consumption in Wh upto fetching time from 12am of current day
-    public void GetCurrentPowerConsumption()
+    public float GetCurrentPowerConsumption()
     {
-        Debug.Log("Fetching current power consumption");
-        Debug.Log("API Key: " + apiKey);
+        // Create a new instance of the RequestManager
+        requestManager = ScriptableObject.CreateInstance<RequestManager>();
+
+        // Send the request to fetch the current power consumption
+        requestManager.SendRequest(currentPowerConsumptionURL, viewMethod, null, this, includeToken, null);
+        StartCoroutine(WaitForRequestCompletion());
+
+        Debug.Log("Current Power Consumption request sent");
+
+        // return the current power consumption after the request is completed
+        return currentPowerConsumption;
     }
 
+    // Method to wait for the request completion
+    private IEnumerator WaitForRequestCompletion()
+    {
+        // Wait until the request is completed
+        while (!requestManager.isRequestCompleted)
+        {
+            yield return null;
+        }
+
+        // Check if the request is successful
+        if (requestManager.isRequestSuccessful)
+        {
+            // Get the current power consumption from the response
+            Debug.Log("Power Consumption request successful");
+            currentPowerConsumption = requestManager.jsonResponse["currentConsumption"];
+            Debug.Log(currentPowerConsumption);
+        }
+        else
+        {
+            // Show the error notification
+            errorNotifications.DisplayErrorMessage(requestManager);
+        }
+    }
 }
