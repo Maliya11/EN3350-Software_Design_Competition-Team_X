@@ -12276,7 +12276,7 @@ GameObject:
   - component: {fileID: 676946532}
   - component: {fileID: 676946531}
   - component: {fileID: 676946530}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground Deco
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -33363,7 +33363,7 @@ GameObject:
   - component: {fileID: 791402924}
   - component: {fileID: 791402923}
   - component: {fileID: 791402922}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground
   m_TagString: Ground
   m_Icon: {fileID: 0}

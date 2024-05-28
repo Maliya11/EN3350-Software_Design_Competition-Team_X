@@ -3196,8 +3196,10 @@ MonoBehaviour:
   yesButtonLeftText: {fileID: 1845565067}
   noButtonRight: {fileID: 882047360}
   noButtonRightText: {fileID: 370726890}
-  player: {fileID: 0}
   guardianEnemy: {fileID: 677178386}
+  treasureSound: {fileID: 1436351421}
+  correctAnswerSound: {fileID: 2005024544}
+  incorrectAnswerSound: {fileID: 875405101}
   hasGuardianEnemy: 1
   isOpened: 0
   treasureID: 0
@@ -3514,8 +3516,10 @@ MonoBehaviour:
   yesButtonLeftText: {fileID: 1845565067}
   noButtonRight: {fileID: 882047360}
   noButtonRightText: {fileID: 370726890}
-  player: {fileID: 0}
   guardianEnemy: {fileID: 628675775}
+  treasureSound: {fileID: 1436351421}
+  correctAnswerSound: {fileID: 2005024544}
+  incorrectAnswerSound: {fileID: 875405101}
   hasGuardianEnemy: 1
   isOpened: 0
   treasureID: 0
@@ -7947,8 +7951,10 @@ MonoBehaviour:
   yesButtonLeftText: {fileID: 1845565067}
   noButtonRight: {fileID: 882047360}
   noButtonRightText: {fileID: 370726890}
-  player: {fileID: 0}
   guardianEnemy: {fileID: 1774398504}
+  treasureSound: {fileID: 1436351421}
+  correctAnswerSound: {fileID: 2005024544}
+  incorrectAnswerSound: {fileID: 875405101}
   hasGuardianEnemy: 1
   isOpened: 0
   treasureID: 0
@@ -8344,8 +8350,10 @@ MonoBehaviour:
   yesButtonLeftText: {fileID: 1845565067}
   noButtonRight: {fileID: 882047360}
   noButtonRightText: {fileID: 370726890}
-  player: {fileID: 0}
   guardianEnemy: {fileID: 0}
+  treasureSound: {fileID: 1436351421}
+  correctAnswerSound: {fileID: 2005024544}
+  incorrectAnswerSound: {fileID: 875405101}
   hasGuardianEnemy: 0
   isOpened: 0
   treasureID: 0
@@ -8599,7 +8607,6 @@ MonoBehaviour:
   resumeButtonRightText: {fileID: 370726890}
   saveButtonLeft: {fileID: 695181165}
   saveButtonLeftText: {fileID: 1845565067}
-  player: {fileID: 0}
 --- !u!4 &615592430
 Transform:
   m_ObjectHideFlags: 0
@@ -20928,8 +20935,10 @@ MonoBehaviour:
   yesButtonLeftText: {fileID: 1845565067}
   noButtonRight: {fileID: 882047360}
   noButtonRightText: {fileID: 370726890}
-  player: {fileID: 0}
   guardianEnemy: {fileID: 2033461196}
+  treasureSound: {fileID: 1436351421}
+  correctAnswerSound: {fileID: 2005024544}
+  incorrectAnswerSound: {fileID: 875405101}
   hasGuardianEnemy: 1
   isOpened: 0
   treasureID: 0
@@ -22361,8 +22370,10 @@ MonoBehaviour:
   yesButtonLeftText: {fileID: 1845565067}
   noButtonRight: {fileID: 882047360}
   noButtonRightText: {fileID: 370726890}
-  player: {fileID: 0}
   guardianEnemy: {fileID: 0}
+  treasureSound: {fileID: 1436351421}
+  correctAnswerSound: {fileID: 2005024544}
+  incorrectAnswerSound: {fileID: 875405101}
   hasGuardianEnemy: 0
   isOpened: 0
   treasureID: 0
@@ -23203,8 +23214,10 @@ MonoBehaviour:
   yesButtonLeftText: {fileID: 1845565067}
   noButtonRight: {fileID: 882047360}
   noButtonRightText: {fileID: 370726890}
-  player: {fileID: 0}
   guardianEnemy: {fileID: 1534155365}
+  treasureSound: {fileID: 1436351421}
+  correctAnswerSound: {fileID: 2005024544}
+  incorrectAnswerSound: {fileID: 875405101}
   hasGuardianEnemy: 1
   isOpened: 0
   treasureID: 0
@@ -23822,8 +23835,10 @@ MonoBehaviour:
   yesButtonLeftText: {fileID: 1845565067}
   noButtonRight: {fileID: 882047360}
   noButtonRightText: {fileID: 370726890}
-  player: {fileID: 0}
   guardianEnemy: {fileID: 1802102362}
+  treasureSound: {fileID: 1436351421}
+  correctAnswerSound: {fileID: 2005024544}
+  incorrectAnswerSound: {fileID: 875405101}
   hasGuardianEnemy: 1
   isOpened: 0
   treasureID: 0
@@ -25530,8 +25545,10 @@ MonoBehaviour:
   yesButtonLeftText: {fileID: 1845565067}
   noButtonRight: {fileID: 882047360}
   noButtonRightText: {fileID: 370726890}
-  player: {fileID: 0}
   guardianEnemy: {fileID: 63036153}
+  treasureSound: {fileID: 1436351421}
+  correctAnswerSound: {fileID: 2005024544}
+  incorrectAnswerSound: {fileID: 875405101}
   hasGuardianEnemy: 1
   isOpened: 0
   treasureID: 0
@@ -25692,8 +25709,10 @@ MonoBehaviour:
   yesButtonLeftText: {fileID: 1845565067}
   noButtonRight: {fileID: 882047360}
   noButtonRightText: {fileID: 370726890}
-  player: {fileID: 0}
   guardianEnemy: {fileID: 273980102}
+  treasureSound: {fileID: 1436351421}
+  correctAnswerSound: {fileID: 2005024544}
+  incorrectAnswerSound: {fileID: 875405101}
   hasGuardianEnemy: 1
   isOpened: 0
   treasureID: 0
@@ -27592,8 +27611,10 @@ MonoBehaviour:
   yesButtonLeftText: {fileID: 1845565067}
   noButtonRight: {fileID: 882047360}
   noButtonRightText: {fileID: 370726890}
-  player: {fileID: 0}
   guardianEnemy: {fileID: 0}
+  treasureSound: {fileID: 1436351421}
+  correctAnswerSound: {fileID: 2005024544}
+  incorrectAnswerSound: {fileID: 875405101}
   hasGuardianEnemy: 0
   isOpened: 0
   treasureID: 0
@@ -27838,8 +27859,10 @@ MonoBehaviour:
   yesButtonLeftText: {fileID: 1845565067}
   noButtonRight: {fileID: 882047360}
   noButtonRightText: {fileID: 370726890}
-  player: {fileID: 0}
   guardianEnemy: {fileID: 771925064}
+  treasureSound: {fileID: 1436351421}
+  correctAnswerSound: {fileID: 2005024544}
+  incorrectAnswerSound: {fileID: 875405101}
   hasGuardianEnemy: 1
   isOpened: 0
   treasureID: 0
@@ -45460,7 +45483,6 @@ MonoBehaviour:
   quitButtonRightText: {fileID: 370726890}
   resumeButtonLeft: {fileID: 695181165}
   resumeButtonLeftText: {fileID: 1845565067}
-  player: {fileID: 0}
 --- !u!4 &1430885684
 Transform:
   m_ObjectHideFlags: 0
@@ -49455,8 +49477,10 @@ MonoBehaviour:
   yesButtonLeftText: {fileID: 1845565067}
   noButtonRight: {fileID: 882047360}
   noButtonRightText: {fileID: 370726890}
-  player: {fileID: 0}
   guardianEnemy: {fileID: 584208204}
+  treasureSound: {fileID: 1436351421}
+  correctAnswerSound: {fileID: 2005024544}
+  incorrectAnswerSound: {fileID: 875405101}
   hasGuardianEnemy: 1
   isOpened: 0
   treasureID: 0
@@ -50114,8 +50138,10 @@ MonoBehaviour:
   yesButtonLeftText: {fileID: 1845565067}
   noButtonRight: {fileID: 882047360}
   noButtonRightText: {fileID: 370726890}
-  player: {fileID: 0}
   guardianEnemy: {fileID: 1959755643}
+  treasureSound: {fileID: 1436351421}
+  correctAnswerSound: {fileID: 2005024544}
+  incorrectAnswerSound: {fileID: 875405101}
   hasGuardianEnemy: 1
   isOpened: 0
   treasureID: 0
@@ -50612,8 +50638,10 @@ MonoBehaviour:
   yesButtonLeftText: {fileID: 1845565067}
   noButtonRight: {fileID: 882047360}
   noButtonRightText: {fileID: 370726890}
-  player: {fileID: 0}
   guardianEnemy: {fileID: 552056415}
+  treasureSound: {fileID: 1436351421}
+  correctAnswerSound: {fileID: 2005024544}
+  incorrectAnswerSound: {fileID: 875405101}
   hasGuardianEnemy: 1
   isOpened: 0
   treasureID: 0
@@ -52874,8 +52902,10 @@ MonoBehaviour:
   yesButtonLeftText: {fileID: 1845565067}
   noButtonRight: {fileID: 882047360}
   noButtonRightText: {fileID: 370726890}
-  player: {fileID: 0}
   guardianEnemy: {fileID: 1251023724}
+  treasureSound: {fileID: 1436351421}
+  correctAnswerSound: {fileID: 2005024544}
+  incorrectAnswerSound: {fileID: 875405101}
   hasGuardianEnemy: 1
   isOpened: 0
   treasureID: 0
@@ -56592,6 +56622,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 1788497099}
   - {fileID: 921804784}
+  - {fileID: 1069238555}
   - {fileID: 1588310009}
   - {fileID: 26406238}
   - {fileID: 1898547577}
@@ -56607,4 +56638,3 @@ SceneRoots:
   - {fileID: 373249892}
   - {fileID: 1547818517}
   - {fileID: 1887345860}
-  - {fileID: 1069238555}
