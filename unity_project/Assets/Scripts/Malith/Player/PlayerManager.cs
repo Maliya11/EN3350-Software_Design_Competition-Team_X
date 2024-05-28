@@ -90,13 +90,25 @@ public class PlayerManager : MonoBehaviour
 
         // Display the title and game over text
         panelTitleText.text = "OOPS!";
-        gameOverText.text = "Game Over\nYou have been killed!\n \nKeep going using a Revival Potion?";
+        gameOverText.text = $"Game Over\nYou have been killed!\n Keep going using a Revival Potion? \n You have {PlayerPrefs.GetInt("revivalPotions", 0)} revival potions";
         quitButtonRightText.text = "Quit";
         keepPlayingButtonLeftText.text = "Keep Playing";
 
         // Remove all the listeners
         quitButtonRight.onClick.RemoveAllListeners();
         keepPlayingButtonLeft.onClick.RemoveAllListeners();
+
+        // Make the keep playing button not interactable if there are no revival potions
+        if (PlayerPrefs.GetInt("revivalPotions", 0) <= 0)
+        {
+            Debug.Log("No revival potions available");
+            keepPlayingButtonLeft.interactable = false;
+        }
+        else
+        {
+            Debug.Log("Revival potions available");
+            keepPlayingButtonLeft.interactable = true;
+        }
 
         // Wait for button click
         quitButtonRight.onClick.AddListener(QuitGame);

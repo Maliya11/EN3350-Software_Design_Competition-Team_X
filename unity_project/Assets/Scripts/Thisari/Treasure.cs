@@ -146,7 +146,7 @@ public class Treasure : MonoBehaviour
 
         // Set the title and question text
         panelTitleText.text = "Treasure!";
-        panelQuestionText.text = "Answer the question to receive the Revival Potion: \n" + question; 
+        panelQuestionText.text = "Answer the question to receive the Revival Potion \n" + question; 
         yesButtonLeftText.text = "Yes";
         noButtonRightText.text = "No";
 
