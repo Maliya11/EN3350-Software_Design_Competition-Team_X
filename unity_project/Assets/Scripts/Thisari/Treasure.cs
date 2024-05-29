@@ -33,7 +33,7 @@ public class Treasure : MonoBehaviour
     // Flag to check if the treasure has been opened
     public bool isOpened;
     // Unique ID of the treasure
-    public int treasureID;
+    public int treasureQID;
     // Unique question and answer for the treasure
     private string question;
     private int answer;
@@ -107,9 +107,6 @@ public class Treasure : MonoBehaviour
             // Flag the treasure as opened
             isOpened = true;
 
-            // Add the opened treasure to the treasure manager
-            FindObjectOfType<TreasureManager>().openedTreasures++;
-
             // Play the sound effect
             if (treasureSound != null)
             {
@@ -138,11 +135,10 @@ public class Treasure : MonoBehaviour
         List<Question> questions = JsonConvert.DeserializeObject<List<Question>>(jsonResponse);
         
         // Get the question and answer at the index of the treasure ID
-        question = questions[treasureID - 1].q;
-        answer = questions[treasureID - 1].corAns; // 1 for yes, 2 for no
+        question = questions[treasureQID - 1].q;
+        answer = questions[treasureQID - 1].corAns; // 1 for yes, 2 for no
 
-        Debug.Log("Question: " + question);
-        Debug.Log("Answer: " + answer);
+        Debug.Log("Question: " + question + " Answer: " + answer);
 
         // Set the title and question text
         panelTitleText.text = "Treasure!";

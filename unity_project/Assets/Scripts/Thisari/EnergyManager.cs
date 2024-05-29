@@ -5,10 +5,12 @@ public class EnergyManager : MonoBehaviour
 {
     // Reference to the EnergyDataFetch
     private EnergyDataFetch energyDataFetch;
+    // Reference to the TreasureManager
+    private TreasureManager treasureManager;
 
 
     // Variables
-    private float repeatRate = 10.0f;
+    private float repeatRate = 15.0f;
     private string lastFetchTime = "";
     private string currentFetchTime = "";
     private float lastPowerConsumption = 0.0f;
@@ -16,10 +18,11 @@ public class EnergyManager : MonoBehaviour
     private float lastPowerConsumptionGap = 0.0f;
     private float currentPowerConsumptionGap = 0.0f;
 
+
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Energy Manager Started");
+        // Debug.Log("Energy Manager Started");
 
         // Get the last fetched time and power consumption from the player prefs
         lastFetchTime = PlayerPrefs.GetString("LastFetchTime", "");
@@ -27,6 +30,8 @@ public class EnergyManager : MonoBehaviour
         lastPowerConsumptionGap = PlayerPrefs.GetFloat("LastPowerConsumptionGap", 0.0f);
 
         energyDataFetch = FindObjectOfType<EnergyDataFetch>();
+        treasureManager = FindObjectOfType<TreasureManager>();
+
         StartCoroutine(FetchCurrentPowerConsumption());
     }
 
@@ -72,10 +77,16 @@ public class EnergyManager : MonoBehaviour
         if (currentPowerConsumptionGap > lastPowerConsumptionGap)
         {
             Debug.Log("Energy Consumption Increased");
+
+            // Decrease the number of visible treasures
+            // treasureManager.DecreaseVisibleTreasures();
+
         }
         else if (currentPowerConsumptionGap < lastPowerConsumptionGap)
         {
             Debug.Log("Energy Consumption Decreased");
+            // Increase the number of visible treasures
+            // treasureManager.IncreaseVisibleTreasures();
         }
 
         // Update the last power consumption and fetch time
@@ -87,8 +98,5 @@ public class EnergyManager : MonoBehaviour
         PlayerPrefs.SetFloat("LastPowerConsumption", lastPowerConsumption);
         PlayerPrefs.SetString("LastFetchTime", lastFetchTime);
         PlayerPrefs.SetFloat("LastPowerConsumptionGap", lastPowerConsumptionGap);
-
-        // Update the treasure visibility based on the energy consumption
-        // FindObjectOfType<TreasureManager>().UpdateTreasureVisibility();
     }
 }

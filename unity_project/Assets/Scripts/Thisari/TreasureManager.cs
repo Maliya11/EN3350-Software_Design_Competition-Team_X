@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 using UnityEngine.UI;
 using TMPro;
 
@@ -13,10 +15,9 @@ public class TreasureManager : Singleton<TreasureManager>
     public List<GameObject> treasureObjects; // Manually populated in the Inspector
     public int initialVisibleTreasures = 5;
     public int maxVisibleTreasures;
-    public int currentVisibleTreasures;
-    public int openedTreasures = 0;
-    public float apiCheckInterval = 5f;
-
+    private int currentVisibleTreasures;
+    private List<int> openedTreasureIndices = new List<int>(); 
+    private List<int> closedTreasureIndices = new List<int>(); 
     private List<int> treasureQuestionIDs;
 
     // Variable to store the potions collected in the gameplay
@@ -29,20 +30,55 @@ public class TreasureManager : Singleton<TreasureManager>
 
         // Set the number of visible treasures
         currentVisibleTreasures = initialVisibleTreasures;
+
+        // Initialize closed treasure indices as list from 0 to treasureObjects.Count
+        for (int i = 0; i < treasureObjects.Count; i++)
+        {
+            closedTreasureIndices.Add(i);
+        }
+
+        // Set the maximum number of visible treasures
         maxVisibleTreasures = treasureObjects.Count;
 
         InitializeTreasures();
         SetRandomTreasuresVisible(currentVisibleTreasures);
-        //StartCoroutine(CheckEnergyConsumption());
+        // StartCoroutine(ChangeTreasureVisibility());
     }
 
     void Update()
     {
-        treasureText.text = $"{openedTreasures} / {currentVisibleTreasures}";
+        // Update the UI text
+        treasureText.text = $"{(openedTreasureIndices.Count)} / {currentVisibleTreasures}";
+
+        // Clear the opened and closed treasure indices
+        openedTreasureIndices.Clear();
+        closedTreasureIndices.Clear();
+
+        // Check the Indices of opened treasures and closed treasures
+        for (int i = 0; i < treasureObjects.Count; i++)
+        {
+            if (treasureObjects[i].GetComponent<Treasure>().isOpened)
+            {
+                // Add the index of the opened treasure to the list
+                openedTreasureIndices.Add(i);
+            }
+            else
+            {
+                // Add the index of the closed treasure to the list
+                closedTreasureIndices.Add(i);
+            }
+        }
     }
 
-    void InitializeTreasures()
+    // Method to initialize the treasures with random question IDs
+    private void InitializeTreasures()
     {
+        // Hide all the treasures
+        foreach (var treasure in treasureObjects)
+        {
+            treasure.SetActive(false);
+        }
+
         // Initialize treasure question IDs (for demonstration purposes, random values)
         treasureQuestionIDs = new List<int>();
         for (int i = 11; i <= 57; i++)
@@ -55,26 +91,32 @@ public class TreasureManager : Singleton<TreasureManager>
             int randomIndex = Random.Range(0, treasureQuestionIDs.Count);
             int questionID = treasureQuestionIDs[randomIndex];
             treasureQuestionIDs.RemoveAt(randomIndex);
-            treasure.GetComponent<Treasure>().treasureID = questionID;
-
-            // Debug.Log($"Treasure {treasure.name} assigned question ID: {questionID}");
+            treasure.GetComponent<Treasure>().treasureQID = questionID;
         }
     }
 
-    void SetRandomTreasuresVisible(int count)
+    // Method to set random treasures visible
+    private void SetRandomTreasuresVisible(int count)
     {
-        List<int> indices = new List<int>();
-        for (int i = 0; i < treasureObjects.Count; i++)
+        Debug.Log("Setting " + count.ToString() + " random treasures visible");
+        // Check if the closed treasure indices are empty
+        if (closedTreasureIndices.Count == 0)
         {
-            // Disable the trasure and add the index to the list if the treasure is not opened
-            if (!treasureObjects[i].GetComponent<Treasure>().isOpened)
-            {
-                treasureObjects[i].SetActive(false);
-                indices.Add(i);
-            }
+            return;
         }
 
-        for (int i = 0; i < count; i++)
+        // Hide all the closed treasure indices
+        for (int i = 0; i < closedTreasureIndices.Count; i++)
+        {
+            treasureObjects[closedTreasureIndices[i]].SetActive(false);            
+        }
+
+        // Activate random closed treasure indices
+        List<int> indices = new List<int>(closedTreasureIndices);
+        // Print the indices of the closed treasures
+        Debug.Log("Closed Treasure Indices: " + string.Join(", ", indices));
+        Debug.Log(Math.Min(count, indices.Count) + " treasures will be visible");
+        for (int i = 0; i < Math.Min(count, closedTreasureIndices.Count); i++)
         {
             if (indices.Count == 0)
             {
@@ -83,47 +125,73 @@ public class TreasureManager : Singleton<TreasureManager>
             }
 
             int randomIndex = Random.Range(0, indices.Count);
-            int treasureIndex = indices[randomIndex];
-            treasureObjects[treasureIndex].SetActive(true);
+            int randomTreasureIndex = indices[randomIndex];
+            treasureObjects[randomTreasureIndex].SetActive(true);
+            Debug.Log("Treasure " + randomTreasureIndex + " is visible");
             indices.RemoveAt(randomIndex);
-
-            // Debug.Log($"Treasure {treasureObjects[treasureIndex].name} activated at index: {treasureIndex}");
         }
-
-        Debug.Log("Final active treasures count: " + count);
     }
 
-    IEnumerator CheckEnergyConsumption()
+    // Method to Incrase the number of visible treasures if the energy consumption decreases
+    public void IncreaseVisibleTreasures()
     {
-        float lastEnergyConsumption = 0;
-
-        while (true)
+        if (currentVisibleTreasures < maxVisibleTreasures)
         {
-            yield return new WaitForSeconds(apiCheckInterval);
-
-            float currentEnergyConsumption = Random.Range(0f, 100f); // Mock API call
-            Debug.Log($"Energy consumption: {currentEnergyConsumption}");
-
-            if (currentEnergyConsumption > lastEnergyConsumption)
-            {
-                Debug.Log("Energy consumption increased, hiding treasures.");
-                currentVisibleTreasures = Mathf.Max(1, currentVisibleTreasures - 1);
-                SetRandomTreasuresVisible(currentVisibleTreasures);
-            }
-            else if (currentEnergyConsumption < lastEnergyConsumption)
-            {
-                Debug.Log("Energy consumption decreased, showing more treasures.");
-                currentVisibleTreasures = Mathf.Min(treasureObjects.Count, currentVisibleTreasures + 1);
-                SetRandomTreasuresVisible(currentVisibleTreasures);
-            }
-
-            lastEnergyConsumption = currentEnergyConsumption;
+            currentVisibleTreasures++;
+            Debug.Log("Increasing visible treasures to " + currentVisibleTreasures);
+            SetRandomTreasuresVisible(currentVisibleTreasures - openedTreasureIndices.Count);
+        }
+        else
+        {
+            Debug.Log("All treasures are visible");
         }
     }
 
+    // Method to Decrease the number of visible treasures if the energy consumption increases
+    public void DecreaseVisibleTreasures()
+    {
+        if (currentVisibleTreasures > openedTreasureIndices.Count)
+        {
+            currentVisibleTreasures--;
+            Debug.Log("Decreasing visible treasures to " + currentVisibleTreasures);
+            SetRandomTreasuresVisible(currentVisibleTreasures - openedTreasureIndices.Count);
+        }
+        else
+        {
+            Debug.Log("No treasures to hide");
+        }
+    } 
+
+    // Method to collect the potion received from the treasures
     public void CollectPotion()
     {
         potionsCollected++;
         Debug.Log("Potions collected: " + potionsCollected);
+    }
+
+    // Method for testing the functionality of Changing treasure visibility
+    private IEnumerator ChangeTreasureVisibility()
+    {
+        while (true)
+        {
+            Debug.Log("Changing treasure visibility");
+            // Generate a random value
+            int randomValue = Random.Range(0, 2);
+            Debug.Log("Random Value: " + randomValue);
+
+            // If the random value is 0, Decrease the number of visible treasures
+            if (randomValue == 0)
+            {
+                DecreaseVisibleTreasures();
+            }
+            // If the random value is 1, Increase the number of visible treasures
+            else
+            {
+                IncreaseVisibleTreasures();
+            }
+
+            // Wait for 5 seconds
+            yield return new WaitForSeconds(15);
+        }
     }
 }
