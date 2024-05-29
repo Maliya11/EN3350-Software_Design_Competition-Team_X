@@ -12,7 +12,6 @@ public class MainMenuController : MonoBehaviour
     // Reference to the LoadingScene
     private LoadingScene loadingScene;
 
-
     private void Start()
     {
         playerProfile = FindObjectOfType<PlayerProfileManager>();

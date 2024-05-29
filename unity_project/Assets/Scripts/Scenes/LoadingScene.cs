@@ -15,7 +15,6 @@ public class LoadingScene : Singleton<LoadingScene>
     public GameObject LoadingScreen;
     public Slider slider;
 
-
     // Method to load a scene asynchronously
     public void LoadScene(string sceneName)
     {

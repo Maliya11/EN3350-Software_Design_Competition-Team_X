@@ -20,12 +20,10 @@ public class Treasure : MonoBehaviour
     // public GameObject player;
     public GameObject guardianEnemy;
 
-
     // Audio Source for the treasure
     public AudioSource treasureSound;
     public AudioSource correctAnswerSound;
     public AudioSource incorrectAnswerSound;
-    
 
     // Flag to check if the treasure has a guardian enemy
     public bool hasGuardianEnemy;
@@ -40,7 +38,6 @@ public class Treasure : MonoBehaviour
 
     // Flag to control Update execution
     private bool isUpdatePaused; 
-
 
     private void Start()
     {
@@ -154,24 +151,39 @@ public class Treasure : MonoBehaviour
         noButtonRight.onClick.RemoveAllListeners();
 
         // Wait for button click
-        yesButtonLeft.onClick.AddListener(() => ButtonClick("Yes"));
-        noButtonRight.onClick.AddListener(() => ButtonClick("No"));
+        /* yesButtonLeft.onClick.AddListener(() => ButtonClick("Yes"));
+        noButtonRight.onClick.AddListener(() => ButtonClick("No")); */
+        // Add listeners for the buttons
+        yesButtonLeft.onClick.AddListener(() => 
+        {
+            Debug.Log("Yes button pressed");
+            ButtonClick(yesButtonLeftText.text);
+        });
+        noButtonRight.onClick.AddListener(() => 
+        {
+            Debug.Log("No button pressed");
+            ButtonClick(noButtonRightText.text);
+        });
     }
 
     // Functionality of the yes button
     public void ButtonClick(string buttonPressed)
     {
-        Debug.Log("Button pressed");
+        // Inside ButtonClick
+        Debug.Log($"ButtonClick called with argument: {buttonPressed}, correct answer is: {answer}");
 
         // Remove the listeners
-        yesButtonLeft.onClick.RemoveListener(() => ButtonClick("Yes"));
-        noButtonRight.onClick.RemoveListener(() => ButtonClick("No"));
+        yesButtonLeft.onClick.RemoveAllListeners();
+        noButtonRight.onClick.RemoveAllListeners();
 
         // Hide the question panel
         questionPanel.SetActive(false);
 
+        // Check the answer
+        bool isCorrect = (buttonPressed == "Yes" && answer == 1) || (buttonPressed == "No" && answer == 2);
+
         // If the answer is correct, add points and collect a potion
-        if ((buttonPressed == "Yes" && answer == 1) || (buttonPressed == "No" && answer == 2))
+        if (isCorrect)
         {
             Debug.Log("Correct answer!");
 
@@ -187,7 +199,7 @@ public class Treasure : MonoBehaviour
             // Add a potion using the treasure manager
             FindObjectOfType<TreasureManager>().CollectPotion();  
         }
-        if ((buttonPressed == "Yes" && answer == 2) || (buttonPressed == "No" && answer == 1))
+        else
         {
             Debug.Log("Incorrect answer!");
 

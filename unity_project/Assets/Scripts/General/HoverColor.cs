@@ -11,7 +11,6 @@ public class HoverColor : MonoBehaviour
     private Color originalColor;
     private ColorBlock cb;
 
-
     private void Start()
     {
         // Get the original color of the button

@@ -8,7 +8,6 @@ public class EnergyManager : MonoBehaviour
     // Reference to the TreasureManager
     private TreasureManager treasureManager;
 
-
     // Variables
     private float repeatRate = 15.0f;
     private string lastFetchTime = "";
@@ -17,7 +16,6 @@ public class EnergyManager : MonoBehaviour
     private float currentPowerConsumption = 0.0f;
     private float lastPowerConsumptionGap = 0.0f;
     private float currentPowerConsumptionGap = 0.0f;
-
 
     // Start is called before the first frame update
     void Start()
@@ -32,7 +30,7 @@ public class EnergyManager : MonoBehaviour
         energyDataFetch = FindObjectOfType<EnergyDataFetch>();
         treasureManager = FindObjectOfType<TreasureManager>();
 
-        StartCoroutine(FetchCurrentPowerConsumption());
+        // StartCoroutine(FetchCurrentPowerConsumption());
     }
 
     // Routine to fetch the current power consumption 

@@ -8,7 +8,6 @@ public class OutOfBounds : Singleton<OutOfBounds>
     // Reference to the LoadingScene
     private LoadingScene loadingScene;
 
-
     // UI Elements
     public GameObject gameOverPanel;
     public TextMeshProUGUI panelTitleText;
@@ -18,7 +17,6 @@ public class OutOfBounds : Singleton<OutOfBounds>
     public Button keepPlayingButtonLeft; 
     public TextMeshProUGUI keepPlayingButtonLeftText;
     public GameObject player;
-
 
     private void Start()
     {

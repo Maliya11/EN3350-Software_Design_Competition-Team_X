@@ -19,7 +19,6 @@ public class FinishPoint : Singleton<FinishPoint>
     public PlayerManager playerManager;
     public TreasureManager treasureManager;
 
-
     private void Start()
     {
         // Enable the buttons
@@ -88,9 +87,9 @@ public class FinishPoint : Singleton<FinishPoint>
 
     private void ReturnToMainMenu()
     {
-        // Remove the listeners
-        quitButtonRight.onClick.RemoveListener(ReturnToMainMenu);
-        restartButtonLeft.onClick.RemoveListener(PlayAgain);
+        // Remove all the listeners
+        quitButtonRight.onClick.RemoveAllListeners();
+        restartButtonLeft.onClick.RemoveAllListeners();
 
         // Hide the canvas details
         playerManager.HideCanvasDetails();
@@ -102,9 +101,9 @@ public class FinishPoint : Singleton<FinishPoint>
 
     private void PlayAgain()
     {
-        // Remove the listeners
-        quitButtonRight.onClick.RemoveListener(ReturnToMainMenu);
-        restartButtonLeft.onClick.RemoveListener(PlayAgain);
+        // Remove all the listeners
+        quitButtonRight.onClick.RemoveAllListeners();
+        restartButtonLeft.onClick.RemoveAllListeners();
 
         // Reload the current scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

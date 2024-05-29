@@ -12,7 +12,6 @@ public class PlayerProfileManager : Singleton<PlayerProfileManager>
     // Reference to the ErrorNotifications
     public ErrorNotifications errorNotifications;
 
-
     // URL related to the player information
     // URL to fetch the player profile
     private string profileFetchURL = "http://20.15.114.131:8080/api/user/profile/view";
@@ -22,11 +21,9 @@ public class PlayerProfileManager : Singleton<PlayerProfileManager>
     private string profileUpdateURL = "http://20.15.114.131:8080/api/user/profile/update";
     private string profileUpdateMethod = "PUT";
 
-
     // Flags to check if the profile is initialized and completed
     public bool isProfileInitialized { get; private set;}
     public bool isProfileCompleted { get; private set;}
-
 
     // UI Elements
     public InputField firstNameInput;
@@ -39,7 +36,6 @@ public class PlayerProfileManager : Singleton<PlayerProfileManager>
     public TextMeshProUGUI notificationText;
     public GameObject profilePanel;
     public GameObject mainMenuPanel;
-
 
     // Initiating the flags
     private void Start()

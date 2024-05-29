@@ -10,7 +10,6 @@ public class EnergyDataFetch : MonoBehaviour
     // Reference to the ErrorNotifications
     public ErrorNotifications errorNotifications;
 
-
     // URL related to the energy information
     /* // URL to view yearly power consumption
     private string yearlyPowerConsumptionURL = "http://20.15.114.131:8080/api/power-consumption/yearly/view";
@@ -36,7 +35,6 @@ public class EnergyDataFetch : MonoBehaviour
 
     // Method to fetch energy data
     private string viewMethod = "GET";
-
     
     // Method to get current power consumption 
     public void GetCurrentPowerConsumption(System.Action<float> callback)

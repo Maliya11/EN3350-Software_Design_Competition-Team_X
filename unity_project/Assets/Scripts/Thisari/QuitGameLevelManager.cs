@@ -10,7 +10,6 @@ public class QuitGameLevelManager : Singleton<QuitGameLevelManager>
     // Reference to the LoadingScene
     private LoadingScene loadingScene;
 
-
     // UI Elements
     public GameObject quitPanel;
     public TextMeshProUGUI quitPanelTitle;
@@ -20,7 +19,6 @@ public class QuitGameLevelManager : Singleton<QuitGameLevelManager>
     public Button resumeButtonLeft;
     public TextMeshProUGUI resumeButtonLeftText;
     // public GameObject player;
-
 
     // Start is called before the first frame update
     void Start()
@@ -52,9 +50,9 @@ public class QuitGameLevelManager : Singleton<QuitGameLevelManager>
     
     private void QuitGame()
     {
-        // Remove the listeners
-        quitButtonRight.onClick.RemoveListener(QuitGame);
-        resumeButtonLeft.onClick.RemoveListener(ResumeGame);
+        // Remove all the listeners
+        quitButtonRight.onClick.RemoveAllListeners();
+        resumeButtonLeft.onClick.RemoveAllListeners();
 
         // Hide the canvas details from method in PlayerManager 
         FindObjectOfType<PlayerManager>().HideCanvasDetails();
@@ -66,9 +64,9 @@ public class QuitGameLevelManager : Singleton<QuitGameLevelManager>
 
     private void ResumeGame()
     {
-        // Remove the listeners
-        quitButtonRight.onClick.RemoveListener(QuitGame);
-        resumeButtonLeft.onClick.RemoveListener(ResumeGame);
+        // Remove all the listeners
+        quitButtonRight.onClick.RemoveAllListeners();
+        resumeButtonLeft.onClick.RemoveAllListeners();
 
         // Disable the quit panel
         quitPanel.SetActive(false);        

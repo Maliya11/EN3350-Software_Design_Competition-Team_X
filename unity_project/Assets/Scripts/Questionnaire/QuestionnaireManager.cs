@@ -12,7 +12,6 @@ public class QuestionnaireManager : Singleton<QuestionnaireManager>
     // Reference to the ErrorNotifications
     public ErrorNotifications errorNotifications;
     
-
     // URL related to the questionnaire web application
     // URL directing the user to the questionnaire
     private string questionnaireURL = "http://51.20.76.97:5173/";
@@ -28,7 +27,6 @@ public class QuestionnaireManager : Singleton<QuestionnaireManager>
     // URL to update the bonusGiven status in the database
     private string bonusPerksURL = "http://13.60.29.81:8080/player/bonus";
     private string bonusPerksMethod = "POST";
-
 
     private bool userValidity;
     /* User Validity:
@@ -54,7 +52,6 @@ public class QuestionnaireManager : Singleton<QuestionnaireManager>
      * 1 - Bonus perks have been given to the user
      */
 
-
     // UI Elements
     public GameObject notificationBar;
     public TextMeshProUGUI notificationText;
@@ -63,7 +60,6 @@ public class QuestionnaireManager : Singleton<QuestionnaireManager>
     public GameObject questionnaireButtonNormal;
     public GameObject questionnaireButtonPressed;
     public GameObject mainMenuPanel;
-
 
     // Method to get the questionnaire status from the database
     public IEnumerator GetQuestionnaireStatus(int promptingOrigin)

@@ -17,7 +17,6 @@ public class SettingsManager : Singleton<SettingsManager>
     public TextMeshProUGUI saveButtonLeftText;
     // public GameObject player;
 
-
     private void Start()
     {
         // Enable the buttons
@@ -50,22 +49,26 @@ public class SettingsManager : Singleton<SettingsManager>
 
     private void ResumeGame()
     {
+        // Remove all the listeners
+        resumeButtonRight.onClick.RemoveAllListeners();
+        saveButtonLeft.onClick.RemoveAllListeners();
+
         // Disable the settings panel
         settingsPanelContent.SetActive(false);
         settingsPanel.SetActive(false);
 
         // Enable the settings panel message
         settingsPanelMessage.SetActive(true);
-
-        // Remove the listeners
-        resumeButtonRight.onClick.RemoveListener(ResumeGame);
-        saveButtonLeft.onClick.RemoveListener(SaveSettings);
     }
 
     private void SaveSettings()
     {
         // Save the settings
         Debug.Log("Settings saved!");
+
+        // Remove all the listeners
+        resumeButtonRight.onClick.RemoveAllListeners();
+        saveButtonLeft.onClick.RemoveAllListeners();
         
         // Disable the settings panel
         settingsPanelContent.SetActive(false);
@@ -73,9 +76,5 @@ public class SettingsManager : Singleton<SettingsManager>
 
         // Enable the settings panel message
         settingsPanelMessage.SetActive(true);
-
-        // Remove the listeners
-        resumeButtonRight.onClick.RemoveListener(ResumeGame);
-        saveButtonLeft.onClick.RemoveListener(SaveSettings);
     }
 }

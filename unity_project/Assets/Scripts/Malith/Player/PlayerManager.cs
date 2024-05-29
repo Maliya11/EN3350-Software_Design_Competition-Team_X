@@ -8,7 +8,6 @@ public class PlayerManager : MonoBehaviour
     // Reference to the LoadingScene
     private LoadingScene loadingScene;
 
-
     // UI Elements
     public GameObject HeartContainer;
     public GameObject Buttons;
@@ -26,7 +25,6 @@ public class PlayerManager : MonoBehaviour
     public TextMeshProUGUI keepPlayingButtonLeftText;
     public GameObject player;
 
-
     // Static variables
     public static bool isGameOver;
     public int numberOfPoints = 0;
@@ -38,7 +36,6 @@ public class PlayerManager : MonoBehaviour
     // Flag to control Update execution
     private bool isUpdatePaused;
 
-    
     private void Awake()
     {
         // Initialize the flags
@@ -117,9 +114,9 @@ public class PlayerManager : MonoBehaviour
 
     private void QuitGame()
     {
-        // Remove the listeners
-        quitButtonRight.onClick.RemoveListener(QuitGame);
-        keepPlayingButtonLeft.onClick.RemoveListener(KeepPlaying);
+        // Remove all the listeners
+        quitButtonRight.onClick.RemoveAllListeners();
+        keepPlayingButtonLeft.onClick.RemoveAllListeners();
 
         // Hide the canvas details
         HideCanvasDetails();
@@ -140,9 +137,9 @@ public class PlayerManager : MonoBehaviour
         // Restore the player
         RestorePlayer();
 
-        // Remove the listeners
-        quitButtonRight.onClick.RemoveListener(QuitGame);
-        keepPlayingButtonLeft.onClick.RemoveListener(KeepPlaying);
+        // Remove all the listeners
+        quitButtonRight.onClick.RemoveAllListeners();
+        keepPlayingButtonLeft.onClick.RemoveAllListeners();
 
         // Disable the game over panel
         gameOverPanel.SetActive(false);
