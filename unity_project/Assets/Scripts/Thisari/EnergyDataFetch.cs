@@ -39,20 +39,24 @@ public class EnergyDataFetch : MonoBehaviour
 
     
     // Method to get current power consumption 
+    public void GetCurrentPowerConsumption(System.Action<float> callback)
+    {
+        StartCoroutine(FetchCurrentPowerConsumption(callback));
+    }
+
     // Returns the power consumption in Wh upto fetching time from 12am of current day
-    public float GetCurrentPowerConsumption()
+    // Coroutine to fetch current power consumption
+    private IEnumerator FetchCurrentPowerConsumption(System.Action<float> callback)
     {
         // Create a new instance of the RequestManager
         requestManager = ScriptableObject.CreateInstance<RequestManager>();
 
         // Send the request to fetch the current power consumption
         requestManager.SendRequest(currentPowerConsumptionURL, viewMethod, null, this, includeToken, null);
-        StartCoroutine(WaitForRequestCompletion());
+        yield return StartCoroutine(WaitForRequestCompletion());
 
-        Debug.Log("Current Power Consumption request sent");
-
-        // return the current power consumption after the request is completed
-        return currentPowerConsumption;
+        // Invoke the callback with the current power consumption
+        callback(currentPowerConsumption);
     }
 
     // Method to wait for the request completion
@@ -70,7 +74,7 @@ public class EnergyDataFetch : MonoBehaviour
             // Get the current power consumption from the response
             Debug.Log("Power Consumption request successful");
             currentPowerConsumption = requestManager.jsonResponse["currentConsumption"];
-            Debug.Log(currentPowerConsumption);
+            Debug.Log("Power comsumption from EnergyDataFetch: " + currentPowerConsumption);
         }
         else
         {
