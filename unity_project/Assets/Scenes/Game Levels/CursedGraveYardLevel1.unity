@@ -556,7 +556,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 1838309904}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &31503365
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3416,7 +3416,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 1838309904}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &233077477
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3689,7 +3689,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &245209956
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4068,7 +4068,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 1838309904}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &285289800
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5590,7 +5590,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 1838309904}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &411082554
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6967,9 +6967,6 @@ MonoBehaviour:
   - {fileID: 1461789121}
   initialVisibleTreasures: 5
   maxVisibleTreasures: 0
-  currentVisibleTreasures: 0
-  openedTreasures: 0
-  apiCheckInterval: 5
   potionsCollected: 0
 --- !u!1 &537835151
 GameObject:
@@ -7089,7 +7086,7 @@ RectTransform:
   m_Father: {fileID: 1432472622}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7287,6 +7284,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 602012313}
+  - component: {fileID: 602012315}
   - component: {fileID: 602012314}
   m_Layer: 5
   m_Name: BrightnessSlider
@@ -7368,6 +7366,20 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &602012315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 602012312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a8c3b4fe3fa5ac4eb217133ad3af82b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 602012314}
+  light: {fileID: 0}
 --- !u!1 &605355198
 GameObject:
   m_ObjectHideFlags: 0
@@ -18705,7 +18717,7 @@ RectTransform:
   m_Father: {fileID: 474607609}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -19092,7 +19104,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 1838309904}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &838533346
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -20366,7 +20378,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 1838309904}
   hasGuardianEnemy: 0
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &923702812
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -25176,7 +25188,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 1838309904}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &1461789123
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -25640,7 +25652,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 1838309904}
   hasGuardianEnemy: 0
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &1490490747
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -26459,7 +26471,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1579124148
 RectTransform:
   m_ObjectHideFlags: 0
@@ -27227,7 +27239,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 1838309904}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &1659552601
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -29288,7 +29300,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 1838309904}
   hasGuardianEnemy: 0
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &1860391049
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -42050,7 +42062,7 @@ RectTransform:
   m_Father: {fileID: 646471109}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -43197,7 +43209,7 @@ RectTransform:
   m_Father: {fileID: 440936063}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
