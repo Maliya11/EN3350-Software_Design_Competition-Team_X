@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class LightChange : MonoBehaviour
 {
     public Slider slider;
-    public Light light;
+    public Light lights;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +16,6 @@ public class LightChange : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       light.intensity = slider.value;
+       lights.intensity = slider.value;
     }
 }
