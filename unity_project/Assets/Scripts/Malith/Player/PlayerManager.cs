@@ -132,7 +132,7 @@ public class PlayerManager : MonoBehaviour
         
         // Load the Main Menu
         loadingScene = FindObjectOfType<LoadingScene>();
-        loadingScene.LoadScene("MainMenu");
+        loadingScene.LoadScene("SelectionScene");
 
         // Restore the physics of the player
         player.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;

@@ -125,15 +125,10 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void BackMapSelection()//MARKER this method will be call on the SingleLevel button event
+    public void BackToMainMenu()
     {
-
-        mapSelectionPanel.gameObject.SetActive(true);
-        for (int i = 0; i < mapSelections.Length; i++)
-        {
-            levelSelectionPanels[i].gameObject.SetActive(false);
-        }
-
-        SceneManager.LoadScene("Kumudu");
+        
     }
+
+    
 }
