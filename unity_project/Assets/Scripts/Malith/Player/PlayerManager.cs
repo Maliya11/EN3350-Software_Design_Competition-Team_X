@@ -35,6 +35,8 @@ public class PlayerManager : MonoBehaviour
     // Static variables
     public static bool isPlayerDead;
     public int numberOfPoints = 0;
+    public int numberOfStars = 0;
+    public int enemyKills = 0;
 
     // Number of potions
     private int numberOfPotions;
@@ -84,6 +86,11 @@ public class PlayerManager : MonoBehaviour
     {
         numberOfPoints += points;
         UpdatePointsUI();
+    }
+
+    public void AddStars(int star)
+    {
+        numberOfStars += star;
     }
 
     private void UpdatePointsUI()
