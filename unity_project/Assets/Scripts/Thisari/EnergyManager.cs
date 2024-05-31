@@ -141,7 +141,7 @@ public class EnergyManager : MonoBehaviour
             if (lastDateTime.Date == currentDateTime.Date)
             { 
                 Debug.Log("Same day comparison => No change");
-                initialPowerChange = -1;
+                initialPowerChange = 0;
 
                 bool isFetchCompleted = false;
 
