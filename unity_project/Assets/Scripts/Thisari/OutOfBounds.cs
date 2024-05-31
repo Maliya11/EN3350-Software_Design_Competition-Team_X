@@ -16,7 +16,7 @@ public class OutOfBounds : Singleton<OutOfBounds>
     public TextMeshProUGUI quitButtonRightText;
     public Button keepPlayingButtonLeft; 
     public TextMeshProUGUI keepPlayingButtonLeftText;
-    public GameObject player;
+    // public GameObject player;
 
     private void Start()
     {
@@ -42,7 +42,7 @@ public class OutOfBounds : Singleton<OutOfBounds>
             HealthManager.health = 0;
 
             // Remove the physics from the player
-            player.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+            PlayerManager.player.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
 
             // Flag the player as dead
             PlayerManager.isPlayerDead = true;
