@@ -26,7 +26,7 @@ public class PlayerManager : MonoBehaviour
     public TextMeshProUGUI keepPlayingButtonLeftText;
     public GameObject[] playerPrefabs;
     int characterIndex;
-    public GameObject player;
+    private GameObject player;
     public static Vector3 playerSafePosition = new Vector3(-60f,-0.9f,1f);
     public CinemachineVirtualCamera VCam;
 
@@ -43,7 +43,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Awake()
     {
-        PlayerPrefs.GetInt("SelectedCharacter", 0);
+        characterIndex = PlayerPrefs.GetInt("SelectedCharacter", 0);
         player = Instantiate(playerPrefabs[characterIndex], playerSafePosition, Quaternion.identity);
         
         VCam.m_Follow = player.transform;
