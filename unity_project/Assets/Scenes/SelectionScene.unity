@@ -2515,13 +2515,13 @@ MonoBehaviour:
       - m_Target: {fileID: 352972100}
         m_TargetAssemblyTypeName: LevelSelection, Assembly-CSharp
         m_MethodName: SceneTransition
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 3
           m_FloatArgument: 0
-          m_StringArgument: 3
+          m_StringArgument: CursedGraveYardLevel1
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1156918870}
@@ -4610,13 +4610,13 @@ MonoBehaviour:
       - m_Target: {fileID: 861908230}
         m_TargetAssemblyTypeName: LevelSelection, Assembly-CSharp
         m_MethodName: SceneTransition
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 7
           m_FloatArgument: 0
-          m_StringArgument: 7
+          m_StringArgument: MysticSeaLevel2
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 101671854}
@@ -5828,7 +5828,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1274801339}
         m_TargetAssemblyTypeName: LevelSelection, Assembly-CSharp
         m_MethodName: SceneTransition
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6377,13 +6377,13 @@ MonoBehaviour:
       - m_Target: {fileID: 1370821560}
         m_TargetAssemblyTypeName: LevelSelection, Assembly-CSharp
         m_MethodName: SceneTransition
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 4
           m_FloatArgument: 0
-          m_StringArgument: 4
+          m_StringArgument: CursedGraveYardLevel2
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1156918870}
@@ -7346,13 +7346,13 @@ MonoBehaviour:
       - m_Target: {fileID: 1590129461}
         m_TargetAssemblyTypeName: LevelSelection, Assembly-CSharp
         m_MethodName: SceneTransition
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 8
           m_FloatArgument: 0
-          m_StringArgument: 8
+          m_StringArgument: MysticSeaLevel2
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 101671854}
@@ -7518,13 +7518,13 @@ MonoBehaviour:
       - m_Target: {fileID: 1635271785}
         m_TargetAssemblyTypeName: LevelSelection, Assembly-CSharp
         m_MethodName: SceneTransition
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 6
           m_FloatArgument: 0
-          m_StringArgument: 6
+          m_StringArgument: MysticSeaLevel1
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 101671854}

@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class LevelSelection : MonoBehaviour
 {
+    // Reference to the LoadingScene
+    private LoadingScene loadingScene;
+    
     public bool isUnlocked = false;
     public Image lockImage;//LOCK IMAGE
     public Image[] starsImages;//THREE STAR IMAGE
@@ -52,12 +55,15 @@ public class LevelSelection : MonoBehaviour
     }
 
     //MARKER We have remvoed this method from UIMANAGER for easy to read and operator
-    public void SceneTransition(int index)
+    public void SceneTransition(string sceneName)
     {
         if(isUnlocked)
         {
             UIManager.instance.HideAllUIPanels();
-            SceneManager.LoadScene(index);    
+            
+            // Load the Main Menu
+            loadingScene = FindObjectOfType<LoadingScene>();
+            loadingScene.LoadScene(sceneName);
         }
     }
 }

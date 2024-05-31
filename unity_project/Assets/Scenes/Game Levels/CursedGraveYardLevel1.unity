@@ -3867,7 +3867,6 @@ MonoBehaviour:
   quitButtonRightText: {fileID: 1763782368}
   keepPlayingButtonLeft: {fileID: 1027815229}
   keepPlayingButtonLeftText: {fileID: 1048278578}
-  player: {fileID: 0}
 --- !u!61 &270859875
 BoxCollider2D:
   m_ObjectHideFlags: 0
