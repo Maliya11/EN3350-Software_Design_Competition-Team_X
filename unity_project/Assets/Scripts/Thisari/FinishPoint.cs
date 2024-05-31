@@ -44,6 +44,10 @@ public class FinishPoint : Singleton<FinishPoint>
             // Flag the game as over
             isGameOver = true;
 
+            // Pause the Treasure Manager and Energy Manager
+            TreasureManager.isPausedTM = true;
+            EnergyManager.isPausedEM = true;
+
             // Display the game over panel
             gameOverPanel.SetActive(true);
 

@@ -72,6 +72,10 @@ public class PlayerManager : MonoBehaviour
             // Pause the update
             isUpdatePaused = true;
 
+            // Pause the Treasure Manager and Energy Manager
+            TreasureManager.isPausedTM = true;
+            EnergyManager.isPausedEM = true;
+
             ShowGameOverPanel();
         }
     }
@@ -146,6 +150,10 @@ public class PlayerManager : MonoBehaviour
 
     private void KeepPlaying()
     {
+        // Resume the Treasure Manager and Energy Manager
+        TreasureManager.isPausedTM = false;
+        EnergyManager.isPausedEM = false;
+
         // Restore the player
         RestorePlayer();
 

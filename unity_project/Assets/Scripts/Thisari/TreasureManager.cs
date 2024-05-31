@@ -13,7 +13,7 @@ public class TreasureManager : Singleton<TreasureManager>
     public TextMeshProUGUI treasureText;
 
     public List<GameObject> treasureObjects; // Manually populated in the Inspector
-    public int initialVisibleTreasures = 5;
+    public int initialVisibleTreasures;
     public int maxVisibleTreasures;
     private int currentVisibleTreasures;
     private List<int> openedTreasureIndices = new List<int>(); 
@@ -23,30 +23,57 @@ public class TreasureManager : Singleton<TreasureManager>
     // Variable to store the potions collected in the gameplay
     public int potionsCollected = 0;
 
+    // Flags 
+    public static bool isTreasureCountInitialized;
+    public static bool isPausedTM;
+
     void Start()
     {
+        // Initialize the flags
+        isPausedTM = false;
+        isTreasureCountInitialized = false;
+        
         // Initialize the random seed using the current time
         Random.InitState(System.DateTime.Now.Millisecond);
+
+        // Wait while EnergyManager initializes the treasure count
+        StartCoroutine(WaitForTreasureCountInitialization());
+    }
+
+    private IEnumerator WaitForTreasureCountInitialization()
+    {
+        yield return new WaitUntil(() => isTreasureCountInitialized);
+
+        // Set the maximum number of visible treasures
+        maxVisibleTreasures = treasureObjects.Count;
 
         // Set the number of visible treasures
         currentVisibleTreasures = initialVisibleTreasures;
 
-        // Initialize closed treasure indices as list from 0 to treasureObjects.Count
+        // Initialize closed treasure indices as a list from 0 to treasureObjects.Count
         for (int i = 0; i < treasureObjects.Count; i++)
         {
             closedTreasureIndices.Add(i);
         }
 
-        // Set the maximum number of visible treasures
-        maxVisibleTreasures = treasureObjects.Count;
-
         InitializeTreasures();
         SetRandomTreasuresVisible(currentVisibleTreasures);
+
+        // Start the coroutine to change treasure visibility
         // StartCoroutine(ChangeTreasureVisibility());
     }
 
     void Update()
-    {   
+    {  
+        // Pause the Update 
+        if (isPausedTM)
+        {
+            Debug.Log("Treasure Manager Paused");
+            return;
+        } 
+
+        Debug.Log("Treasure Manager not Paused");
+
         // Update the UI text
         treasureText.text = $"{(openedTreasureIndices.Count)} / {currentVisibleTreasures}";
 
@@ -67,6 +94,22 @@ public class TreasureManager : Singleton<TreasureManager>
                 // Add the index of the closed treasure to the list
                 closedTreasureIndices.Add(i);
             }
+        }
+    }
+
+    public void SetInitialTreasureCount(bool energyIncreased)
+    {
+        // If Power consumption has increased
+        // Set the Initial visible treasure count to 1/3 of total
+        if (energyIncreased) 
+        {
+            initialVisibleTreasures = Mathf.CeilToInt(maxVisibleTreasures * (1f / 3f));
+        }
+        // Else
+        // Set it to 2/3 of total
+        else 
+        {
+            initialVisibleTreasures = Mathf.CeilToInt(maxVisibleTreasures * (2f / 3f));
         }
     }
 

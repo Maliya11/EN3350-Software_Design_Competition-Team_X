@@ -29,6 +29,10 @@ public class OutOfBounds : Singleton<OutOfBounds>
     {
         if (collision.CompareTag("Player"))
         {
+            // Pause the Treasure Manager and Energy Manager
+            TreasureManager.isPausedTM = true;
+            EnergyManager.isPausedEM = true;
+
             // Display the game over panel
             gameOverPanel.SetActive(true);
             

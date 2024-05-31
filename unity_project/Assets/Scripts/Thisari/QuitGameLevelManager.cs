@@ -30,6 +30,10 @@ public class QuitGameLevelManager : Singleton<QuitGameLevelManager>
 
     public void DisplayQuitPanel()
     {
+        // Pause the Treasure Manager and Energy Manager
+        TreasureManager.isPausedTM = true;
+        EnergyManager.isPausedEM = true;
+
         // Enable the quit panel
         quitPanel.SetActive(true);
 
@@ -64,6 +68,10 @@ public class QuitGameLevelManager : Singleton<QuitGameLevelManager>
 
     private void ResumeGame()
     {
+        // Resume the Treasure Manager and Energy Manager
+        TreasureManager.isPausedTM = false;
+        EnergyManager.isPausedEM = false;
+
         // Remove all the listeners
         quitButtonRight.onClick.RemoveAllListeners();
         resumeButtonLeft.onClick.RemoveAllListeners();

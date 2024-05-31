@@ -18,9 +18,15 @@ public class EnergyManager : MonoBehaviour
     private float lastPowerConsumptionGap = 0.0f;
     private float currentPowerConsumptionGap = 0.0f;
 
+    // Flags to pause the energy manager
+    public static bool isPausedEM;
+
     // Start is called before the first frame update
     void Start()
     {
+        // Initiate the flags
+        isPausedEM = false;
+
         // Debug.Log("Energy Manager Started");
 
         // Get the last fetched time and power consumption from the player prefs
@@ -34,7 +40,11 @@ public class EnergyManager : MonoBehaviour
         // Compare the power data when initially starting the game
         // GetInitialInactiveTimeInterval();
 
-        // StartCoroutine(FetchCurrentPowerConsumption());
+        // Randomly generate a bool 
+        TreasureManager.isTreasureCountInitialized = true;
+        treasureManager.SetInitialTreasureCount(true);
+
+        StartCoroutine(FetchCurrentPowerConsumption());
     }
 
     // Routine to fetch the current power consumption 
@@ -42,6 +52,11 @@ public class EnergyManager : MonoBehaviour
     {
         while (true)
         {
+            Debug.Log("Energy Manager Paused.");
+            // Wait until not paused
+            yield return new WaitWhile(() => isPausedEM);
+            Debug.Log("Energy Manager Resumed.");
+
             Debug.Log("Fetching Current Power Consumption");
             Debug.Log("Last Fetch Time: " + lastFetchTime);
             Debug.Log("Last Power Consumption: " + lastPowerConsumption);
