@@ -2515,7 +2515,11 @@ MonoBehaviour:
       - m_Target: {fileID: 352972100}
         m_TargetAssemblyTypeName: LevelSelection, Assembly-CSharp
         m_MethodName: SceneTransition
+<<<<<<< Updated upstream
         m_Mode: 5
+=======
+        m_Mode: 1
+>>>>>>> Stashed changes
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2558,6 +2562,8 @@ MonoBehaviour:
   - {fileID: 4210288, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
   - {fileID: 1363696376, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
   - {fileID: 297654138, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
+  Score: {fileID: 1180295844}
+  index: 3
 --- !u!1 &409190958
 GameObject:
   m_ObjectHideFlags: 0
@@ -4610,7 +4616,11 @@ MonoBehaviour:
       - m_Target: {fileID: 861908230}
         m_TargetAssemblyTypeName: LevelSelection, Assembly-CSharp
         m_MethodName: SceneTransition
+<<<<<<< Updated upstream
         m_Mode: 5
+=======
+        m_Mode: 1
+>>>>>>> Stashed changes
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4653,6 +4663,8 @@ MonoBehaviour:
   - {fileID: 4210288, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
   - {fileID: 1363696376, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
   - {fileID: 297654138, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
+  Score: {fileID: 1662936706}
+  index: 7
 --- !u!1 &954585007
 GameObject:
   m_ObjectHideFlags: 0
@@ -5828,7 +5840,11 @@ MonoBehaviour:
       - m_Target: {fileID: 1274801339}
         m_TargetAssemblyTypeName: LevelSelection, Assembly-CSharp
         m_MethodName: SceneTransition
+<<<<<<< Updated upstream
         m_Mode: 5
+=======
+        m_Mode: 1
+>>>>>>> Stashed changes
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5871,6 +5887,8 @@ MonoBehaviour:
   - {fileID: 4210288, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
   - {fileID: 1363696376, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
   - {fileID: 297654138, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
+  Score: {fileID: 31831133}
+  index: 5
 --- !u!1 &1283651523
 GameObject:
   m_ObjectHideFlags: 0
@@ -6377,7 +6395,11 @@ MonoBehaviour:
       - m_Target: {fileID: 1370821560}
         m_TargetAssemblyTypeName: LevelSelection, Assembly-CSharp
         m_MethodName: SceneTransition
+<<<<<<< Updated upstream
         m_Mode: 5
+=======
+        m_Mode: 1
+>>>>>>> Stashed changes
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6420,6 +6442,8 @@ MonoBehaviour:
   - {fileID: 4210288, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
   - {fileID: 1363696376, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
   - {fileID: 297654138, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
+  Score: {fileID: 1457759386}
+  index: 4
 --- !u!1 &1401378773
 GameObject:
   m_ObjectHideFlags: 0
@@ -7346,7 +7370,11 @@ MonoBehaviour:
       - m_Target: {fileID: 1590129461}
         m_TargetAssemblyTypeName: LevelSelection, Assembly-CSharp
         m_MethodName: SceneTransition
+<<<<<<< Updated upstream
         m_Mode: 5
+=======
+        m_Mode: 1
+>>>>>>> Stashed changes
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7389,6 +7417,8 @@ MonoBehaviour:
   - {fileID: 4210288, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
   - {fileID: 1363696376, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
   - {fileID: 297654138, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
+  Score: {fileID: 316186928}
+  index: 8
 --- !u!1 &1635271780
 GameObject:
   m_ObjectHideFlags: 0
@@ -7518,7 +7548,11 @@ MonoBehaviour:
       - m_Target: {fileID: 1635271785}
         m_TargetAssemblyTypeName: LevelSelection, Assembly-CSharp
         m_MethodName: SceneTransition
+<<<<<<< Updated upstream
         m_Mode: 5
+=======
+        m_Mode: 1
+>>>>>>> Stashed changes
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7561,6 +7595,8 @@ MonoBehaviour:
   - {fileID: 4210288, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
   - {fileID: 1363696376, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
   - {fileID: 297654138, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
+  Score: {fileID: 803201315}
+  index: 6
 --- !u!1 &1648231427
 GameObject:
   m_ObjectHideFlags: 0

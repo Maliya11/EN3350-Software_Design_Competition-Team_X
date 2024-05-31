@@ -77,6 +77,7 @@ public class FinishPoint : Singleton<FinishPoint>
 
         // Update high score
         int currentLevelIndex = SceneManager.GetActiveScene().buildIndex;
+
         string highScoreKey = "HighScore_Level_" + currentLevelIndex;
         int highestPoints = PlayerPrefs.GetInt(highScoreKey, 0);
 
@@ -87,6 +88,25 @@ public class FinishPoint : Singleton<FinishPoint>
         }
 
         Debug.Log("Points: " + playerManager.numberOfPoints);
+
+        playerManager.AddStars(1);
+        if(playerManager.enemyKills == 10)
+        {   
+            playerManager.AddStars(2);
+        }
+        else if(playerManager.enemyKills >= 5)
+        {
+            playerManager.AddStars(1);
+        }
+        
+        string highStarKey = "HighStar_Level_" + currentLevelIndex;
+        int highestStars = PlayerPrefs.GetInt(highStarKey);
+
+        if(playerManager.numberOfStars > highestStars)
+        {
+            PlayerPrefs.SetInt(highStarKey, playerManager.numberOfStars);
+            PlayerPrefs.Save();
+        }
 
         // Add potions collected to the inventory
         int noOfPotionsCollected = treasureManager.potionsCollected;

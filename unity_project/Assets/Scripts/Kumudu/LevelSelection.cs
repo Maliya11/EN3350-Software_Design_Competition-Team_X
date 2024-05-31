@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class LevelSelection : MonoBehaviour
 {
@@ -13,11 +14,21 @@ public class LevelSelection : MonoBehaviour
     public Image lockImage;//LOCK IMAGE
     public Image[] starsImages;//THREE STAR IMAGE
     public Sprite[] starsSprites;
+    public TextMeshProUGUI Score;
+    public int index;
 
     private void Update()
     {
+        UpdateHighScoreUI();
         UpdateLevelButton();//TODO Remove later
         UnlockLevel();
+    }
+
+    private void UpdateHighScoreUI()
+    {
+        string highScoreKey = "HighScore_Level_" + index;
+        int highestPoints = PlayerPrefs.GetInt(highScoreKey, 0);
+        Score.text = highestPoints.ToString();
     }
 
     private void UnlockLevel()
