@@ -61,4 +61,9 @@ public class LevelSelection : MonoBehaviour
             SceneManager.LoadScene(_sceneName);    
         }
     }
+
+    public void LoadLevel(int index)
+    {
+        SceneManager.LoadScene(index);
+    }
 }
