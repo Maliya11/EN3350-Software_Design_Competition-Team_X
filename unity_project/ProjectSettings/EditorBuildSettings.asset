@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 270c00a9b48418d42a6cc48590330ad3
   - enabled: 1
-    path: Assets/Scenes/Kumudu.unity
+    path: Assets/Scenes/SelectionScene.unity
     guid: 66e52674ceea6fb4f8894d4601250c73
   - enabled: 1
     path: Assets/Scenes/Game Levels/CursedGraveYardLevel1.unity
