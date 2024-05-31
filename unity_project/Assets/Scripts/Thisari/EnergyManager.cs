@@ -42,7 +42,8 @@ public class EnergyManager : MonoBehaviour
 
         // Randomly generate a bool 
         TreasureManager.isTreasureCountInitialized = true;
-        treasureManager.SetInitialTreasureCount(true);
+        Debug.Log("Treasure count initialized");
+        treasureManager.SetInitialTreasureCount(false);
 
         StartCoroutine(FetchCurrentPowerConsumption());
     }
@@ -80,7 +81,7 @@ public class EnergyManager : MonoBehaviour
             Debug.Log("Current Power Consumption: " + currentPowerConsumption);
             Debug.Log("Current Power Consumption Gap: " + currentPowerConsumptionGap);
 
-            ComparePowerConsumption();
+            CompareCurrentPowerConsumption();
 
             // Wait for the next fetch
             yield return new WaitForSeconds(repeatRate);
@@ -88,7 +89,7 @@ public class EnergyManager : MonoBehaviour
     }
 
     // Method to compare the power consumption
-    private void ComparePowerConsumption()
+    private void CompareCurrentPowerConsumption()
     {
         // Compare the current power consumption with the last power consumption
         if (currentPowerConsumptionGap > lastPowerConsumptionGap)

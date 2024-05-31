@@ -36,6 +36,9 @@ public class TreasureManager : Singleton<TreasureManager>
         // Initialize the random seed using the current time
         Random.InitState(System.DateTime.Now.Millisecond);
 
+        // Set the maximum number of visible treasures
+        maxVisibleTreasures = treasureObjects.Count;
+
         // Wait while EnergyManager initializes the treasure count
         StartCoroutine(WaitForTreasureCountInitialization());
     }
@@ -43,9 +46,6 @@ public class TreasureManager : Singleton<TreasureManager>
     private IEnumerator WaitForTreasureCountInitialization()
     {
         yield return new WaitUntil(() => isTreasureCountInitialized);
-
-        // Set the maximum number of visible treasures
-        maxVisibleTreasures = treasureObjects.Count;
 
         // Set the number of visible treasures
         currentVisibleTreasures = initialVisibleTreasures;
@@ -111,6 +111,7 @@ public class TreasureManager : Singleton<TreasureManager>
         {
             initialVisibleTreasures = Mathf.CeilToInt(maxVisibleTreasures * (2f / 3f));
         }
+        Debug.Log("Treasure count initializing in Treasure Manager: " + initialVisibleTreasures);
     }
 
     // Method to initialize the treasures with random question IDs
