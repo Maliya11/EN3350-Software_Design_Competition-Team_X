@@ -7352,7 +7352,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 2
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -20960,6 +20960,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 984803933}
+  - component: {fileID: 984803934}
   m_Layer: 5
   m_Name: Audio
   m_TagString: Untagged
@@ -20988,6 +20989,24 @@ RectTransform:
   m_AnchoredPosition: {x: -75, y: 119}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &984803934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 984803932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b93100e4eb508439add3c4dedb524f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource0: {fileID: 340659839}
+  audioSource1: {fileID: 1255403961}
+  audioSource2: {fileID: 235528765}
+  audioSource3: {fileID: 161619923}
+  audioSource4: {fileID: 1838309904}
+  volumeSlider: {fileID: 1746689908}
 --- !u!1 &985811098
 GameObject:
   m_ObjectHideFlags: 0
@@ -28215,13 +28234,25 @@ MonoBehaviour:
   m_FillRect: {fileID: 818996801}
   m_HandleRect: {fileID: 2127176223}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 984803934}
+        m_TargetAssemblyTypeName: VolumeSettings, Assembly-CSharp
+        m_MethodName: SetVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1761255964
 GameObject:
   m_ObjectHideFlags: 0
