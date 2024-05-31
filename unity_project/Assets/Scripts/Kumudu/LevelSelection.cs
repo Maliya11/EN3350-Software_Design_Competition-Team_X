@@ -9,7 +9,6 @@ public class LevelSelection : MonoBehaviour
     public bool isUnlocked = false;
     public Image lockImage;//LOCK IMAGE
     public Image[] starsImages;//THREE STAR IMAGE
-
     public Sprite[] starsSprites;
 
     private void Update()
@@ -53,17 +52,12 @@ public class LevelSelection : MonoBehaviour
     }
 
     //MARKER We have remvoed this method from UIMANAGER for easy to read and operator
-    public void SceneTransition(string _sceneName)
+    public void SceneTransition(int index)
     {
         if(isUnlocked)
         {
             UIManager.instance.HideAllUIPanels();
-            SceneManager.LoadScene(_sceneName);    
+            SceneManager.LoadScene(index);    
         }
-    }
-
-    public void LoadLevel(int index)
-    {
-        SceneManager.LoadScene(index);
     }
 }

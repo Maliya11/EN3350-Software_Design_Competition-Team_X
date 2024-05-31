@@ -2514,7 +2514,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 352972100}
         m_TargetAssemblyTypeName: LevelSelection, Assembly-CSharp
-        m_MethodName: LoadLevel
+        m_MethodName: SceneTransition
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4609,7 +4609,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 861908230}
         m_TargetAssemblyTypeName: LevelSelection, Assembly-CSharp
-        m_MethodName: LoadLevel
+        m_MethodName: SceneTransition
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5827,7 +5827,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1274801339}
         m_TargetAssemblyTypeName: LevelSelection, Assembly-CSharp
-        m_MethodName: LoadLevel
+        m_MethodName: SceneTransition
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6376,7 +6376,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1370821560}
         m_TargetAssemblyTypeName: LevelSelection, Assembly-CSharp
-        m_MethodName: LoadLevel
+        m_MethodName: SceneTransition
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7345,7 +7345,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1590129461}
         m_TargetAssemblyTypeName: LevelSelection, Assembly-CSharp
-        m_MethodName: LoadLevel
+        m_MethodName: SceneTransition
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7517,7 +7517,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1635271785}
         m_TargetAssemblyTypeName: LevelSelection, Assembly-CSharp
-        m_MethodName: LoadLevel
+        m_MethodName: SceneTransition
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
