@@ -3679,7 +3679,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &245209956
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7350,7 +7350,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 546299000}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 2
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
@@ -7369,7 +7369,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 602012314}
-  lights: {fileID: 0}
+  lights: {fileID: 1170888143}
 --- !u!1 &605355198
 GameObject:
   m_ObjectHideFlags: 0
