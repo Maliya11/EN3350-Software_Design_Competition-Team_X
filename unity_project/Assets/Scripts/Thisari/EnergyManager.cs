@@ -34,6 +34,10 @@ public class EnergyManager : MonoBehaviour
         lastPowerConsumption = PlayerPrefs.GetFloat("LastPowerConsumption", 0.0f);
         lastPowerConsumptionGap = PlayerPrefs.GetFloat("LastPowerConsumptionGap", 0.0f);
 
+        Debug.Log("Last Fetch Time: " + lastFetchTime);
+        Debug.Log("Last Power Consumption: " + lastPowerConsumption);
+        Debug.Log("Last Power Consumption Gap: " + lastPowerConsumptionGap);
+
         energyDataFetch = FindObjectOfType<EnergyDataFetch>();
         treasureManager = FindObjectOfType<TreasureManager>();
 
@@ -61,7 +65,7 @@ public class EnergyManager : MonoBehaviour
             yield return new WaitWhile(() => isPausedEM);
             Debug.Log("Energy Manager Resumed.");
 
-            Debug.Log("Fetching Current Power Consumption");
+            Debug.Log("Routinely Fetching Current Power Consumption");
             Debug.Log("Last Fetch Time: " + lastFetchTime);
             Debug.Log("Last Power Consumption: " + lastPowerConsumption);
             Debug.Log("Last Power Consumption Gap: " + lastPowerConsumptionGap);
