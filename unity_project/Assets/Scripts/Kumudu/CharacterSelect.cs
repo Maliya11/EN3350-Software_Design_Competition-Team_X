@@ -18,13 +18,14 @@ public class CharacterSelect : MonoBehaviour
             player.SetActive(false);
         }
         skins[selectedCharacter].SetActive(true);
+        Debug.Log(selectedCharacter);
     }
 
     public void ChangeNext(){
         skins[selectedCharacter].SetActive(false);
         selectedCharacter++;
         if(selectedCharacter == skins.Length){
-            selectedCharacter =0;
+            selectedCharacter = 0;
         }
         skins[selectedCharacter].SetActive(true);
         PlayerPrefs.SetInt("SelectedCharacter", selectedCharacter);
@@ -33,8 +34,8 @@ public class CharacterSelect : MonoBehaviour
     public void ChangePrevious(){
         skins[selectedCharacter].SetActive(false);
         selectedCharacter--;
-        if(selectedCharacter == -1){
-            selectedCharacter = skins.Length -1;
+        if(selectedCharacter == - 1){
+            selectedCharacter = skins.Length - 1;
         }
         skins[selectedCharacter].SetActive(true);
         PlayerPrefs.SetInt("SelectedCharacter", selectedCharacter);

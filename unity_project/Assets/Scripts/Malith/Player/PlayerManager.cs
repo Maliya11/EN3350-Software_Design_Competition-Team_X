@@ -44,9 +44,10 @@ public class PlayerManager : MonoBehaviour
     private void Awake()
     {
         characterIndex = PlayerPrefs.GetInt("SelectedCharacter", 0);
+        Debug.Log(characterIndex);
         player = Instantiate(playerPrefabs[characterIndex], playerSafePosition, Quaternion.identity);
-        
         VCam.m_Follow = player.transform;
+
         // Initialize the flags
         isPlayerDead = false;
         isUpdatePaused = false;
