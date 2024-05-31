@@ -44,8 +44,8 @@ public class OutOfBounds : Singleton<OutOfBounds>
             // Remove the physics from the player
             player.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
 
-            // Flag the game as over
-            PlayerManager.isGameOver = true;
+            // Flag the player as dead
+            PlayerManager.isPlayerDead = true;
         }
     }
 }

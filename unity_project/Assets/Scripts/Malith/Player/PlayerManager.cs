@@ -26,7 +26,7 @@ public class PlayerManager : MonoBehaviour
     public GameObject player;
 
     // Static variables
-    public static bool isGameOver;
+    public static bool isPlayerDead;
     public int numberOfPoints = 0;
     public static Vector3 playerSafePosition;
 
@@ -39,7 +39,7 @@ public class PlayerManager : MonoBehaviour
     private void Awake()
     {
         // Initialize the flags
-        isGameOver = false;
+        isPlayerDead = false;
         isUpdatePaused = false;
 
         // Get the player position
@@ -55,7 +55,7 @@ public class PlayerManager : MonoBehaviour
         if (isUpdatePaused) return;
 
         //pointsText.text = numberOfPoints.ToString();
-        if(isGameOver)
+        if(isPlayerDead)
         {
             // Pause the update
             isUpdatePaused = true;
@@ -162,7 +162,7 @@ public class PlayerManager : MonoBehaviour
         Debug.Log("Number of potions after revival: " + PlayerPrefs.GetInt("revivalPotions", 0));
 
         // Revive the player
-        isGameOver = false;
+        isPlayerDead = false;
 
         // Restore player health
         HealthManager.health = 3;

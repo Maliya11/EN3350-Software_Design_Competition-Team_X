@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -29,6 +30,9 @@ public class EnergyManager : MonoBehaviour
 
         energyDataFetch = FindObjectOfType<EnergyDataFetch>();
         treasureManager = FindObjectOfType<TreasureManager>();
+
+        // Compare the power data when initially starting the game
+        // GetInitialInactiveTimeInterval();
 
         // StartCoroutine(FetchCurrentPowerConsumption());
     }
@@ -77,14 +81,14 @@ public class EnergyManager : MonoBehaviour
             Debug.Log("Energy Consumption Increased");
 
             // Decrease the number of visible treasures
-            // treasureManager.DecreaseVisibleTreasures();
+            treasureManager.DecreaseVisibleTreasures();
 
         }
         else if (currentPowerConsumptionGap < lastPowerConsumptionGap)
         {
             Debug.Log("Energy Consumption Decreased");
             // Increase the number of visible treasures
-            // treasureManager.IncreaseVisibleTreasures();
+            treasureManager.IncreaseVisibleTreasures();
         }
 
         // Update the last power consumption and fetch time
@@ -97,4 +101,114 @@ public class EnergyManager : MonoBehaviour
         PlayerPrefs.SetString("LastFetchTime", lastFetchTime);
         PlayerPrefs.SetFloat("LastPowerConsumptionGap", lastPowerConsumptionGap);
     }
+
+    /* // Method to get the time in between last fetched time and current time
+    private void GetInitialInactiveTimeInterval()
+    {
+        string initiatingTime = System.DateTime.Now.ToString();
+        // string lastTime = "1/30/2024 9:26:45 AM";
+        Debug.Log("Current time: " + initiatingTime);
+        Debug.Log("Last Fetched time: " + lastFetchTime);
+
+        // Parse the last fetch time to DateTime
+        DateTime lastFetchDateTime;
+        if (DateTime.TryParse(lastFetchTime, out lastFetchDateTime))
+        {
+            // Get the current time
+            DateTime currentDateTime = DateTime.Now;
+
+            // Calculate the difference
+            TimeSpan timeDifference = currentDateTime - lastFetchDateTime;
+
+            // Extract the difference into years, months, days, hours, minutes, and seconds
+            int years = currentDateTime.Year - lastFetchDateTime.Year;
+            int months = currentDateTime.Month - lastFetchDateTime.Month;
+            int days = currentDateTime.Day - lastFetchDateTime.Day;
+            int hours = currentDateTime.Hour - lastFetchDateTime.Hour;
+            int minutes = currentDateTime.Minute - lastFetchDateTime.Minute;
+            int seconds = currentDateTime.Second - lastFetchDateTime.Second;
+
+            // Adjust for negative values
+            if (seconds < 0)
+            {
+                seconds += 60;
+                minutes--;
+            }
+            if (minutes < 0)
+            {
+                minutes += 60;
+                hours--;
+            }
+            if (hours < 0)
+            {
+                hours += 24;
+                days--;
+            }
+            if (days < 0)
+            {
+                days += DateTime.DaysInMonth(lastFetchDateTime.Year, lastFetchDateTime.Month);
+                months--;
+            }
+            if (months < 0)
+            {
+                months += 12;
+                years--;
+            }
+
+            // Log the inactive time
+            Debug.Log("Inactive time interval: [" + years + ", " + months + ", " + days + ", " + hours + ", " + minutes + ", " + seconds + "]");
+
+            // Add the time interval to a list
+            List<int> inactiveTimeInterval = new List<int>();
+            inactiveTimeInterval.Add(years);
+            inactiveTimeInterval.Add(months);
+            inactiveTimeInterval.Add(days);
+            inactiveTimeInterval.Add(hours);
+            inactiveTimeInterval.Add(minutes);
+            inactiveTimeInterval.Add(seconds);
+
+            // Get the initial power gap
+            GetInitialPowerGap(initiatingTime, lastFetchTime, inactiveTimeInterval);
+
+        }
+        else
+        {
+            Debug.LogError("Failed to parse last fetch time.");
+        }
+    }
+
+    private void GetInitialPowerGap(string initiatingTime, string lastTime, List<int> inactiveTimeInterval)
+    {
+        string consumptionInInactiveTime = "0.0";
+        string consumptionBeforeInactiveTime = "0.0";
+
+        // Unpack the inactive time interval
+        int years = inactiveTimeInterval[0];
+        int months = inactiveTimeInterval[1];
+        int days = inactiveTimeInterval[2];
+        int hours = inactiveTimeInterval[3];
+        int minutes = inactiveTimeInterval[4];
+        int seconds = inactiveTimeInterval[5];
+
+        // Check if initiating time and last time are in the same day by the string
+        if (initiatingTime.Substring(0, 10) == lastTime.Substring(0, 10))
+        {
+            
+        }
+        else
+        {
+            
+        }
+    }
+
+    // Method to get same day power gap
+    private void GetSameDayPowerGap(string initiatingTime, string lastTime)
+    {
+        string consumptionInInactiveTime = "0.0";
+        string consumptionBeforeInactiveTime = "0.0";
+
+        // Get the power consumption in the inactive time
+        energyDataFetch.GetCurrentPowerConsumption()
+    }
+ */
 }

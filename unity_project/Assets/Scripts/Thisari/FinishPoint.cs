@@ -19,8 +19,14 @@ public class FinishPoint : Singleton<FinishPoint>
     public PlayerManager playerManager;
     public TreasureManager treasureManager;
 
+    // Variable 
+    public static bool isGameOver;
+
     private void Start()
     {
+        // Initialize the flags
+        isGameOver = false;
+
         // Enable the buttons
         quitButtonRight.interactable = true;
         restartButtonLeft.interactable = true;
@@ -34,6 +40,9 @@ public class FinishPoint : Singleton<FinishPoint>
         if (collision.CompareTag("Player"))
         {
             Debug.Log("Player reached the finish point!");
+
+            // Flag the game as over
+            isGameOver = true;
 
             // Display the game over panel
             gameOverPanel.SetActive(true);
