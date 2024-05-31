@@ -46,7 +46,7 @@ public class TreasureManager : Singleton<TreasureManager>
     }
 
     void Update()
-    {
+    {   
         // Update the UI text
         treasureText.text = $"{(openedTreasureIndices.Count)} / {currentVisibleTreasures}";
 
@@ -98,7 +98,7 @@ public class TreasureManager : Singleton<TreasureManager>
     // Method to set random treasures visible
     private void SetRandomTreasuresVisible(int count)
     {
-        Debug.Log("Setting " + count.ToString() + " random treasures visible");
+        // Debug.Log("Setting " + count.ToString() + " random treasures visible");
         // Check if the closed treasure indices are empty
         if (closedTreasureIndices.Count == 0)
         {
@@ -114,8 +114,8 @@ public class TreasureManager : Singleton<TreasureManager>
         // Activate random closed treasure indices
         List<int> indices = new List<int>(closedTreasureIndices);
         // Print the indices of the closed treasures
-        Debug.Log("Closed Treasure Indices: " + string.Join(", ", indices));
-        Debug.Log(Math.Min(count, indices.Count) + " treasures will be visible");
+        // Debug.Log("Closed Treasure Indices: " + string.Join(", ", indices));
+        // Debug.Log(Math.Min(count, indices.Count) + " treasures will be visible");
         for (int i = 0; i < Math.Min(count, closedTreasureIndices.Count); i++)
         {
             if (indices.Count == 0)
@@ -127,7 +127,7 @@ public class TreasureManager : Singleton<TreasureManager>
             int randomIndex = Random.Range(0, indices.Count);
             int randomTreasureIndex = indices[randomIndex];
             treasureObjects[randomTreasureIndex].SetActive(true);
-            Debug.Log("Treasure " + randomTreasureIndex + " is visible");
+            // Debug.Log("Treasure " + randomTreasureIndex + " is visible");
             indices.RemoveAt(randomIndex);
         }
     }

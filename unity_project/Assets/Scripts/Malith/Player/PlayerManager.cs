@@ -31,7 +31,7 @@ public class PlayerManager : MonoBehaviour
     public CinemachineVirtualCamera VCam;
 
     // Static variables
-    public static bool isGameOver;
+    public static bool isPlayerDead;
     public int numberOfPoints = 0;
 
     // Number of potions
@@ -48,7 +48,7 @@ public class PlayerManager : MonoBehaviour
         
         VCam.m_Follow = player.transform;
         // Initialize the flags
-        isGameOver = false;
+        isPlayerDead = false;
         isUpdatePaused = false;
 
         // Get the player position
@@ -64,7 +64,7 @@ public class PlayerManager : MonoBehaviour
         if (isUpdatePaused) return;
 
         //pointsText.text = numberOfPoints.ToString();
-        if(isGameOver)
+        if(isPlayerDead)
         {
             // Pause the update
             isUpdatePaused = true;
@@ -171,7 +171,7 @@ public class PlayerManager : MonoBehaviour
         Debug.Log("Number of potions after revival: " + PlayerPrefs.GetInt("revivalPotions", 0));
 
         // Revive the player
-        isGameOver = false;
+        isPlayerDead = false;
 
         // Restore player health
         HealthManager.health = 3;
