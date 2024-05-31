@@ -24,9 +24,11 @@ public class PlayerManager : MonoBehaviour
     public TextMeshProUGUI quitButtonRightText;
     public Button keepPlayingButtonLeft; 
     public TextMeshProUGUI keepPlayingButtonLeftText;
+
+    // Game Objects
     public GameObject[] playerPrefabs;
     int characterIndex;
-    private GameObject player;
+    public static GameObject player;
     public static Vector3 playerSafePosition = new Vector3(-60f,-0.9f,1f);
     public CinemachineVirtualCamera VCam;
 
