@@ -33,7 +33,7 @@ public class UIManager : MonoBehaviour
         {
             instance = this; 
         }
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     private void Update()//TODO REmove this method because we don't want to call these methods each frame
