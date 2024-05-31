@@ -44,7 +44,7 @@ public class PlayerManager : MonoBehaviour
     private void Awake()
     {
         characterIndex = PlayerPrefs.GetInt("SelectedCharacter", 0);
-        Debug.Log(characterIndex);
+        Debug.Log("Character Index in GameLevel: " + characterIndex);
         player = Instantiate(playerPrefabs[characterIndex], playerSafePosition, Quaternion.identity);
         VCam.m_Follow = player.transform;
 
