@@ -97,20 +97,35 @@ public class TreasureManager : Singleton<TreasureManager>
         }
     }
 
-    public void SetInitialTreasureCount(bool energyIncreased)
+    public void SetInitialTreasureCount(int energyChange)
     {
+        // -1 => Decreased energy consumption
+        //  0 => Same day, no change 
+        // +1 => Increased energy consumption
+
+        // If Power consumption has decreased
+        // Set it to 2/3 of total
+        Debug.Log("Energy change code: " + energyChange);
+
+        if (energyChange == -1) 
+        {
+            initialVisibleTreasures = Mathf.RoundToInt(maxVisibleTreasures * (2f / 3f));
+        }
+
+        // If Power consumption has not changed
+        // Set it to 1/2 of total
+        if (energyChange == 0) 
+        {
+            initialVisibleTreasures = Mathf.RoundToInt(maxVisibleTreasures * (1f / 2f));
+        }
+
         // If Power consumption has increased
         // Set the Initial visible treasure count to 1/3 of total
-        if (energyIncreased) 
+        if (energyChange == 1) 
         {
-            initialVisibleTreasures = Mathf.CeilToInt(maxVisibleTreasures * (1f / 3f));
+            initialVisibleTreasures = Mathf.RoundToInt(maxVisibleTreasures * (1f / 3f));
         }
-        // Else
-        // Set it to 2/3 of total
-        else 
-        {
-            initialVisibleTreasures = Mathf.CeilToInt(maxVisibleTreasures * (2f / 3f));
-        }
+        
         Debug.Log("Treasure count initializing in Treasure Manager: " + initialVisibleTreasures);
     }
 
