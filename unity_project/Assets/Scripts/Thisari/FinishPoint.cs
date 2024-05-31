@@ -105,7 +105,7 @@ public class FinishPoint : Singleton<FinishPoint>
 
         // Load the Main Menu
         loadingScene = FindObjectOfType<LoadingScene>();
-        loadingScene.LoadScene("MainMenu");
+        loadingScene.LoadScene("SelectionScene");
     }
 
     private void PlayAgain()

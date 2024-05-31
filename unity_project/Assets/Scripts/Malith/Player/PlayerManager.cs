@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using Cinemachine;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -23,21 +24,29 @@ public class PlayerManager : MonoBehaviour
     public TextMeshProUGUI quitButtonRightText;
     public Button keepPlayingButtonLeft; 
     public TextMeshProUGUI keepPlayingButtonLeftText;
-    public GameObject player;
+    public GameObject[] playerPrefabs;
+    int characterIndex;
+    private GameObject player;
+    public static Vector3 playerSafePosition = new Vector3(-60f,-0.9f,1f);
+    public CinemachineVirtualCamera VCam;
 
     // Static variables
     public static bool isPlayerDead;
     public int numberOfPoints = 0;
-    public static Vector3 playerSafePosition;
 
     // Number of potions
     private int numberOfPotions;
 
     // Flag to control Update execution
     private bool isUpdatePaused;
+    
 
     private void Awake()
     {
+        PlayerPrefs.GetInt("SelectedCharacter", 0);
+        player = Instantiate(playerPrefabs[characterIndex], playerSafePosition, Quaternion.identity);
+        
+        VCam.m_Follow = player.transform;
         // Initialize the flags
         isPlayerDead = false;
         isUpdatePaused = false;
@@ -123,7 +132,7 @@ public class PlayerManager : MonoBehaviour
         
         // Load the Main Menu
         loadingScene = FindObjectOfType<LoadingScene>();
-        loadingScene.LoadScene("MainMenu");
+        loadingScene.LoadScene("SelectionScene");
 
         // Restore the physics of the player
         player.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;

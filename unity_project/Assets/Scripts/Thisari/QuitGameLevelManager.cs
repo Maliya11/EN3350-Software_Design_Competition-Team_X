@@ -59,7 +59,7 @@ public class QuitGameLevelManager : Singleton<QuitGameLevelManager>
         
         // Load the Main Menu
         loadingScene = FindObjectOfType<LoadingScene>();
-        loadingScene.LoadScene("MainMenu");
+        loadingScene.LoadScene("SelectionScene");
     }
 
     private void ResumeGame()
