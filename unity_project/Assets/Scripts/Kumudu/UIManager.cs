@@ -127,7 +127,7 @@ public class UIManager : MonoBehaviour
 
     public void BackToMainMenu()
     {
-        
+        SceneManager.LoadScene("MainMenu");
     }
 
     
