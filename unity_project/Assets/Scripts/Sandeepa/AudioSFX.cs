@@ -4,16 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 using System;
-
-public class VolumeSettings : MonoBehaviour
+public class AudioSFX : MonoBehaviour
 {
     [SerializeField] private  AudioSource audioSource0;
     [SerializeField] private  AudioSource audioSource1;
-    // [SerializeField] private  AudioSource audioSource2;
-    // [SerializeField] private  AudioSource audioSource3;
-    // [SerializeField] private  AudioSource audioSource4;
+    [SerializeField] private  AudioSource audioSource2;
     [SerializeField] private Slider volumeSlider;
-
+    // Update is called once per frame
     public void SetVolume()
     {
         float volume = volumeSlider.value;
@@ -27,7 +24,4 @@ public class VolumeSettings : MonoBehaviour
         
         
     }
-
-    // Start is called before the first frame update
-
 }
