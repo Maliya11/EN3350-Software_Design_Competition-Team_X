@@ -34,7 +34,7 @@ public class PlayerManager : MonoBehaviour
     public GameObject[] playerPrefabs;
     int characterIndex;
     public static GameObject player;
-    public static Vector3 playerSafePosition = new Vector3(-62.05f, -0.14f, 1);
+    public static Vector3 playerSafePosition;
     public CinemachineVirtualCamera VCam;
 
     // Static variables
@@ -50,13 +50,13 @@ public class PlayerManager : MonoBehaviour
     // Flag to control Update execution
     private bool isUpdatePaused;
     public static bool isNinja;
-    
 
     private void Awake()
     {
+        Vector3 initialPlayerPosition = new Vector3(-62.05f, -0.14f, 1);
         characterIndex = PlayerPrefs.GetInt("SelectedCharacter", 0);  //get selected character from character selection panel in the mainmenu
         Debug.Log("Character Index in GameLevel: " + characterIndex);
-        player = Instantiate(playerPrefabs[characterIndex], playerSafePosition, Quaternion.identity);  //instantiate the player using the index
+        player = Instantiate(playerPrefabs[characterIndex], initialPlayerPosition, Quaternion.identity);  //instantiate the player using the index
         VCam.m_Follow = player.transform;  //set the virtual cam to follow the player
 
         //check the index to identify whether the player is a ninja or a robot
