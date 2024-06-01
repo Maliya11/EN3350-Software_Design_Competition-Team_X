@@ -74,6 +74,7 @@ public class Golem : MonoBehaviour
     public void GolemTakeDamage(int damage)
     {
         GolemHP -= damage;
+        AudioEnemy.instance.Play("Hurt");
         if (GolemHP <= 0)
         {
             Die();

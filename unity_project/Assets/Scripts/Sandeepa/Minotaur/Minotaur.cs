@@ -75,6 +75,7 @@ public class Minotaur : MonoBehaviour
     public void MinotaurTakeDamage(int damage)
     {
         MinotaurHP -= damage;
+        AudioEnemy.instance.Play("Hurt");
         if (MinotaurHP <= 0)
         {
             Die();

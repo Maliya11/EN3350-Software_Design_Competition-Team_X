@@ -12,7 +12,6 @@ public class VolumeSettings : MonoBehaviour
     [SerializeField] private  AudioSource audioSource2;
     [SerializeField] private  AudioSource audioSource3;
     [SerializeField] private  AudioSource audioSource4;
-   
     [SerializeField] private Slider volumeSlider;
 
     public void SetVolume()
@@ -23,7 +22,8 @@ public class VolumeSettings : MonoBehaviour
         audioSource2.volume = volume;
         audioSource3.volume = volume;
         audioSource4.volume = volume;
-
+        
+        
         
         
     }
