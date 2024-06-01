@@ -29,7 +29,7 @@ public class PlayerManager : MonoBehaviour
     public GameObject[] playerPrefabs;
     int characterIndex;
     public static GameObject player;
-    public static Vector3 playerSafePosition = new Vector3(-60f,-0.9f,1f);
+    public Vector3 playerSafePosition;
     public CinemachineVirtualCamera VCam;
 
     // Static variables

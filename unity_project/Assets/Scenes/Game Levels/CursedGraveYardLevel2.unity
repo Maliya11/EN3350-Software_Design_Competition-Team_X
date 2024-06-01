@@ -48163,6 +48163,7 @@ MonoBehaviour:
   - {fileID: 4008858915596767572, guid: 0b049286b2e041b49b6a0ec9df1db2ac, type: 3}
   - {fileID: 6481398379779273978, guid: a7b26bbdb6762a943b7681f73c999e4a, type: 3}
   - {fileID: 4632982103744533927, guid: e447fd838770ab544807a4d8d7017e9e, type: 3}
+  playerSafePosition: {x: -62.05, y: -0.14, z: 1}
   VCam: {fileID: 921804783}
   numberOfPoints: 0
   numberOfStars: 0
