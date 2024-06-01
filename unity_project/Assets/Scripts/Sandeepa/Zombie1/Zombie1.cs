@@ -99,6 +99,7 @@ public class Zombie1 : MonoBehaviour
         if (playerManager != null)
         {
             playerManager.AddPoints(10);
+            playerManager.enemyKills++;
         }
         else
         {

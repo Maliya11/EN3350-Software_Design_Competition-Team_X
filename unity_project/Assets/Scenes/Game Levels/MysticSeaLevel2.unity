@@ -2443,7 +2443,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 1932889882}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &195466598
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3291,7 +3291,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 1932889882}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &265384344
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3533,7 +3533,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 1932889882}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &315973350
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4802,7 +4802,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 1932889882}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &506606006
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5768,7 +5768,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 1932889882}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &607032834
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5932,7 +5932,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 1932889882}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &610058194
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6519,7 +6519,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 1932889882}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &646635482
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6565,85 +6565,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.0687968, y: 0.9206207}
   m_EdgeRadius: 0
---- !u!1001 &658763490
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4008858915596767572, guid: 0b049286b2e041b49b6a0ec9df1db2ac, type: 3}
-      propertyPath: m_Name
-      value: Player01
-      objectReference: {fileID: 0}
-    - target: {fileID: 7231199564271240108, guid: 0b049286b2e041b49b6a0ec9df1db2ac, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 7231199564271240108, guid: 0b049286b2e041b49b6a0ec9df1db2ac, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 7231199564271240108, guid: 0b049286b2e041b49b6a0ec9df1db2ac, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -60
-      objectReference: {fileID: 0}
-    - target: {fileID: 7231199564271240108, guid: 0b049286b2e041b49b6a0ec9df1db2ac, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -2.566866
-      objectReference: {fileID: 0}
-    - target: {fileID: 7231199564271240108, guid: 0b049286b2e041b49b6a0ec9df1db2ac, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7231199564271240108, guid: 0b049286b2e041b49b6a0ec9df1db2ac, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7231199564271240108, guid: 0b049286b2e041b49b6a0ec9df1db2ac, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7231199564271240108, guid: 0b049286b2e041b49b6a0ec9df1db2ac, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7231199564271240108, guid: 0b049286b2e041b49b6a0ec9df1db2ac, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7231199564271240108, guid: 0b049286b2e041b49b6a0ec9df1db2ac, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7231199564271240108, guid: 0b049286b2e041b49b6a0ec9df1db2ac, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7231199564271240108, guid: 0b049286b2e041b49b6a0ec9df1db2ac, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8351486096150023650, guid: 0b049286b2e041b49b6a0ec9df1db2ac, type: 3}
-      propertyPath: jumpForce
-      value: 40
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 0b049286b2e041b49b6a0ec9df1db2ac, type: 3}
---- !u!1 &658763491 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4008858915596767572, guid: 0b049286b2e041b49b6a0ec9df1db2ac, type: 3}
-  m_PrefabInstance: {fileID: 658763490}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &658763492 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7231199564271240108, guid: 0b049286b2e041b49b6a0ec9df1db2ac, type: 3}
-  m_PrefabInstance: {fileID: 658763490}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &664014192
 GameObject:
   m_ObjectHideFlags: 0
@@ -7853,8 +7774,15 @@ MonoBehaviour:
   quitButtonRightText: {fileID: 1506214585}
   keepPlayingButtonLeft: {fileID: 812508142}
   keepPlayingButtonLeftText: {fileID: 20208550}
-  player: {fileID: 658763491}
+  playerPrefabs:
+  - {fileID: 4008858915596767572, guid: 0b049286b2e041b49b6a0ec9df1db2ac, type: 3}
+  - {fileID: 6481398379779273978, guid: a7b26bbdb6762a943b7681f73c999e4a, type: 3}
+  - {fileID: 4632982103744533927, guid: e447fd838770ab544807a4d8d7017e9e, type: 3}
+  VCam: {fileID: 1954755435}
   numberOfPoints: 0
+  numberOfStars: 0
+  numberOfEnemiesOfTheScene: 20
+  enemyKills: 0
 --- !u!114 &765864271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8798,8 +8726,6 @@ MonoBehaviour:
   initialVisibleTreasures: 8
   maxVisibleTreasures: 0
   currentVisibleTreasures: 0
-  openedTreasures: 0
-  apiCheckInterval: 5
   potionsCollected: 0
 --- !u!1 &823172305
 GameObject:
@@ -12407,7 +12333,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 1932889882}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &1109574046
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -12571,7 +12497,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 1932889882}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &1114293616
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13859,7 +13785,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 1932889882}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &1228174198
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -14026,7 +13952,6 @@ MonoBehaviour:
   quitButtonRightText: {fileID: 1506214585}
   keepPlayingButtonLeft: {fileID: 812508142}
   keepPlayingButtonLeftText: {fileID: 20208550}
-  player: {fileID: 658763491}
 --- !u!61 &1256417125
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -14892,7 +14817,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 1932889882}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &1299047957
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -15755,7 +15680,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 1932889882}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &1354342605
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -15924,7 +15849,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 1932889882}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &1367649520
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -42299,7 +42224,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 1932889882}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &1525623896
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -43244,7 +43169,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 1932889882}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &1596632170
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -47342,7 +47267,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 1932889882}
   hasGuardianEnemy: 0
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &1941720630
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -47466,7 +47391,7 @@ MonoBehaviour:
   m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 658763492}
+  m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 20
@@ -49985,7 +49910,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 430804140}
   - {fileID: 1954755436}
-  - {fileID: 658763490}
   - {fileID: 765864272}
   - {fileID: 233110163}
   - {fileID: 1933864088}

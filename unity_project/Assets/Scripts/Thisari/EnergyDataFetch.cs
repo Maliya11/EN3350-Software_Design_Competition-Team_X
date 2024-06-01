@@ -11,7 +11,7 @@ public class EnergyDataFetch : MonoBehaviour
     public ErrorNotifications errorNotifications;
 
     // URL related to the energy information
-    /* // URL to view yearly power consumption
+    // URL to view yearly power consumption
     private string yearlyPowerConsumptionURL = "http://20.15.114.131:8080/api/power-consumption/yearly/view";
 
     // URL to view power consumption by specific month
@@ -25,10 +25,11 @@ public class EnergyDataFetch : MonoBehaviour
 
     // URL to view daily power consumption by current month
     private string currentMonthDailyPowerConsumptionURL = "http://20.15.114.131:8080/api/power-consumption/current-month/daily/view";
+    private JSONNode currentMonthDailyPowerConsumption;
 
     // URL to view all power consumption
     private string allPowerConsumptionURL = "http://20.15.114.131:8080/api/power-consumption/all/view";
- */
+
     // URL to view current power consumption
     private string currentPowerConsumptionURL = "http://20.15.114.131:8080/api/power-consumption/current/view";
     private float currentPowerConsumption;
@@ -49,16 +50,57 @@ public class EnergyDataFetch : MonoBehaviour
         // Create a new instance of the RequestManager
         requestManager = ScriptableObject.CreateInstance<RequestManager>();
 
+        JSONNode response = null;
+
         // Send the request to fetch the current power consumption
         requestManager.SendRequest(currentPowerConsumptionURL, viewMethod, null, this, includeToken, null);
-        yield return StartCoroutine(WaitForRequestCompletion());
+        yield return StartCoroutine(WaitForRequestCompletion((JSONNode res) => {
+            response = res;
+        }));
+
+        if (response != null)
+        {
+            currentPowerConsumption = response["currentConsumption"].AsFloat;
+            Debug.Log("Power consumption from EnergyDataFetch: " + currentPowerConsumption);
+        }
 
         // Invoke the callback with the current power consumption
         callback(currentPowerConsumption);
     }
 
-    // Method to wait for the request completion
-    private IEnumerator WaitForRequestCompletion()
+    // Method to get current month power consumption 
+    public void GetCurrentMonthPowerConsumption(System.Action<JSONNode> callback)
+    {
+        StartCoroutine(FetchCurrentMonthPowerConsumption(callback));
+    }
+
+    // Returns the power consumption in units of all the days of the current month
+    // Coroutine to fetch current month power consumption
+    private IEnumerator FetchCurrentMonthPowerConsumption(System.Action<JSONNode> callback)
+    {
+        // Create a new instance of the RequestManager
+        requestManager = ScriptableObject.CreateInstance<RequestManager>();
+
+        JSONNode response = null;
+
+        // Send the request to fetch the current month power consumption
+        requestManager.SendRequest(currentMonthDailyPowerConsumptionURL, viewMethod, null, this, includeToken, null);
+        yield return StartCoroutine(WaitForRequestCompletion((JSONNode res) => {
+            response = res;
+        }));
+
+        if (response != null)
+        {
+            currentMonthDailyPowerConsumption = response["dailyPowerConsumptionView"]["dailyUnits"];
+        }
+
+        // Invoke the callback with the response
+        callback(currentMonthDailyPowerConsumption);
+    }
+
+
+    // Coroutine to wait for the request completion
+    private IEnumerator WaitForRequestCompletion(System.Action<JSONNode> callback)
     {
         // Wait until the request is completed
         while (!requestManager.isRequestCompleted)
@@ -71,13 +113,19 @@ public class EnergyDataFetch : MonoBehaviour
         {
             // Get the current power consumption from the response
             Debug.Log("Power Consumption request successful");
-            currentPowerConsumption = requestManager.jsonResponse["currentConsumption"];
-            Debug.Log("Power comsumption from EnergyDataFetch: " + currentPowerConsumption);
+
+            // Assign the request response to response
+            JSONNode response = requestManager.jsonResponse;
+            Debug.Log("Response from EnergyDataFetch: " + response.ToString());
+
+            // Pass the response to the callback
+            callback(response);
         }
         else
         {
             // Show the error notification
             errorNotifications.DisplayErrorMessage(requestManager);
+            callback(null);
         }
     }
 }

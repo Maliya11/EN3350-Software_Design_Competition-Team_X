@@ -18147,6 +18147,7 @@ MonoBehaviour:
   VCam: {fileID: 158317336}
   numberOfPoints: 0
   numberOfStars: 0
+  numberOfEnemiesOfTheScene: 10
   enemyKills: 0
 --- !u!114 &788650950
 MonoBehaviour:

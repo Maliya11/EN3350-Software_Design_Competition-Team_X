@@ -99,6 +99,7 @@ public class Golem : MonoBehaviour
         if (playerManager != null)
         {
             playerManager.AddPoints(10);
+            playerManager.enemyKills++;
         }
         else
         {

@@ -33,8 +33,8 @@ public class LevelSelection : MonoBehaviour
 
     private void UnlockLevel()
     {
-        int previousLvIndex = int.Parse(gameObject.name) - 1;// PlayerPrefs.GetInt("Lv" + gameObject.name) - 1;
-        if(PlayerPrefs.GetInt("Lv" + previousLvIndex) > 0)//At least get one stars in previous level
+        int previousLvIndex = index - 1;// PlayerPrefs.GetInt("Lv" + gameObject.name) - 1;
+        if(PlayerPrefs.GetInt("HighStar_Level_" + previousLvIndex) > 0)//At least get one stars in previous level
         {
             isUnlocked = true;//can unlock the next level
         }
@@ -50,7 +50,7 @@ public class LevelSelection : MonoBehaviour
                 starsImages[i].gameObject.SetActive(true);
             }
 
-            for(int i = 0; i < PlayerPrefs.GetInt("Lv" + gameObject.name); i++)
+            for(int i = 0; i < PlayerPrefs.GetInt("HighStar_Level_" + index); i++)
             {
                 starsImages[i].sprite = starsSprites[i];
             }
