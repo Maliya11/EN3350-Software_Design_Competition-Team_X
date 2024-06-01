@@ -33,19 +33,7 @@ public class UIManager : MonoBehaviour
         {
             instance = this; 
         }
-        else
-        {
-            if(instance != this)
-            {
-                Destroy(gameObject);
-            }
-        }
-        DontDestroyOnLoad(gameObject);
-    }
-
-    private void Start()
-    {
-        PlayerPrefs.DeleteAll();
+        //DontDestroyOnLoad(gameObject);
     }
 
     private void Update()//TODO REmove this method because we don't want to call these methods each frame

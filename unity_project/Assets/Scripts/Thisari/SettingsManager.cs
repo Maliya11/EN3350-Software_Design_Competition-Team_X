@@ -26,6 +26,10 @@ public class SettingsManager : Singleton<SettingsManager>
 
     public void DisplaySettingsPanel()
     {
+        // Pause the Treasure Manager and Energy Manager
+        TreasureManager.isPausedTM = true;
+        EnergyManager.isPausedEM = true;
+
         // Enable the settings panel
         settingsPanel.SetActive(true);
         settingsPanelContent.SetActive(true);
@@ -49,6 +53,9 @@ public class SettingsManager : Singleton<SettingsManager>
 
     private void ResumeGame()
     {
+        // Unpause the treasure manager
+        TreasureManager.isPausedTM = false;
+
         // Remove all the listeners
         resumeButtonRight.onClick.RemoveAllListeners();
         saveButtonLeft.onClick.RemoveAllListeners();
@@ -63,6 +70,11 @@ public class SettingsManager : Singleton<SettingsManager>
 
     private void SaveSettings()
     {
+        // Resume the Treasure Manager and Energy Manager
+        TreasureManager.isPausedTM = false;
+        EnergyManager.isPausedEM = false;
+
+
         // Save the settings
         Debug.Log("Settings saved!");
 

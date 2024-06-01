@@ -24,15 +24,19 @@ public class PlayerManager : MonoBehaviour
     public TextMeshProUGUI quitButtonRightText;
     public Button keepPlayingButtonLeft; 
     public TextMeshProUGUI keepPlayingButtonLeftText;
+
+    // Game Objects
     public GameObject[] playerPrefabs;
     int characterIndex;
-    private GameObject player;
+    public static GameObject player;
     public static Vector3 playerSafePosition = new Vector3(-60f,-0.9f,1f);
     public CinemachineVirtualCamera VCam;
 
     // Static variables
     public static bool isPlayerDead;
     public int numberOfPoints = 0;
+    public int numberOfStars = 0;
+    public int enemyKills = 0;
 
     // Number of potions
     private int numberOfPotions;
@@ -44,7 +48,7 @@ public class PlayerManager : MonoBehaviour
     private void Awake()
     {
         characterIndex = PlayerPrefs.GetInt("SelectedCharacter", 0);
-        Debug.Log(characterIndex);
+        Debug.Log("Character Index in GameLevel: " + characterIndex);
         player = Instantiate(playerPrefabs[characterIndex], playerSafePosition, Quaternion.identity);
         VCam.m_Follow = player.transform;
 
@@ -70,6 +74,10 @@ public class PlayerManager : MonoBehaviour
             // Pause the update
             isUpdatePaused = true;
 
+            // Pause the Treasure Manager and Energy Manager
+            TreasureManager.isPausedTM = true;
+            EnergyManager.isPausedEM = true;
+
             ShowGameOverPanel();
         }
     }
@@ -78,6 +86,11 @@ public class PlayerManager : MonoBehaviour
     {
         numberOfPoints += points;
         UpdatePointsUI();
+    }
+
+    public void AddStars(int star)
+    {
+        numberOfStars += star;
     }
 
     private void UpdatePointsUI()
@@ -144,6 +157,10 @@ public class PlayerManager : MonoBehaviour
 
     private void KeepPlaying()
     {
+        // Resume the Treasure Manager and Energy Manager
+        TreasureManager.isPausedTM = false;
+        EnergyManager.isPausedEM = false;
+
         // Restore the player
         RestorePlayer();
 

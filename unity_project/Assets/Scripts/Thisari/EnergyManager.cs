@@ -18,9 +18,15 @@ public class EnergyManager : MonoBehaviour
     private float lastPowerConsumptionGap = 0.0f;
     private float currentPowerConsumptionGap = 0.0f;
 
+    // Flags to pause the energy manager
+    public static bool isPausedEM;
+
     // Start is called before the first frame update
     void Start()
     {
+        // Initiate the flags
+        isPausedEM = false;
+
         // Debug.Log("Energy Manager Started");
 
         // Get the last fetched time and power consumption from the player prefs
@@ -28,13 +34,25 @@ public class EnergyManager : MonoBehaviour
         lastPowerConsumption = PlayerPrefs.GetFloat("LastPowerConsumption", 0.0f);
         lastPowerConsumptionGap = PlayerPrefs.GetFloat("LastPowerConsumptionGap", 0.0f);
 
+        Debug.Log("Last Fetch Time: " + lastFetchTime);
+        Debug.Log("Last Power Consumption: " + lastPowerConsumption);
+        Debug.Log("Last Power Consumption Gap: " + lastPowerConsumptionGap);
+
         energyDataFetch = FindObjectOfType<EnergyDataFetch>();
         treasureManager = FindObjectOfType<TreasureManager>();
 
         // Compare the power data when initially starting the game
-        // GetInitialInactiveTimeInterval();
+        // Wait until CompareInitialWithInactivePowerConsumption is over
+        StartCoroutine(InitializeAndStartFetching());
+    }
 
-        // StartCoroutine(FetchCurrentPowerConsumption());
+    // Coroutine to initialize and start fetching power consumption
+    private IEnumerator InitializeAndStartFetching()
+    {
+        int initialPowerChange;
+        yield return StartCoroutine(CompareInitialWithInactivePowerConsumption(value => initialPowerChange = value));
+
+        StartCoroutine(FetchCurrentPowerConsumption());
     }
 
     // Routine to fetch the current power consumption 
@@ -42,7 +60,12 @@ public class EnergyManager : MonoBehaviour
     {
         while (true)
         {
-            Debug.Log("Fetching Current Power Consumption");
+            Debug.Log("Energy Manager Paused.");
+            // Wait until not paused
+            yield return new WaitWhile(() => isPausedEM);
+            Debug.Log("Energy Manager Resumed.");
+
+            Debug.Log("Routinely Fetching Current Power Consumption");
             Debug.Log("Last Fetch Time: " + lastFetchTime);
             Debug.Log("Last Power Consumption: " + lastPowerConsumption);
             Debug.Log("Last Power Consumption Gap: " + lastPowerConsumptionGap);
@@ -65,7 +88,7 @@ public class EnergyManager : MonoBehaviour
             Debug.Log("Current Power Consumption: " + currentPowerConsumption);
             Debug.Log("Current Power Consumption Gap: " + currentPowerConsumptionGap);
 
-            ComparePowerConsumption();
+            CompareCurrentPowerConsumption();
 
             // Wait for the next fetch
             yield return new WaitForSeconds(repeatRate);
@@ -73,7 +96,7 @@ public class EnergyManager : MonoBehaviour
     }
 
     // Method to compare the power consumption
-    private void ComparePowerConsumption()
+    private void CompareCurrentPowerConsumption()
     {
         // Compare the current power consumption with the last power consumption
         if (currentPowerConsumptionGap > lastPowerConsumptionGap)
@@ -102,113 +125,48 @@ public class EnergyManager : MonoBehaviour
         PlayerPrefs.SetFloat("LastPowerConsumptionGap", lastPowerConsumptionGap);
     }
 
-    /* // Method to get the time in between last fetched time and current time
-    private void GetInitialInactiveTimeInterval()
-    {
-        string initiatingTime = System.DateTime.Now.ToString();
-        // string lastTime = "1/30/2024 9:26:45 AM";
-        Debug.Log("Current time: " + initiatingTime);
-        Debug.Log("Last Fetched time: " + lastFetchTime);
-
-        // Parse the last fetch time to DateTime
-        DateTime lastFetchDateTime;
-        if (DateTime.TryParse(lastFetchTime, out lastFetchDateTime))
+    private IEnumerator CompareInitialWithInactivePowerConsumption(Action<int> result)
+    {   
+        int initialPowerChange = 5;
+        
+        string lastTime = lastFetchTime;
+        DateTime lastDateTime;
+        if (DateTime.TryParse(lastTime, out lastDateTime))
         {
-            // Get the current time
             DateTime currentDateTime = DateTime.Now;
-
-            // Calculate the difference
-            TimeSpan timeDifference = currentDateTime - lastFetchDateTime;
-
-            // Extract the difference into years, months, days, hours, minutes, and seconds
-            int years = currentDateTime.Year - lastFetchDateTime.Year;
-            int months = currentDateTime.Month - lastFetchDateTime.Month;
-            int days = currentDateTime.Day - lastFetchDateTime.Day;
-            int hours = currentDateTime.Hour - lastFetchDateTime.Hour;
-            int minutes = currentDateTime.Minute - lastFetchDateTime.Minute;
-            int seconds = currentDateTime.Second - lastFetchDateTime.Second;
-
-            // Adjust for negative values
-            if (seconds < 0)
-            {
-                seconds += 60;
-                minutes--;
-            }
-            if (minutes < 0)
-            {
-                minutes += 60;
-                hours--;
-            }
-            if (hours < 0)
-            {
-                hours += 24;
-                days--;
-            }
-            if (days < 0)
-            {
-                days += DateTime.DaysInMonth(lastFetchDateTime.Year, lastFetchDateTime.Month);
-                months--;
-            }
-            if (months < 0)
-            {
-                months += 12;
-                years--;
-            }
-
-            // Log the inactive time
-            Debug.Log("Inactive time interval: [" + years + ", " + months + ", " + days + ", " + hours + ", " + minutes + ", " + seconds + "]");
-
-            // Add the time interval to a list
-            List<int> inactiveTimeInterval = new List<int>();
-            inactiveTimeInterval.Add(years);
-            inactiveTimeInterval.Add(months);
-            inactiveTimeInterval.Add(days);
-            inactiveTimeInterval.Add(hours);
-            inactiveTimeInterval.Add(minutes);
-            inactiveTimeInterval.Add(seconds);
-
-            // Get the initial power gap
-            GetInitialPowerGap(initiatingTime, lastFetchTime, inactiveTimeInterval);
-
-        }
-        else
-        {
-            Debug.LogError("Failed to parse last fetch time.");
-        }
-    }
-
-    private void GetInitialPowerGap(string initiatingTime, string lastTime, List<int> inactiveTimeInterval)
-    {
-        string consumptionInInactiveTime = "0.0";
-        string consumptionBeforeInactiveTime = "0.0";
-
-        // Unpack the inactive time interval
-        int years = inactiveTimeInterval[0];
-        int months = inactiveTimeInterval[1];
-        int days = inactiveTimeInterval[2];
-        int hours = inactiveTimeInterval[3];
-        int minutes = inactiveTimeInterval[4];
-        int seconds = inactiveTimeInterval[5];
-
-        // Check if initiating time and last time are in the same day by the string
-        if (initiatingTime.Substring(0, 10) == lastTime.Substring(0, 10))
-        {
             
-        }
-        else
-        {
-            
-        }
-    }
+            // If currentTime and lastTime are on the same day
+            // No change in Power Consumption considered
+            // Randomly generate a bool 
+            if (lastDateTime.Date == currentDateTime.Date)
+            { 
+                Debug.Log("Same day comparison => No change");
+                initialPowerChange = 0;
 
-    // Method to get same day power gap
-    private void GetSameDayPowerGap(string initiatingTime, string lastTime)
-    {
-        string consumptionInInactiveTime = "0.0";
-        string consumptionBeforeInactiveTime = "0.0";
+                bool isFetchCompleted = false;
 
-        // Get the power consumption in the inactive time
-        energyDataFetch.GetCurrentPowerConsumption()
+                // Fetch the current power consumption
+                energyDataFetch.GetCurrentPowerConsumption((float powerConsumption) =>
+                {
+                    lastPowerConsumption = powerConsumption;
+                    lastFetchTime = System.DateTime.Now.ToString();
+                    isFetchCompleted = true;
+                });
+
+                // Wait until the fetch is completed
+                yield return new WaitUntil(() => isFetchCompleted);
+            }
+
+            // Set the initial treasure count according to the results
+            TreasureManager.isTreasureCountInitialized = true;
+            Debug.Log("Treasure count initialized");
+            treasureManager.SetInitialTreasureCount(initialPowerChange);
+
+            // Wait for the first recurrent fetch
+            yield return new WaitForSeconds(repeatRate);
+        }
+
+        // Return the result 
+        result(initialPowerChange);
     }
- */
 }

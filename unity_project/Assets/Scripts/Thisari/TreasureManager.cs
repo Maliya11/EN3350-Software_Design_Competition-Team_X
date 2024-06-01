@@ -13,9 +13,9 @@ public class TreasureManager : Singleton<TreasureManager>
     public TextMeshProUGUI treasureText;
 
     public List<GameObject> treasureObjects; // Manually populated in the Inspector
-    public int initialVisibleTreasures = 5;
+    public int initialVisibleTreasures;
     public int maxVisibleTreasures;
-    private int currentVisibleTreasures;
+    public int currentVisibleTreasures;
     private List<int> openedTreasureIndices = new List<int>(); 
     private List<int> closedTreasureIndices = new List<int>(); 
     private List<int> treasureQuestionIDs;
@@ -23,33 +23,66 @@ public class TreasureManager : Singleton<TreasureManager>
     // Variable to store the potions collected in the gameplay
     public int potionsCollected = 0;
 
+    // Flags 
+    public static bool isTreasureCountInitialized;
+    public static bool isPausedTM;
+
     void Start()
     {
+        // Initialize the flags
+        isPausedTM = false;
+        isTreasureCountInitialized = false;
+        
         // Initialize the random seed using the current time
         Random.InitState(System.DateTime.Now.Millisecond);
+
+        // Set the maximum number of visible treasures
+        maxVisibleTreasures = treasureObjects.Count;
+
+        // Wait while EnergyManager initializes the treasure count
+        StartCoroutine(WaitForTreasureCountInitialization());
+    }
+
+    private IEnumerator WaitForTreasureCountInitialization()
+    {
+        yield return new WaitUntil(() => isTreasureCountInitialized);
 
         // Set the number of visible treasures
         currentVisibleTreasures = initialVisibleTreasures;
 
-        // Initialize closed treasure indices as list from 0 to treasureObjects.Count
+        // Initialize closed treasure indices as a list from 0 to treasureObjects.Count
         for (int i = 0; i < treasureObjects.Count; i++)
         {
             closedTreasureIndices.Add(i);
         }
 
-        // Set the maximum number of visible treasures
-        maxVisibleTreasures = treasureObjects.Count;
-
+        UpdateTreasureLists();
         InitializeTreasures();
         SetRandomTreasuresVisible(currentVisibleTreasures);
+
+        // Start the coroutine to change treasure visibility
         // StartCoroutine(ChangeTreasureVisibility());
     }
 
     void Update()
-    {   
+    {  
+        // Pause the Update 
+        if (isPausedTM)
+        {
+            Debug.Log("Treasure Manager Paused");
+            return;
+        } 
+
+        Debug.Log("Treasure Manager not Paused");
+
         // Update the UI text
         treasureText.text = $"{(openedTreasureIndices.Count)} / {currentVisibleTreasures}";
 
+        UpdateTreasureLists();
+    }
+
+    private void UpdateTreasureLists()
+    {
         // Clear the opened and closed treasure indices
         openedTreasureIndices.Clear();
         closedTreasureIndices.Clear();
@@ -61,13 +94,47 @@ public class TreasureManager : Singleton<TreasureManager>
             {
                 // Add the index of the opened treasure to the list
                 openedTreasureIndices.Add(i);
+                Debug.Log("Adding" + i + "th treasure to Opened list");
             }
             else
             {
                 // Add the index of the closed treasure to the list
                 closedTreasureIndices.Add(i);
+                Debug.Log("Adding" + i  + "th treasure to Closed list");
             }
         }
+    }
+
+    public void SetInitialTreasureCount(int energyChange)
+    {
+        // -1 => Decreased energy consumption
+        //  0 => Same day, no change 
+        // +1 => Increased energy consumption
+
+        // If Power consumption has decreased
+        // Set it to 2/3 of total
+        Debug.Log("Energy change code: " + energyChange);
+
+        if (energyChange == -1) 
+        {
+            initialVisibleTreasures = Mathf.RoundToInt(maxVisibleTreasures * (2f / 3f));
+        }
+
+        // If Power consumption has not changed
+        // Set it to 1/2 of total
+        if (energyChange == 0) 
+        {
+            initialVisibleTreasures = Mathf.RoundToInt(maxVisibleTreasures * (1f / 2f));
+        }
+
+        // If Power consumption has increased
+        // Set the Initial visible treasure count to 1/3 of total
+        if (energyChange == 1) 
+        {
+            initialVisibleTreasures = Mathf.RoundToInt(maxVisibleTreasures * (1f / 3f));
+        }
+        
+        Debug.Log("Treasure count initializing in Treasure Manager: " + initialVisibleTreasures);
     }
 
     // Method to initialize the treasures with random question IDs
@@ -98,7 +165,7 @@ public class TreasureManager : Singleton<TreasureManager>
     // Method to set random treasures visible
     private void SetRandomTreasuresVisible(int count)
     {
-        // Debug.Log("Setting " + count.ToString() + " random treasures visible");
+        Debug.Log("Setting " + count.ToString() + " random treasures visible");
         // Check if the closed treasure indices are empty
         if (closedTreasureIndices.Count == 0)
         {
@@ -114,7 +181,7 @@ public class TreasureManager : Singleton<TreasureManager>
         // Activate random closed treasure indices
         List<int> indices = new List<int>(closedTreasureIndices);
         // Print the indices of the closed treasures
-        // Debug.Log("Closed Treasure Indices: " + string.Join(", ", indices));
+        Debug.Log("Closed Treasure Indices: " + string.Join(", ", indices));
         // Debug.Log(Math.Min(count, indices.Count) + " treasures will be visible");
         for (int i = 0; i < Math.Min(count, closedTreasureIndices.Count); i++)
         {
@@ -127,7 +194,7 @@ public class TreasureManager : Singleton<TreasureManager>
             int randomIndex = Random.Range(0, indices.Count);
             int randomTreasureIndex = indices[randomIndex];
             treasureObjects[randomTreasureIndex].SetActive(true);
-            // Debug.Log("Treasure " + randomTreasureIndex + " is visible");
+            Debug.Log("Treasure " + randomTreasureIndex + " is visible");
             indices.RemoveAt(randomIndex);
         }
     }

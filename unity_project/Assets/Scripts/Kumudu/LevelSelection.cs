@@ -3,19 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class LevelSelection : MonoBehaviour
 {
+    // Reference to the LoadingScene
+    private LoadingScene loadingScene;
+    
     public bool isUnlocked = false;
     public Image lockImage;//LOCK IMAGE
     public Image[] starsImages;//THREE STAR IMAGE
-
     public Sprite[] starsSprites;
+    public TextMeshProUGUI Score;
+    public int index;
 
     private void Update()
     {
+        UpdateHighScoreUI();
         UpdateLevelButton();//TODO Remove later
         UnlockLevel();
+    }
+
+    private void UpdateHighScoreUI()
+    {
+        string highScoreKey = "HighScore_Level_" + index;
+        int highestPoints = PlayerPrefs.GetInt(highScoreKey, 0);
+        Score.text = highestPoints.ToString();
     }
 
     private void UnlockLevel()
@@ -53,17 +66,15 @@ public class LevelSelection : MonoBehaviour
     }
 
     //MARKER We have remvoed this method from UIMANAGER for easy to read and operator
-    public void SceneTransition(string _sceneName)
+    public void SceneTransition(string sceneName)
     {
         if(isUnlocked)
         {
             UIManager.instance.HideAllUIPanels();
-            SceneManager.LoadScene(_sceneName);    
+            
+            // Load the Main Menu
+            loadingScene = FindObjectOfType<LoadingScene>();
+            loadingScene.LoadScene(sceneName);
         }
-    }
-
-    public void LoadLevel(int index)
-    {
-        SceneManager.LoadScene(index);
     }
 }
