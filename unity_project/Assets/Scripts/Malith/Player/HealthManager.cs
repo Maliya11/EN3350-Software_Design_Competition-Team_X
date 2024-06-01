@@ -3,20 +3,25 @@ using UnityEngine.UI;
 
 public class HealthManager : MonoBehaviour
 {
-    public static int health = 3;
+    /*
+    This script is used to update the health container in the canvas to show the updated health status of the player
+    */
+    public static int health = 3;  //this is the max health
     private int previousHealth;
-    public Image[] hearts;
-    public Sprite fullHeart;
-    public Sprite emptyHeart;
+    public Image[] hearts;  //assign the heart images to this array from the inspector
+    public Sprite fullHeart;  //red full heart image
+    public Sprite emptyHeart;  //empty heart image
 
     void Awake()
     {
+        //At the starting of the game health is full and the heart container in the canvas is updated
         health = 3;
         previousHealth = health;
-        UpdateHearts();
+        UpdateHearts();  //update the canvas according to the "health" count
     }
     void Update()
     {
+        //if the previos heart count is not equal to the current change the canvas
         if (health != previousHealth)
         {
             UpdateHearts();

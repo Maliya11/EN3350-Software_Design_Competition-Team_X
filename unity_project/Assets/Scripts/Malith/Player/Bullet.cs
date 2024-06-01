@@ -3,16 +3,20 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float maxTravelDistance = 10f;
-    private Vector2 initialPosition;
+    /*
+    This script is used to identify whether the bullet objects hits an enemy
+    */
+    public float maxTravelDistance = 10f; //maximum travel distance of the bullet
+    private Vector2 initialPosition; //initial position of the bullet
 
     void Start()
     {
-        initialPosition = transform.position;
+        initialPosition = transform.position; //gets the starting position of the bullet
     }
 
     void Update()
     {
+        //monitor the distance tarveled by the bullet, and destroy it if it reaches the maximum travel distance
         float distanceTraveled = Vector2.Distance(initialPosition, transform.position);
         if(distanceTraveled > maxTravelDistance)
         {
@@ -22,6 +26,8 @@ public class Bullet : MonoBehaviour
     
     void OnTriggerEnter2D(Collider2D collision)
     {
+        //In each code block checks the tag of the object that the bullet collided with, and give damage to that object
+        
         if(collision.tag == "Golem")
         {
             Golem golem = collision.GetComponent<Golem>();

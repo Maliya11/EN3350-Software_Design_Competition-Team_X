@@ -2,27 +2,32 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
+    /*
+    This script is used to control the melee attack of the player and identify to what enemy the attack is performed
+    */
     private PlayerMovement playerMovement;
     PlayerControls controls;
     public Animator animator;
-    public int meleeDamage = 25;
-    public float meleeAttackRange = 1.0f;
     public LayerMask enemyLayer;
+    public int meleeDamage = 25;  //melee attack damage of players
+    public float meleeAttackRange = 1.0f;  //melee attack range of players
 
     public void Awake()
     {
-        playerMovement = GetComponent<PlayerMovement>();
-        controls = new PlayerControls();
+        playerMovement = GetComponent<PlayerMovement>();  //get PlayerMovement component
+        controls = new PlayerControls();  //making PlayerControls instance
     }
 
     private void OnEnable()
     {
+        //if attack is performed
         controls.Enable();
         controls.Land.Attack.performed += OnMeleePerformed;
     }
 
     private void OnDisable()
     {
+        //if attack is not performed
         controls.Land.Attack.performed -= OnMeleePerformed;
         controls.Disable();
     }
@@ -30,6 +35,7 @@ public class PlayerAttack : MonoBehaviour
     private void OnMeleePerformed(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
         Melee();
+        //play the sword attack sound effect after checking the player is a robot or a ninja
         if(PlayerManager.isNinja)
         {
             AudioManagerPlayer.instance.Play("NinjaSword");
@@ -43,7 +49,7 @@ public class PlayerAttack : MonoBehaviour
     void Melee()
     {
         if(animator == null) return;
-
+        //change the attack animation by checking the player is grounded or not
         if(!playerMovement.isGrounded)
             animator.SetTrigger("jumpAttack");
 
@@ -60,6 +66,7 @@ public class PlayerAttack : MonoBehaviour
         // Apply damage to each enemy hit
         foreach (Collider2D enemy in hitEnemies)
         {
+            //In each code block checks the tag of the object that is in range to the attack, and give damage to that object
             if (enemy.CompareTag("Golem"))
             {
                 Golem golem = enemy.GetComponent<Golem>();
@@ -118,6 +125,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
+        //used to visalize the attack range of the player
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, meleeAttackRange);
     }
