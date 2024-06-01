@@ -36,6 +36,7 @@ public class PlayerManager : MonoBehaviour
     public static bool isPlayerDead;
     public int numberOfPoints = 0;
     public int numberOfStars = 0;
+    public int numberOfEnemiesOfTheScene;
     public int enemyKills = 0;
 
     // Number of potions

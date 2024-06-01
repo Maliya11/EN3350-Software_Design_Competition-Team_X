@@ -6956,6 +6956,7 @@ MonoBehaviour:
   - {fileID: 1461789121}
   initialVisibleTreasures: 5
   maxVisibleTreasures: 0
+  currentVisibleTreasures: 0
   potionsCollected: 0
 --- !u!1 &537835151
 GameObject:
@@ -18145,6 +18146,9 @@ MonoBehaviour:
   - {fileID: 4632982103744533927, guid: e447fd838770ab544807a4d8d7017e9e, type: 3}
   VCam: {fileID: 158317336}
   numberOfPoints: 0
+  numberOfStars: 0
+  numberOfEnemiesOfTheScene: 10
+  enemyKills: 0
 --- !u!114 &788650950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27900,9 +27904,10 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 20be3af56ae492e448e8ec79ced94ca7, type: 3}
     mixer: {fileID: 0}
     volume: 1
-    pitch: 0
+    pitch: 1
     loop: 0
     source: {fileID: 0}
+  volumeSlider: {fileID: 1746689908}
 --- !u!1 &1690387478
 GameObject:
   m_ObjectHideFlags: 0
@@ -28303,6 +28308,18 @@ MonoBehaviour:
       - m_Target: {fileID: 984803934}
         m_TargetAssemblyTypeName: VolumeSettings, Assembly-CSharp
         m_MethodName: SetVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1689517234}
+        m_TargetAssemblyTypeName: AudioEnemy, Assembly-CSharp
+        m_MethodName: SetVolumeAll
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

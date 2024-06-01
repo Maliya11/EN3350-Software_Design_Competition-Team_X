@@ -76,6 +76,7 @@ public class Reaper : MonoBehaviour
     public void ReaperTakeDamage(int damage)
     {
         GolemHP -= damage;
+        AudioEnemy.instance.Play("Hurt");
         if (GolemHP <= 0)
         {
             Die();
@@ -99,6 +100,7 @@ public class Reaper : MonoBehaviour
         if (playerManager != null)
         {
             playerManager.AddPoints(10);
+            playerManager.enemyKills++;
         }
         else
         {

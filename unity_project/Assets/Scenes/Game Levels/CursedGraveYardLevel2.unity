@@ -3038,7 +3038,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 875405101}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &231226740
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3358,7 +3358,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 875405101}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &253656272
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7736,7 +7736,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 875405101}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &576153682
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8135,7 +8135,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 875405101}
   hasGuardianEnemy: 0
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &592363495
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -20720,7 +20720,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 875405101}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &690241257
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -22155,7 +22155,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 875405101}
   hasGuardianEnemy: 0
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &810883339
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -23035,7 +23035,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 875405101}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &843522103
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -23656,7 +23656,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 875405101}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &871493232
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -25366,7 +25366,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 875405101}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &997962954
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -25530,7 +25530,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 875405101}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &1002840623
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -25747,7 +25747,6 @@ MonoBehaviour:
   quitButtonRightText: {fileID: 370726890}
   keepPlayingButtonLeft: {fileID: 695181165}
   keepPlayingButtonLeftText: {fileID: 1845565067}
-  player: {fileID: 1069238556}
 --- !u!61 &1040387350
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -26104,11 +26103,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b049286b2e041b49b6a0ec9df1db2ac, type: 3}
---- !u!1 &1069238556 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4008858915596767572, guid: 0b049286b2e041b49b6a0ec9df1db2ac, type: 3}
-  m_PrefabInstance: {fileID: 1069238555}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1069238557 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7231199564271240108, guid: 0b049286b2e041b49b6a0ec9df1db2ac, type: 3}
@@ -27574,7 +27568,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 875405101}
   hasGuardianEnemy: 0
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &1172959689
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -27822,7 +27816,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 875405101}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &1209535287
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -44018,8 +44012,6 @@ MonoBehaviour:
   initialVisibleTreasures: 8
   maxVisibleTreasures: 0
   currentVisibleTreasures: 0
-  openedTreasures: 0
-  apiCheckInterval: 5
   potionsCollected: 0
 --- !u!1 &1324478634
 GameObject:
@@ -48237,8 +48229,12 @@ MonoBehaviour:
   quitButtonRightText: {fileID: 370726890}
   keepPlayingButtonLeft: {fileID: 695181165}
   keepPlayingButtonLeftText: {fileID: 1845565067}
-  player: {fileID: 1069238556}
+  playerPrefabs: []
+  VCam: {fileID: 0}
   numberOfPoints: 0
+  numberOfStars: 0
+  numberOfEnemiesOfTheScene: 20
+  enemyKills: 0
 --- !u!114 &1588310008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49438,7 +49434,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 875405101}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &1679829570
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -50099,7 +50095,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 875405101}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &1709763607
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -50599,7 +50595,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 875405101}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &1743243442
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -53027,7 +53023,7 @@ MonoBehaviour:
   incorrectAnswerSound: {fileID: 875405101}
   hasGuardianEnemy: 1
   isOpened: 0
-  treasureID: 0
+  treasureQID: 0
 --- !u!61 &1853725348
 BoxCollider2D:
   m_ObjectHideFlags: 0

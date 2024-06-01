@@ -76,6 +76,7 @@ public class Goblin : MonoBehaviour
     public void GoblinTakeDamage(int damage)
     {
         GoblinHP -= damage;
+        AudioEnemy.instance.Play("Hurt");
         if (GoblinHP <= 0)
         {
             Die();
@@ -99,6 +100,7 @@ public class Goblin : MonoBehaviour
         if(playerManager != null)
         {
             playerManager.AddPoints(10);
+            playerManager.enemyKills++;
         }
         else
         {

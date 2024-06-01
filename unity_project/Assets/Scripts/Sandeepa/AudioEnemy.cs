@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using System;
+using UnityEngine.UI;
 
 public class AudioEnemy : MonoBehaviour
 {
     public static AudioEnemy instance;
     public Sound[] sounds;
+	[SerializeField] private Slider volumeSlider;
     void Awake ()
 	{
 		if (instance != null)
@@ -40,4 +42,14 @@ public class AudioEnemy : MonoBehaviour
 		Sound s = Array.Find(sounds, item => item.name == sound);
 		s.source.Stop();
 	}
+
+	
+	public void SetVolumeAll()
+    {
+		float volume = volumeSlider.value;
+        foreach (Sound s in sounds)
+        {
+            s.source.volume = volume;
+        }
+    }
 }
