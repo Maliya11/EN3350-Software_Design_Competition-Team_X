@@ -6,6 +6,11 @@ using Cinemachine;
 
 public class PlayerManager : MonoBehaviour
 {
+    /*
+    This script is used to manage player properties => player selection, player points, player stars, player potions,
+    tarnsition between scenes and panels, reviving the player
+    */
+
     // Reference to the LoadingScene
     private LoadingScene loadingScene;
 
@@ -49,11 +54,12 @@ public class PlayerManager : MonoBehaviour
 
     private void Awake()
     {
-        characterIndex = PlayerPrefs.GetInt("SelectedCharacter", 0);
+        characterIndex = PlayerPrefs.GetInt("SelectedCharacter", 0);  //get selected character from character selection panel in the mainmenu
         Debug.Log("Character Index in GameLevel: " + characterIndex);
-        player = Instantiate(playerPrefabs[characterIndex], playerSafePosition, Quaternion.identity);
-        VCam.m_Follow = player.transform;
+        player = Instantiate(playerPrefabs[characterIndex], playerSafePosition, Quaternion.identity);  //instantiate the player using the index
+        VCam.m_Follow = player.transform;  //set the virtual cam to follow the player
 
+        //check the index to identify whether the player is a ninja or a robot
         if(characterIndex == 2)
         {
             isNinja = false;
@@ -75,7 +81,7 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdatePotionUI();
+        UpdatePotionUI();  //update player points in the canvas
 
         if (isUpdatePaused) return;
 
@@ -89,28 +95,32 @@ public class PlayerManager : MonoBehaviour
             TreasureManager.isPausedTM = true;
             EnergyManager.isPausedEM = true;
 
-            ShowGameOverPanel();
+            ShowGameOverPanel();   //if player is dead show gameOverPanel
         }
     }
 
     public void AddPoints(int points)
     {
-        numberOfPoints += points;
-        UpdatePointsUI();
+        //this is called in enemy scripts and finishpoints.cs to increase the player points
+        numberOfPoints += points;  
+        UpdatePointsUI();  //update the canvas
     }
 
     public void AddStars(int star)
     {
+        //increment the stars, used in the finishpoint.cs
         numberOfStars += star;
     }
 
     private void UpdatePointsUI()
     {
+        //updates the points text in the canvas
         pointsText.text = numberOfPoints.ToString();
     }
 
     private void UpdatePotionUI()
     {
+        //updates the potions text in the canvas
         potionText.text = PlayerPrefs.GetInt("revivalPotions", 0).ToString();
     }
 

@@ -133,6 +133,7 @@ public class Zombie1 : MonoBehaviour
             PlayerCollision playerCollision = target.GetComponent<PlayerCollision>();
             if (playerCollision != null && HealthManager.health > 0)
             {
+                AudioEnemy.instance.Play("Punch");
                 playerCollision.PlayerTakeDamage();
             }
         }
