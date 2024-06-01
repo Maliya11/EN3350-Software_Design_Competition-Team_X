@@ -34,6 +34,14 @@ public class PlayerCollision : MonoBehaviour
         {
         animator.SetTrigger("isDead");
         animator.SetTrigger("dead");
+        if(PlayerManager.isNinja)
+        {
+            AudioManagerPlayer.instance.Play("NinjaDeath");
+        }
+        else
+        {
+            AudioManagerPlayer.instance.Play("RobotDeath");
+        }
         
         yield return new WaitForSeconds(2);
 

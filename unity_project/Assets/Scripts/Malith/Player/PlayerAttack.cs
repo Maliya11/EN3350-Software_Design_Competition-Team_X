@@ -30,6 +30,14 @@ public class PlayerAttack : MonoBehaviour
     private void OnMeleePerformed(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
         Melee();
+        if(PlayerManager.isNinja)
+        {
+            AudioManagerPlayer.instance.Play("NinjaSword");
+        }
+        else
+        {
+            AudioManagerPlayer.instance.Play("RobotSword");
+        }
     }
 
     void Melee()

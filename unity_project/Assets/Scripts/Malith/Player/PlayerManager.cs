@@ -44,6 +44,7 @@ public class PlayerManager : MonoBehaviour
 
     // Flag to control Update execution
     private bool isUpdatePaused;
+    public static bool isNinja;
     
 
     private void Awake()
@@ -52,6 +53,15 @@ public class PlayerManager : MonoBehaviour
         Debug.Log("Character Index in GameLevel: " + characterIndex);
         player = Instantiate(playerPrefabs[characterIndex], playerSafePosition, Quaternion.identity);
         VCam.m_Follow = player.transform;
+
+        if(characterIndex == 2)
+        {
+            isNinja = false;
+        }
+        else
+        {
+            isNinja = true;
+        }
 
         // Initialize the flags
         isPlayerDead = false;
