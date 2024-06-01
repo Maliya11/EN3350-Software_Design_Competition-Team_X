@@ -50,13 +50,14 @@ public class EnergyManager : MonoBehaviour
     // Coroutine to initialize and start fetching power consumption
     private IEnumerator InitializeAndStartFetching()
     {
-        int initialPowerChange;
-        yield return StartCoroutine(CompareInitialWithInactivePowerConsumption(value => initialPowerChange = value));
+        // Wait until the comparison of power consumption with the inactive period is over
+        yield return StartCoroutine(CompareInitialWithInactivePowerConsumption());
 
+        // Start routinely fetching the current power consumption
         StartCoroutine(FetchCurrentPowerConsumption());
     }
 
-    // Routine to fetch the current power consumption 
+    // Routine to fetch the current power consumption repeatedly by the repeat rate
     private IEnumerator FetchCurrentPowerConsumption()
     {
         while (true)
@@ -96,7 +97,7 @@ public class EnergyManager : MonoBehaviour
         }
     }
 
-    // Method to compare the power consumption
+    // Method to compare the routinely power consumption
     private void CompareCurrentPowerConsumption()
     {
         // Compare the current power consumption with the last power consumption
@@ -126,19 +127,23 @@ public class EnergyManager : MonoBehaviour
         PlayerPrefs.SetFloat("LastPowerConsumptionGap", lastPowerConsumptionGap);
     }
 
-    private IEnumerator CompareInitialWithInactivePowerConsumption(Action<int> result)
+    // Method to compare the initial power consumption with the inactive period power consumption
+    private IEnumerator CompareInitialWithInactivePowerConsumption()
     {   
-        int initialPowerChange = 5;
+        int initialPowerChange = 5; // Random value to ensure the correct value is assigned
         
-        //string lastTime = lastFetchTime;
-        string lastTime = "6/1/2024 1:06:26 PM";
+        // Get Last Fetched Time
+        string lastTime = lastFetchTime;
+        //string lastTime = "5/3/2024 9:43:21 AM";
         DateTime lastDateTime;
+
+        // Get Current Time
+        DateTime currentDateTime = DateTime.Now;
+        //string currentTime = "5/21/2024 1:06:26 PM";
+        //DateTime currentDateTime = DateTime.Parse(currentTime);
+
         if (DateTime.TryParse(lastTime, out lastDateTime))
-        {
-            //DateTime currentDateTime = DateTime.Now;
-            string currentTime = "6/5/2024 1:06:26 PM";
-            DateTime currentDateTime = DateTime.Parse(currentTime);
-            
+        {    
             // If currentTime and lastTime are on the same day
             // No change in Power Consumption considered
             if (lastDateTime.Date == currentDateTime.Date)
@@ -181,9 +186,10 @@ public class EnergyManager : MonoBehaviour
             // Wait for the first recurrent fetch
             yield return new WaitForSeconds(repeatRate);
         }
-
-        // Return the result 
-        result(initialPowerChange);
+        else
+        {
+            Debug.Log("Invalid DateTime Format");
+        }
     }
 
     private IEnumerator GetDifferentDayPowerComparison(DateTime lastDateTime, DateTime currentDateTime, Action<int> callback)
@@ -196,7 +202,7 @@ public class EnergyManager : MonoBehaviour
         bool isFetchCompleted = false;
         float fetchValue = 0.0f;
         string fetchTime = "";
-        int initialPowerChange = 5;
+        int initialPowerChange = 5; // Random value to ensure the correct value is assigned
 
         // Fetch the current power consumption
         energyDataFetch.GetCurrentPowerConsumption((float powerConsumption) =>
@@ -251,53 +257,347 @@ public class EnergyManager : MonoBehaviour
         // If the lastDateTime is within the same month
         if (lastDateTime.Month == currentDateTime.Month)
         {
-            // Get current day power consumption using the GetCurrentPowerConsumption method
-            bool isFetchCompleted = false;
-            JSONNode fetchValue = null;
-            string fetchTime = "";
-            double inactivePeriodTotalPowerConsumption = 0.0f;
-
-            // Fetch the current power consumption
-            energyDataFetch.GetCurrentMonthPowerConsumption((JSONNode value) =>
+            // Wait until the method is over
+            yield return StartCoroutine(SameMonthScenario(lastDateTime, currentDateTime, (double result) =>
             {
-                fetchValue = value;    
-                fetchTime = System.DateTime.Now.ToString("o");
-                isFetchCompleted = true;
-            });
-
-            // Wait until the fetch is completed
-            yield return new WaitUntil(() => isFetchCompleted);
-
-            Debug.Log("Current Month Daily Power Consumption: " + fetchValue.ToString());
-
-            // Calculate the inactive period power consumption
-            // Add the power consumption of the days from lastDateTime to currentDateTime
-            DateTime tempDateTime = lastDateTime;
-            Debug.Log("Last Date Time: " + tempDateTime.Date);
-            Debug.Log("Current Date Time: " + currentDateTime.Date);
-            while (tempDateTime.Day < currentDateTime.Day)
-            {
-                // Get only the day of the date
-                string dayString = tempDateTime.Day.ToString();
-                Debug.Log("Date String: " + dayString);
-                Debug.Log("Power Consumption: " + fetchValue[dayString].AsDouble);
-                inactivePeriodTotalPowerConsumption += fetchValue[dayString].AsDouble;
-                tempDateTime = tempDateTime.AddDays(1);
-            }
-            Debug.Log("Inactive Period Power Consumption: " + inactivePeriodTotalPowerConsumption);
-
-            // Calculate per day inactive period power consumption
-            double daysPast = currentDateTime.Day - lastDateTime.Day;
-            Debug.Log("Days Past: " + daysPast);
-            inactivePeriodPowerConsumption = inactivePeriodTotalPowerConsumption / daysPast;
+                inactivePeriodPowerConsumption = result;
+            }));
 
             // Invoke the callback with the calculated value
             callback(inactivePeriodPowerConsumption);
         }
+        // If the lastDateTime is not within the same month but the same year
+        else if (lastDateTime.Year == currentDateTime.Year)
+        {
+            // Wait until the method is over
+            yield return StartCoroutine(DifferentMonthSameYearScenario(lastDateTime, currentDateTime, (double result) =>
+            {
+                inactivePeriodPowerConsumption = result;
+            }));
+
+            // Invoke the callback with the calculated value
+            callback(inactivePeriodPowerConsumption);
+            
+        }
+        // If the lastDateTime is in the previous year
+        else if ((currentDateTime.Year - lastDateTime.Year) == 1)
+        {
+            // Wait until the method is over
+            yield return StartCoroutine(PreviousYearScenario(lastDateTime, currentDateTime, (double result) =>
+            {
+                inactivePeriodPowerConsumption = result;
+            }));
+
+            // Invoke the callback with the calculated value
+            callback(inactivePeriodPowerConsumption);
+        }
+        // If the lastDateTime is not in the previous year
         else
         {
-            // Invoke the callback with a default value or handle accordingly
-            callback(0.0);
+            Debug.Log("Inactive Period Power Consumption is disregarded. Returning 0.0f");
+            callback(inactivePeriodPowerConsumption);
         }
+    }
+
+    private IEnumerator SameMonthScenario(DateTime lastDateTime, DateTime currentDateTime, Action<double> callback)
+    {
+        double inactivePeriodPowerConsumption = 0.0f;
+        double inactivePeriodTotalPowerConsumption = 0.0f;
+        bool isFetchCompleted = false;
+        JSONNode fetchValue = null;
+        
+        // Fetch the current power consumption
+        energyDataFetch.GetCurrentMonthPowerConsumption((JSONNode value) =>
+        {
+            fetchValue = value;    
+            isFetchCompleted = true;
+        });
+
+        // Wait until the fetch is completed
+        yield return new WaitUntil(() => isFetchCompleted);
+        Debug.Log("Current Month Daily Power Consumption: " + fetchValue.ToString());
+
+        // Calculate the inactive period power consumption
+        // Add the power consumption of the days from lastDateTime to currentDateTime
+        DateTime tempDateTime = lastDateTime;
+        Debug.Log("Last Date Time: " + tempDateTime.Date);
+        Debug.Log("Current Date Time: " + currentDateTime.Date);
+        while (tempDateTime.Date < currentDateTime.Date)
+        {
+            // Get only the day of the date
+            string dayString = tempDateTime.Day.ToString();
+            Debug.Log("Date String: " + dayString);
+            Debug.Log("Power Consumption: " + fetchValue[dayString].AsDouble);
+            inactivePeriodTotalPowerConsumption += fetchValue[dayString].AsDouble;
+            tempDateTime = tempDateTime.AddDays(1);
+        }
+        Debug.Log("Inactive Period Power Consumption: " + inactivePeriodTotalPowerConsumption);
+
+        // Calculate per day inactive period power consumption
+        double daysPast = (currentDateTime.Date - lastDateTime.Date).TotalDays;
+        Debug.Log("Days Past: " + daysPast);
+        inactivePeriodPowerConsumption = inactivePeriodTotalPowerConsumption / daysPast;
+
+        // Invoke the callback with the calculated value
+        callback(inactivePeriodPowerConsumption);
+    }
+
+    private IEnumerator DifferentMonthSameYearScenario(DateTime lastDateTime, DateTime currentDateTime, Action<double> callback)
+    {
+        double inactivePeriodPowerConsumption = 0.0f;
+        double inactivePeriodTotalPowerConsumption = 0.0f;
+        bool isLastFetchedMonthFetchCompleted = false;
+        bool isInBetweenMonthFetchCompleted = false;
+        bool isCurrentMonthFetchCompleted = false;
+        JSONNode lastFetchedMonthValue = null;
+        JSONNode inBetweenMonthValue = null;
+        JSONNode currentMonthValue = null;
+        string currentYear = currentDateTime.Year.ToString();
+        string lastFetchedMonth = lastDateTime.ToString("MMMM").ToUpper();
+        string currentMonth = currentDateTime.ToString("MMMM").ToUpper();
+        
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Fetch the daily power consumption of the last fetched month 
+        Debug.Log("Last Fetched Year: " + currentYear);
+        Debug.Log("Last Fetched Month: " + lastFetchedMonth);
+        // Fetch the specific month power consumption
+        energyDataFetch.GetSpecificMonthPowerConsumption(currentYear, lastFetchedMonth, (JSONNode value) =>
+        {
+            lastFetchedMonthValue = value;    
+            isLastFetchedMonthFetchCompleted = true;
+        });
+
+        // Wait until the fetch is completed
+        yield return new WaitUntil(() => isLastFetchedMonthFetchCompleted);
+        Debug.Log("Specific Month Daily Power Consumption: " + lastFetchedMonthValue.ToString());
+
+        // Add the power consumption of the days from lastDateTime to the end of the lastFetchedMonth
+        DateTime tempDateTime = lastDateTime;
+        DateTime lastDayOfMonthDateTime = new DateTime(lastDateTime.Year, lastDateTime.Month, DateTime.DaysInMonth(lastDateTime.Year, lastDateTime.Month));
+        Debug.Log("Last Date Time: " + tempDateTime.Date);
+        Debug.Log("Last Day of Month Date Time: " + lastDayOfMonthDateTime.Date);
+        while (tempDateTime.Date <= lastDayOfMonthDateTime.Date)
+        {
+            // Get only the day of the date
+            string dayString = tempDateTime.Day.ToString();
+            Debug.Log("Date String: " + dayString);
+            Debug.Log("Power Consumption: " + lastFetchedMonthValue[dayString].AsDouble);
+            inactivePeriodTotalPowerConsumption += lastFetchedMonthValue[dayString].AsDouble;
+            tempDateTime = tempDateTime.AddDays(1);
+        }
+        Debug.Log("Inactive Period Power Consumption Upto Last Fetched Month: " + inactivePeriodTotalPowerConsumption);
+        
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Fetch the monthly power consumption of the in between months
+        energyDataFetch.GetYearlyPowerConsumption(currentYear, (JSONNode value) =>
+        {
+            inBetweenMonthValue = value;    
+            isInBetweenMonthFetchCompleted = true;
+        });
+
+        // Wait until the fetch is completed
+        yield return new WaitUntil(() => isInBetweenMonthFetchCompleted);
+        Debug.Log("Yearly Power Consumption: " + inBetweenMonthValue.ToString());
+
+        // Add the power consumption of the months between the last fetched month and the current month
+        string[] monthNames = { "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER" };
+        bool isBetween = false;
+
+        foreach (string month in monthNames)
+        {
+            if (month == lastFetchedMonth)
+            {
+                isBetween = true;
+                continue;
+            }
+
+            if (month == currentMonth)
+            {
+                break;
+            }
+
+            if (isBetween)
+            {
+                inactivePeriodTotalPowerConsumption += inBetweenMonthValue[month]["units"].AsDouble;
+                Debug.Log("Adding power consumption for month: " + month + ", Units: " + inBetweenMonthValue[month]["units"].AsDouble);
+            }
+        }
+        Debug.Log("Inactive Period Power Consumption Upto Start of Current Month: " + inactivePeriodTotalPowerConsumption);
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Fetch the daily power consumption of the current month
+        energyDataFetch.GetCurrentMonthPowerConsumption((JSONNode value) =>
+        {
+            currentMonthValue = value;    
+            isCurrentMonthFetchCompleted = true;
+        });
+
+        // Wait until the fetch is completed
+        yield return new WaitUntil(() => isCurrentMonthFetchCompleted);
+        Debug.Log("Current Month Daily Power Consumption: " + currentMonthValue.ToString());
+
+        // Add the power consumption of the days from the start of the current month to currentDateTime
+        tempDateTime = new DateTime(currentDateTime.Year, currentDateTime.Month, 1);
+        Debug.Log("Current Date Time: " + currentDateTime.Date);
+        Debug.Log("Start of Month Date Time: " + tempDateTime.Date);
+        while (tempDateTime.Date < currentDateTime.Date)
+        {
+            // Get only the day of the date
+            string dayString = tempDateTime.Day.ToString();
+            Debug.Log("Date String: " + dayString);
+            Debug.Log("Power Consumption: " + currentMonthValue[dayString].AsDouble);
+            inactivePeriodTotalPowerConsumption += currentMonthValue[dayString].AsDouble;
+            tempDateTime = tempDateTime.AddDays(1);
+        }
+        Debug.Log("Inactive Period Power Consumption Upto Current Date: " + inactivePeriodTotalPowerConsumption);
+
+        // Calculate per day inactive period power consumption
+        double daysPast = (currentDateTime.Date - lastDateTime.Date).TotalDays;
+        Debug.Log("Days Past: " + daysPast);
+        inactivePeriodPowerConsumption = inactivePeriodTotalPowerConsumption / daysPast;
+
+        // Invoke the callback with the calculated value
+        callback(inactivePeriodPowerConsumption);
+    }
+
+    private IEnumerator PreviousYearScenario(DateTime lastDateTime, DateTime currentDateTime, Action<double> callback)
+    {
+        double inactivePeriodPowerConsumption = 0.0f;
+        double inactivePeriodTotalPowerConsumption = 0.0f;
+        bool isLastFetchedMonthFetchCompleted = false;
+        bool isLastYearMonthFetchCompleted = false;
+        bool isCurrentYearMonthFetchCompleted = false;
+        bool isCurrentMonthFetchCompleted = false;
+        JSONNode lastFetchedMonthValue = null;
+        JSONNode lastFetchedYearValue = null;
+        JSONNode currentYearValue = null;
+        JSONNode currentMonthValue = null;
+        string lastFetchedYear = lastDateTime.Year.ToString();
+        string currentYear = currentDateTime.Year.ToString();
+        string lastFetchedMonth = lastDateTime.ToString("MMMM").ToUpper();
+        string currentMonth = currentDateTime.ToString("MMMM").ToUpper();
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Fetch the daily power consumption of the last fetched month
+        Debug.Log("Last Fetched Year: " + lastFetchedYear);
+        Debug.Log("Last Fetched Month: " + lastFetchedMonth);
+        // Fetch the specific month power consumption
+        energyDataFetch.GetSpecificMonthPowerConsumption(lastFetchedYear, lastFetchedMonth, (JSONNode value) =>
+        {
+            lastFetchedMonthValue = value;    
+            isLastFetchedMonthFetchCompleted = true;
+        });
+
+        // Wait until the fetch is completed
+        yield return new WaitUntil(() => isLastFetchedMonthFetchCompleted);
+        Debug.Log("Specific Month Daily Power Consumption: " + lastFetchedMonthValue.ToString());
+
+        // Add the power consumption of the days from lastDateTime to the end of the lastFetchedMonth
+        DateTime tempDateTime = lastDateTime;
+        DateTime lastDayOfMonthDateTime = new DateTime(lastDateTime.Year, lastDateTime.Month, DateTime.DaysInMonth(lastDateTime.Year, lastDateTime.Month));
+        Debug.Log("Last Date Time: " + tempDateTime.Date);
+        Debug.Log("Last Day of Month Date Time: " + lastDayOfMonthDateTime.Date);
+        while (tempDateTime.Date <= lastDayOfMonthDateTime.Date)
+        {
+            // Get only the day of the date
+            string dayString = tempDateTime.Day.ToString();
+            Debug.Log("Date String: " + dayString);
+            Debug.Log("Power Consumption: " + lastFetchedMonthValue[dayString].AsDouble);
+            inactivePeriodTotalPowerConsumption += lastFetchedMonthValue[dayString].AsDouble;
+            tempDateTime = tempDateTime.AddDays(1);
+        }
+        Debug.Log("Inactive Period Power Consumption Upto Last Fetched Month: " + inactivePeriodTotalPowerConsumption);
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Fetch the monthly power consumption of the last year
+        energyDataFetch.GetYearlyPowerConsumption(lastFetchedYear, (JSONNode value) =>
+        {
+            lastFetchedYearValue = value;    
+            isLastYearMonthFetchCompleted = true;
+        });
+
+        // Wait until the fetch is completed
+        yield return new WaitUntil(() => isLastYearMonthFetchCompleted);
+        Debug.Log("Yearly Power Consumption: " + lastFetchedYearValue.ToString());
+
+        // Add the power consumption of the months from the last fetched month to the end of the year 
+        string[] monthNames = { "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER" };
+        bool isBetween = false;
+
+        foreach (string month in monthNames)
+        {
+            if (month == lastFetchedMonth)
+            {
+                isBetween = true;
+                continue;
+            }
+
+            if (isBetween)
+            {
+                inactivePeriodTotalPowerConsumption += lastFetchedYearValue[month]["units"].AsDouble;
+                Debug.Log("Adding power consumption for month: " + month + ", Units: " + lastFetchedYearValue[month]["units"].AsDouble);
+            }
+        }
+        Debug.Log("Inactive Period Power Consumption Upto End of Last Year: " + inactivePeriodTotalPowerConsumption); 
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Fetch the yearly power consumption of the current year
+        energyDataFetch.GetYearlyPowerConsumption(currentYear, (JSONNode value) =>
+        {
+            currentYearValue = value;    
+            isCurrentYearMonthFetchCompleted = true;
+        });
+
+        // Wait until the fetch is completed
+        yield return new WaitUntil(() => isCurrentYearMonthFetchCompleted);
+        Debug.Log("Yearly Power Consumption: " + currentYearValue.ToString());
+
+        // Add the power consumption of the months from the start of the year to the current month
+        foreach (string month in monthNames)
+        {
+            if (month == currentMonth)
+            {
+                break;
+            }
+
+            inactivePeriodTotalPowerConsumption += currentYearValue[month]["units"].AsDouble;
+            Debug.Log("Adding power consumption for month: " + month + ", Units: " + currentYearValue[month]["units"].AsDouble);
+        }
+        Debug.Log("Inactive Period Power Consumption Upto Start of Current Month: " + inactivePeriodTotalPowerConsumption);
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Fetch the daily power consumption of the current month
+        energyDataFetch.GetCurrentMonthPowerConsumption((JSONNode value) =>
+        {
+            currentMonthValue = value;    
+            isCurrentMonthFetchCompleted = true;
+        });
+
+        // Wait until the fetch is completed
+        yield return new WaitUntil(() => isCurrentMonthFetchCompleted);
+        Debug.Log("Current Month Daily Power Consumption: " + currentMonthValue.ToString());
+
+        // Add the power consumption of the days from the start of the current month to currentDateTime
+        tempDateTime = new DateTime(currentDateTime.Year, currentDateTime.Month, 1);
+        Debug.Log("Current Date Time: " + currentDateTime.Date);
+        Debug.Log("Start of Month Date Time: " + tempDateTime.Date);
+        while (tempDateTime.Date < currentDateTime.Date)
+        {
+            // Get only the day of the date
+            string dayString = tempDateTime.Day.ToString();
+            Debug.Log("Date String: " + dayString);
+            Debug.Log("Power Consumption: " + currentMonthValue[dayString].AsDouble);
+            inactivePeriodTotalPowerConsumption += currentMonthValue[dayString].AsDouble;
+            tempDateTime = tempDateTime.AddDays(1);
+        }
+        Debug.Log("Inactive Period Power Consumption Upto Current Date: " + inactivePeriodTotalPowerConsumption);
+
+        // Calculate per day inactive period power consumption
+        double daysPast = (currentDateTime.Date - lastDateTime.Date).TotalDays;
+        Debug.Log("Days Past: " + daysPast);
+        inactivePeriodPowerConsumption = inactivePeriodTotalPowerConsumption / daysPast;
+
+        // Invoke the callback with the calculated value
+        callback(inactivePeriodPowerConsumption);
     }
 }
