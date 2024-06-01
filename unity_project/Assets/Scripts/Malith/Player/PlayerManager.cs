@@ -29,7 +29,7 @@ public class PlayerManager : MonoBehaviour
     public GameObject[] playerPrefabs;
     int characterIndex;
     public static GameObject player;
-    public static Vector3 playerSafePosition = new Vector3(-60f,-0.9f,1f);
+    public static Vector3 playerSafePosition = new Vector3(-62.05f, -0.14f, 1);
     public CinemachineVirtualCamera VCam;
 
     // Static variables
@@ -44,6 +44,7 @@ public class PlayerManager : MonoBehaviour
 
     // Flag to control Update execution
     private bool isUpdatePaused;
+    public static bool isNinja;
     
 
     private void Awake()
@@ -52,6 +53,15 @@ public class PlayerManager : MonoBehaviour
         Debug.Log("Character Index in GameLevel: " + characterIndex);
         player = Instantiate(playerPrefabs[characterIndex], playerSafePosition, Quaternion.identity);
         VCam.m_Follow = player.transform;
+
+        if(characterIndex == 2)
+        {
+            isNinja = false;
+        }
+        else
+        {
+            isNinja = true;
+        }
 
         // Initialize the flags
         isPlayerDead = false;

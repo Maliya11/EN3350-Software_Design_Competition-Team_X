@@ -88,6 +88,14 @@ public class PlayerMovement : MonoBehaviour
         if(playerRB != null)
         {
             playerRB.velocity = new Vector2(direction * speed * Time.fixedDeltaTime, playerRB.velocity.y);
+            if(PlayerManager.isNinja)
+            {
+                AudioManagerPlayer.instance.Play("NinjaRun");
+            }
+            else
+            {
+                AudioManagerPlayer.instance.Play("RobotRun");
+            }
         }
         
     }
@@ -98,7 +106,6 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetFloat("speed", Mathf.Abs(direction));
         }
-        
     }
 
     void FlipPlayer()
@@ -117,6 +124,14 @@ public class PlayerMovement : MonoBehaviour
             numberOfJumps = 0;
             playerRB.velocity = new Vector2(playerRB.velocity.x, jumpForce);
             numberOfJumps++;
+            if(PlayerManager.isNinja)
+            {
+                AudioManagerPlayer.instance.Play("NinjaJump");
+            }
+            else
+            {
+                AudioManagerPlayer.instance.Play("RobotJump");
+            }
         }
         else
         {
@@ -124,6 +139,14 @@ public class PlayerMovement : MonoBehaviour
             {
                 playerRB.velocity = new Vector2(playerRB.velocity.x, jumpForce);
                 numberOfJumps++;
+                if(PlayerManager.isNinja)
+            {
+                AudioManagerPlayer.instance.Play("NinjaJump");
+            }
+            else
+            {
+                AudioManagerPlayer.instance.Play("RobotJump");
+            }
             }
         }
     }

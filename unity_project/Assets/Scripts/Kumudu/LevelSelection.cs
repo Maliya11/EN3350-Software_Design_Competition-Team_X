@@ -13,22 +13,23 @@ public class LevelSelection : MonoBehaviour
     public bool isUnlocked = false;
     public Image lockImage;//LOCK IMAGE
     public Image[] starsImages;//THREE STAR IMAGE
-    public Sprite[] starsSprites;
-    public TextMeshProUGUI Score;
-    public int index;
+    public Sprite[] starsSprites; // Sprites for the stars
+    public TextMeshProUGUI Score; // Text element to display the score
+    public int index; // Index of the current level
 
     private void Update()
     {
-        UpdateHighScoreUI();
-        UpdateLevelButton();//TODO Remove later
-        UnlockLevel();
+        UpdateHighScoreUI(); // Update the high score and level button UI elements
+        UpdateLevelButton();
+        UnlockLevel(); // Check if the level can be unlocked
     }
 
+    // Update the high score UI element
     private void UpdateHighScoreUI()
     {
-        string highScoreKey = "HighScore_Level_" + index;
-        int highestPoints = PlayerPrefs.GetInt(highScoreKey, 0);
-        Score.text = highestPoints.ToString();
+        string highScoreKey = "HighScore_Level_" + index;  // Construct the key for the high score of the current level
+        int highestPoints = PlayerPrefs.GetInt(highScoreKey, 0);  // Get the highest points from PlayerPrefs
+        Score.text = highestPoints.ToString();  // Update the score text with the highest points
     }
 
     private void UnlockLevel()
@@ -40,16 +41,20 @@ public class LevelSelection : MonoBehaviour
         }
     }
 
+    // Unlock the level if the previous level has been completed
     private void UpdateLevelButton()
     {
-        if(isUnlocked)//MARKER We can play this level
+        if(isUnlocked)
         {
-            lockImage.gameObject.SetActive(false);//we dont want to see the lock image
+            lockImage.gameObject.SetActive(false); // Hide the lock image if the level is unlocked
+
+            // Show the star images
             for(int i = 0; i < starsImages.Length; i++)
             {
                 starsImages[i].gameObject.SetActive(true);
             }
 
+            // Update the stars based on the high score
             for(int i = 0; i < PlayerPrefs.GetInt("HighStar_Level_" + index); i++)
             {
                 starsImages[i].sprite = starsSprites[i];
@@ -57,7 +62,9 @@ public class LevelSelection : MonoBehaviour
         }
         else
         {
-            lockImage.gameObject.SetActive(true);
+            lockImage.gameObject.SetActive(true);  // Show the lock image if the level is locked
+
+            // Hide the star images
             for (int i = 0; i < starsImages.Length; i++)
             {
                 starsImages[i].gameObject.SetActive(false);
@@ -65,7 +72,7 @@ public class LevelSelection : MonoBehaviour
         }
     }
 
-    //MARKER We have remvoed this method from UIMANAGER for easy to read and operator
+    // Transition to the specified scene if the level is unlocked
     public void SceneTransition(string sceneName)
     {
         if(isUnlocked)

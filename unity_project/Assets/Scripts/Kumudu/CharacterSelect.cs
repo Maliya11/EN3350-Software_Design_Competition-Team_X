@@ -4,22 +4,25 @@ using UnityEngine;
 
 public class CharacterSelect : MonoBehaviour
 {
-    public GameObject[] skins;
-    public int selectedCharacter;
+    public GameObject[] skins;  // Array to hold different character skins
+    public int selectedCharacter;  // Index of the currently selected character
 
+    // Called when the script instance is being loaded
     private void Awake(){
-        LoadSelectedCharacter();
+        LoadSelectedCharacter();  // Load the previously selected character
     }
 
+    // Load the previously selected character from PlayerPrefs
     public void LoadSelectedCharacter()
     {
-        selectedCharacter = PlayerPrefs.GetInt("SelectedCharacter", 0);
+        selectedCharacter = PlayerPrefs.GetInt("SelectedCharacter", 0);  // Get the selected character index from PlayerPrefs, default to 0 if not found
         foreach(GameObject player in skins){
             player.SetActive(false);
         }
-        skins[selectedCharacter].SetActive(true);
+        skins[selectedCharacter].SetActive(true);  // Activate the currently selected character skin
     }
 
+    // Change to the next character in the array
     public void ChangeNext(){
         skins[selectedCharacter].SetActive(false);
         selectedCharacter++;
@@ -32,6 +35,7 @@ public class CharacterSelect : MonoBehaviour
         Debug.Log("Changed to Next Character Index: " + selectedCharacter);
     }
 
+    // Change to the previous character in the array
     public void ChangePrevious(){
         skins[selectedCharacter].SetActive(false);
         selectedCharacter--;
@@ -44,6 +48,7 @@ public class CharacterSelect : MonoBehaviour
         Debug.Log("Changed to Previous Character Index: " + selectedCharacter);
     }
 
+    // Public method to show the character selection UI
     public void ShowCharacterSelection()
     {
         LoadSelectedCharacter();

@@ -25894,7 +25894,7 @@ GameObject:
   - component: {fileID: 1500496137}
   - component: {fileID: 1500496138}
   m_Layer: 0
-  m_Name: AudioManager
+  m_Name: AudioPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25928,39 +25928,74 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - name: 
-    clip: {fileID: 0}
+  - name: NinjaJump
+    clip: {fileID: 8300000, guid: 6d302736459119249be11ae71740b25b, type: 3}
     mixer: {fileID: 0}
-    volume: 0
-    pitch: 0
+    volume: 1
+    pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: 
-    clip: {fileID: 0}
+  - name: NinjaRun
+    clip: {fileID: 8300000, guid: ad5d2b24812471141b6f2a47d412e6dc, type: 3}
     mixer: {fileID: 0}
-    volume: 0
-    pitch: 0
+    volume: 0.5
+    pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: 
-    clip: {fileID: 0}
+  - name: NinjaThrow
+    clip: {fileID: 8300000, guid: e96bb6595dca7f049a64cdb20a2b4416, type: 3}
     mixer: {fileID: 0}
-    volume: 0
-    pitch: 0
+    volume: 1
+    pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: 
-    clip: {fileID: 0}
+  - name: NinjaSword
+    clip: {fileID: 8300000, guid: 91b42e8feedb1a7498b9d4bee048c163, type: 3}
     mixer: {fileID: 0}
-    volume: 0
-    pitch: 0
+    volume: 1
+    pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: 
-    clip: {fileID: 0}
+  - name: NinjaDeath
+    clip: {fileID: 8300000, guid: 66535f9a4bdbc4845937b24f183344e3, type: 3}
     mixer: {fileID: 0}
-    volume: 0
-    pitch: 0
+    volume: 1
+    pitch: 0.5
+    loop: 0
+    source: {fileID: 0}
+  - name: RobotDeath
+    clip: {fileID: 8300000, guid: fc8dc41647bdd67458cfcb41ce9c8810, type: 3}
+    mixer: {fileID: 0}
+    volume: 1
+    pitch: 0.5
+    loop: 0
+    source: {fileID: 0}
+  - name: RobotJump
+    clip: {fileID: 8300000, guid: 750599f93b93a3e49a2c51eb1ca16eb6, type: 3}
+    mixer: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: RobotRun
+    clip: {fileID: 8300000, guid: 1f72d29fc9982e64d8721d6b8583be6e, type: 3}
+    mixer: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: RobotShoot
+    clip: {fileID: 8300000, guid: 3644b5f2628a98f45a43c0545a31193c, type: 3}
+    mixer: {fileID: 0}
+    volume: 1
+    pitch: 0.5
+    loop: 0
+    source: {fileID: 0}
+  - name: RobotSword
+    clip: {fileID: 8300000, guid: 2ed723739c6e97a45ae913d94480a65a, type: 3}
+    mixer: {fileID: 0}
+    volume: 1
+    pitch: 1
     loop: 0
     source: {fileID: 0}
 --- !u!1 &1508825953
