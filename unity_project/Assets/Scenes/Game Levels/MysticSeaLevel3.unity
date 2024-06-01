@@ -3403,6 +3403,121 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 130913001}
   m_CullTransparentMesh: 1
+--- !u!1 &133269879
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 133269880}
+  - component: {fileID: 133269881}
+  m_Layer: 0
+  m_Name: AudioPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &133269880
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 133269879}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1727676601}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &133269881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 133269879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e7fe2d227b019408a0b5053b96fdc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: NinjaJump
+    clip: {fileID: 8300000, guid: 6d302736459119249be11ae71740b25b, type: 3}
+    mixer: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: NinjaRun
+    clip: {fileID: 8300000, guid: ad5d2b24812471141b6f2a47d412e6dc, type: 3}
+    mixer: {fileID: 0}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: NinjaThrow
+    clip: {fileID: 8300000, guid: e96bb6595dca7f049a64cdb20a2b4416, type: 3}
+    mixer: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: NinjaSword
+    clip: {fileID: 8300000, guid: 91b42e8feedb1a7498b9d4bee048c163, type: 3}
+    mixer: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: NinjaDeath
+    clip: {fileID: 8300000, guid: 66535f9a4bdbc4845937b24f183344e3, type: 3}
+    mixer: {fileID: 0}
+    volume: 1
+    pitch: 0.5
+    loop: 0
+    source: {fileID: 0}
+  - name: RobotDeath
+    clip: {fileID: 8300000, guid: fc8dc41647bdd67458cfcb41ce9c8810, type: 3}
+    mixer: {fileID: 0}
+    volume: 1
+    pitch: 0.5
+    loop: 0
+    source: {fileID: 0}
+  - name: RobotJump
+    clip: {fileID: 8300000, guid: 750599f93b93a3e49a2c51eb1ca16eb6, type: 3}
+    mixer: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: RobotRun
+    clip: {fileID: 8300000, guid: 1f72d29fc9982e64d8721d6b8583be6e, type: 3}
+    mixer: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: RobotShoot
+    clip: {fileID: 8300000, guid: 3644b5f2628a98f45a43c0545a31193c, type: 3}
+    mixer: {fileID: 0}
+    volume: 1
+    pitch: 0.5
+    loop: 0
+    source: {fileID: 0}
+  - name: RobotSword
+    clip: {fileID: 8300000, guid: 2ed723739c6e97a45ae913d94480a65a, type: 3}
+    mixer: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
 --- !u!1 &134392250
 GameObject:
   m_ObjectHideFlags: 0
@@ -4458,7 +4573,6 @@ MonoBehaviour:
   - {fileID: 4008858915596767572, guid: 0b049286b2e041b49b6a0ec9df1db2ac, type: 3}
   - {fileID: 6481398379779273978, guid: a7b26bbdb6762a943b7681f73c999e4a, type: 3}
   - {fileID: 4632982103744533927, guid: e447fd838770ab544807a4d8d7017e9e, type: 3}
-  playerSafePosition: {x: -62.05, y: -0.14, z: 1}
   VCam: {fileID: 1334314102}
   numberOfPoints: 0
   numberOfStars: 0
@@ -74198,6 +74312,7 @@ Transform:
   m_Children:
   - {fileID: 1674344984}
   - {fileID: 973796360}
+  - {fileID: 133269880}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1732110575

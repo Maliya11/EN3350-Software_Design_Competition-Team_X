@@ -30,6 +30,14 @@ public class PlayerShoot : MonoBehaviour
     private void OnThrowPerformed(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
         Throw();
+        if(PlayerManager.isNinja)
+        {
+            AudioManagerPlayer.instance.Play("NinjaThrow");
+        }
+        else
+        {
+            AudioManagerPlayer.instance.Play("RobotShoot");
+        }
     }
 
     void Throw()
