@@ -68,10 +68,10 @@ public class UIManager : MonoBehaviour
             switch(i)
             {
                 case 0:// MAP 01
-                    unlockStarsTexts[i].text = (PlayerPrefs.GetInt("Lv" + 1) + PlayerPrefs.GetInt("Lv" + 2) + PlayerPrefs.GetInt("Lv" + 3)) + "/" + (mapSelections[i].endLevel - mapSelections[i].startLevel + 1) * 3;
+                    unlockStarsTexts[i].text = (PlayerPrefs.GetInt("HighStar_Level_" + 3) + PlayerPrefs.GetInt("HighStar_Level_" + 4) + PlayerPrefs.GetInt("HighStar_Level_" + 5)) + "/" + (mapSelections[i].endLevel - mapSelections[i].startLevel + 1) * 3;
                     break;
                 case 1:// MAP 02
-                    unlockStarsTexts[i].text = (PlayerPrefs.GetInt("Lv" + 4) + PlayerPrefs.GetInt("Lv" + 5) + PlayerPrefs.GetInt("Lv" + 6)) + "/" + (mapSelections[i].endLevel - mapSelections[i].startLevel + 1) * 3;
+                    unlockStarsTexts[i].text = (PlayerPrefs.GetInt("HighStar_Level_" + 6) + PlayerPrefs.GetInt("HighStar_Level_" + 7) + PlayerPrefs.GetInt("HighStar_Level_" + 8)) + "/" + (mapSelections[i].endLevel - mapSelections[i].startLevel + 1) * 3;
                     break;
             }
         }
@@ -80,8 +80,8 @@ public class UIManager : MonoBehaviour
     //Update the Stars UI on the top left connor
     private void UpdateStarUI()
     {
-        stars = PlayerPrefs.GetInt("Lv" + 1) + PlayerPrefs.GetInt("Lv" + 2) + PlayerPrefs.GetInt("Lv" + 3) + PlayerPrefs.GetInt("Lv" + 4)
-         + PlayerPrefs.GetInt("Lv" + 5) + PlayerPrefs.GetInt("Lv" + 6);
+        stars = PlayerPrefs.GetInt("HighStar_Level_" + 3) + PlayerPrefs.GetInt("HighStar_Level_" + 4) + PlayerPrefs.GetInt("HighStar_Level_" + 5) + PlayerPrefs.GetInt("HighStar_Level_" + 6)
+         + PlayerPrefs.GetInt("HighStar_Level_" + 7) + PlayerPrefs.GetInt("HighStar_Level_" + 8);
         startText.text = stars.ToString();
     }
 
