@@ -7,74 +7,77 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+    // Singleton instance
     public static UIManager instance;
 
+    // UI panels for map selection, character selection, and level selection
     public GameObject mapSelectionPanel;
     public GameObject characterSelectionPanel;
     public GameObject[] levelSelectionPanels;
 
     [Header("Our STAR UI")]
-    public int stars;
-    public TextMeshProUGUI startText;
-    public MapSelection[] mapSelections;
+    public int stars;  // Number of stars the player has collected
+    public TextMeshProUGUI startText;  // Text element to display the star count  
+    public MapSelection[] mapSelections; // Array of MapSelection objects
+
+    // Arrays of Text elements for displaying quest stars, locked stars, and unlocked stars
     public TextMeshProUGUI[] questStarsTexts;
     public TextMeshProUGUI[] lockedStarsTexts;
     public TextMeshProUGUI[] unlockStarsTexts;
 
-    
-    //new edit
-    // public CharacterSelect characterSelectionPanel;
-  
-    
-
+    // Awake is called when the script instance is being loaded
     private void Awake()
     {
         if(instance == null)
         {
             instance = this; 
         }
-        //DontDestroyOnLoad(gameObject);
     }
 
-    private void Update()//TODO REmove this method because we don't want to call these methods each frame
+    private void Update()
     {
+        // Update the star UI elements
         UpdateStarUI();
         UpdateLockedStarUI();
         UpdateUnLockedStarUI();
     }
 
+    // Update the UI for locked stars
     private void UpdateLockedStarUI()
     {
         for(int i = 0; i < mapSelections.Length; i++)
         {
-            questStarsTexts[i].text = mapSelections[i].questNum.ToString();
+            questStarsTexts[i].text = mapSelections[i].questNum.ToString(); // Update the quest stars text
 
-            if (mapSelections[i].isUnlock == false)//If one of the Map is locked
+            if (mapSelections[i].isUnlock == false) // If the map is locked, update the locked stars text
             {
                 lockedStarsTexts[i].text = stars.ToString() + "/" + mapSelections[i].endLevel * 3;
             }
         }
     }
 
-    private void UpdateUnLockedStarUI()//TODO FIXED LATER this method
+    // Update the UI for unlocked stars
+    private void UpdateUnLockedStarUI()
     {
         for(int i = 0; i < mapSelections.Length; i++)
         {
+            // Update the unlocked stars text
             unlockStarsTexts[i].text = stars.ToString() + "/" + mapSelections[i].endLevel * 3;
 
+            // Specific updates based on map index
             switch(i)
             {
-                case 0://MARKER MAP 01
+                case 0:// MAP 01
                     unlockStarsTexts[i].text = (PlayerPrefs.GetInt("Lv" + 1) + PlayerPrefs.GetInt("Lv" + 2) + PlayerPrefs.GetInt("Lv" + 3)) + "/" + (mapSelections[i].endLevel - mapSelections[i].startLevel + 1) * 3;
                     break;
-                case 1://MARKER MAP 02
+                case 1:// MAP 02
                     unlockStarsTexts[i].text = (PlayerPrefs.GetInt("Lv" + 4) + PlayerPrefs.GetInt("Lv" + 5) + PlayerPrefs.GetInt("Lv" + 6)) + "/" + (mapSelections[i].endLevel - mapSelections[i].startLevel + 1) * 3;
                     break;
             }
         }
     }
 
-    //MARKER Update OUR Stars UI on the top left connor
+    //Update the Stars UI on the top left connor
     private void UpdateStarUI()
     {
         stars = PlayerPrefs.GetInt("Lv" + 1) + PlayerPrefs.GetInt("Lv" + 2) + PlayerPrefs.GetInt("Lv" + 3) + PlayerPrefs.GetInt("Lv" + 4)
@@ -82,21 +85,24 @@ public class UIManager : MonoBehaviour
         startText.text = stars.ToString();
     }
 
-    public void PressMapButton(int _mapIndex)//MARKER This method will be triggered when we press the (FOUR) map button
+    public void PressMapButton(int _mapIndex)
     {
-        if(mapSelections[_mapIndex].isUnlock == true)//You can open this map
+        if(mapSelections[_mapIndex].isUnlock == true)
         {
+            // Show the level selection panel for the selected map and hide the map selection panel
             levelSelectionPanels[_mapIndex].gameObject.SetActive(true);
             mapSelectionPanel.gameObject.SetActive(false);
         }
         else
         {
+            // Log a message if the map is locked
             Debug.Log("You cannot open this map now. Please work hard to collect more stars");
         }
     }
 
     public void BackButton()
     {
+        // Show the map selection panel and hide all level selection panels
         mapSelectionPanel.gameObject.SetActive(true);
         for(int i = 0; i < mapSelections.Length; i++)
         {
@@ -104,6 +110,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    // Hide all UI panels
     public void HideAllUIPanels()
     {
         mapSelectionPanel.gameObject.SetActive(false);
@@ -113,6 +120,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    // Load the main menu scene
     public void BackToMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
