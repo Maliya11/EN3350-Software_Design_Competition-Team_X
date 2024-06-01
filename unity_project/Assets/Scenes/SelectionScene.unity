@@ -2463,6 +2463,8 @@ MonoBehaviour:
   - {fileID: 4210288, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
   - {fileID: 1363696376, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
   - {fileID: 297654138, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
+  Score: {fileID: 711039826}
+  index: 7
 --- !u!114 &576960919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5434,6 +5436,8 @@ MonoBehaviour:
   - {fileID: 4210288, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
   - {fileID: 1363696376, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
   - {fileID: 297654138, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
+  Score: {fileID: 1322491271}
+  index: 8
 --- !u!114 &1276114841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6354,6 +6358,8 @@ MonoBehaviour:
   - {fileID: 4210288, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
   - {fileID: 1363696376, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
   - {fileID: 297654138, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
+  Score: {fileID: 559610047}
+  index: 5
 --- !u!114 &1424654081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7674,6 +7680,8 @@ MonoBehaviour:
   - {fileID: 4210288, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
   - {fileID: 1363696376, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
   - {fileID: 297654138, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
+  Score: {fileID: 2123972962}
+  index: 3
 --- !u!114 &1591771175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8621,6 +8629,8 @@ MonoBehaviour:
   - {fileID: 4210288, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
   - {fileID: 1363696376, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
   - {fileID: 297654138, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
+  Score: {fileID: 1450814717}
+  index: 4
 --- !u!114 &1854816316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9169,6 +9179,8 @@ MonoBehaviour:
   - {fileID: 4210288, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
   - {fileID: 1363696376, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
   - {fileID: 297654138, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
+  Score: {fileID: 1120334130}
+  index: 6
 --- !u!114 &2093895507
 MonoBehaviour:
   m_ObjectHideFlags: 0

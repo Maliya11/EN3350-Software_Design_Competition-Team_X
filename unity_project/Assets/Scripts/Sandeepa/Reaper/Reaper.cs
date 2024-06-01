@@ -100,6 +100,7 @@ public class Reaper : MonoBehaviour
         if (playerManager != null)
         {
             playerManager.AddPoints(10);
+            playerManager.enemyKills++;
         }
         else
         {

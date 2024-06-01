@@ -90,11 +90,11 @@ public class FinishPoint : Singleton<FinishPoint>
         Debug.Log("Points: " + playerManager.numberOfPoints);
 
         playerManager.AddStars(1);
-        if(playerManager.enemyKills == 10)
+        if(playerManager.enemyKills == playerManager.numberOfEnemiesOfTheScene)
         {   
             playerManager.AddStars(2);
         }
-        else if(playerManager.enemyKills >= 5)
+        else if(playerManager.enemyKills < playerManager.numberOfEnemiesOfTheScene && playerManager.enemyKills > playerManager.numberOfEnemiesOfTheScene/2)
         {
             playerManager.AddStars(1);
         }
