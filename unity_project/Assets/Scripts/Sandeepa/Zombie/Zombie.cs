@@ -76,6 +76,7 @@ public class Zombie : MonoBehaviour
     public void ZombieTakeDamage(int damage)
     {
         ZombieHP -= damage;
+        AudioEnemy.instance.Play("Hurt");
         if (ZombieHP <= 0)
         {
             Die();
