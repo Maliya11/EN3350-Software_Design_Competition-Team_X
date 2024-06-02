@@ -47,6 +47,7 @@ public class LevelSelection : MonoBehaviour
         if(isUnlocked)
         {
             lockImage.gameObject.SetActive(false); // Hide the lock image if the level is unlocked
+            Score.gameObject.SetActive(true); //Showing the Score of the game level
 
             // Show the star images
             for(int i = 0; i < starsImages.Length; i++)
