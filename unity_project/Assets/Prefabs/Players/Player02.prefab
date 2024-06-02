@@ -168,7 +168,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 49ff78017a41ca34b80d7bbdaeb41482, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -314,11 +314,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1971907860680887660}
-  meleeDamage: 25
-  meleeAttackRange: 1
   enemyLayer:
     serializedVersion: 2
     m_Bits: 256
+  meleeDamage: 25
+  meleeAttackRange: 1
 --- !u!114 &349736355703247063
 MonoBehaviour:
   m_ObjectHideFlags: 0
