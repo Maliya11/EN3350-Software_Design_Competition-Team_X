@@ -6359,7 +6359,7 @@ MonoBehaviour:
   starsImages:
   - {fileID: 224191532}
   - {fileID: 1217672722}
-  - {fileID: 224191532}
+  - {fileID: 2090844627}
   starsSprites:
   - {fileID: 4210288, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
   - {fileID: 1363696376, guid: 0246a4074169fd045b1bcf71bade946e, type: 3}
