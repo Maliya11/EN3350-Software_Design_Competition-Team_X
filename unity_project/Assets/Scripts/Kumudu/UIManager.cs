@@ -12,7 +12,6 @@ public class UIManager : MonoBehaviour
 
     // UI panels for map selection, character selection, and level selection
     public GameObject mapSelectionPanel;
-    public GameObject characterSelectionPanel;
     public GameObject[] levelSelectionPanels;
 
     [Header("Our STAR UI")]
