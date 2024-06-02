@@ -21,7 +21,7 @@ public class AudioManager : MonoBehaviour
         {
             // If not, set the instance to this instance
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
+            DontDestroyOnLoad(gameObject);
 
             // Get the AudioSource component
             audioSource = GetComponent<AudioSource>();
@@ -35,7 +35,7 @@ public class AudioManager : MonoBehaviour
         else
         {
             // If an instance already exists, destroy this instance
-            Destroy(this.gameObject);
+            Destroy(gameObject);
             return;
         }
     }
