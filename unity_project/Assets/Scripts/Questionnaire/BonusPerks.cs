@@ -5,7 +5,7 @@ using TMPro;
 
 public class BonusPerks : Singleton<BonusPerks>
 {
-    // Get bonus perks for the player
+   /*  // Get bonus perks for the player
     private int revivalPotions;
 
     // UI Elements
@@ -20,5 +20,5 @@ public class BonusPerks : Singleton<BonusPerks>
         // Display the bonus perks in the UI
         bonusPerksPanelText.text = "Revival Potions: " + revivalPotions;
         bonusPerksPanelText.fontStyle = FontStyles.Bold;
-    }
+    } */
 }
