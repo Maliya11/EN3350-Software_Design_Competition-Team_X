@@ -51,7 +51,7 @@ public class EnergyDataFetch : MonoBehaviour
         if (response != null)
         {
             currentPowerConsumption = response["currentConsumption"].AsFloat;
-            Debug.Log("Power consumption from EnergyDataFetch: " + currentPowerConsumption);
+            // Debug.Log("Power consumption from EnergyDataFetch: " + currentPowerConsumption);
         }
 
         // Invoke the callback with the current power consumption
@@ -174,11 +174,11 @@ public class EnergyDataFetch : MonoBehaviour
         if (requestManager.isRequestSuccessful)
         {
             // Get the current power consumption from the response
-            Debug.Log("Power Consumption request successful");
+            // Debug.Log("Power Consumption request successful");
 
             // Assign the request response to response
             JSONNode response = requestManager.jsonResponse;
-            Debug.Log("Response from EnergyDataFetch: " + response.ToString());
+            // Debug.Log("Response from EnergyDataFetch: " + response.ToString());
 
             // Pass the response to the callback
             callback(response);

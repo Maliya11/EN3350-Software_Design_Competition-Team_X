@@ -73,7 +73,7 @@ public class TreasureManager : Singleton<TreasureManager>
             return;
         } 
 
-        Debug.Log("Treasure Manager not Paused");
+        // Debug.Log("Treasure Manager not Paused");
 
         // Update the UI text
         treasureText.text = $"{(openedTreasureIndices.Count)} / {currentVisibleTreasures}";
@@ -205,7 +205,7 @@ public class TreasureManager : Singleton<TreasureManager>
         if (currentVisibleTreasures < maxVisibleTreasures)
         {
             currentVisibleTreasures++;
-            Debug.Log("Increasing visible treasures to " + currentVisibleTreasures);
+            // Debug.Log("Increasing visible treasures to " + currentVisibleTreasures);
             SetRandomTreasuresVisible(currentVisibleTreasures - openedTreasureIndices.Count);
         }
         else
@@ -220,7 +220,7 @@ public class TreasureManager : Singleton<TreasureManager>
         if (currentVisibleTreasures > openedTreasureIndices.Count)
         {
             currentVisibleTreasures--;
-            Debug.Log("Decreasing visible treasures to " + currentVisibleTreasures);
+            // Debug.Log("Decreasing visible treasures to " + currentVisibleTreasures);
             SetRandomTreasuresVisible(currentVisibleTreasures - openedTreasureIndices.Count);
         }
         else

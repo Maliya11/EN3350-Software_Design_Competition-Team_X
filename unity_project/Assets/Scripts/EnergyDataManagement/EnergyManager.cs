@@ -62,14 +62,14 @@ public class EnergyManager : MonoBehaviour
     {
         while (true)
         {
-            Debug.Log("Energy Manager Paused.");
+            // Debug.Log("Energy Manager Paused.");
             // Wait until not paused
             yield return new WaitWhile(() => isPausedEM);
-            Debug.Log("Energy Manager Resumed.");
+            // Debug.Log("Energy Manager Resumed.");
 
-            Debug.Log("Routinely Fetching Current Power Consumption");
+            // Debug.Log("Routinely Fetching Current Power Consumption");
             Debug.Log("Last Fetch Time: " + lastFetchTime);
-            Debug.Log("Last Power Consumption: " + lastPowerConsumption);
+            // Debug.Log("Last Power Consumption: " + lastPowerConsumption);
             Debug.Log("Last Power Consumption Gap: " + lastPowerConsumptionGap);
 
             bool isFetchCompleted = false;
@@ -87,7 +87,7 @@ public class EnergyManager : MonoBehaviour
             yield return new WaitUntil(() => isFetchCompleted);
 
             Debug.Log("Current Fetch Time: " + currentFetchTime);
-            Debug.Log("Current Power Consumption: " + currentPowerConsumption);
+            // Debug.Log("Current Power Consumption: " + currentPowerConsumption);
             Debug.Log("Current Power Consumption Gap: " + currentPowerConsumptionGap);
 
             CompareCurrentPowerConsumption();
@@ -103,7 +103,7 @@ public class EnergyManager : MonoBehaviour
         // Compare the current power consumption with the last power consumption
         if (currentPowerConsumptionGap > lastPowerConsumptionGap)
         {
-            Debug.Log("Energy Consumption Increased");
+            // Debug.Log("Energy Consumption Increased");
 
             // Decrease the number of visible treasures
             treasureManager.DecreaseVisibleTreasures();
@@ -111,7 +111,7 @@ public class EnergyManager : MonoBehaviour
         }
         else if (currentPowerConsumptionGap < lastPowerConsumptionGap)
         {
-            Debug.Log("Energy Consumption Decreased");
+            // Debug.Log("Energy Consumption Decreased");
             // Increase the number of visible treasures
             treasureManager.IncreaseVisibleTreasures();
         }
@@ -238,12 +238,12 @@ public class EnergyManager : MonoBehaviour
         // Compare the two values
         if (inactivePeriodPowerConsumption > currentDayPowerConsumption)
         {
-            Debug.Log("Consumption decreased than the Inactive Period");
+            // Debug.Log("Consumption decreased than the Inactive Period");
             initialPowerChange = -1;
         }
         else
         {
-            Debug.Log("Consumption increased than the Inactive Period");
+            // Debug.Log("Consumption increased than the Inactive Period");
             initialPowerChange = 1;
         }
 
@@ -295,7 +295,7 @@ public class EnergyManager : MonoBehaviour
         // If the lastDateTime is not in the previous year
         else
         {
-            Debug.Log("Inactive Period Power Consumption is disregarded. Returning 0.0f");
+            // Debug.Log("Inactive Period Power Consumption is disregarded. Returning 0.0f");
             callback(inactivePeriodPowerConsumption);
         }
     }
@@ -332,11 +332,11 @@ public class EnergyManager : MonoBehaviour
             inactivePeriodTotalPowerConsumption += fetchValue[dayString].AsDouble;
             tempDateTime = tempDateTime.AddDays(1);
         }
-        Debug.Log("Inactive Period Power Consumption: " + inactivePeriodTotalPowerConsumption);
+        // Debug.Log("Inactive Period Power Consumption: " + inactivePeriodTotalPowerConsumption);
 
         // Calculate per day inactive period power consumption
         double daysPast = (currentDateTime.Date - lastDateTime.Date).TotalDays;
-        Debug.Log("Days Past: " + daysPast);
+        // Debug.Log("Days Past: " + daysPast);
         inactivePeriodPowerConsumption = inactivePeriodTotalPowerConsumption / daysPast;
 
         // Invoke the callback with the calculated value
@@ -450,11 +450,11 @@ public class EnergyManager : MonoBehaviour
             inactivePeriodTotalPowerConsumption += currentMonthValue[dayString].AsDouble;
             tempDateTime = tempDateTime.AddDays(1);
         }
-        Debug.Log("Inactive Period Power Consumption Upto Current Date: " + inactivePeriodTotalPowerConsumption);
+        // Debug.Log("Inactive Period Power Consumption Upto Current Date: " + inactivePeriodTotalPowerConsumption);
 
         // Calculate per day inactive period power consumption
         double daysPast = (currentDateTime.Date - lastDateTime.Date).TotalDays;
-        Debug.Log("Days Past: " + daysPast);
+        // Debug.Log("Days Past: " + daysPast);
         inactivePeriodPowerConsumption = inactivePeriodTotalPowerConsumption / daysPast;
 
         // Invoke the callback with the calculated value
@@ -591,11 +591,11 @@ public class EnergyManager : MonoBehaviour
             inactivePeriodTotalPowerConsumption += currentMonthValue[dayString].AsDouble;
             tempDateTime = tempDateTime.AddDays(1);
         }
-        Debug.Log("Inactive Period Power Consumption Upto Current Date: " + inactivePeriodTotalPowerConsumption);
+        // Debug.Log("Inactive Period Power Consumption Upto Current Date: " + inactivePeriodTotalPowerConsumption);
 
         // Calculate per day inactive period power consumption
         double daysPast = (currentDateTime.Date - lastDateTime.Date).TotalDays;
-        Debug.Log("Days Past: " + daysPast);
+        // Debug.Log("Days Past: " + daysPast);
         inactivePeriodPowerConsumption = inactivePeriodTotalPowerConsumption / daysPast;
 
         // Invoke the callback with the calculated value

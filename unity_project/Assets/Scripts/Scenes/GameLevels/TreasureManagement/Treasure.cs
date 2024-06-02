@@ -156,12 +156,12 @@ public class Treasure : MonoBehaviour
         // Add listeners for the buttons
         yesButtonLeft.onClick.AddListener(() => 
         {
-            Debug.Log("Yes button pressed");
+            // Debug.Log("Yes button pressed");
             ButtonClick(yesButtonLeftText.text);
         });
         noButtonRight.onClick.AddListener(() => 
         {
-            Debug.Log("No button pressed");
+            // Debug.Log("No button pressed");
             ButtonClick(noButtonRightText.text);
         });
     }
@@ -170,7 +170,7 @@ public class Treasure : MonoBehaviour
     public void ButtonClick(string buttonPressed)
     {
         // Inside ButtonClick
-        Debug.Log($"ButtonClick called with argument: {buttonPressed}, correct answer is: {answer}");
+        // Debug.Log($"ButtonClick called with argument: {buttonPressed}, correct answer is: {answer}");
 
         // Remove the listeners
         yesButtonLeft.onClick.RemoveAllListeners();
