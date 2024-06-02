@@ -10,7 +10,7 @@ public class AudioSFX : MonoBehaviour
     [SerializeField] private  AudioSource audioSource1;
     [SerializeField] private  AudioSource audioSource2;
     [SerializeField] private Slider volumeSlider;
-    // Update is called once per frame
+    
     public void SetVolume()
     {
         float volume = volumeSlider.value;
@@ -19,9 +19,5 @@ public class AudioSFX : MonoBehaviour
         // audioSource2.volume = volume;
         // audioSource3.volume = volume;
         // audioSource4.volume = volume;
-        
-        
-        
-        
     }
 }

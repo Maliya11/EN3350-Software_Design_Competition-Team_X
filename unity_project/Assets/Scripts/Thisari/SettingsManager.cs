@@ -74,7 +74,6 @@ public class SettingsManager : Singleton<SettingsManager>
         TreasureManager.isPausedTM = false;
         EnergyManager.isPausedEM = false;
 
-
         // Save the settings
         Debug.Log("Settings saved!");
 
