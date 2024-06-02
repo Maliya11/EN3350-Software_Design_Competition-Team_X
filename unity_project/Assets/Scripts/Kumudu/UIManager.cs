@@ -7,6 +7,9 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+    // Reference to the LoadingScene
+    private LoadingScene loadingScene;
+    
     // Singleton instance
     public static UIManager instance;
 
@@ -122,8 +125,7 @@ public class UIManager : MonoBehaviour
     // Load the main menu scene
     public void BackToMainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        loadingScene = FindObjectOfType<LoadingScene>();
+        loadingScene.LoadScene("MainMenu");
     }
-
-    
 }
