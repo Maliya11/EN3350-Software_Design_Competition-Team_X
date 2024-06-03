@@ -639,7 +639,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource0: {fileID: 1282224436}
-  audioSource1: {fileID: 1194947888}
   volumeSlider: {fileID: 1720779396}
 --- !u!1 &55335641
 GameObject:
@@ -26387,7 +26386,7 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  volumeSlider: {fileID: 1720779396}
+  volumeSlider: {fileID: 1723649436}
 --- !u!1 &1327818408
 GameObject:
   m_ObjectHideFlags: 0
@@ -28699,7 +28698,7 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  volumeSlider: {fileID: 1720779396}
+  volumeSlider: {fileID: 1723649436}
 --- !u!1 &1584016449
 GameObject:
   m_ObjectHideFlags: 0
@@ -30041,30 +30040,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1573489930}
-        m_TargetAssemblyTypeName: AudioManagerPlayer, Assembly-CSharp
-        m_MethodName: SetVolumeAll
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1312272545}
-        m_TargetAssemblyTypeName: AudioEnemy, Assembly-CSharp
-        m_MethodName: SetVolumeAll
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &1720826531
 GameObject:
   m_ObjectHideFlags: 0
@@ -30242,6 +30217,30 @@ MonoBehaviour:
       - m_Target: {fileID: 1819470327}
         m_TargetAssemblyTypeName: AudioSFX, Assembly-CSharp
         m_MethodName: SetVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1573489930}
+        m_TargetAssemblyTypeName: AudioManagerPlayer, Assembly-CSharp
+        m_MethodName: SetVolumeAll
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1312272545}
+        m_TargetAssemblyTypeName: AudioEnemy, Assembly-CSharp
+        m_MethodName: SetVolumeAll
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -30893,6 +30892,7 @@ MonoBehaviour:
   audioSource0: {fileID: 266374193}
   audioSource1: {fileID: 403741943}
   audioSource2: {fileID: 1973302999}
+  audioSource3: {fileID: 1194947888}
   volumeSlider: {fileID: 1723649436}
 --- !u!1001 &1820553658
 PrefabInstance:
