@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class AudioManagerPlayer : MonoBehaviour {
 
-	public static AudioManagerPlayer instance;
+	public static AudioManagerPlayer instance;     // instance of the AudioManagerPlayer
 
-	public Sound[] sounds;
-	[SerializeField] private Slider volumeSlider;
+	public Sound[] sounds;             //array of sounds
+	[SerializeField] private Slider volumeSlider;    // Volume slider
 	void Awake ()
 	{
 		if (instance != null)
@@ -42,7 +42,7 @@ public class AudioManagerPlayer : MonoBehaviour {
 		s.source.Stop();
 	}
 
-	public void SetVolumeAll()
+	public void SetVolumeAll()           // Set volume for all sounds
     {
 		float volume = volumeSlider.value;
         foreach (Sound s in sounds)

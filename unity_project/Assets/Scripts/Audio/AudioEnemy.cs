@@ -7,9 +7,9 @@ using UnityEngine.UI;
 
 public class AudioEnemy : MonoBehaviour
 {
-    public static AudioEnemy instance;
-    public Sound[] sounds;
-	[SerializeField] private Slider volumeSlider;
+    public static AudioEnemy instance;    // Singleton         
+    public Sound[] sounds;            // Array of sounds
+	[SerializeField] private Slider volumeSlider;           // Volume slider
     void Awake ()
 	{
 		if (instance != null)
@@ -44,7 +44,7 @@ public class AudioEnemy : MonoBehaviour
 	}
 
 	
-	public void SetVolumeAll()
+	public void SetVolumeAll()              // Set volume for all sounds
     {
 		float volume = volumeSlider.value;
         foreach (Sound s in sounds)

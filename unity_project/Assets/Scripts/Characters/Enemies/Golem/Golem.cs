@@ -3,10 +3,11 @@ using UnityEngine;
 
 public class Golem : MonoBehaviour
 {
-    Transform target;
-    public Transform borderCheck;
-    public int GolemHP = 100;
-    public Animator animator;
+    // Variables
+    Transform target;    // Target to follow
+    public Transform borderCheck;    // Border check to stop the golem from falling off the platform
+    public int GolemHP = 100;   // Golem's health
+    public Animator animator;    // Animator component
     PlayerManager playerManager;
 
     void Start()
@@ -32,6 +33,7 @@ public class Golem : MonoBehaviour
         }
     }
 
+// Find the player
     void FindTarget()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -45,6 +47,7 @@ public class Golem : MonoBehaviour
         }
     }
 
+// Ignore collisions between the golem and the player
     void IgnoreCollisions()
     {
         Collider2D golemCollider = GetComponent<Collider2D>();
@@ -62,6 +65,7 @@ public class Golem : MonoBehaviour
         }
     }
 
+// Update is called once per frame
     void Update()
     {
         if (target != null)
@@ -71,6 +75,7 @@ public class Golem : MonoBehaviour
         }
     }
 
+  // Damage the golem
     public void GolemTakeDamage(int damage)
     {
         GolemHP -= damage;

@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Goblin : MonoBehaviour
 {
-    Transform target;
-    public Transform borderCheck;
-    public int GoblinHP = 100;
-    public Animator animator;
-    PlayerManager playerManager;
-    // Start is called before the first frame update
+    // Variables
+    Transform target;    // Target to follow
+    public Transform borderCheck;    // Border check to stop the goblin from falling off the platform
+    public int GoblinHP = 100;    // Goblin's health
+    public Animator animator;    // Animator component
+    PlayerManager playerManager;    // PlayerManager instance
+
     void Start()
     {
         FindTarget(); // Call to find the target
@@ -33,8 +34,10 @@ public class Goblin : MonoBehaviour
         }
     }
 
+// Find the player
     void FindTarget()
     {
+        
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
@@ -46,8 +49,10 @@ public class Goblin : MonoBehaviour
         }
     }
 
+// Ignore collisions between the goblin and the player
     void IgnoreCollisions()
     {
+        
         Collider2D goblinCollider = GetComponent<Collider2D>();
 
         if(target != null)
@@ -75,11 +80,12 @@ public class Goblin : MonoBehaviour
 
     public void GoblinTakeDamage(int damage)
     {
+
         GoblinHP -= damage;
         AudioEnemy.instance.Play("Hurt");
         if (GoblinHP <= 0)
         {
-            Die();
+            Die();       // Call the Die function if the goblin's health is less than or equal to 0
         }
         else
         {
@@ -90,6 +96,7 @@ public class Goblin : MonoBehaviour
         }
     }
 
+// Die function to handle the goblin's death
     void Die()
     {
         if(animator != null)
@@ -125,7 +132,7 @@ public class Goblin : MonoBehaviour
         this.enabled = false;
     }
 
-    public void PlayerDamage()
+    public void PlayerDamage()    // Function to damage the player
     {
         if (target != null)
         {

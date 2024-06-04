@@ -121,7 +121,6 @@ public class Zombie : MonoBehaviour
     private IEnumerator DisableGameObject()
     {
         yield return new WaitForSeconds(2.0f); // Adjust the wait time if needed
-        //gameObject.SetActive(false);
         this.enabled = false;
     }
 

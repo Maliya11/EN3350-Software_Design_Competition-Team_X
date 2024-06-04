@@ -7,27 +7,16 @@ using System;
 
 public class VolumeSettings : MonoBehaviour
 {
-    [SerializeField] private  AudioSource audioSource0;
-    // [SerializeField] private  AudioSource audioSource1;
-    // [SerializeField] private  AudioSource audioSource2;
-    // [SerializeField] private  AudioSource audioSource3;
-    // [SerializeField] private  AudioSource audioSource4;
-    [SerializeField] private Slider volumeSlider;
+    [SerializeField] private  AudioSource audioSource0;    // Audio source for the sound
+
+    [SerializeField] private Slider volumeSlider;      // Volume slider
 
     public void SetVolume()
     {
-        float volume = volumeSlider.value;
-        audioSource0.volume = volume;
-        // audioSource1.volume = volume;
-        // audioSource2.volume = volume;
-        // audioSource3.volume = volume;
-        // audioSource4.volume = volume;
-        
-        
-        
-        
+        float volume = volumeSlider.value;      // Get the volume from the slider
+        audioSource0.volume = volume;         // Set the volume for the audio source
     }
 
-    // Start is called before the first frame update
+
 
 }
