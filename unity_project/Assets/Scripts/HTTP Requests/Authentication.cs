@@ -7,6 +7,10 @@ using SimpleJSON;
 
 public class AuthenticationManager : RequestBase
 {
+    /*
+    This class is used to handle the authentication process with the server.
+    */
+    
     // API key for authentication
     private string apiKey = "NjVjNjA0MGY0Njc3MGQ1YzY2MTcyMmNiOjY1YzYwNDBmNDY3NzBkNWM2NjE3MjJjMQ";
 

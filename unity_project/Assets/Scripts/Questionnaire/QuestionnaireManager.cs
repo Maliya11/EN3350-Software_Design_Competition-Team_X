@@ -6,6 +6,15 @@ using TMPro;
 
 public class QuestionnaireManager : Singleton<QuestionnaireManager>
 {
+    /*
+    This class is used to manage the questionnaire information including
+    fetching the questionnaire status,
+    prompting the user to complete the questionnaire,
+    directing the user to the questionnaire,
+    getting the marks obtained by the user in the questionnaire,
+    assigning bonus perks to the user based on the marks obtained.
+    */
+    
     // Reference to the RequestManager
     private RequestManager requestManager; 
     private bool includeToken = false; // jwt token is not needed for requesting from the questionnaire database

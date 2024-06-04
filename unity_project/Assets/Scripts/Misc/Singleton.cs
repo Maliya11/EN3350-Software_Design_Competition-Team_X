@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
+    /*
+    This class is used to create a static instance of any class that inherits from MonoBehaviour.
+    */
+    
     // Create a static instance of any class that inherits from MonoBehaviour
     public static T instance { get; private set; }
 

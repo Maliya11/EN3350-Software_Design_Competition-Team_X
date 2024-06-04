@@ -7,6 +7,10 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+    /*
+    This script is used to manage the UI elements in the Selection Scene.
+    */
+    
     // Reference to the LoadingScene
     private LoadingScene loadingScene;
     

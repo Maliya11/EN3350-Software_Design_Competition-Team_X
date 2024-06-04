@@ -5,6 +5,10 @@ using TMPro;
 
 public class BonusPerks : Singleton<BonusPerks>
 {
+    /*
+    This script is used to display the bonus perks for the player.
+    */
+
     // Get bonus perks for the player
     private int revivalPotions;
 

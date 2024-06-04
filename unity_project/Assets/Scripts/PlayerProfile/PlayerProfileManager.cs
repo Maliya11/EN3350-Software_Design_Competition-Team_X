@@ -6,6 +6,13 @@ using TMPro;
 
 public class PlayerProfileManager : Singleton<PlayerProfileManager>
 {
+    /*
+    This class is used to manage the player profile information including 
+    fetching the player profile information,
+    checking for missing fields,
+    updating the player profile information.
+    */
+
     // Reference to the RequestManager
     private RequestManager requestManager; 
     private bool includeToken = true; // jwt token is needed for requesting from the player database

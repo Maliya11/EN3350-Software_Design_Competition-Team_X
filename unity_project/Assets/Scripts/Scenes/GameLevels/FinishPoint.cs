@@ -5,6 +5,12 @@ using TMPro;
 
 public class FinishPoint : Singleton<FinishPoint>
 {
+    /*
+    This script is used to detect when the player reaches the finish point,
+    assign points and potions to the player,
+    and display the game over panel.
+    */
+
     // Reference to the LoadingScene
     private LoadingScene loadingScene;
 

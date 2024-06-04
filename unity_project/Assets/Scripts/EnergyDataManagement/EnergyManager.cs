@@ -5,6 +5,10 @@ using SimpleJSON;
 
 public class EnergyManager : MonoBehaviour
 {
+    /*
+    This script is used to manage the energy consumption of the player and update the treasure count according to the power consumption
+    */
+    
     // Reference to the EnergyDataFetch
     private EnergyDataFetch energyDataFetch;
     // Reference to the TreasureManager

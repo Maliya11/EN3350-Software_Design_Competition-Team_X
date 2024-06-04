@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class CharacterSelect : MonoBehaviour
 {
+    /*
+    This script is used to change the character skin of the player
+    */
+    
     public GameObject[] skins;  // Array to hold different character skins
     public int selectedCharacter;  // Index of the currently selected character
 
     // Called when the script instance is being loaded
-    private void Awake(){
+    private void Awake()
+    {
         LoadSelectedCharacter();  // Load the previously selected character
     }
 
@@ -23,7 +28,8 @@ public class CharacterSelect : MonoBehaviour
     }
 
     // Change to the next character in the array
-    public void ChangeNext(){
+    public void ChangeNext()
+    {
         skins[selectedCharacter].SetActive(false);
         selectedCharacter++;
         if(selectedCharacter == skins.Length){
@@ -36,7 +42,8 @@ public class CharacterSelect : MonoBehaviour
     }
 
     // Change to the previous character in the array
-    public void ChangePrevious(){
+    public void ChangePrevious()
+    {
         skins[selectedCharacter].SetActive(false);
         selectedCharacter--;
         if(selectedCharacter == - 1){

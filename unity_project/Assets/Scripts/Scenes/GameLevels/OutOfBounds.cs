@@ -5,6 +5,12 @@ using TMPro;
 
 public class OutOfBounds : Singleton<OutOfBounds>
 {
+    /*
+    This script is used to detect when the player goes out of bounds,
+    reduce the player health,
+    and display the game over panel.
+    */
+
     // Reference to the LoadingScene
     private LoadingScene loadingScene;
 

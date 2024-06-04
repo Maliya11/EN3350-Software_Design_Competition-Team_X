@@ -7,6 +7,10 @@ using TMPro;
 
 public class QuitGameLevelManager : Singleton<QuitGameLevelManager>
 {
+    /*
+    This script is used to manage prompt to quit the game.
+    */
+
     // Reference to the LoadingScene
     private LoadingScene loadingScene;
 

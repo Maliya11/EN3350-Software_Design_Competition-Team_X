@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class HoverColor : MonoBehaviour
 {
+    /*
+    This script is used to change the color of the button when the mouse hovers over it.
+    */
+    
     // UI Elements
     public Button button;
     public Color wantedColor;

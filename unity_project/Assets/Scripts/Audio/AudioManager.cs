@@ -67,6 +67,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    // Method to set the audioclip to the source and play it
     private void PlayAudio()
     {
         audioSource.clip = audioClip;

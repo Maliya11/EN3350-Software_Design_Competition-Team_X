@@ -7,12 +7,16 @@ using TMPro;
 
 public class LevelSelection : MonoBehaviour
 {
+    /*
+    This script is used to manage the level selection UI.
+    */
+
     // Reference to the LoadingScene
     private LoadingScene loadingScene;
     
     public bool isUnlocked = false;
-    public Image lockImage;//LOCK IMAGE
-    public Image[] starsImages;//THREE STAR IMAGE
+    public Image lockImage; // Lock image for the level
+    public Image[] starsImages; // Images for the stars
     public Sprite[] starsSprites; // Sprites for the stars
     public TextMeshProUGUI Score; // Text element to display the score
     public int index; // Index of the current level
@@ -34,10 +38,12 @@ public class LevelSelection : MonoBehaviour
 
     private void UnlockLevel()
     {
-        int previousLvIndex = index - 1;// PlayerPrefs.GetInt("Lv" + gameObject.name) - 1;
-        if(PlayerPrefs.GetInt("HighStar_Level_" + previousLvIndex) > 0)//At least get one stars in previous level
+        int previousLvIndex = index - 1; // PlayerPrefs.GetInt("Lv" + gameObject.name) - 1;
+
+        // At least get one stars in previous level to unlock the next level
+        if(PlayerPrefs.GetInt("HighStar_Level_" + previousLvIndex) > 0)
         {
-            isUnlocked = true;//can unlock the next level
+            isUnlocked = true; // Can unlock the next level
         }
     }
 
@@ -47,7 +53,7 @@ public class LevelSelection : MonoBehaviour
         if(isUnlocked)
         {
             lockImage.gameObject.SetActive(false); // Hide the lock image if the level is unlocked
-            Score.gameObject.SetActive(true); //Showing the Score of the game level
+            Score.gameObject.SetActive(true); // Showing the Score of the game level
 
             // Show the star images
             for(int i = 0; i < starsImages.Length; i++)

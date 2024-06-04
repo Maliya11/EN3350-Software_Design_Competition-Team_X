@@ -4,10 +4,15 @@ using TMPro;
 
 public class ErrorNotifications : Singleton<ErrorNotifications>
 {
+    /*
+    This class is used to display error messages to the user.
+    */
+
     // UI Elements
     public GameObject errorPanel;
     public TextMeshProUGUI errorText;
 
+    // Error message to be displayed
     private string errorMessage;
 
     // Method to display the error message
