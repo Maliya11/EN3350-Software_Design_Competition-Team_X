@@ -10,7 +10,8 @@ public class AudioEnemy : MonoBehaviour
     public static AudioEnemy instance;
     public Sound[] sounds;
 	[SerializeField] private Slider volumeSlider;
-    void Awake ()
+    
+	private void Awake ()
 	{
 		if (instance != null)
 		{
@@ -37,13 +38,13 @@ public class AudioEnemy : MonoBehaviour
 		Sound s = Array.Find(sounds, item => item.name == sound);
 		s.source.Play();
 	}
+
 	public void Stop(string sound)
 	{
 		Sound s = Array.Find(sounds, item => item.name == sound);
 		s.source.Stop();
 	}
 
-	
 	public void SetVolumeAll()
     {
 		float volume = volumeSlider.value;
