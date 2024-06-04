@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class MapSelection : MonoBehaviour
 {
-    public bool isUnlock = false; //indicate if the map is unlocked
+    /*
+    This script is used to manage the map selection in the game,
+    and to unlock the maps based on the number of stars collected.
+    */
+
+    public bool isUnlock = false; // Indicate if the map is unlocked
 
     // GameObjects for lock and unlock states
     public GameObject lockGo;
     public GameObject unlockGo;
 
-    public int mapIndex;//the index of this map
+    public int mapIndex;// The index of this map
     public int questNum;// Number of stars required to unlock this map
 
     // Start and end levels for this map

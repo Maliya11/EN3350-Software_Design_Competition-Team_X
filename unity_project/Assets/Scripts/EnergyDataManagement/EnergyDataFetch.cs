@@ -4,6 +4,10 @@ using SimpleJSON;
 
 public class EnergyDataFetch : MonoBehaviour 
 {
+    /*
+    This script is used to fetch the energy data from the server
+    */
+    
     // Reference to the RequestManager
     private RequestManager requestManager;
     private bool includeToken = true;

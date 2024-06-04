@@ -6,6 +6,10 @@ using System.Collections.Generic;
 
 public abstract class RequestBase : ScriptableObject
 {
+    /*
+    This class is used as a base class for all HTTP request classes.
+    */
+    
     // Common properties
     public bool isRequestCompleted { get; protected set; }
     public bool isRequestSuccessful { get; protected set; }

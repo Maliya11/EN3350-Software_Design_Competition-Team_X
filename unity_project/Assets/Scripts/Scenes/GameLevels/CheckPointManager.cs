@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class CheckPointManager : MonoBehaviour
 {
+    /*
+    This class is used to manage the Checkpoints in the game.
+    */
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))

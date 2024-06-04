@@ -6,6 +6,11 @@ using System.Collections;
 
 public class LoadingScene : Singleton<LoadingScene>
 {
+    /*
+    This script is used to load scenes asynchronously,
+    and display the loading screen with a progress bar.
+    */
+
     // Reference to the AuthenticationManager instance
     private AuthenticationManager authenticationManager;
     // Reference to the ErrorNotifications

@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
+    /*
+    This script is used to manage the features of the Main Menu.
+    */
+
     // Reference to the PlayerProfileManager
     private PlayerProfileManager playerProfile;
     // Reference to the QuestionnaireManager

@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class MouseCursor : Singleton<MouseCursor>
 {
+    /*
+    This script is used to display a custom mouse cursor in the game.
+    */
+    
     void Start()
     {
         // Hide the default cursor
