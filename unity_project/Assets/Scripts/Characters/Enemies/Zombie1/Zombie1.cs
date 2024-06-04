@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Zombie1 : MonoBehaviour
 {
+    /*
+    * The Zombie1 class is responsible for managing the Zombie1 enemy.
+    * It handles the Zombie1's health, damage, and death.
+    */
     
     Transform target;   // Target to follow
     public Transform borderCheck;  // Border check to stop the goblin from falling off the platform
@@ -11,7 +15,7 @@ public class Zombie1 : MonoBehaviour
     public Animator animator;   // Animator component
     PlayerManager playerManager;  // PlayerManager instance
 
-    void Start()
+    private void Start()
     {
         FindTarget(); // Call to find the target
         IgnoreCollisions(); // Call to ignore collisions with the player
@@ -26,6 +30,7 @@ public class Zombie1 : MonoBehaviour
         // Ensure the animator is assigned
         if (animator == null)
         {
+            // Get the animator component
             animator = GetComponent<Animator>();
             if (animator == null)
             {
@@ -34,12 +39,14 @@ public class Zombie1 : MonoBehaviour
         }
     }
 
-// Find the player
-    void FindTarget()
+    // Method to find the target
+    private void FindTarget()
     {
+        // Find the player object
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
+            // Get the player's transform
             target = player.transform;
         }
         else
@@ -48,16 +55,17 @@ public class Zombie1 : MonoBehaviour
         }
     }
 
-
-// Ignore collisions between the zombie1 and the player
-    void IgnoreCollisions()
+    // Method to ignore collisions with the player
+    private void IgnoreCollisions()
     {
+        // Get the colliders
         Collider2D zombie1Collider = GetComponent<Collider2D>();
         if(target != null)
         {
             Collider2D playerCollider = target.GetComponent<Collider2D>();
             if (zombie1Collider != null && playerCollider != null)
             {
+                // Ignore collision between the player and the Zombie1
                 Physics2D.IgnoreCollision(playerCollider, zombie1Collider);
             }
             else
@@ -67,8 +75,7 @@ public class Zombie1 : MonoBehaviour
         }
     }
 
-// Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (target != null)
         {
@@ -77,10 +84,12 @@ public class Zombie1 : MonoBehaviour
         }
     }
 
-// Damage the zombie1
+    // Method to take damage
     public void Zombie1TakeDamage(int damage)
     {
+        // Reduce the Zombie1's health
         Zombie1HP -= damage;
+        // Play the hurt sound
         AudioEnemy.instance.Play("Hurt");
         if (Zombie1HP <= 0)
         {
@@ -95,15 +104,17 @@ public class Zombie1 : MonoBehaviour
         }
     }
 
-    void Die()
+    private void Die()
     {
         if (animator != null)
         {
+            // Play the death animation
             animator.SetTrigger("deth4");
             StartCoroutine(DisableGameObject());
         }
         if (playerManager != null)
         {
+            // Add points to the player's score
             playerManager.AddPoints(10);
             playerManager.enemyKills++;
         }
@@ -112,6 +123,7 @@ public class Zombie1 : MonoBehaviour
             Debug.LogWarning("PlayerManager not found. Points not added.");
         }
 
+        // Disable the collider
         Collider2D collider = GetComponent<Collider2D>();
         if (collider != null)
         {
@@ -121,24 +133,27 @@ public class Zombie1 : MonoBehaviour
         {
             Debug.LogWarning("Collider2D not found on the Zombie1.");
         }
-
-         
     }
 
+    // Method to disable the game object
     private IEnumerator DisableGameObject()
     {
+        // Wait for 2 seconds
         yield return new WaitForSeconds(2.0f); // Adjust the wait time if needed
         //gameObject.SetActive(false);
         this.enabled = false;
     }
 
+    // Method to damage the player
     public void PlayerDamage()
     {
         if (target != null)
         {
+            // Get the PlayerCollision component
             PlayerCollision playerCollision = target.GetComponent<PlayerCollision>();
             if (playerCollision != null && HealthManager.health > 0)
             {
+                // Play the punch sound
                 AudioEnemy.instance.Play("Punch");
                 playerCollision.PlayerTakeDamage();
             }
