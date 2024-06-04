@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class Reaper : MonoBehaviour
 {
-    Transform target;
-    public Transform borderCheck;
-    public int GolemHP = 100;
-    public Animator animator;
-    PlayerManager playerManager;
-    // Start is called before the first frame update
-    void Start()
+    /*
+    * The Reaper class is responsible for managing the Reaper enemy.
+    * It handles the Reaper's health, damage, and death.
+    */
+
+    Transform target; // Target to follow
+    public Transform borderCheck; // Border check to stop the Reaper from falling off the platform
+    public int GolemHP = 100; // Reaper's health
+    public Animator animator; // Animator component
+    PlayerManager playerManager; // PlayerManager instance
+
+    private void Start()
     {
         FindTarget(); // Call to find the target
         IgnoreCollisions(); // Call to ignore collisions with the player
@@ -25,6 +30,7 @@ public class Reaper : MonoBehaviour
         // Ensure the animator is assigned
         if (animator == null)
         {
+            // Get the animator component
             animator = GetComponent<Animator>();
             if (animator == null)
             {
@@ -34,11 +40,13 @@ public class Reaper : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FindTarget()
+    private void FindTarget()
     {
+        // Find the player object
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
+            // Get the player's transform
             target = player.transform;
         }
         else
@@ -47,11 +55,14 @@ public class Reaper : MonoBehaviour
         }
     }
 
-    void IgnoreCollisions()
+    // Method to ignore collisions with the player
+    private void IgnoreCollisions()
     {
+        // Ignore collisions between the Reaper and the player
         Collider2D ReaperCollider = GetComponent<Collider2D>();
         if(target != null)
         {
+            // Get the colliders
             Collider2D playerCollider = target.GetComponent<Collider2D>();
             if (ReaperCollider != null && playerCollider != null)
             {
@@ -64,7 +75,8 @@ public class Reaper : MonoBehaviour
         }
     }
 
-    void Update()
+
+    private void Update()
     {
         if (target != null)
         {
@@ -73,9 +85,12 @@ public class Reaper : MonoBehaviour
         }
     }
 
+    // Method to take damage
     public void ReaperTakeDamage(int damage)
     {
+        // Reduce the Reaper's health
         GolemHP -= damage;
+        // Play the hurt sound
         AudioEnemy.instance.Play("Hurt");
         if (GolemHP <= 0)
         {
@@ -90,15 +105,17 @@ public class Reaper : MonoBehaviour
         }
     }
 
-    void Die()
+    private void Die()
     {
         if (animator != null)
         {
+            // Play the death animation
             animator.SetTrigger("deth5");
             StartCoroutine(DisableGameObject());
         }
         if (playerManager != null)
         {
+            // Add points to the player's score
             playerManager.AddPoints(10);
             playerManager.enemyKills++;
         }
@@ -107,6 +124,7 @@ public class Reaper : MonoBehaviour
             Debug.LogWarning("PlayerManager not found. Points not added.");
         }
 
+        // Disable the collider
         Collider2D collider = GetComponent<Collider2D>();
         if (collider != null)
         {
@@ -118,20 +136,25 @@ public class Reaper : MonoBehaviour
         }
     }
 
+    // Coroutine to disable the game object
     private IEnumerator DisableGameObject()
     {
+        // Wait for 2 seconds
         yield return new WaitForSeconds(2.0f); // Adjust the wait time if needed
         //gameObject.SetActive(false);
         this.enabled = false;
     }
 
+    // Method to damage the player
     public void PlayerDamage()
     {
         if (target != null)
         {
+            // Get the PlayerCollision component
             PlayerCollision playerCollision = target.GetComponent<PlayerCollision>();
             if (playerCollision != null && HealthManager.health > 0)
             {
+                // Play the punch sound
                 AudioEnemy.instance.Play("Punch");
                 playerCollision.PlayerTakeDamage();
             }

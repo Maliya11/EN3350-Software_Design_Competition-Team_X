@@ -4,38 +4,47 @@ using UnityEngine;
 
 public class walk4 : StateMachineBehaviour
 {
-    Transform target;
-    public float speed = 3;
-    Transform borderCheck;
-    public Animator animator;
+  /*
+  This script is attached to the Zombie1 prefab, 
+  and it is used to make the Zombie1 walk towards the player.  
+  */
 
-    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+  Transform target; // The player's position
+  public float speed = 3; // The speed of the Zombie1 enemy
+  Transform borderCheck; // The position of the border check
+  public Animator animator; // The animator of the Zombie1 enemy
+
+  override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+  {
+    target = GameObject.FindGameObjectWithTag("Player").transform; // Find the player's position
+    borderCheck = animator.GetComponent<Zombie1>().borderCheck; // Find the border check position
+  }
+
+
+  override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+  {
+    // Move the Zombie1 enemy towards the player
+    Vector2 newPos = new Vector2(target.position.x, animator.transform.position.y);
+    animator.transform.position = Vector2.MoveTowards(animator.transform.position, newPos, speed*Time.deltaTime);
+    
+    // If the Zombie1 enemy is at the edge of the platform, stop chasing the player
+    if(Physics2D.Raycast(borderCheck.position, Vector2.down, 2) == false)
     {
-       target = GameObject.FindGameObjectWithTag("Player").transform;
-        borderCheck = animator.GetComponent<Zombie1>().borderCheck;
+      animator.SetBool("isChasing4", false);
     }
+    
+    // Check the distance between the Zombie1 enemy and the player
+    float distance = Vector2.Distance(target.position, animator.transform.position);
 
-
-    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    // If the distance is less than 3, attack the player
+    if(distance < 3)
     {
-       Vector2 newPos = new Vector2(target.position.x, animator.transform.position.y);
-        animator.transform.position = Vector2.MoveTowards(animator.transform.position, newPos, speed*Time.deltaTime);
-        if(Physics2D.Raycast(borderCheck.position, Vector2.down, 2) == false)
-          animator.SetBool("isChasing4", false);
-        
-        
-        float distance = Vector2.Distance(target.position, animator.transform.position);
-
-        if(distance < 3)
-            animator.SetBool("isAttack4", true);          
+      animator.SetBool("isAttack4", true);          
     }
+  }
 
-
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-       
-    }
-
-
-
+  override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+  {
+    // Do nothing   
+  }
 }
