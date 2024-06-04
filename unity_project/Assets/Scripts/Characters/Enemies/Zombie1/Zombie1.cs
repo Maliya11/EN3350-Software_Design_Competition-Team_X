@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Zombie1 : MonoBehaviour
 {
-    Transform target;
-    public Transform borderCheck;
-    public int Zombie1HP = 100;
-    public Animator animator;
-    PlayerManager playerManager;
+    
+    Transform target;   // Target to follow
+    public Transform borderCheck;  // Border check to stop the goblin from falling off the platform
+    public int Zombie1HP = 100;  // Zombie1's health
+    public Animator animator;   // Animator component
+    PlayerManager playerManager;  // PlayerManager instance
 
     void Start()
     {
@@ -33,6 +34,7 @@ public class Zombie1 : MonoBehaviour
         }
     }
 
+// Find the player
     void FindTarget()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -46,6 +48,8 @@ public class Zombie1 : MonoBehaviour
         }
     }
 
+
+// Ignore collisions between the zombie1 and the player
     void IgnoreCollisions()
     {
         Collider2D zombie1Collider = GetComponent<Collider2D>();
@@ -63,6 +67,7 @@ public class Zombie1 : MonoBehaviour
         }
     }
 
+// Update is called once per frame
     void Update()
     {
         if (target != null)
@@ -72,6 +77,7 @@ public class Zombie1 : MonoBehaviour
         }
     }
 
+// Damage the zombie1
     public void Zombie1TakeDamage(int damage)
     {
         Zombie1HP -= damage;

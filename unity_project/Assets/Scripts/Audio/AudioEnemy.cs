@@ -7,11 +7,10 @@ using UnityEngine.UI;
 
 public class AudioEnemy : MonoBehaviour
 {
-    public static AudioEnemy instance;
-    public Sound[] sounds;
-	[SerializeField] private Slider volumeSlider;
-    
-	private void Awake ()
+    public static AudioEnemy instance;    // Singleton         
+    public Sound[] sounds;            // Array of sounds
+	[SerializeField] private Slider volumeSlider;           // Volume slider
+    void Awake ()
 	{
 		if (instance != null)
 		{
@@ -38,14 +37,14 @@ public class AudioEnemy : MonoBehaviour
 		Sound s = Array.Find(sounds, item => item.name == sound);
 		s.source.Play();
 	}
-
 	public void Stop(string sound)
 	{
 		Sound s = Array.Find(sounds, item => item.name == sound);
 		s.source.Stop();
 	}
 
-	public void SetVolumeAll()
+	
+	public void SetVolumeAll()              // Set volume for all sounds
     {
 		float volume = volumeSlider.value;
         foreach (Sound s in sounds)
