@@ -156,13 +156,17 @@ public class QuestionnaireManager : Singleton<QuestionnaireManager>
                     notificationText.text = "Explore the fundamentals of energy efficiency with questions on electricity generation, transmission, and usage.\n You have already completed the questionnaire.";
                     questionnaireButtonNormalText.text = "Review the Questionnaire";
                     questionnaireButtonPressedText.text = "Review the Questionnaire";
-                    GetQuestionnaireMarks();
+
+                    // Wait for getting the marks obtained by the user in the questionnaire
+                    yield return StartCoroutine(GetQuestionnaireMarks());
                 }
                 else
                 {
                     // Get the marks obtained to the Unity environment
                     Debug.Log("User has completed the questionnaire");
-                    GetQuestionnaireMarks();
+
+                    // Get the marks obtained by the user in the questionnaire
+                    yield return StartCoroutine(GetQuestionnaireMarks());
                 }
             }
         }
@@ -216,14 +220,14 @@ public class QuestionnaireManager : Singleton<QuestionnaireManager>
     }
 
     // Method to get the marks obtained by the user in the questionnaire
-    public void GetQuestionnaireMarks()
+    private IEnumerator GetQuestionnaireMarks()
     {
         // Create a new instance of the RequestManager
         requestManager = ScriptableObject.CreateInstance<RequestManager>();
 
         requestManager.SendRequest(questionnaireMarksURL, questionnaireMarksMethod, null, this, includeToken, null);
 
-        StartCoroutine(WaitForQuestionnaireMarksRequestCompletion());   
+        yield return StartCoroutine(WaitForQuestionnaireMarksRequestCompletion());   
     }
 
     private IEnumerator WaitForQuestionnaireMarksRequestCompletion()
@@ -243,7 +247,7 @@ public class QuestionnaireManager : Singleton<QuestionnaireManager>
             Debug.Log("Bonus given: " + bonusGiven);
 
             // Assign bonus perks to the user if they have not been given yet
-            AssignBonusPerks();
+            yield return StartCoroutine(AssignBonusPerks());
             Debug.Log("Bonus perks: " + PlayerPrefs.GetInt("revivalPerks"));
         }
         else
@@ -255,7 +259,7 @@ public class QuestionnaireManager : Singleton<QuestionnaireManager>
     }
 
     // Method to assign bonus perks based on the marks obtained by the user in the questionnaire
-    private void AssignBonusPerks()
+    private IEnumerator AssignBonusPerks()
     {
         if (bonusGiven == 0)
         {
@@ -279,7 +283,7 @@ public class QuestionnaireManager : Singleton<QuestionnaireManager>
 
             requestManager.SendRequest(bonusPerksURL, bonusPerksMethod, jsonBody, this, includeToken, null);
 
-            StartCoroutine(WaitForBonusPerksRequestCompletion());
+            yield return StartCoroutine(WaitForBonusPerksRequestCompletion());
         }
         else
         {
