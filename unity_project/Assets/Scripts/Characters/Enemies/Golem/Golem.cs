@@ -3,14 +3,21 @@ using UnityEngine;
 
 public class Golem : MonoBehaviour
 {
+    /*
+    This script is attached to the Golem prefab. It is responsible for the Golem's health, damage, and death. 
+    The Golem will take damage when hit by the player and will die when its health reaches zero. 
+    The Golem will also damage the player when the player collides with it. 
+    The Golem will also follow the player and change its scale based on the player's position.
+    */
+    
     // Variables
-    Transform target;    // Target to follow
-    public Transform borderCheck;    // Border check to stop the golem from falling off the platform
-    public int GolemHP = 100;   // Golem's health
-    public Animator animator;    // Animator component
-    PlayerManager playerManager;
+    Transform target; // Target to follow
+    public Transform borderCheck; // Border check to stop the golem from falling off the platform
+    public int GolemHP = 100; // Golem's health
+    public Animator animator; // Animator component
+    PlayerManager playerManager; // PlayerManager instance
 
-    void Start()
+    private void Start()
     {
         FindTarget(); // Call to find the target
         IgnoreCollisions(); // Call to ignore collisions with the player
@@ -33,12 +40,14 @@ public class Golem : MonoBehaviour
         }
     }
 
-// Find the player
-    void FindTarget()
+    // Method to find the player
+    private void FindTarget()
     {
+        // Find the player object with the "Player" tag
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
+            // Set the player as the target to follow
             target = player.transform;
         }
         else
@@ -47,15 +56,18 @@ public class Golem : MonoBehaviour
         }
     }
 
-// Ignore collisions between the golem and the player
-    void IgnoreCollisions()
+    // Method to ignore collisions between the golem and the player
+    private void IgnoreCollisions()
     {
+        // Get the collider of the golem
         Collider2D golemCollider = GetComponent<Collider2D>();
         if(target != null)
         {
+            // Get the collider of the player
             Collider2D playerCollider = target.GetComponent<Collider2D>();
             if (golemCollider != null && playerCollider != null)
             {
+                // Ignore collisions between the golem and the player
                 Physics2D.IgnoreCollision(playerCollider, golemCollider);
             }
             else
@@ -65,8 +77,8 @@ public class Golem : MonoBehaviour
         }
     }
 
-// Update is called once per frame
-    void Update()
+    // Update is called once per frame
+    private void Update()
     {
         if (target != null)
         {
@@ -75,10 +87,12 @@ public class Golem : MonoBehaviour
         }
     }
 
-  // Damage the golem
+    // Damage the golem
     public void GolemTakeDamage(int damage)
     {
+        // Reduce the golem's health by the damage amount
         GolemHP -= damage;
+        // Play the hurt sound
         AudioEnemy.instance.Play("Hurt");
         if (GolemHP <= 0)
         {
@@ -93,16 +107,18 @@ public class Golem : MonoBehaviour
         }
     }
 
-    void Die()
+    private void Die()
     {
         if(animator != null)
         {
+            // Play the death animation
             animator.SetTrigger("deth");
             StartCoroutine(DisableGameObject());
         }
 
         if (playerManager != null)
         {
+            // Add points to the player's score
             playerManager.AddPoints(10);
             playerManager.enemyKills++;
         }
@@ -111,6 +127,7 @@ public class Golem : MonoBehaviour
             Debug.LogWarning("PlayerManager not found. Points not added.");
         }
 
+        // Disable the collider
         Collider2D collider = GetComponent<Collider2D>();
         if (collider != null)
         {
@@ -124,6 +141,7 @@ public class Golem : MonoBehaviour
 
     private IEnumerator DisableGameObject()
     {
+        // Wait for 2 seconds before disabling the game object
         yield return new WaitForSeconds(2.0f); // Adjust the wait time if needed
         //gameObject.SetActive(false);
         this.enabled = false;
@@ -133,9 +151,11 @@ public class Golem : MonoBehaviour
     {
         if (target != null)
         {
+            // Damage the player
             PlayerCollision playerCollision = target.GetComponent<PlayerCollision>();
             if (playerCollision != null && HealthManager.health > 0)
             {
+                // Play the punch sound
                 AudioEnemy.instance.Play("Punch");
                 playerCollision.PlayerTakeDamage();
             }

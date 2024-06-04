@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class Goblin : MonoBehaviour
 {
-    // Variables
-    Transform target;    // Target to follow
-    public Transform borderCheck;    // Border check to stop the goblin from falling off the platform
-    public int GoblinHP = 100;    // Goblin's health
-    public Animator animator;    // Animator component
-    PlayerManager playerManager;    // PlayerManager instance
+    /*
+    This script is attached to the Goblin prefab. It handles the goblin's health, damage, and death.
+    The goblin will take damage when hit by the player's weapon.
+    The goblin will die when its health reaches 0.
+    The goblin will damage the player if the player collides with it.
+    */
 
-    void Start()
+    // Variables
+    Transform target; // Target to follow
+    public Transform borderCheck; // Border check to stop the goblin from falling off the platform
+    public int GoblinHP = 100; // Goblin's health
+    public Animator animator; // Animator component
+    PlayerManager playerManager; // PlayerManager instance
+
+    private void Start()
     {
         FindTarget(); // Call to find the target
         IgnoreCollisions(); // Call to ignore collisions with the player
@@ -34,13 +41,14 @@ public class Goblin : MonoBehaviour
         }
     }
 
-// Find the player
-    void FindTarget()
+    // Method to find the player
+    private void FindTarget()
     {
-        
+        // Find the player object with the "Player" tag
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
+            // Set the player as the target to follow
             target = player.transform;
         }
         else
@@ -49,14 +57,15 @@ public class Goblin : MonoBehaviour
         }
     }
 
-// Ignore collisions between the goblin and the player
-    void IgnoreCollisions()
+    // Method to ignore collisions between the goblin and the player
+    private void IgnoreCollisions()
     {
-        
+        // Get the goblin's collider
         Collider2D goblinCollider = GetComponent<Collider2D>();
 
         if(target != null)
         {
+            // Get the player's collider
             Collider2D playerCollider = target.GetComponent<Collider2D>();
             if (goblinCollider != null && playerCollider != null)
             {
@@ -69,7 +78,7 @@ public class Goblin : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
         if (target != null)
         {
@@ -80,12 +89,14 @@ public class Goblin : MonoBehaviour
 
     public void GoblinTakeDamage(int damage)
     {
-
+        // Reduce the goblin's health by the damage amount
         GoblinHP -= damage;
+
+        // Play the hurt sound
         AudioEnemy.instance.Play("Hurt");
         if (GoblinHP <= 0)
         {
-            Die();       // Call the Die function if the goblin's health is less than or equal to 0
+            Die();  // Call the Die function if the goblin's health is less than or equal to 0
         }
         else
         {
@@ -96,16 +107,18 @@ public class Goblin : MonoBehaviour
         }
     }
 
-// Die function to handle the goblin's death
-    void Die()
+    // Die function to handle the goblin's death
+    private void Die()
     {
         if(animator != null)
         {
+            // Play the death animation
             animator.SetTrigger("deth2");
             StartCoroutine(DisableGameObject());
         }
         if(playerManager != null)
         {
+            // Add points to the player's score and increment the enemyKills count
             playerManager.AddPoints(10);
             playerManager.enemyKills++;
         }
@@ -114,9 +127,12 @@ public class Goblin : MonoBehaviour
             Debug.LogWarning("PlayerManager not found. Points not added.");
         }
 
+        // Get the goblin's collider
         Collider2D collider = GetComponent<Collider2D>();
+
         if (collider != null)
         {
+            // Disable the collider to prevent further collisions
             collider.enabled = false;
         }
         else
@@ -125,6 +141,7 @@ public class Goblin : MonoBehaviour
         }
     }
 
+    // Coroutine to disable the game object after a delay
     private IEnumerator DisableGameObject()
     {
         yield return new WaitForSeconds(2.0f); // Adjust the wait time if needed
@@ -132,13 +149,16 @@ public class Goblin : MonoBehaviour
         this.enabled = false;
     }
 
-    public void PlayerDamage()    // Function to damage the player
+    // Function to damage the player
+    public void PlayerDamage()   
     {
         if (target != null)
         {
+            // Get the PlayerCollision component from the player
             PlayerCollision playerCollision = target.GetComponent<PlayerCollision>();
             if (playerCollision != null && HealthManager.health > 0)
             {
+                // Play the punch sound
                 AudioEnemy.instance.Play("Punch");
                 playerCollision.PlayerTakeDamage();
             }

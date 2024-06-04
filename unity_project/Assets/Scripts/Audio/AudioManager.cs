@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
+    /*
+    This script is used to manage the background audio in the game.
+    */
+    
     // Static instance of AudioManager
     public static AudioManager instance;
 

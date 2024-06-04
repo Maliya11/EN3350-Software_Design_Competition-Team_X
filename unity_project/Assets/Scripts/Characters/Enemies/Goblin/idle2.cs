@@ -4,33 +4,36 @@ using UnityEngine;
 
 public class idle2 : StateMachineBehaviour
 {
-    Transform target;
-    Transform borderCheck;
+   /*
+   This script is responsible for the goblin's idle state.
+   The goblin will be in this state when it is not chasing the player.
+   The goblin will start chasing the player if the player is within a certain distance.
+   */
+   
+   Transform target; // Target to follow
+   Transform borderCheck; // Border check
 
-    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-       target = GameObject.FindGameObjectWithTag("Player").transform;            //find the player
-       borderCheck = animator.GetComponent<Goblin>().borderCheck;                  //find the border check
-    }
+   override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+   {
+      target = GameObject.FindGameObjectWithTag("Player").transform;  // Find the player
+      borderCheck = animator.GetComponent<Goblin>().borderCheck;  // Find the border check
+   }
 
+   override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+   {
+      // If the goblin is not on the ground
+      if(Physics2D.Raycast(borderCheck.position, Vector2.down, 2) == false) return;
 
-    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-       if(Physics2D.Raycast(borderCheck.position, Vector2.down, 2) == false)           //if the goblin is not on the ground
-          return;
+      // Calculate the distance between the player and the goblin
+      float distance = Vector2.Distance(target.position, animator.transform.position);
 
-        float distance = Vector2.Distance(target.position, animator.transform.position);
-      //   if(distance<3.5)
-      //       animator.SetBool("isAttack", true);
-        if(distance < 15)
-            animator.SetBool("isChasing2", true);           //if the distance is less than 15, the goblin will start chasing the player
-    }
+      // If the distance is less than 15, the goblin will start chasing the player
+      if(distance < 15)
+         animator.SetBool("isChasing2", true);
+   }
 
- 
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-       
-    }
-
-
+   override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+   {
+      // Do nothing
+   }
 }
