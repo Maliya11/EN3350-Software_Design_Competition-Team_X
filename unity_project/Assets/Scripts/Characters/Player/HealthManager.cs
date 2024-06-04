@@ -6,22 +6,25 @@ public class HealthManager : MonoBehaviour
     /*
     This script is used to update the health container in the canvas to show the updated health status of the player
     */
-    public static int health = 3;  //this is the max health
+
+    public static int health = 3;  // Maximum health of the player
     private int previousHealth;
-    public Image[] hearts;  //assign the heart images to this array from the inspector
-    public Sprite fullHeart;  //red full heart image
-    public Sprite emptyHeart;  //empty heart image
+    public Image[] hearts;  // Assign the heart images to this array from the inspector
+    public Sprite fullHeart;  // Red full heart image
+    public Sprite emptyHeart;  // Empty heart image
 
     void Awake()
     {
-        //At the starting of the game health is full and the heart container in the canvas is updated
+        // At the starting of the game health is full and the heart container in the canvas is updated
         health = 3;
         previousHealth = health;
-        UpdateHearts();  //update the canvas according to the "health" count
+
+        // Update the canvas according to the "health" count
+        UpdateHearts();  
     }
     void Update()
     {
-        //if the previos heart count is not equal to the current change the canvas
+        // If the previos heart count is not equal to the current change the canvas
         if (health != previousHealth)
         {
             UpdateHearts();

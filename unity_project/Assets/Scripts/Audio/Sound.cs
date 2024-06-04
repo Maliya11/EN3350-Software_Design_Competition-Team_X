@@ -4,6 +4,10 @@ using UnityEngine.Audio;
 [System.Serializable]
 public class Sound 
 {
+	/*
+	This class is used to store the properties of a sound.
+	*/
+
 	// Name of the sound
 	public string name;
 

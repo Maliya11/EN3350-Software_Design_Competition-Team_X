@@ -6,41 +6,45 @@ public class PlayerCollision : MonoBehaviour
     /*
     This is script is used to give damage/death to the player after it has been hit by an enemy
     */
+
     public Animator animator;
     private int playerLayer;
     private int enemyLayer;
 
     private void Awake()
     {
-        //get the layermask of the player and enemie
+        // Get the layermask of the player and enemie
         playerLayer = LayerMask.NameToLayer("player");
         enemyLayer = LayerMask.NameToLayer("enemy");
     }
 
     public void PlayerTakeDamage()
     {
-        //reduce the health by 1 if player gets hit by an enemy
+        // Reduce the health by 1 if player gets hit by an enemy
         HealthManager.health--;
         if(HealthManager.health <= 0)
         {
-            StartCoroutine(Dead());  //if health is 0 or less player is dead
+            // If health is 0 or less player is dead
+            StartCoroutine(Dead());  
         }
         else
         {
-            StartCoroutine(GetHurt());  //else player gets hurt
+            // Else player gets hurt
+            StartCoroutine(GetHurt());  
         }   
     }
 
-    IEnumerator Dead()
+    private IEnumerator Dead()
     {
         if(animator == null) yield break;
 
         if(gameObject.activeSelf)
         {
-            //performes the player's death animations
+            // Performes the player's death animations
             animator.SetTrigger("isDead");
             animator.SetTrigger("dead");
-            //plays the death sound effect for ninja or robot
+
+            // Plays the death sound effect for ninja or robot
             if(PlayerManager.isNinja)
             {
                 AudioManagerPlayer.instance.Play("NinjaDeath");
@@ -50,10 +54,11 @@ public class PlayerCollision : MonoBehaviour
                 AudioManagerPlayer.instance.Play("RobotDeath");
             }
             
-            yield return new WaitForSeconds(2); //small wait for finish playing the animations
+            // Wait for finishing playing the animations
+            yield return new WaitForSeconds(2); 
 
-            animator.SetTrigger("backToIdle");  //set the player back to idle
-            PlayerManager.isPlayerDead = true;  //set player state to dead
+            animator.SetTrigger("backToIdle");  // Set the player back to idle
+            PlayerManager.isPlayerDead = true;  // Set player state to dead
         }
 
         else
@@ -62,17 +67,17 @@ public class PlayerCollision : MonoBehaviour
         }
     }
 
-    IEnumerator GetHurt()
+    private IEnumerator GetHurt()
     {
         if(animator == null) yield break;
 
-        Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, true);  //ignores layer collision for some seconds
-        GetComponent<Animator>().SetLayerWeight(1, 1);   //blinking animation starts
+        Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, true);  // Ignores layer collision for some seconds
+        GetComponent<Animator>().SetLayerWeight(1, 1);   // Blinking animation starts
 
-        yield return new WaitForSeconds(3);   //waiting to blink
+        yield return new WaitForSeconds(3);   // waiting to blink
 
-        GetComponent<Animator>().SetLayerWeight(1, 0);   //blinking animation stops
-        Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, false);  //again enabling player to collide with enemies
+        GetComponent<Animator>().SetLayerWeight(1, 0);   // Blinking animation stops
+        Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, false);  // Again enabling player to collide with enemies
     }
 }
 
