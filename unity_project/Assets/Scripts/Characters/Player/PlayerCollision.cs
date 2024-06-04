@@ -54,12 +54,12 @@ public class PlayerCollision : MonoBehaviour
                 AudioManagerPlayer.instance.Play("RobotDeath");
             }
             
-            PlayerManager.isPlayerDead = true;  // Set player state to dead
+            
             // Wait for finishing playing the animations
             yield return new WaitForSeconds(1); 
 
+            PlayerManager.isPlayerDead = true;  // Set player state to dead
             animator.SetTrigger("backToIdle");  // Set the player back to idle
-            gameObject.SetActive(false);
         }
 
         else
