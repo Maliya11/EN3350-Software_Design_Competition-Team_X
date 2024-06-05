@@ -3,7 +3,18 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Ground
+  - Enemy
+  - Golem
+  - Water
+  - Bat
+  - Minotaur
+  - Goblin
+  - Zombie
+  - Zombie1
+  - Reaper
+  - Boundary
   layers:
   - Default
   - TransparentFX
@@ -11,9 +22,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - ground
+  - player
+  - enemy
   - 
   - 
   - 
@@ -38,6 +49,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 1457677847
+    locked: 0
+  - name: Decoration
+    uniqueID: 3347780229
+    locked: 0
+  - name: Ground
+    uniqueID: 1711526645
+    locked: 0
+  - name: Image
+    uniqueID: 340123319
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
