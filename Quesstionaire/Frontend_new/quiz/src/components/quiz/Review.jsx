@@ -10,7 +10,7 @@ const Review = ({}) => {
   useEffect(() => {
     try{
     // Fetch all questions from the server
-      fetch("http://13.60.29.81:8080/question/allQuestions")
+      fetch("hhttp://localhost:8080/question/allQuestions")
       .then(res => {
         if (!res.ok) {
           throw new Error('Failed to fetch questions');
@@ -29,7 +29,7 @@ const Review = ({}) => {
   useEffect(() => {
     try{
       // Fetch player details from the server
-      fetch("http://13.60.29.81:8080/player/details")
+      fetch("http://localhost:8080/player/details")
       .then(res => {
         if (!res.ok) {
           throw new Error('Failed to fetch player details');

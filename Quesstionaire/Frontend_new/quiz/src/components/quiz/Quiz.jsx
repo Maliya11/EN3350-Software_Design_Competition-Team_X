@@ -31,7 +31,7 @@ const Quiz = () => {
     useEffect(() => { 
         try{
             // Fetch player details
-            fetch("http://13.60.29.81:8080/player/details") 
+            fetch("http://localhost:8080/player/details") 
             .then(res => res.json())
             .then(playerDetails => {
                 setPlayer(playerDetails);
@@ -45,7 +45,7 @@ const Quiz = () => {
                 
                 else{
                     // Fetch all questions
-                    return fetch("http://13.60.29.81:8080/question/allQuestions")
+                    return fetch("http://localhost:8080/question/allQuestions")
                     .then(res => {
                         if (!res.ok) {
                             throw new Error('Failed to fetch questions');
@@ -119,7 +119,7 @@ const Quiz = () => {
             const Q = {"qNum" : idNum , "selAns" : answer};
 
             // Send the user's answer to the server
-            fetch("http://13.60.29.81:8080/player/answer",{
+            fetch("http://localhost:8080/player/answer",{
                 method:"POST",
                 headers:{"Content-Type":"application/json"},
                 body:JSON.stringify(Q)
