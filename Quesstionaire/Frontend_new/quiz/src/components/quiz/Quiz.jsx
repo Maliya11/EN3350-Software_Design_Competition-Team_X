@@ -53,7 +53,7 @@ const Quiz = () => {
                         return res.json();
                     })
                     .then(result => {
-                        setQuestions(result);                                   // Store the questions in the state
+                        setQuestions(result.slice(0, 10));                      // Store the questions in the state
                         setQuestion(result[playerDetails.completedQuestions]);  // Set current question
                         setIndex(playerDetails.completedQuestions);             // Set the index of the current question
                     });
@@ -83,7 +83,7 @@ const Quiz = () => {
     // Function to handle moving to the next question
     const next = ()=>{
         if (lock===true){
-            if (index === questions.length -1){
+            if (index === questions.length - 1){   
                 setResult(true);
                 return 0;
             }

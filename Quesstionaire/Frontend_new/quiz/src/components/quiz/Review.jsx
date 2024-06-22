@@ -18,7 +18,7 @@ const Review = ({}) => {
         return res.json();
       })
       .then(result => {
-          setQuestions(result); // Store fetched questions in state
+          setQuestions(result.slice(0, 10)); // Store fetched questions in state
       });
     }
     catch (error) {
