@@ -7,6 +7,8 @@ Quesstionaire => Backend
 
 Path,
 Quesstionaire => Frontend_new => quiz
+Go to this file path in the VS code terminal as well and then type "npm run dev".
+Then the front-end application will be available.
 
 3. Then we can run the Unity project.
 
