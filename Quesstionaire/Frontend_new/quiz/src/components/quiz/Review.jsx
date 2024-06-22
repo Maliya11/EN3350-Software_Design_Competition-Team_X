@@ -10,7 +10,7 @@ const Review = ({}) => {
   useEffect(() => {
     try{
     // Fetch all questions from the server
-      fetch("hhttp://localhost:8080/question/allQuestions")
+      fetch("http://localhost:8080/question/allQuestions")
       .then(res => {
         if (!res.ok) {
           throw new Error('Failed to fetch questions');
