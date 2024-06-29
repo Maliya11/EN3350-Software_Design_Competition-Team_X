@@ -31,7 +31,7 @@ const Quiz = () => {
     useEffect(() => { 
         try{
             // Fetch player details
-            fetch("http://13.60.29.81:8080/player/details") 
+            fetch("http://localhost:8080/player/details") 
             .then(res => res.json())
             .then(playerDetails => {
                 setPlayer(playerDetails);
@@ -45,7 +45,7 @@ const Quiz = () => {
                 
                 else{
                     // Fetch all questions
-                    return fetch("http://13.60.29.81:8080/question/allQuestions")
+                    return fetch("http://localhost:8080/question/allQuestions")
                     .then(res => {
                         if (!res.ok) {
                             throw new Error('Failed to fetch questions');
@@ -53,7 +53,7 @@ const Quiz = () => {
                         return res.json();
                     })
                     .then(result => {
-                        setQuestions(result);                                   // Store the questions in the state
+                        setQuestions(result.slice(0, 10));                      // Store the questions in the state
                         setQuestion(result[playerDetails.completedQuestions]);  // Set current question
                         setIndex(playerDetails.completedQuestions);             // Set the index of the current question
                     });
@@ -83,7 +83,7 @@ const Quiz = () => {
     // Function to handle moving to the next question
     const next = ()=>{
         if (lock===true){
-            if (index === questions.length -1){
+            if (index === questions.length - 1){   
                 setResult(true);
                 return 0;
             }
@@ -119,7 +119,7 @@ const Quiz = () => {
             const Q = {"qNum" : idNum , "selAns" : answer};
 
             // Send the user's answer to the server
-            fetch("http://13.60.29.81:8080/player/answer",{
+            fetch("http://localhost:8080/player/answer",{
                 method:"POST",
                 headers:{"Content-Type":"application/json"},
                 body:JSON.stringify(Q)
