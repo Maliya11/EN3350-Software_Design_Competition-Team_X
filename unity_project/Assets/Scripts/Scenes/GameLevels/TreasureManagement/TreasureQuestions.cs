@@ -13,7 +13,7 @@ public class TreasureQuestions : Singleton<TreasureQuestions>
     public ErrorNotifications errorNotifications;
 
     // URL related to the questions
-    private string questionsFetchURL = "http://13.60.29.81:8080/question/allQuestions";
+    private string questionsFetchURL = "http://localhost:8080/question/allQuestions";
     private string questionsFetchMethod = "GET";
 
     // Flags to check if the questions are fetched

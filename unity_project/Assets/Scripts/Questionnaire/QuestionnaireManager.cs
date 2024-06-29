@@ -23,18 +23,18 @@ public class QuestionnaireManager : Singleton<QuestionnaireManager>
     
     // URL related to the questionnaire web application
     // URL directing the user to the questionnaire
-    private string questionnaireURL = "http://51.20.76.97:5173/";
+    private string questionnaireURL = "http://localhost:5173/";
 
     // URL to get the questionnaire status of the player from the database
-    private string questionnaireStatusURL = "http://13.60.29.81:8080/player/authenticate";
+    private string questionnaireStatusURL = "http://localhost:8080/player/authenticate";
     private string questionnaireStatusMethod = "POST";
 
     // URL to get the marks obtained by the player in the questionnaire
-    private string questionnaireMarksURL = "http://13.60.29.81:8080/player/details";
+    private string questionnaireMarksURL = "http://localhost:8080/player/details";
     private string questionnaireMarksMethod = "GET";
 
     // URL to update the bonusGiven status in the database
-    private string bonusPerksURL = "http://13.60.29.81:8080/player/bonus";
+    private string bonusPerksURL = "http://localhost:8080/player/bonus";
     private string bonusPerksMethod = "POST";
 
     private bool userValidity;
