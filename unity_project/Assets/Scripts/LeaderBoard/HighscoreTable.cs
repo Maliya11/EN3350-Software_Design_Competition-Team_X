@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class HighscoreTable : MonoBehaviour
@@ -16,23 +17,27 @@ public class HighscoreTable : MonoBehaviour
 
         entryTemplate.gameObject.SetActive(false);
 
-        // Initialize the list of highscore entries
+        /*// Initialize the list of highscore entries
         highscoreEntryList = new List<HighscoreEntry>{
-            new HighscoreEntry{ score = 5134, name = "Kumudu"},
-            new HighscoreEntry{ score = 9830, name = "Malith"},
-            new HighscoreEntry{ score = 5430, name = "Thisari"},
-            new HighscoreEntry{ score = 4370, name = "Sandeepa"},
-            new HighscoreEntry{ score = 7777, name = "Sanuli"},
-            new HighscoreEntry{ score = 10000, name = "Minudi"},
-            new HighscoreEntry{ score = 1255, name = "Pinidi"},
-            new HighscoreEntry{ score = 120, name = "Kamal"},
-            new HighscoreEntry{ score = 6782, name = "Kusum"},
-            new HighscoreEntry{ score = 9967, name = "Amara"},
-        };
+            new HighscoreEntry{ score = calculatePlayerHighScore(), name = "Player"},
+            new HighscoreEntry{ score = Random.Range(0,1200), name = "Kumudu"},
+            new HighscoreEntry{ score = Random.Range(0,1200), name = "Thisari"},
+            new HighscoreEntry{ score = Random.Range(0,1200), name = "Sandeepa"},
+            new HighscoreEntry{ score = Random.Range(0,1200), name = "Sanuli"},
+            new HighscoreEntry{ score = Random.Range(0,1200), name = "Minudi"},
+            new HighscoreEntry{ score = Random.Range(0,1200), name = "Pinidi"},
+            new HighscoreEntry{ score = Random.Range(0,1200), name = "Kamal"},
+            new HighscoreEntry{ score = Random.Range(0,1200), name = "Kusum"},
+            new HighscoreEntry{ score = Random.Range(0,1200), name = "Amara"},
+        };*/
+
+        /*Add players to the leaderboard using AddHighScoreEntry()*/
+        AddHighScoreEntry("Player");
+
 
         // Sort the highscore entries in descending order based on score
-        for (int i=0; i<highscoreEntryList.Count; i++){
-            for (int j= i+1; j<highscoreEntryList.Count; j++){
+        for (int i=0; i < highscoreEntryList.Count; i++){
+            for (int j = i+1; j < highscoreEntryList.Count; j++){
                 if (highscoreEntryList[j].score > highscoreEntryList[i].score){
                     HighscoreEntry tmp = highscoreEntryList[i];
                     highscoreEntryList[i] = highscoreEntryList[j];
@@ -45,6 +50,29 @@ public class HighscoreTable : MonoBehaviour
         foreach (HighscoreEntry highscoreEntry in highscoreEntryList){
             CreateHighscoreEntryTransform(highscoreEntry, entryContainer, highscoreEntryTransformList);
         }
+    }
+
+    //Calculate the total score of the player that is logged into the game
+    private int calculatePlayerHighScore(){
+        int playerHighScore = 0;
+        for(int currentLevelIndex = 3; currentLevelIndex <= 8; currentLevelIndex++){
+            string highScoreKey = "HighScore_Level_" + currentLevelIndex;
+            playerHighScore += PlayerPrefs.GetInt(highScoreKey, 0);
+        }
+        return playerHighScore;
+    }
+
+    private void AddHighScoreEntry(string Name){
+        int scr;
+        if(Name == "Player"){
+            scr = calculatePlayerHighScore();
+        }
+        else{
+            scr = Random.Range(0,1200);
+        }
+        HighscoreEntry highscoreEntry = new HighscoreEntry {score = scr, name = Name};
+        
+        highscoreEntryList.Add(highscoreEntry);
     }
 
     private void CreateHighscoreEntryTransform(HighscoreEntry highscoreEntry, Transform container, List<Transform> transformList){
