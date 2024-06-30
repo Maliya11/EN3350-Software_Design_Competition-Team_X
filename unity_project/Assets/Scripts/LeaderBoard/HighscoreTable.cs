@@ -12,7 +12,7 @@ public class HighscoreTable : MonoBehaviour
     private List<Transform> highscoreEntryTransformList;
 
     private void Awake(){
-        entryContainer = transform.Find("Canvas/HighscoreTable/highscoreEntryContainer");
+        entryContainer = transform.Find("Scroll area/Scroll/Container/highscoreEntryContainer");
         entryTemplate = entryContainer.Find("highscoreEntryTemplate");
 
         entryTemplate.gameObject.SetActive(false);
@@ -76,7 +76,7 @@ public class HighscoreTable : MonoBehaviour
     }
 
     private void CreateHighscoreEntryTransform(HighscoreEntry highscoreEntry, Transform container, List<Transform> transformList){
-        float templateHeight = 70f;
+        float templateHeight = 150f;
         Transform entryTransform = Instantiate(entryTemplate,container);
         RectTransform entryRectTransform = entryTransform.GetComponent<RectTransform>();
         entryRectTransform.anchoredPosition = new Vector2(0, -templateHeight*transformList.Count);
