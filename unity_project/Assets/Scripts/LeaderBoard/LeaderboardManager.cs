@@ -20,7 +20,7 @@ public class LeaderboardManager : MonoBehaviour
     // List to score highscore entries
     private List<HighscoreEntry> highscoreEntryList;
     private List<Transform> highscoreEntryTransformList;
-    public int powerScore;
+    public float powerScore;
 
     private void Awake()
     {
@@ -94,7 +94,7 @@ public class LeaderboardManager : MonoBehaviour
             string highScoreKey = "HighScore_Level_" + currentLevelIndex;
             playerHighScore += PlayerPrefs.GetInt(highScoreKey, 0);
         }
-        playerHighScore += powerScore;
+        playerHighScore = (int)(playerHighScore * powerScore);
         return playerHighScore;
     }
 
@@ -104,15 +104,15 @@ public class LeaderboardManager : MonoBehaviour
 
         if (energyChange == -1) 
         {
-            powerScore = 400;
+            powerScore = 1.1f;
         }
         if (energyChange == 0) 
         {
-            powerScore = 0;
+            powerScore = 1.0f;
         }
         if (energyChange == 1)
         {
-            powerScore = -400;
+            powerScore = 0.9f;
         }
 
     }
