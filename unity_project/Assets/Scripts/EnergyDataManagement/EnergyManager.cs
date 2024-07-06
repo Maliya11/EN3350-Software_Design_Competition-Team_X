@@ -13,7 +13,7 @@ public class EnergyManager : MonoBehaviour
     private EnergyDataFetch energyDataFetch;
     // Reference to the TreasureManager
     private TreasureManager treasureManager;
-    private HighscoreTable highscoreTable;
+    private LeaderboardManager highscoreTable;
 
     // Variables
     private float repeatRate = 15.0f;
