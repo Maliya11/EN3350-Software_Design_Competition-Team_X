@@ -13,6 +13,7 @@ public class EnergyManager : MonoBehaviour
     private EnergyDataFetch energyDataFetch;
     // Reference to the TreasureManager
     private TreasureManager treasureManager;
+    private HighscoreTable highscoreTable;
 
     // Variables
     private float repeatRate = 15.0f;
@@ -187,6 +188,8 @@ public class EnergyManager : MonoBehaviour
             TreasureManager.isTreasureCountInitialized = true;
             Debug.Log("Treasure count initialized");
             treasureManager.SetInitialTreasureCount(initialPowerChange);
+            highscoreTable.SetpowerConsumptionScore(initialPowerChange);
+            
 
             // Wait for the first recurrent fetch
             yield return new WaitForSeconds(repeatRate);
