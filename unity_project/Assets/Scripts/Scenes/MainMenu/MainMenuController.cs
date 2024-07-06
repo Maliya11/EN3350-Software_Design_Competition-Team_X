@@ -56,9 +56,6 @@ public class MainMenuController : MonoBehaviour
     public void Leaderboard()
     {
         Debug.Log("Leaderboard");
-        // Enable the Leaderboard loader
-        
-        // Enable the Leaderboard panel
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

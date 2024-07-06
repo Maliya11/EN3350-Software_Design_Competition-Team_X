@@ -4,18 +4,50 @@ using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
-public class HighscoreTable : MonoBehaviour
+public class LeaderboardManager : MonoBehaviour
 {
+    // Reference to the AllUserLoader
+    private AllUserLoader allUserLoader;
+
+    // UI Elements
     private Transform entryContainer;
     private Transform entryTemplate;
+    private List<string> usernames;
+
+    // Player's username 
+    private string playerUserName;
+
+    // List to score highscore entries
     private List<HighscoreEntry> highscoreEntryList;
     private List<Transform> highscoreEntryTransformList;
 
-    private void Awake(){
+    private void Awake()
+    {
+        // Initialize the AllUserLoader
+        allUserLoader = FindObjectOfType<AllUserLoader>();
+
         entryContainer = transform.Find("Scroll area/Scroll/Container/highscoreEntryContainer");
         entryTemplate = entryContainer.Find("highscoreEntryTemplate");
 
         entryTemplate.gameObject.SetActive(false);
+
+        // Initialize the list of highscore entries
+        highscoreEntryList = new List<HighscoreEntry>();
+
+        // Get the player's username from PlayerPrefs
+        playerUserName = PlayerPrefs.GetString("username");
+        Debug.Log("Player username: " + playerUserName);
+
+        StartCoroutine(FetchUserScores());
+    }
+
+    private IEnumerator FetchUserScores()
+    {
+        // Wait until all the users' information is fetched
+        yield return StartCoroutine(allUserLoader.fetchAllUsers());
+
+        // Get the usernames of the users 
+        usernames = allUserLoader.usernames;
 
         /*// Initialize the list of highscore entries
         highscoreEntryList = new List<HighscoreEntry>{
@@ -31,9 +63,11 @@ public class HighscoreTable : MonoBehaviour
             new HighscoreEntry{ score = Random.Range(0,1200), name = "Amara"},
         };*/
 
-        /*Add players to the leaderboard using AddHighScoreEntry()*/
-        AddHighScoreEntry("Player");
-
+        // Add the scores of the users to the highscore list
+        foreach (string username in usernames){
+            Debug.Log(username);
+            AddHighScoreEntry(username);
+        }
 
         // Sort the highscore entries in descending order based on score
         for (int i=0; i < highscoreEntryList.Count; i++){
@@ -64,7 +98,7 @@ public class HighscoreTable : MonoBehaviour
 
     private void AddHighScoreEntry(string Name){
         int scr;
-        if(Name == "Player"){
+        if(Name == playerUserName){
             scr = calculatePlayerHighScore();
         }
         else{
