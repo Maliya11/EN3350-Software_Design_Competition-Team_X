@@ -204,7 +204,7 @@ public class EnergyManager : MonoBehaviour
 
             //     highscoreTable.SetpowerConsumptionScore(0);
             // }
-            PlayerPrefs.SetInt("ScoreChange", 1);
+            PlayerPrefs.SetInt("ScoreChange", initialPowerChange);
             PlayerPrefs.Save();
             
             // Wait for the first recurrent fetch
