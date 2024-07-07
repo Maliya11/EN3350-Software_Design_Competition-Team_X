@@ -1,0 +1,7 @@
+Energy Consumption Allocation in Our Game
+
+In our game, we use energy consumption details to manage the number of treasures in each level. Initially, based on the initial energy consumption details, we allocate a specific number of treasures for the game levels.
+
+As the game progresses, we adjust the number of treasures according to updated energy consumption details. If the energy consumption increases, we might decrease the number of treasures. Conversely, if the energy consumption decreases, we might increase the number of treasures. While playing, each time a player finds a treasure and answers to it correctly, their total score increases by 10 points.
+
+After the player completes a level, we again consider the energy consumption details. Depending on whether the energy consumption has increased or decreased, we will adjust the player's total score by adding or removing 10% of the total marks.
