@@ -51,20 +51,6 @@ public class LeaderboardManager : MonoBehaviour
         // Get the usernames of the users 
         usernames = allUserLoader.usernames;
 
-        /*// Initialize the list of highscore entries
-        highscoreEntryList = new List<HighscoreEntry>{
-            new HighscoreEntry{ score = calculatePlayerHighScore(), name = "Player"},
-            new HighscoreEntry{ score = Random.Range(0,1200), name = "Kumudu"},
-            new HighscoreEntry{ score = Random.Range(0,1200), name = "Thisari"},
-            new HighscoreEntry{ score = Random.Range(0,1200), name = "Sandeepa"},
-            new HighscoreEntry{ score = Random.Range(0,1200), name = "Sanuli"},
-            new HighscoreEntry{ score = Random.Range(0,1200), name = "Minudi"},
-            new HighscoreEntry{ score = Random.Range(0,1200), name = "Pinidi"},
-            new HighscoreEntry{ score = Random.Range(0,1200), name = "Kamal"},
-            new HighscoreEntry{ score = Random.Range(0,1200), name = "Kusum"},
-            new HighscoreEntry{ score = Random.Range(0,1200), name = "Amara"},
-        };*/
-
         // Add the scores of the users to the highscore list
         foreach (string username in usernames){
             Debug.Log(username);

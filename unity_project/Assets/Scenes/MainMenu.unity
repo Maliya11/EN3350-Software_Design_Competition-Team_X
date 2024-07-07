@@ -3402,7 +3402,7 @@ GameObject:
   - component: {fileID: 447119847}
   - component: {fileID: 447119848}
   m_Layer: 5
-  m_Name: HighscoreTable
+  m_Name: Leaderboard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
