@@ -8,12 +8,12 @@ public class EnergyManager : MonoBehaviour
     /*
     This script is used to manage the energy consumption of the player and update the treasure count according to the power consumption
     */
-    
+    // public static int ScoreChange;
     // Reference to the EnergyDataFetch
     private EnergyDataFetch energyDataFetch;
     // Reference to the TreasureManager
     private TreasureManager treasureManager;
-    private LeaderboardManager highscoreTable;
+    // private LeaderboardManager highscoreTable;
 
     // Variables
     private float repeatRate = 15.0f;
@@ -188,7 +188,8 @@ public class EnergyManager : MonoBehaviour
             TreasureManager.isTreasureCountInitialized = true;
             Debug.Log("Treasure count initialized");
             treasureManager.SetInitialTreasureCount(initialPowerChange);
-            highscoreTable.SetpowerConsumptionScore(initialPowerChange);
+            PlayerPrefs.SetInt("ScoreChange", initialPowerChange);
+            PlayerPrefs.Save();
             
 
             // Wait for the first recurrent fetch

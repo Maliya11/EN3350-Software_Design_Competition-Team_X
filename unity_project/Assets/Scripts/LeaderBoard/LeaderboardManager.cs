@@ -20,7 +20,8 @@ public class LeaderboardManager : MonoBehaviour
     // List to score highscore entries
     private List<HighscoreEntry> highscoreEntryList;
     private List<Transform> highscoreEntryTransformList;
-    public float powerScore;
+    public int ScoreChange;
+    public float powerScore = 1.0f;
 
     private void Awake()
     {
@@ -94,13 +95,17 @@ public class LeaderboardManager : MonoBehaviour
             string highScoreKey = "HighScore_Level_" + currentLevelIndex;
             playerHighScore += PlayerPrefs.GetInt(highScoreKey, 0);
         }
+        
+        ScoreChange = PlayerPrefs.GetInt("ScoreChange", 0);
+        SetpowerConsumptionScore(ScoreChange);
         playerHighScore = (int)(playerHighScore * powerScore);
+        
         return playerHighScore;
     }
 
     public void SetpowerConsumptionScore(int energyChange)
     {
-        Debug.Log("Energy change code: " + energyChange);
+        Debug.Log("Energy consumption code: " + energyChange);
 
         if (energyChange == -1) 
         {
