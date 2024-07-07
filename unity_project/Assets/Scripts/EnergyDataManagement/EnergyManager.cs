@@ -200,10 +200,7 @@ public class EnergyManager : MonoBehaviour
                 treasureManager.SetInitialTreasureCount(initialPowerChange);
 
             }
-            // if (highscoreTable != null){
-
-            //     highscoreTable.SetpowerConsumptionScore(0);
-            // }
+            
             PlayerPrefs.SetInt("ScoreChange", initialPowerChange);
             PlayerPrefs.Save();
             
