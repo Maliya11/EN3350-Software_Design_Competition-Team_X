@@ -15,7 +15,6 @@ public class EnergyManager : MonoBehaviour
     private EnergyDataFetch energyDataFetch;
     // Reference to the TreasureManager
     private TreasureManager treasureManager;
-    private LeaderboardManager highscoreTable;
 
     // Variables
     private float repeatRate = 15.0f;
@@ -111,22 +110,14 @@ public class EnergyManager : MonoBehaviour
         if (currentPowerConsumptionGap > lastPowerConsumptionGap)
         {
             // Debug.Log("Energy Consumption Increased");
-
             // Decrease the number of visible treasures
-            if (treasureManager != null){
-
-            
             treasureManager.DecreaseVisibleTreasures();
-            }
-
         }
         else if (currentPowerConsumptionGap < lastPowerConsumptionGap)
         {
             // Debug.Log("Energy Consumption Decreased");
             // Increase the number of visible treasures
-            if (treasureManager != null){
             treasureManager.IncreaseVisibleTreasures();
-            }
         }
 
         // Update the last power consumption and fetch time
@@ -196,12 +187,11 @@ public class EnergyManager : MonoBehaviour
             TreasureManager.isTreasureCountInitialized = true;
             Debug.Log("Treasure count initialized");
             Debug.Log("Initial Power Change: " + initialPowerChange);
-            if (treasureManager != null){
-
-                treasureManager.SetInitialTreasureCount(initialPowerChange);
-
-            }
             
+            // Set the initial treasure count according to the power change 
+            treasureManager.SetInitialTreasureCount(initialPowerChange);
+            
+            // Save the initial power change to the player prefs for changing the total score
             PlayerPrefs.SetInt("ScoreChange", initialPowerChange);
             PlayerPrefs.Save();
             
