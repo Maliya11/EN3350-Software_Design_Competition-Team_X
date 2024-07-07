@@ -95,10 +95,11 @@ public class LeaderboardManager : MonoBehaviour
             string highScoreKey = "HighScore_Level_" + currentLevelIndex;
             playerHighScore += PlayerPrefs.GetInt(highScoreKey, 0);
         }
-        
+        Debug.Log("Player High Score after: " + playerHighScore);
         ScoreChange = PlayerPrefs.GetInt("ScoreChange", 0);
         SetpowerConsumptionScore(ScoreChange);
         playerHighScore = (int)(playerHighScore * powerScore);
+        Debug.Log("Player High Score after: " + playerHighScore);
         
         return playerHighScore;
     }
