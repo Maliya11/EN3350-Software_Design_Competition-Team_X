@@ -13,7 +13,7 @@ public class EnergyManager : MonoBehaviour
     private EnergyDataFetch energyDataFetch;
     // Reference to the TreasureManager
     private TreasureManager treasureManager;
-
+    private LeaderboardManager highscoreTable;
     // private LeaderboardManager highscoreTable;
 
     // Variables
@@ -200,12 +200,13 @@ public class EnergyManager : MonoBehaviour
                 treasureManager.SetInitialTreasureCount(initialPowerChange);
 
             }
-            
-            PlayerPrefs.SetInt("ScoreChange", initialPowerChange);
-            PlayerPrefs.Save();
-            // LeaderboardManager.SetpowerConsumptionScore(initialPowerChange);
-            
+            // if (highscoreTable != null){
 
+            //     highscoreTable.SetpowerConsumptionScore(0);
+            // }
+            PlayerPrefs.SetInt("ScoreChange", 1);
+            PlayerPrefs.Save();
+            
             // Wait for the first recurrent fetch
             yield return new WaitForSeconds(repeatRate);
         }
