@@ -43,6 +43,7 @@ public class LeaderboardManager : MonoBehaviour
         StartCoroutine(FetchUserScores());
     }
 
+
     private IEnumerator FetchUserScores()
     {
         // Wait until all the users' information is fetched
