@@ -6,9 +6,11 @@ using SimpleJSON;
 public class EnergyManager : MonoBehaviour
 {
     /*
-    This script is used to manage the energy consumption of the player and update the treasure count according to the power consumption
+    This script is used to manage the energy consumption of the player and 
+    update the treasure count according to the power consumption,
+    change the leaderboard score according to the power consumption
     */
-    
+
     // Reference to the EnergyDataFetch
     private EnergyDataFetch energyDataFetch;
     // Reference to the TreasureManager
@@ -75,7 +77,7 @@ public class EnergyManager : MonoBehaviour
             Debug.Log("Last Fetch Time: " + lastFetchTime);
             // Debug.Log("Last Power Consumption: " + lastPowerConsumption);
             Debug.Log("Last Power Consumption Gap: " + lastPowerConsumptionGap);
-
+            
             bool isFetchCompleted = false;
 
             // Fetch the current power consumption
@@ -108,10 +110,8 @@ public class EnergyManager : MonoBehaviour
         if (currentPowerConsumptionGap > lastPowerConsumptionGap)
         {
             // Debug.Log("Energy Consumption Increased");
-
             // Decrease the number of visible treasures
             treasureManager.DecreaseVisibleTreasures();
-
         }
         else if (currentPowerConsumptionGap < lastPowerConsumptionGap)
         {
@@ -186,8 +186,15 @@ public class EnergyManager : MonoBehaviour
             // Set the initial treasure count according to the results
             TreasureManager.isTreasureCountInitialized = true;
             Debug.Log("Treasure count initialized");
+            Debug.Log("Initial Power Change: " + initialPowerChange);
+            
+            // Set the initial treasure count according to the power change 
             treasureManager.SetInitialTreasureCount(initialPowerChange);
-
+            
+            // Save the initial power change to the player prefs for changing the total score
+            PlayerPrefs.SetInt("ScoreChange", initialPowerChange);
+            PlayerPrefs.Save();
+            
             // Wait for the first recurrent fetch
             yield return new WaitForSeconds(repeatRate);
         }

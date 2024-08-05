@@ -150,6 +150,10 @@ public class PlayerProfileManager : Singleton<PlayerProfileManager>
         mobileNumberInput.text = mobileNumber ?? "";
         emailInput.text = email ?? "";
 
+        // Save player username in PlayerPrefs
+        PlayerPrefs.SetString("username", username);
+        PlayerPrefs.Save();
+
         Debug.Log("Profile data: " + firstName + " " + lastName + " " + nic + " " + username + " " + mobileNumber + " " + email);
     }
 
